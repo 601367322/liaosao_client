@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.xl.activity" >
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:resizeable="true"
+        android:smallScreens="true" />
+
+    <application
+        android:name="com.xl.application.AppClass_"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme"  >
+        <activity
+            android:name="com.xl.activity.Su_"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.xl.activity.MainActivity_"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.xl.activity.Welcome_"
+            android:label="@string/app_name" >
+
+        </activity>
+        <activity
+            android:name="com.xl.activity.chat.ChatActivity_"
+            android:screenOrientation="portrait" >
+            <!-- <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter> -->
+        </activity>
+
+
+        <activity
+            android:name="com.xl.activity.wxapi.WXEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Animation.Translucent"></activity>
+
+        <service
+            android:name="com.xl.service.PushService_"
+            android:enabled="true"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.xl.keepalive.START" />
+                <action android:name="com.xl.keepalive.STOP" />
+                <action android:name="com.xl.keepalive.KEEP_ALIVE" />
+                <action android:name="com.xl.keepalive.RECONNECT" />
+            </intent-filter>
+        </service>
+
+        <receiver android:name="com.xl.receiver.XLReceiver_" >
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="com.xl.broadcast.startchat" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.xl.receiver.BootCompletedAlarmReceiver_" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:noHistory="true"
+            android:launchMode="singleTask" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="tencent1103269048" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.tencent.connect.common.AssistActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            />
+    </application>
+
+</manifest>
