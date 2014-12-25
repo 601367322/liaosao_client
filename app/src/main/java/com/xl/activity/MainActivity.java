@@ -12,12 +12,10 @@ import com.xl.util.URLS;
 
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.ViewById;
 import org.json.JSONObject;
 
 @EActivity(R.layout.activity_main)
-@OptionsMenu(R.menu.main)
 public class MainActivity extends BaseActivity {
 	@ViewById
 	Button startBtn;

@@ -24,10 +24,6 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme"  >
         <activity
-            android:name="com.xl.activity.Su_"
-            android:label="@string/app_name" >
-        </activity>
-        <activity
             android:name="com.xl.activity.MainActivity_"
             android:label="@string/app_name" >
             <intent-filter>
