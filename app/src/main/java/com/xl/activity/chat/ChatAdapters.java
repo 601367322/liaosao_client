@@ -1,22 +1,23 @@
 package com.xl.activity.chat;
 
-import java.util.List;
-
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.xl.activity.R;
+import com.xl.activity.base.BaseAdapterListView;
+import com.xl.bean.MessageBean;
+
+import java.util.List;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-import com.xl.activity.R;
-import com.xl.activity.base.BaseAdapter;
-import com.xl.bean.MessageBean;
-
-public class ChatAdapters extends BaseAdapter {
+public class ChatAdapters extends BaseAdapterListView<MessageBean> {
 
 	public ChatAdapters(Context context, List list) {
-		super(context, list);
+		super(list,context);
 	}
 
 	@Override
