@@ -1,13 +1,10 @@
 package com.xl.activity.base;
 
-import android.os.Build;
 import android.os.Bundle;
-import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.xl.application.AM;
 import com.xl.application.AppClass;
-import com.xl.util.UIUtils;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.App;
@@ -24,12 +21,6 @@ public abstract class BaseActivity extends SwipeBackActivity{
     protected void onCreate(Bundle savedInstanceState) {
         AM.getActivityManager().pushActivity(this);
         super.onCreate(savedInstanceState);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            //UIUtils.setSystemBarTintColor(this);
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            UIUtils.setSystemBarTintColor(this);
-
-        }
     }
 
     @AfterViews

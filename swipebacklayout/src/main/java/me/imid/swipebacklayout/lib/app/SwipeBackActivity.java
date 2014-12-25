@@ -21,7 +21,13 @@ public class SwipeBackActivity extends ActionBarActivity implements SwipeBackAct
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        mHelper.onPostCreate();
+        if(canSwipe()) {
+            mHelper.onPostCreate();
+        }
+    }
+
+    protected boolean canSwipe(){
+        return true;
     }
 
     @Override

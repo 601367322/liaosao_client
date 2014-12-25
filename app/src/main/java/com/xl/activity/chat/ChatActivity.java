@@ -2,11 +2,11 @@ package com.xl.activity.chat;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.text.Editable;
 import android.view.KeyEvent;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -35,6 +35,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @EActivity(R.layout.chat_activity)
 public class ChatActivity extends BaseActivity implements
@@ -50,12 +51,15 @@ public class ChatActivity extends BaseActivity implements
 	String deviceId;
 	ChatAdapters adapter;
 
+    AtomicBoolean changeing = new AtomicBoolean(false);
+
 	protected void init() {
 		content_et.setOnEditorActionListener(this);
 
 		adapter = new ChatAdapters(this, new ArrayList<String>());
 		listview.setAdapter(adapter);
-		
+
+        send_btn.setEnabled(false);
 	}
 	
     @Receiver(actions = BroadCastUtil.NEWMESSAGE)
@@ -68,25 +72,27 @@ public class ChatActivity extends BaseActivity implements
 	@AfterTextChange
 	void content_et(Editable text) {
 		if (text.toString().length() > 0 && send_btn.getAlpha() < 1f) {
-			ValueAnimator va = ObjectAnimator.ofFloat(send_btn, "alpha", 0.5f,
-					1.0f).setDuration(200);
-			va.addListener(new AnimatorListenerAdapter() {
-				@Override
-				public void onAnimationEnd(Animator animation) {
-					send_btn.setEnabled(true);
-				}
-			});
-			va.start();
+            if(changeing.compareAndSet(false,true)) {
+                send_btn.animate().alpha(1.0f).setDuration(200).setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        super.onAnimationEnd(animation);
+                        send_btn.setEnabled(true);
+                        changeing.compareAndSet(true,false);
+                    }
+                }).start();
+            }
 		} else if (text.toString().length() == 0 && send_btn.getAlpha() > 0.5f) {
-			ValueAnimator va = ObjectAnimator.ofFloat(send_btn, "alpha", 1.0f,
-					0.5f).setDuration(200);
-			va.addListener(new AnimatorListenerAdapter() {
-				@Override
-				public void onAnimationStart(Animator animation) {
-					send_btn.setEnabled(false);
-				}
-			});
-			va.start();
+            if(send_btn.isEnabled()) {
+                send_btn.animate().alpha(0.5f).setDuration(200).setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        super.onAnimationEnd(animation);
+                        send_btn.setEnabled(false);
+                        changeing.compareAndSet(true,false);
+                    }
+                }).start();
+            }
 		}
 	}
 
@@ -102,6 +108,12 @@ public class ChatActivity extends BaseActivity implements
 
 	@Click
 	void send_btn() {
+
+        if(isFastDoubleClick()){
+            toast("太快了，休息一下~");
+            return;
+        }
+
 		final String context_str = content_et.getText().toString().trim();
 		if (context_str.length() == 0) {
 			toast("请输入内容");
@@ -126,6 +138,30 @@ public class ChatActivity extends BaseActivity implements
 				MessageBean mb=new MessageBean(new Date().getTime()+"",ac.deviceId,deviceId,ac.deviceId,context_str,Utils.dateFormat.format(new Date()),"","",1);
 				adapter.getList().add(mb);
 				adapter.notifyDataSetChanged();
+
+                final float x = send_btn.getX();
+                send_btn.animate().translationX(send_btn.getWidth()).setInterpolator(new AccelerateInterpolator()).setListener(new AnimatorListenerAdapter() {
+
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        super.onAnimationStart(animation);
+                        send_btn.setEnabled(false);
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        super.onAnimationEnd(animation);
+                        send_btn.setX(x - send_btn.getWidth());
+                        send_btn.animate().translationX(0).setInterpolator(new DecelerateInterpolator()).setListener(new AnimatorListenerAdapter() {
+                            @Override
+                            public void onAnimationEnd(Animator animation) {
+                                super.onAnimationEnd(animation);
+                                send_btn.setEnabled(true);
+                            }
+                        }).start();
+                    }
+                }).start();
+
 			}
 
 			@Override
@@ -133,5 +169,17 @@ public class ChatActivity extends BaseActivity implements
 			}
 		});
 	}
+
+    private static long lastClickTime;
+
+    public static boolean isFastDoubleClick() {
+        long time = System.currentTimeMillis();
+        long timeD = time - lastClickTime;
+        if (0 < timeD && timeD < 1500) {
+            return true;
+        }
+        lastClickTime = time;
+        return false;
+    }
 	
 }

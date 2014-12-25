@@ -9,16 +9,21 @@ import com.xl.fragment.NavigationDrawerFragment;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.FragmentById;
 
-@EActivity(R.layout.fragment_main)
+@EActivity(R.layout.activity_main)
 public class MainActivity extends BaseActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks  {
 
     @FragmentById(R.id.navigation_drawer)
     public NavigationDrawerFragment mNavigationDrawerFragment;
 
-
+    @Override
+    protected boolean canSwipe() {
+        return false;
+    }
 
     protected void init() {
+        setSwipeBackEnable(false);
+
         ac.startService();
 
         mNavigationDrawerFragment.setUp(
