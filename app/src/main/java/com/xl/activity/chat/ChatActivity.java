@@ -13,12 +13,12 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.loopj.android.http.RequestParams;
 import com.xl.activity.R;
 import com.xl.activity.base.BaseActivity;
+import com.xl.anim.TranAnimationAdapter;
 import com.xl.bean.MessageBean;
 import com.xl.util.BroadCastUtil;
 import com.xl.util.JsonHttpResponseHandler;
@@ -51,13 +51,15 @@ public class ChatActivity extends BaseActivity implements
 	String deviceId;
 	ChatAdapters adapter;
 
-    AtomicBoolean changeing = new AtomicBoolean(false);
+    AtomicBoolean changeing1 = new AtomicBoolean(false);
+    AtomicBoolean changeing2 = new AtomicBoolean(false);
 
 	protected void init() {
 		content_et.setOnEditorActionListener(this);
 
 		adapter = new ChatAdapters(this, new ArrayList<String>());
-		listview.setAdapter(adapter);
+        TranAnimationAdapter t = new TranAnimationAdapter(adapter,listview);
+		listview.setAdapter(t);
 
         send_btn.setEnabled(false);
 	}
@@ -72,24 +74,24 @@ public class ChatActivity extends BaseActivity implements
 	@AfterTextChange
 	void content_et(Editable text) {
 		if (text.toString().length() > 0 && send_btn.getAlpha() < 1f) {
-            if(changeing.compareAndSet(false,true)) {
+            if(changeing1.compareAndSet(false,true)) {
                 send_btn.animate().alpha(1.0f).setDuration(200).setListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         super.onAnimationEnd(animation);
                         send_btn.setEnabled(true);
-                        changeing.compareAndSet(true,false);
+                        changeing1.compareAndSet(true,false);
                     }
                 }).start();
             }
 		} else if (text.toString().length() == 0 && send_btn.getAlpha() > 0.5f) {
-            if(send_btn.isEnabled()) {
+            if(changeing2.compareAndSet(false, true)) {
                 send_btn.animate().alpha(0.5f).setDuration(200).setListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         super.onAnimationEnd(animation);
                         send_btn.setEnabled(false);
-                        changeing.compareAndSet(true,false);
+                        changeing2.compareAndSet(true,false);
                     }
                 }).start();
             }
@@ -121,8 +123,6 @@ public class ChatActivity extends BaseActivity implements
 			return;
 		}
 
-        //LogUtil.d(new Gson().toJson(new MessageBean(ac.deviceId, deviceId, context_str)).toString());
-
 		RequestParams rp = ac.getRequestParams();
 		rp.put("content", new Gson().toJson(new MessageBean(ac.deviceId, deviceId, context_str)).toString());
 		rp.put("toId", deviceId);
@@ -130,7 +130,7 @@ public class ChatActivity extends BaseActivity implements
 		ac.httpClient.post(URLS.SENDMESSAGE, rp, new JsonHttpResponseHandler() {
 			@Override
 			public void onSuccess(JSONObject jo) {
-				Toast.makeText(ChatActivity.this, jo.toString(), Toast.LENGTH_SHORT).show();
+//				Toast.makeText(ChatActivity.this, jo.toString(), Toast.LENGTH_SHORT).show();
 			}
 
 			@Override
@@ -175,7 +175,7 @@ public class ChatActivity extends BaseActivity implements
     public static boolean isFastDoubleClick() {
         long time = System.currentTimeMillis();
         long timeD = time - lastClickTime;
-        if (0 < timeD && timeD < 1500) {
+        if (0 < timeD && timeD < 1000) {
             return true;
         }
         lastClickTime = time;

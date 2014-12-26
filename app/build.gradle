@@ -50,6 +50,9 @@ dependencies {
     compile 'org.lucasr.twowayview:layouts:+@aar'
     compile 'com.nostra13.universalimageloader:universal-image-loader:+'
     compile 'com.loopj.android:android-async-http:+'
+    compile project(':lib-core')
+    compile project(':lib-core-slh')
+    compile project(':lib-manipulation')
 }
 
 

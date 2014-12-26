@@ -102,7 +102,10 @@
     <orderEntry type="library" exported="" name="weibosdkcore" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-21.0.3" level="project" />
     <orderEntry type="library" exported="" name="butterknife-6.0.1-SNAPSHOT" level="project" />
+    <orderEntry type="module" module-name="lib-core" exported="" />
     <orderEntry type="module" module-name="swipebacklayout" exported="" />
+    <orderEntry type="module" module-name="lib-core-slh" exported="" />
+    <orderEntry type="module" module-name="lib-manipulation" exported="" />
   </component>
 </module>
 

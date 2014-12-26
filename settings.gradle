@@ -1,1 +1,1 @@
-include ':app','swipebacklayout'
+include ':app','swipebacklayout', 'lib-core', 'lib-manipulation', 'lib-core-slh'
