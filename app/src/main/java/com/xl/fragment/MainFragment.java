@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.xl.activity.R;
 import com.xl.activity.base.BaseFragment;
 import com.xl.activity.chat.ChatActivity_;
+import com.xl.util.BroadCastUtil;
 import com.xl.util.JsonHttpResponseHandler;
 import com.xl.util.ResultCode;
 import com.xl.util.StaticUtil;
@@ -15,6 +16,7 @@ import com.xl.util.URLS;
 
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.Receiver;
 import org.androidannotations.annotations.ViewById;
 import org.json.JSONObject;
 
@@ -72,9 +74,10 @@ public class MainFragment extends BaseFragment {
                         case ResultCode.SUCCESS:
                             String deviceId = jo.getString(StaticUtil.OTHERDEVICEID);
                             ChatActivity_.intent(getActivity()).deviceId(deviceId).start();
+                            cancle();
                             break;
                         case ResultCode.LOADING:
-                            toast("排队中,请等待");
+//                            toast("排队中,请等待");
                             break;
                     }
                 } catch (Exception e) {
@@ -95,29 +98,7 @@ public class MainFragment extends BaseFragment {
 
             @Override
             public void onStart() {
-                connect.animate().alpha(1f).setDuration(1500).setListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationStart(Animator animation) {
-                        connect.setVisibility(View.VISIBLE);
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        connect.setEnabled(true);
-                    }
-                }).start();
-                loading_rl.animate().alpha(0f).setDuration(1500).setListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationStart(Animator animation) {
-                        loading_img.setEnabled(false);
-                        loading_txt.setEnabled(false);
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        loading_rl.setVisibility(View.GONE);
-                    }
-                }).start();
+                cancle();
             }
 
             @Override
@@ -126,4 +107,41 @@ public class MainFragment extends BaseFragment {
         });
     }
 
+    @Receiver(actions = BroadCastUtil.STARTCHAT)
+    void startCaht(){
+        cancle();
+    }
+
+    void cancle(){
+        connect.animate().alpha(1f).setDuration(1500).setListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                connect.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                connect.setEnabled(true);
+            }
+        }).start();
+        loading_rl.animate().alpha(0f).setDuration(1500).setListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                loading_img.setEnabled(false);
+                loading_txt.setEnabled(false);
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                loading_rl.setVisibility(View.GONE);
+                loading_txt.setText(R.string.finding1);
+            }
+        }).start();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        loading_img();
+    }
 }

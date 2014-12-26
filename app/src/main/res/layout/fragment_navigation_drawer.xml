@@ -7,7 +7,8 @@
         android:layout_centerVertical="true"
         android:id="@+id/loading_img"
         android:layout_width="150dp"
-        android:layout_height="200dp"
+        android:adjustViewBounds="true"
+        android:layout_height="wrap_content"
         android:src="@drawable/more"/>
     <TextView
         android:layout_below="@id/loading_img"
