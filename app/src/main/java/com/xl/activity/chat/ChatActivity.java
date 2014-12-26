@@ -18,9 +18,9 @@ import android.widget.TextView.OnEditorActionListener;
 
 import com.google.gson.Gson;
 import com.loopj.android.http.RequestParams;
+import com.nhaarman.listviewanimations.appearance.simple.SwingBottomInAnimationAdapter;
 import com.xl.activity.R;
 import com.xl.activity.base.BaseActivity;
-import com.xl.anim.TranAnimationAdapter;
 import com.xl.bean.MessageBean;
 import com.xl.util.BroadCastUtil;
 import com.xl.util.JsonHttpResponseHandler;
@@ -66,7 +66,7 @@ public class ChatActivity extends BaseActivity implements
 		content_et.setOnEditorActionListener(this);
 
 		adapter = new ChatAdapters(this, new ArrayList<String>());
-        TranAnimationAdapter t = new TranAnimationAdapter(adapter,listview);
+        SwingBottomInAnimationAdapter t = new SwingBottomInAnimationAdapter(adapter,listview);
 		listview.setAdapter(t);
 
         send_btn.setEnabled(false);

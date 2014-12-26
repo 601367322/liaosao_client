@@ -20,6 +20,7 @@ import android.animation.ObjectAnimator;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 
 import com.nhaarman.listviewanimations.appearance.SingleAnimationAdapter;
@@ -32,8 +33,9 @@ public class SwingBottomInAnimationAdapter extends SingleAnimationAdapter {
 
     private static final String TRANSLATION_Y = "translationY";
 
-    public SwingBottomInAnimationAdapter(@NonNull final BaseAdapter baseAdapter) {
+    public SwingBottomInAnimationAdapter(@NonNull final BaseAdapter baseAdapter,@NonNull AbsListView listView) {
         super(baseAdapter);
+        setAbsListView(listView);
     }
 
     @Override
