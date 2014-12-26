@@ -1241,49 +1241,49 @@ containing a value of this type.
         public static int switch_thumb_normal_material_light=0x7f060031;
     }
     public static final class dimen {
-        public static int abc_action_bar_default_height_material=0x7f080000;
-        public static int abc_action_bar_default_padding_material=0x7f080001;
-        public static int abc_action_bar_icon_vertical_padding_material=0x7f080002;
-        public static int abc_action_bar_progress_bar_size=0x7f080003;
-        public static int abc_action_bar_stacked_max_height=0x7f080004;
-        public static int abc_action_bar_stacked_tab_max_width=0x7f080005;
-        public static int abc_action_bar_subtitle_bottom_margin_material=0x7f080006;
-        public static int abc_action_bar_subtitle_top_margin_material=0x7f080007;
-        public static int abc_action_button_min_height_material=0x7f080008;
-        public static int abc_action_button_min_width_material=0x7f080009;
-        public static int abc_action_button_min_width_overflow_material=0x7f08000a;
-        public static int abc_config_prefDialogWidth=0x7f08000b;
-        public static int abc_control_inset_material=0x7f08000c;
-        public static int abc_control_padding_material=0x7f08000d;
-        public static int abc_dropdownitem_icon_width=0x7f08000e;
-        public static int abc_dropdownitem_text_padding_left=0x7f08000f;
-        public static int abc_dropdownitem_text_padding_right=0x7f080010;
-        public static int abc_panel_menu_list_width=0x7f080011;
-        public static int abc_search_view_preferred_width=0x7f080012;
-        public static int abc_search_view_text_min_width=0x7f080013;
-        public static int abc_text_size_body_1_material=0x7f080014;
-        public static int abc_text_size_body_2_material=0x7f080015;
-        public static int abc_text_size_button_material=0x7f080016;
-        public static int abc_text_size_caption_material=0x7f080017;
-        public static int abc_text_size_display_1_material=0x7f080018;
-        public static int abc_text_size_display_2_material=0x7f080019;
-        public static int abc_text_size_display_3_material=0x7f08001a;
-        public static int abc_text_size_display_4_material=0x7f08001b;
-        public static int abc_text_size_headline_material=0x7f08001c;
-        public static int abc_text_size_large_material=0x7f08001d;
-        public static int abc_text_size_medium_material=0x7f08001e;
-        public static int abc_text_size_menu_material=0x7f08001f;
-        public static int abc_text_size_small_material=0x7f080020;
-        public static int abc_text_size_subhead_material=0x7f080021;
-        public static int abc_text_size_subtitle_material_toolbar=0x7f080022;
-        public static int abc_text_size_title_material=0x7f080023;
-        public static int abc_text_size_title_material_toolbar=0x7f080024;
-        public static int dialog_fixed_height_major=0x7f080025;
-        public static int dialog_fixed_height_minor=0x7f080026;
-        public static int dialog_fixed_width_major=0x7f080027;
-        public static int dialog_fixed_width_minor=0x7f080028;
-        public static int disabled_alpha_material_dark=0x7f080029;
-        public static int disabled_alpha_material_light=0x7f08002a;
+        public static int abc_action_bar_default_height_material=0x7f070000;
+        public static int abc_action_bar_default_padding_material=0x7f070001;
+        public static int abc_action_bar_icon_vertical_padding_material=0x7f070002;
+        public static int abc_action_bar_progress_bar_size=0x7f070003;
+        public static int abc_action_bar_stacked_max_height=0x7f070004;
+        public static int abc_action_bar_stacked_tab_max_width=0x7f070005;
+        public static int abc_action_bar_subtitle_bottom_margin_material=0x7f070006;
+        public static int abc_action_bar_subtitle_top_margin_material=0x7f070007;
+        public static int abc_action_button_min_height_material=0x7f070008;
+        public static int abc_action_button_min_width_material=0x7f070009;
+        public static int abc_action_button_min_width_overflow_material=0x7f07000a;
+        public static int abc_config_prefDialogWidth=0x7f07000b;
+        public static int abc_control_inset_material=0x7f07000c;
+        public static int abc_control_padding_material=0x7f07000d;
+        public static int abc_dropdownitem_icon_width=0x7f07000e;
+        public static int abc_dropdownitem_text_padding_left=0x7f07000f;
+        public static int abc_dropdownitem_text_padding_right=0x7f070010;
+        public static int abc_panel_menu_list_width=0x7f070011;
+        public static int abc_search_view_preferred_width=0x7f070012;
+        public static int abc_search_view_text_min_width=0x7f070013;
+        public static int abc_text_size_body_1_material=0x7f070014;
+        public static int abc_text_size_body_2_material=0x7f070015;
+        public static int abc_text_size_button_material=0x7f070016;
+        public static int abc_text_size_caption_material=0x7f070017;
+        public static int abc_text_size_display_1_material=0x7f070018;
+        public static int abc_text_size_display_2_material=0x7f070019;
+        public static int abc_text_size_display_3_material=0x7f07001a;
+        public static int abc_text_size_display_4_material=0x7f07001b;
+        public static int abc_text_size_headline_material=0x7f07001c;
+        public static int abc_text_size_large_material=0x7f07001d;
+        public static int abc_text_size_medium_material=0x7f07001e;
+        public static int abc_text_size_menu_material=0x7f07001f;
+        public static int abc_text_size_small_material=0x7f070020;
+        public static int abc_text_size_subhead_material=0x7f070021;
+        public static int abc_text_size_subtitle_material_toolbar=0x7f070022;
+        public static int abc_text_size_title_material=0x7f070023;
+        public static int abc_text_size_title_material_toolbar=0x7f070024;
+        public static int dialog_fixed_height_major=0x7f070025;
+        public static int dialog_fixed_height_minor=0x7f070026;
+        public static int dialog_fixed_width_major=0x7f070027;
+        public static int dialog_fixed_width_minor=0x7f070028;
+        public static int disabled_alpha_material_dark=0x7f070029;
+        public static int disabled_alpha_material_light=0x7f07002a;
     }
     public static final class drawable {
         public static int abc_ab_share_pack_holo_dark=0x7f020000;
@@ -1343,74 +1343,74 @@ containing a value of this type.
         public static int shadow_right=0x7f020036;
     }
     public static final class id {
-        public static int action_bar=0x7f070035;
-        public static int action_bar_activity_content=0x7f070019;
-        public static int action_bar_container=0x7f070034;
-        public static int action_bar_root=0x7f070030;
-        public static int action_bar_spinner=0x7f07001a;
-        public static int action_bar_subtitle=0x7f070023;
-        public static int action_bar_title=0x7f070022;
-        public static int action_context_bar=0x7f070036;
-        public static int action_menu_divider=0x7f07001b;
-        public static int action_menu_presenter=0x7f07001c;
-        public static int action_mode_bar=0x7f070032;
-        public static int action_mode_bar_stub=0x7f070031;
-        public static int action_mode_close_button=0x7f070024;
-        public static int activity_chooser_view_content=0x7f070025;
-        public static int all=0x7f070017;
-        public static int always=0x7f07000f;
-        public static int beginning=0x7f07000a;
-        public static int bottom=0x7f070016;
-        public static int checkbox=0x7f07002d;
-        public static int collapseActionView=0x7f070011;
-        public static int decor_content_parent=0x7f070033;
-        public static int default_activity_button=0x7f070028;
-        public static int dialog=0x7f070012;
-        public static int disableHome=0x7f070009;
-        public static int dropdown=0x7f070013;
-        public static int edit_query=0x7f070037;
-        public static int end=0x7f07000c;
-        public static int expand_activities_button=0x7f070026;
-        public static int expanded_menu=0x7f07002c;
-        public static int home=0x7f07001d;
-        public static int homeAsUp=0x7f070006;
-        public static int icon=0x7f07002a;
-        public static int ifRoom=0x7f07000e;
-        public static int image=0x7f070027;
-        public static int left=0x7f070014;
-        public static int listMode=0x7f070001;
-        public static int list_item=0x7f070029;
-        public static int middle=0x7f07000b;
-        public static int never=0x7f07000d;
-        public static int none=0x7f070003;
-        public static int normal=0x7f070000;
-        public static int progress_circular=0x7f07001e;
-        public static int progress_horizontal=0x7f07001f;
-        public static int radio=0x7f07002f;
-        public static int right=0x7f070015;
-        public static int search_badge=0x7f070039;
-        public static int search_bar=0x7f070038;
-        public static int search_button=0x7f07003a;
-        public static int search_close_btn=0x7f07003f;
-        public static int search_edit_frame=0x7f07003b;
-        public static int search_go_btn=0x7f070041;
-        public static int search_mag_icon=0x7f07003c;
-        public static int search_plate=0x7f07003d;
-        public static int search_src_text=0x7f07003e;
-        public static int search_voice_btn=0x7f070042;
-        public static int shortcut=0x7f07002e;
-        public static int showCustom=0x7f070008;
-        public static int showHome=0x7f070005;
-        public static int showTitle=0x7f070007;
-        public static int split_action_bar=0x7f070020;
-        public static int submit_area=0x7f070040;
-        public static int swipe=0x7f070043;
-        public static int tabMode=0x7f070002;
-        public static int title=0x7f07002b;
-        public static int up=0x7f070021;
-        public static int useLogo=0x7f070004;
-        public static int withText=0x7f070010;
-        public static int wrap_content=0x7f070018;
+        public static int action_bar=0x7f080035;
+        public static int action_bar_activity_content=0x7f080000;
+        public static int action_bar_container=0x7f080034;
+        public static int action_bar_root=0x7f080030;
+        public static int action_bar_spinner=0x7f080001;
+        public static int action_bar_subtitle=0x7f080023;
+        public static int action_bar_title=0x7f080022;
+        public static int action_context_bar=0x7f080036;
+        public static int action_menu_divider=0x7f080002;
+        public static int action_menu_presenter=0x7f080003;
+        public static int action_mode_bar=0x7f080032;
+        public static int action_mode_bar_stub=0x7f080031;
+        public static int action_mode_close_button=0x7f080024;
+        public static int activity_chooser_view_content=0x7f080025;
+        public static int all=0x7f08001d;
+        public static int always=0x7f080016;
+        public static int beginning=0x7f080013;
+        public static int bottom=0x7f08001e;
+        public static int checkbox=0x7f08002d;
+        public static int collapseActionView=0x7f080017;
+        public static int decor_content_parent=0x7f080033;
+        public static int default_activity_button=0x7f080028;
+        public static int dialog=0x7f08001b;
+        public static int disableHome=0x7f08000c;
+        public static int dropdown=0x7f08001c;
+        public static int edit_query=0x7f080037;
+        public static int end=0x7f080014;
+        public static int expand_activities_button=0x7f080026;
+        public static int expanded_menu=0x7f08002c;
+        public static int home=0x7f080004;
+        public static int homeAsUp=0x7f08000d;
+        public static int icon=0x7f08002a;
+        public static int ifRoom=0x7f080018;
+        public static int image=0x7f080027;
+        public static int left=0x7f08001f;
+        public static int listMode=0x7f080009;
+        public static int list_item=0x7f080029;
+        public static int middle=0x7f080015;
+        public static int never=0x7f080019;
+        public static int none=0x7f08000e;
+        public static int normal=0x7f08000a;
+        public static int progress_circular=0x7f080005;
+        public static int progress_horizontal=0x7f080006;
+        public static int radio=0x7f08002f;
+        public static int right=0x7f080020;
+        public static int search_badge=0x7f080039;
+        public static int search_bar=0x7f080038;
+        public static int search_button=0x7f08003a;
+        public static int search_close_btn=0x7f08003f;
+        public static int search_edit_frame=0x7f08003b;
+        public static int search_go_btn=0x7f080041;
+        public static int search_mag_icon=0x7f08003c;
+        public static int search_plate=0x7f08003d;
+        public static int search_src_text=0x7f08003e;
+        public static int search_voice_btn=0x7f080042;
+        public static int shortcut=0x7f08002e;
+        public static int showCustom=0x7f08000f;
+        public static int showHome=0x7f080010;
+        public static int showTitle=0x7f080011;
+        public static int split_action_bar=0x7f080007;
+        public static int submit_area=0x7f080040;
+        public static int swipe=0x7f080043;
+        public static int tabMode=0x7f08000b;
+        public static int title=0x7f08002b;
+        public static int up=0x7f080008;
+        public static int useLogo=0x7f080012;
+        public static int withText=0x7f08001a;
+        public static int wrap_content=0x7f080021;
     }
     public static final class integer {
         public static int abc_max_action_buttons=0x7f090000;
@@ -1779,7 +1779,7 @@ containing a value of this type.
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:background
         */
-        public static final int ActionBar_background = 10;
+        public static int ActionBar_background = 10;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#backgroundSplit}
           attribute's value can be found in the {@link #ActionBar} array.
@@ -1791,7 +1791,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
           @attr name me.imid.swipebacklayout.lib:backgroundSplit
         */
-        public static final int ActionBar_backgroundSplit = 12;
+        public static int ActionBar_backgroundSplit = 12;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#backgroundStacked}
           attribute's value can be found in the {@link #ActionBar} array.
@@ -1803,7 +1803,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
           @attr name me.imid.swipebacklayout.lib:backgroundStacked
         */
-        public static final int ActionBar_backgroundStacked = 11;
+        public static int ActionBar_backgroundStacked = 11;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#contentInsetEnd}
           attribute's value can be found in the {@link #ActionBar} array.
@@ -1819,7 +1819,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:contentInsetEnd
         */
-        public static final int ActionBar_contentInsetEnd = 21;
+        public static int ActionBar_contentInsetEnd = 21;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#contentInsetLeft}
           attribute's value can be found in the {@link #ActionBar} array.
@@ -1835,7 +1835,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:contentInsetLeft
         */
-        public static final int ActionBar_contentInsetLeft = 22;
+        public static int ActionBar_contentInsetLeft = 22;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#contentInsetRight}
           attribute's value can be found in the {@link #ActionBar} array.
@@ -1851,7 +1851,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:contentInsetRight
         */
-        public static final int ActionBar_contentInsetRight = 23;
+        public static int ActionBar_contentInsetRight = 23;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#contentInsetStart}
           attribute's value can be found in the {@link #ActionBar} array.
@@ -1867,7 +1867,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:contentInsetStart
         */
-        public static final int ActionBar_contentInsetStart = 20;
+        public static int ActionBar_contentInsetStart = 20;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#customNavigationLayout}
           attribute's value can be found in the {@link #ActionBar} array.
@@ -1877,7 +1877,7 @@ containing a value of this type.
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:customNavigationLayout
         */
-        public static final int ActionBar_customNavigationLayout = 13;
+        public static int ActionBar_customNavigationLayout = 13;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#displayOptions}
           attribute's value can be found in the {@link #ActionBar} array.
@@ -1899,7 +1899,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 </table>
           @attr name me.imid.swipebacklayout.lib:displayOptions
         */
-        public static final int ActionBar_displayOptions = 3;
+        public static int ActionBar_displayOptions = 3;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#divider}
           attribute's value can be found in the {@link #ActionBar} array.
@@ -1909,7 +1909,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:divider
         */
-        public static final int ActionBar_divider = 9;
+        public static int ActionBar_divider = 9;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#elevation}
           attribute's value can be found in the {@link #ActionBar} array.
@@ -1925,7 +1925,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:elevation
         */
-        public static final int ActionBar_elevation = 24;
+        public static int ActionBar_elevation = 24;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#height}
           attribute's value can be found in the {@link #ActionBar} array.
@@ -1941,7 +1941,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:height
         */
-        public static final int ActionBar_height = 0;
+        public static int ActionBar_height = 0;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#hideOnContentScroll}
           attribute's value can be found in the {@link #ActionBar} array.
@@ -1955,7 +1955,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:hideOnContentScroll
         */
-        public static final int ActionBar_hideOnContentScroll = 19;
+        public static int ActionBar_hideOnContentScroll = 19;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#homeAsUpIndicator}
           attribute's value can be found in the {@link #ActionBar} array.
@@ -1965,7 +1965,7 @@ containing a value of this type.
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:homeAsUpIndicator
         */
-        public static final int ActionBar_homeAsUpIndicator = 26;
+        public static int ActionBar_homeAsUpIndicator = 26;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#homeLayout}
           attribute's value can be found in the {@link #ActionBar} array.
@@ -1975,7 +1975,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:homeLayout
         */
-        public static final int ActionBar_homeLayout = 14;
+        public static int ActionBar_homeLayout = 14;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#icon}
           attribute's value can be found in the {@link #ActionBar} array.
@@ -1985,7 +1985,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:icon
         */
-        public static final int ActionBar_icon = 7;
+        public static int ActionBar_icon = 7;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#indeterminateProgressStyle}
           attribute's value can be found in the {@link #ActionBar} array.
@@ -1995,7 +1995,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:indeterminateProgressStyle
         */
-        public static final int ActionBar_indeterminateProgressStyle = 16;
+        public static int ActionBar_indeterminateProgressStyle = 16;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#itemPadding}
           attribute's value can be found in the {@link #ActionBar} array.
@@ -2011,7 +2011,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:itemPadding
         */
-        public static final int ActionBar_itemPadding = 18;
+        public static int ActionBar_itemPadding = 18;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#logo}
           attribute's value can be found in the {@link #ActionBar} array.
@@ -2021,7 +2021,7 @@ containing a value of this type.
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:logo
         */
-        public static final int ActionBar_logo = 8;
+        public static int ActionBar_logo = 8;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#navigationMode}
           attribute's value can be found in the {@link #ActionBar} array.
@@ -2039,7 +2039,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 </table>
           @attr name me.imid.swipebacklayout.lib:navigationMode
         */
-        public static final int ActionBar_navigationMode = 2;
+        public static int ActionBar_navigationMode = 2;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#popupTheme}
           attribute's value can be found in the {@link #ActionBar} array.
@@ -2049,7 +2049,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:popupTheme
         */
-        public static final int ActionBar_popupTheme = 25;
+        public static int ActionBar_popupTheme = 25;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#progressBarPadding}
           attribute's value can be found in the {@link #ActionBar} array.
@@ -2065,7 +2065,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:progressBarPadding
         */
-        public static final int ActionBar_progressBarPadding = 17;
+        public static int ActionBar_progressBarPadding = 17;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#progressBarStyle}
           attribute's value can be found in the {@link #ActionBar} array.
@@ -2075,7 +2075,7 @@ containing a value of this type.
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:progressBarStyle
         */
-        public static final int ActionBar_progressBarStyle = 15;
+        public static int ActionBar_progressBarStyle = 15;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#subtitle}
           attribute's value can be found in the {@link #ActionBar} array.
@@ -2089,7 +2089,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:subtitle
         */
-        public static final int ActionBar_subtitle = 4;
+        public static int ActionBar_subtitle = 4;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#subtitleTextStyle}
           attribute's value can be found in the {@link #ActionBar} array.
@@ -2099,7 +2099,7 @@ containing a value of this type.
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:subtitleTextStyle
         */
-        public static final int ActionBar_subtitleTextStyle = 6;
+        public static int ActionBar_subtitleTextStyle = 6;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#title}
           attribute's value can be found in the {@link #ActionBar} array.
@@ -2113,7 +2113,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:title
         */
-        public static final int ActionBar_title = 1;
+        public static int ActionBar_title = 1;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#titleTextStyle}
           attribute's value can be found in the {@link #ActionBar} array.
@@ -2123,7 +2123,7 @@ containing a value of this type.
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:titleTextStyle
         */
-        public static final int ActionBar_titleTextStyle = 5;
+        public static int ActionBar_titleTextStyle = 5;
         /** Attributes that can be used with a ActionBarLayout.
            <p>Includes the following attributes:</p>
            <table>
@@ -2142,7 +2142,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           attribute's value can be found in the {@link #ActionBarLayout} array.
           @attr name android:layout_gravity
         */
-        public static final int ActionBarLayout_android_layout_gravity = 0;
+        public static int ActionBarLayout_android_layout_gravity = 0;
         /** Attributes that can be used with a ActionMenuItemView.
            <p>Includes the following attributes:</p>
            <table>
@@ -2161,7 +2161,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           attribute's value can be found in the {@link #ActionMenuItemView} array.
           @attr name android:minWidth
         */
-        public static final int ActionMenuItemView_android_minWidth = 0;
+        public static int ActionMenuItemView_android_minWidth = 0;
         /** Attributes that can be used with a ActionMenuView.
          */
         public static final int[] ActionMenuView = {
@@ -2200,7 +2200,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:background
         */
-        public static final int ActionMode_background = 3;
+        public static int ActionMode_background = 3;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#backgroundSplit}
           attribute's value can be found in the {@link #ActionMode} array.
@@ -2212,7 +2212,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
           @attr name me.imid.swipebacklayout.lib:backgroundSplit
         */
-        public static final int ActionMode_backgroundSplit = 4;
+        public static int ActionMode_backgroundSplit = 4;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#closeItemLayout}
           attribute's value can be found in the {@link #ActionMode} array.
@@ -2222,7 +2222,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:closeItemLayout
         */
-        public static final int ActionMode_closeItemLayout = 5;
+        public static int ActionMode_closeItemLayout = 5;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#height}
           attribute's value can be found in the {@link #ActionMode} array.
@@ -2238,7 +2238,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:height
         */
-        public static final int ActionMode_height = 0;
+        public static int ActionMode_height = 0;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#subtitleTextStyle}
           attribute's value can be found in the {@link #ActionMode} array.
@@ -2248,7 +2248,7 @@ containing a value of this type.
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:subtitleTextStyle
         */
-        public static final int ActionMode_subtitleTextStyle = 2;
+        public static int ActionMode_subtitleTextStyle = 2;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#titleTextStyle}
           attribute's value can be found in the {@link #ActionMode} array.
@@ -2258,7 +2258,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:titleTextStyle
         */
-        public static final int ActionMode_titleTextStyle = 1;
+        public static int ActionMode_titleTextStyle = 1;
         /** Attributes that can be used with a ActivityChooserView.
            <p>Includes the following attributes:</p>
            <table>
@@ -2283,7 +2283,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:expandActivityOverflowButtonDrawable
         */
-        public static final int ActivityChooserView_expandActivityOverflowButtonDrawable = 1;
+        public static int ActivityChooserView_expandActivityOverflowButtonDrawable = 1;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#initialActivityCount}
           attribute's value can be found in the {@link #ActivityChooserView} array.
@@ -2297,7 +2297,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:initialActivityCount
         */
-        public static final int ActivityChooserView_initialActivityCount = 0;
+        public static int ActivityChooserView_initialActivityCount = 0;
         /** Attributes that can be used with a CompatTextView.
            <p>Includes the following attributes:</p>
            <table>
@@ -2321,7 +2321,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 <p>May be a boolean value, either "<code>true</code>" or "<code>false</code>".
           @attr name me.imid.swipebacklayout.lib:textAllCaps
         */
-        public static final int CompatTextView_textAllCaps = 0;
+        public static int CompatTextView_textAllCaps = 0;
         /** Attributes that can be used with a DrawerArrowToggle.
            <p>Includes the following attributes:</p>
            <table>
@@ -2365,7 +2365,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:barSize
         */
-        public static final int DrawerArrowToggle_barSize = 6;
+        public static int DrawerArrowToggle_barSize = 6;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#color}
           attribute's value can be found in the {@link #DrawerArrowToggle} array.
@@ -2380,7 +2380,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:color
         */
-        public static final int DrawerArrowToggle_color = 0;
+        public static int DrawerArrowToggle_color = 0;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#drawableSize}
           attribute's value can be found in the {@link #DrawerArrowToggle} array.
@@ -2396,7 +2396,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:drawableSize
         */
-        public static final int DrawerArrowToggle_drawableSize = 2;
+        public static int DrawerArrowToggle_drawableSize = 2;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#gapBetweenBars}
           attribute's value can be found in the {@link #DrawerArrowToggle} array.
@@ -2412,7 +2412,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:gapBetweenBars
         */
-        public static final int DrawerArrowToggle_gapBetweenBars = 3;
+        public static int DrawerArrowToggle_gapBetweenBars = 3;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#middleBarArrowSize}
           attribute's value can be found in the {@link #DrawerArrowToggle} array.
@@ -2428,7 +2428,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:middleBarArrowSize
         */
-        public static final int DrawerArrowToggle_middleBarArrowSize = 5;
+        public static int DrawerArrowToggle_middleBarArrowSize = 5;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#spinBars}
           attribute's value can be found in the {@link #DrawerArrowToggle} array.
@@ -2442,7 +2442,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:spinBars
         */
-        public static final int DrawerArrowToggle_spinBars = 1;
+        public static int DrawerArrowToggle_spinBars = 1;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#thickness}
           attribute's value can be found in the {@link #DrawerArrowToggle} array.
@@ -2458,7 +2458,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:thickness
         */
-        public static final int DrawerArrowToggle_thickness = 7;
+        public static int DrawerArrowToggle_thickness = 7;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#topBottomBarArrowSize}
           attribute's value can be found in the {@link #DrawerArrowToggle} array.
@@ -2474,7 +2474,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:topBottomBarArrowSize
         */
-        public static final int DrawerArrowToggle_topBottomBarArrowSize = 4;
+        public static int DrawerArrowToggle_topBottomBarArrowSize = 4;
         /** Attributes that can be used with a LinearLayoutCompat.
            <p>Includes the following attributes:</p>
            <table>
@@ -2511,31 +2511,31 @@ containing a value of this type.
           attribute's value can be found in the {@link #LinearLayoutCompat} array.
           @attr name android:baselineAligned
         */
-        public static final int LinearLayoutCompat_android_baselineAligned = 2;
+        public static int LinearLayoutCompat_android_baselineAligned = 2;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#baselineAlignedChildIndex}
           attribute's value can be found in the {@link #LinearLayoutCompat} array.
           @attr name android:baselineAlignedChildIndex
         */
-        public static final int LinearLayoutCompat_android_baselineAlignedChildIndex = 3;
+        public static int LinearLayoutCompat_android_baselineAlignedChildIndex = 3;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#gravity}
           attribute's value can be found in the {@link #LinearLayoutCompat} array.
           @attr name android:gravity
         */
-        public static final int LinearLayoutCompat_android_gravity = 0;
+        public static int LinearLayoutCompat_android_gravity = 0;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#orientation}
           attribute's value can be found in the {@link #LinearLayoutCompat} array.
           @attr name android:orientation
         */
-        public static final int LinearLayoutCompat_android_orientation = 1;
+        public static int LinearLayoutCompat_android_orientation = 1;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#weightSum}
           attribute's value can be found in the {@link #LinearLayoutCompat} array.
           @attr name android:weightSum
         */
-        public static final int LinearLayoutCompat_android_weightSum = 4;
+        public static int LinearLayoutCompat_android_weightSum = 4;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#divider}
           attribute's value can be found in the {@link #LinearLayoutCompat} array.
@@ -2545,7 +2545,7 @@ containing a value of this type.
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:divider
         */
-        public static final int LinearLayoutCompat_divider = 5;
+        public static int LinearLayoutCompat_divider = 5;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#dividerPadding}
           attribute's value can be found in the {@link #LinearLayoutCompat} array.
@@ -2561,7 +2561,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:dividerPadding
         */
-        public static final int LinearLayoutCompat_dividerPadding = 8;
+        public static int LinearLayoutCompat_dividerPadding = 8;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#measureWithLargestChild}
           attribute's value can be found in the {@link #LinearLayoutCompat} array.
@@ -2575,7 +2575,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:measureWithLargestChild
         */
-        public static final int LinearLayoutCompat_measureWithLargestChild = 6;
+        public static int LinearLayoutCompat_measureWithLargestChild = 6;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#showDividers}
           attribute's value can be found in the {@link #LinearLayoutCompat} array.
@@ -2594,7 +2594,7 @@ containing a value of this type.
 </table>
           @attr name me.imid.swipebacklayout.lib:showDividers
         */
-        public static final int LinearLayoutCompat_showDividers = 7;
+        public static int LinearLayoutCompat_showDividers = 7;
         /** Attributes that can be used with a LinearLayoutCompat_Layout.
            <p>Includes the following attributes:</p>
            <table>
@@ -2619,25 +2619,25 @@ containing a value of this type.
           attribute's value can be found in the {@link #LinearLayoutCompat_Layout} array.
           @attr name android:layout_gravity
         */
-        public static final int LinearLayoutCompat_Layout_android_layout_gravity = 0;
+        public static int LinearLayoutCompat_Layout_android_layout_gravity = 0;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#layout_height}
           attribute's value can be found in the {@link #LinearLayoutCompat_Layout} array.
           @attr name android:layout_height
         */
-        public static final int LinearLayoutCompat_Layout_android_layout_height = 2;
+        public static int LinearLayoutCompat_Layout_android_layout_height = 2;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#layout_weight}
           attribute's value can be found in the {@link #LinearLayoutCompat_Layout} array.
           @attr name android:layout_weight
         */
-        public static final int LinearLayoutCompat_Layout_android_layout_weight = 3;
+        public static int LinearLayoutCompat_Layout_android_layout_weight = 3;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#layout_width}
           attribute's value can be found in the {@link #LinearLayoutCompat_Layout} array.
           @attr name android:layout_width
         */
-        public static final int LinearLayoutCompat_Layout_android_layout_width = 1;
+        public static int LinearLayoutCompat_Layout_android_layout_width = 1;
         /** Attributes that can be used with a ListPopupWindow.
            <p>Includes the following attributes:</p>
            <table>
@@ -2658,13 +2658,13 @@ containing a value of this type.
           attribute's value can be found in the {@link #ListPopupWindow} array.
           @attr name android:dropDownHorizontalOffset
         */
-        public static final int ListPopupWindow_android_dropDownHorizontalOffset = 0;
+        public static int ListPopupWindow_android_dropDownHorizontalOffset = 0;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#dropDownVerticalOffset}
           attribute's value can be found in the {@link #ListPopupWindow} array.
           @attr name android:dropDownVerticalOffset
         */
-        public static final int ListPopupWindow_android_dropDownVerticalOffset = 1;
+        public static int ListPopupWindow_android_dropDownVerticalOffset = 1;
         /** Attributes that can be used with a MenuGroup.
            <p>Includes the following attributes:</p>
            <table>
@@ -2694,37 +2694,37 @@ containing a value of this type.
           attribute's value can be found in the {@link #MenuGroup} array.
           @attr name android:checkableBehavior
         */
-        public static final int MenuGroup_android_checkableBehavior = 5;
+        public static int MenuGroup_android_checkableBehavior = 5;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#enabled}
           attribute's value can be found in the {@link #MenuGroup} array.
           @attr name android:enabled
         */
-        public static final int MenuGroup_android_enabled = 0;
+        public static int MenuGroup_android_enabled = 0;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#id}
           attribute's value can be found in the {@link #MenuGroup} array.
           @attr name android:id
         */
-        public static final int MenuGroup_android_id = 1;
+        public static int MenuGroup_android_id = 1;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#menuCategory}
           attribute's value can be found in the {@link #MenuGroup} array.
           @attr name android:menuCategory
         */
-        public static final int MenuGroup_android_menuCategory = 3;
+        public static int MenuGroup_android_menuCategory = 3;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#orderInCategory}
           attribute's value can be found in the {@link #MenuGroup} array.
           @attr name android:orderInCategory
         */
-        public static final int MenuGroup_android_orderInCategory = 4;
+        public static int MenuGroup_android_orderInCategory = 4;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#visible}
           attribute's value can be found in the {@link #MenuGroup} array.
           @attr name android:visible
         */
-        public static final int MenuGroup_android_visible = 2;
+        public static int MenuGroup_android_visible = 2;
         /** Attributes that can be used with a MenuItem.
            <p>Includes the following attributes:</p>
            <table>
@@ -2783,7 +2783,7 @@ containing a value of this type.
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:actionLayout
         */
-        public static final int MenuItem_actionLayout = 14;
+        public static int MenuItem_actionLayout = 14;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#actionProviderClass}
           attribute's value can be found in the {@link #MenuItem} array.
@@ -2797,7 +2797,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:actionProviderClass
         */
-        public static final int MenuItem_actionProviderClass = 16;
+        public static int MenuItem_actionProviderClass = 16;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#actionViewClass}
           attribute's value can be found in the {@link #MenuItem} array.
@@ -2811,85 +2811,85 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:actionViewClass
         */
-        public static final int MenuItem_actionViewClass = 15;
+        public static int MenuItem_actionViewClass = 15;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#alphabeticShortcut}
           attribute's value can be found in the {@link #MenuItem} array.
           @attr name android:alphabeticShortcut
         */
-        public static final int MenuItem_android_alphabeticShortcut = 9;
+        public static int MenuItem_android_alphabeticShortcut = 9;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#checkable}
           attribute's value can be found in the {@link #MenuItem} array.
           @attr name android:checkable
         */
-        public static final int MenuItem_android_checkable = 11;
+        public static int MenuItem_android_checkable = 11;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#checked}
           attribute's value can be found in the {@link #MenuItem} array.
           @attr name android:checked
         */
-        public static final int MenuItem_android_checked = 3;
+        public static int MenuItem_android_checked = 3;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#enabled}
           attribute's value can be found in the {@link #MenuItem} array.
           @attr name android:enabled
         */
-        public static final int MenuItem_android_enabled = 1;
+        public static int MenuItem_android_enabled = 1;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#icon}
           attribute's value can be found in the {@link #MenuItem} array.
           @attr name android:icon
         */
-        public static final int MenuItem_android_icon = 0;
+        public static int MenuItem_android_icon = 0;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#id}
           attribute's value can be found in the {@link #MenuItem} array.
           @attr name android:id
         */
-        public static final int MenuItem_android_id = 2;
+        public static int MenuItem_android_id = 2;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#menuCategory}
           attribute's value can be found in the {@link #MenuItem} array.
           @attr name android:menuCategory
         */
-        public static final int MenuItem_android_menuCategory = 5;
+        public static int MenuItem_android_menuCategory = 5;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#numericShortcut}
           attribute's value can be found in the {@link #MenuItem} array.
           @attr name android:numericShortcut
         */
-        public static final int MenuItem_android_numericShortcut = 10;
+        public static int MenuItem_android_numericShortcut = 10;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#onClick}
           attribute's value can be found in the {@link #MenuItem} array.
           @attr name android:onClick
         */
-        public static final int MenuItem_android_onClick = 12;
+        public static int MenuItem_android_onClick = 12;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#orderInCategory}
           attribute's value can be found in the {@link #MenuItem} array.
           @attr name android:orderInCategory
         */
-        public static final int MenuItem_android_orderInCategory = 6;
+        public static int MenuItem_android_orderInCategory = 6;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#title}
           attribute's value can be found in the {@link #MenuItem} array.
           @attr name android:title
         */
-        public static final int MenuItem_android_title = 7;
+        public static int MenuItem_android_title = 7;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#titleCondensed}
           attribute's value can be found in the {@link #MenuItem} array.
           @attr name android:titleCondensed
         */
-        public static final int MenuItem_android_titleCondensed = 8;
+        public static int MenuItem_android_titleCondensed = 8;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#visible}
           attribute's value can be found in the {@link #MenuItem} array.
           @attr name android:visible
         */
-        public static final int MenuItem_android_visible = 4;
+        public static int MenuItem_android_visible = 4;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#showAsAction}
           attribute's value can be found in the {@link #MenuItem} array.
@@ -2909,7 +2909,7 @@ containing a value of this type.
 </table>
           @attr name me.imid.swipebacklayout.lib:showAsAction
         */
-        public static final int MenuItem_showAsAction = 13;
+        public static int MenuItem_showAsAction = 13;
         /** Attributes that can be used with a MenuView.
            <p>Includes the following attributes:</p>
            <table>
@@ -2943,43 +2943,43 @@ containing a value of this type.
           attribute's value can be found in the {@link #MenuView} array.
           @attr name android:headerBackground
         */
-        public static final int MenuView_android_headerBackground = 4;
+        public static int MenuView_android_headerBackground = 4;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#horizontalDivider}
           attribute's value can be found in the {@link #MenuView} array.
           @attr name android:horizontalDivider
         */
-        public static final int MenuView_android_horizontalDivider = 2;
+        public static int MenuView_android_horizontalDivider = 2;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#itemBackground}
           attribute's value can be found in the {@link #MenuView} array.
           @attr name android:itemBackground
         */
-        public static final int MenuView_android_itemBackground = 5;
+        public static int MenuView_android_itemBackground = 5;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#itemIconDisabledAlpha}
           attribute's value can be found in the {@link #MenuView} array.
           @attr name android:itemIconDisabledAlpha
         */
-        public static final int MenuView_android_itemIconDisabledAlpha = 6;
+        public static int MenuView_android_itemIconDisabledAlpha = 6;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#itemTextAppearance}
           attribute's value can be found in the {@link #MenuView} array.
           @attr name android:itemTextAppearance
         */
-        public static final int MenuView_android_itemTextAppearance = 1;
+        public static int MenuView_android_itemTextAppearance = 1;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#verticalDivider}
           attribute's value can be found in the {@link #MenuView} array.
           @attr name android:verticalDivider
         */
-        public static final int MenuView_android_verticalDivider = 3;
+        public static int MenuView_android_verticalDivider = 3;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#windowAnimationStyle}
           attribute's value can be found in the {@link #MenuView} array.
           @attr name android:windowAnimationStyle
         */
-        public static final int MenuView_android_windowAnimationStyle = 0;
+        public static int MenuView_android_windowAnimationStyle = 0;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#preserveIconSpacing}
           attribute's value can be found in the {@link #MenuView} array.
@@ -2993,7 +2993,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:preserveIconSpacing
         */
-        public static final int MenuView_preserveIconSpacing = 7;
+        public static int MenuView_preserveIconSpacing = 7;
         /** Attributes that can be used with a PopupWindow.
            <p>Includes the following attributes:</p>
            <table>
@@ -3014,7 +3014,7 @@ containing a value of this type.
           attribute's value can be found in the {@link #PopupWindow} array.
           @attr name android:popupBackground
         */
-        public static final int PopupWindow_android_popupBackground = 0;
+        public static int PopupWindow_android_popupBackground = 0;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#overlapAnchor}
           attribute's value can be found in the {@link #PopupWindow} array.
@@ -3028,7 +3028,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:overlapAnchor
         */
-        public static final int PopupWindow_overlapAnchor = 1;
+        public static int PopupWindow_overlapAnchor = 1;
         /** Attributes that can be used with a PopupWindowBackgroundState.
            <p>Includes the following attributes:</p>
            <table>
@@ -3055,7 +3055,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:state_above_anchor
         */
-        public static final int PopupWindowBackgroundState_state_above_anchor = 0;
+        public static int PopupWindowBackgroundState_state_above_anchor = 0;
         /** Attributes that can be used with a SearchView.
            <p>Includes the following attributes:</p>
            <table>
@@ -3105,25 +3105,25 @@ containing a value of this type.
           attribute's value can be found in the {@link #SearchView} array.
           @attr name android:focusable
         */
-        public static final int SearchView_android_focusable = 0;
+        public static int SearchView_android_focusable = 0;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#imeOptions}
           attribute's value can be found in the {@link #SearchView} array.
           @attr name android:imeOptions
         */
-        public static final int SearchView_android_imeOptions = 3;
+        public static int SearchView_android_imeOptions = 3;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#inputType}
           attribute's value can be found in the {@link #SearchView} array.
           @attr name android:inputType
         */
-        public static final int SearchView_android_inputType = 2;
+        public static int SearchView_android_inputType = 2;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#maxWidth}
           attribute's value can be found in the {@link #SearchView} array.
           @attr name android:maxWidth
         */
-        public static final int SearchView_android_maxWidth = 1;
+        public static int SearchView_android_maxWidth = 1;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#closeIcon}
           attribute's value can be found in the {@link #SearchView} array.
@@ -3133,7 +3133,7 @@ containing a value of this type.
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:closeIcon
         */
-        public static final int SearchView_closeIcon = 7;
+        public static int SearchView_closeIcon = 7;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#commitIcon}
           attribute's value can be found in the {@link #SearchView} array.
@@ -3143,7 +3143,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:commitIcon
         */
-        public static final int SearchView_commitIcon = 11;
+        public static int SearchView_commitIcon = 11;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#goIcon}
           attribute's value can be found in the {@link #SearchView} array.
@@ -3153,7 +3153,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:goIcon
         */
-        public static final int SearchView_goIcon = 8;
+        public static int SearchView_goIcon = 8;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#iconifiedByDefault}
           attribute's value can be found in the {@link #SearchView} array.
@@ -3167,7 +3167,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:iconifiedByDefault
         */
-        public static final int SearchView_iconifiedByDefault = 5;
+        public static int SearchView_iconifiedByDefault = 5;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#layout}
           attribute's value can be found in the {@link #SearchView} array.
@@ -3177,7 +3177,7 @@ containing a value of this type.
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:layout
         */
-        public static final int SearchView_layout = 4;
+        public static int SearchView_layout = 4;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#queryBackground}
           attribute's value can be found in the {@link #SearchView} array.
@@ -3187,7 +3187,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:queryBackground
         */
-        public static final int SearchView_queryBackground = 13;
+        public static int SearchView_queryBackground = 13;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#queryHint}
           attribute's value can be found in the {@link #SearchView} array.
@@ -3201,7 +3201,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:queryHint
         */
-        public static final int SearchView_queryHint = 6;
+        public static int SearchView_queryHint = 6;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#searchIcon}
           attribute's value can be found in the {@link #SearchView} array.
@@ -3211,7 +3211,7 @@ containing a value of this type.
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:searchIcon
         */
-        public static final int SearchView_searchIcon = 9;
+        public static int SearchView_searchIcon = 9;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#submitBackground}
           attribute's value can be found in the {@link #SearchView} array.
@@ -3221,7 +3221,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:submitBackground
         */
-        public static final int SearchView_submitBackground = 14;
+        public static int SearchView_submitBackground = 14;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#suggestionRowLayout}
           attribute's value can be found in the {@link #SearchView} array.
@@ -3231,7 +3231,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:suggestionRowLayout
         */
-        public static final int SearchView_suggestionRowLayout = 12;
+        public static int SearchView_suggestionRowLayout = 12;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#voiceIcon}
           attribute's value can be found in the {@link #SearchView} array.
@@ -3241,7 +3241,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:voiceIcon
         */
-        public static final int SearchView_voiceIcon = 10;
+        public static int SearchView_voiceIcon = 10;
         /** Attributes that can be used with a Spinner.
            <p>Includes the following attributes:</p>
            <table>
@@ -3282,43 +3282,43 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           attribute's value can be found in the {@link #Spinner} array.
           @attr name android:background
         */
-        public static final int Spinner_android_background = 1;
+        public static int Spinner_android_background = 1;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#dropDownHorizontalOffset}
           attribute's value can be found in the {@link #Spinner} array.
           @attr name android:dropDownHorizontalOffset
         */
-        public static final int Spinner_android_dropDownHorizontalOffset = 5;
+        public static int Spinner_android_dropDownHorizontalOffset = 5;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#dropDownSelector}
           attribute's value can be found in the {@link #Spinner} array.
           @attr name android:dropDownSelector
         */
-        public static final int Spinner_android_dropDownSelector = 2;
+        public static int Spinner_android_dropDownSelector = 2;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#dropDownVerticalOffset}
           attribute's value can be found in the {@link #Spinner} array.
           @attr name android:dropDownVerticalOffset
         */
-        public static final int Spinner_android_dropDownVerticalOffset = 6;
+        public static int Spinner_android_dropDownVerticalOffset = 6;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#dropDownWidth}
           attribute's value can be found in the {@link #Spinner} array.
           @attr name android:dropDownWidth
         */
-        public static final int Spinner_android_dropDownWidth = 4;
+        public static int Spinner_android_dropDownWidth = 4;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#gravity}
           attribute's value can be found in the {@link #Spinner} array.
           @attr name android:gravity
         */
-        public static final int Spinner_android_gravity = 0;
+        public static int Spinner_android_gravity = 0;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#popupBackground}
           attribute's value can be found in the {@link #Spinner} array.
           @attr name android:popupBackground
         */
-        public static final int Spinner_android_popupBackground = 3;
+        public static int Spinner_android_popupBackground = 3;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#disableChildrenWhenDisabled}
           attribute's value can be found in the {@link #Spinner} array.
@@ -3332,7 +3332,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:disableChildrenWhenDisabled
         */
-        public static final int Spinner_disableChildrenWhenDisabled = 10;
+        public static int Spinner_disableChildrenWhenDisabled = 10;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#popupPromptView}
           attribute's value can be found in the {@link #Spinner} array.
@@ -3342,7 +3342,7 @@ containing a value of this type.
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:popupPromptView
         */
-        public static final int Spinner_popupPromptView = 9;
+        public static int Spinner_popupPromptView = 9;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#prompt}
           attribute's value can be found in the {@link #Spinner} array.
@@ -3352,7 +3352,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:prompt
         */
-        public static final int Spinner_prompt = 7;
+        public static int Spinner_prompt = 7;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#spinnerMode}
           attribute's value can be found in the {@link #Spinner} array.
@@ -3369,7 +3369,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 </table>
           @attr name me.imid.swipebacklayout.lib:spinnerMode
         */
-        public static final int Spinner_spinnerMode = 8;
+        public static int Spinner_spinnerMode = 8;
         /** Attributes that can be used with a SwipeBackLayout.
            <p>Includes the following attributes:</p>
            <table>
@@ -3410,7 +3410,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 </table>
           @attr name me.imid.swipebacklayout.lib:edge_flag
         */
-        public static final int SwipeBackLayout_edge_flag = 1;
+        public static int SwipeBackLayout_edge_flag = 1;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#edge_size}
           attribute's value can be found in the {@link #SwipeBackLayout} array.
@@ -3426,7 +3426,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:edge_size
         */
-        public static final int SwipeBackLayout_edge_size = 0;
+        public static int SwipeBackLayout_edge_size = 0;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#shadow_bottom}
           attribute's value can be found in the {@link #SwipeBackLayout} array.
@@ -3436,7 +3436,7 @@ containing a value of this type.
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:shadow_bottom
         */
-        public static final int SwipeBackLayout_shadow_bottom = 4;
+        public static int SwipeBackLayout_shadow_bottom = 4;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#shadow_left}
           attribute's value can be found in the {@link #SwipeBackLayout} array.
@@ -3446,7 +3446,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:shadow_left
         */
-        public static final int SwipeBackLayout_shadow_left = 2;
+        public static int SwipeBackLayout_shadow_left = 2;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#shadow_right}
           attribute's value can be found in the {@link #SwipeBackLayout} array.
@@ -3456,7 +3456,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:shadow_right
         */
-        public static final int SwipeBackLayout_shadow_right = 3;
+        public static int SwipeBackLayout_shadow_right = 3;
         /** Attributes that can be used with a SwitchCompat.
            <p>Includes the following attributes:</p>
            <table>
@@ -3495,19 +3495,19 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           attribute's value can be found in the {@link #SwitchCompat} array.
           @attr name android:textOff
         */
-        public static final int SwitchCompat_android_textOff = 1;
+        public static int SwitchCompat_android_textOff = 1;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#textOn}
           attribute's value can be found in the {@link #SwitchCompat} array.
           @attr name android:textOn
         */
-        public static final int SwitchCompat_android_textOn = 0;
+        public static int SwitchCompat_android_textOn = 0;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#thumb}
           attribute's value can be found in the {@link #SwitchCompat} array.
           @attr name android:thumb
         */
-        public static final int SwitchCompat_android_thumb = 2;
+        public static int SwitchCompat_android_thumb = 2;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#showText}
           attribute's value can be found in the {@link #SwitchCompat} array.
@@ -3521,7 +3521,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:showText
         */
-        public static final int SwitchCompat_showText = 9;
+        public static int SwitchCompat_showText = 9;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#splitTrack}
           attribute's value can be found in the {@link #SwitchCompat} array.
@@ -3535,7 +3535,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:splitTrack
         */
-        public static final int SwitchCompat_splitTrack = 8;
+        public static int SwitchCompat_splitTrack = 8;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#switchMinWidth}
           attribute's value can be found in the {@link #SwitchCompat} array.
@@ -3551,7 +3551,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:switchMinWidth
         */
-        public static final int SwitchCompat_switchMinWidth = 6;
+        public static int SwitchCompat_switchMinWidth = 6;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#switchPadding}
           attribute's value can be found in the {@link #SwitchCompat} array.
@@ -3567,7 +3567,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:switchPadding
         */
-        public static final int SwitchCompat_switchPadding = 7;
+        public static int SwitchCompat_switchPadding = 7;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#switchTextAppearance}
           attribute's value can be found in the {@link #SwitchCompat} array.
@@ -3577,7 +3577,7 @@ containing a value of this type.
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:switchTextAppearance
         */
-        public static final int SwitchCompat_switchTextAppearance = 5;
+        public static int SwitchCompat_switchTextAppearance = 5;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#thumbTextPadding}
           attribute's value can be found in the {@link #SwitchCompat} array.
@@ -3593,7 +3593,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:thumbTextPadding
         */
-        public static final int SwitchCompat_thumbTextPadding = 4;
+        public static int SwitchCompat_thumbTextPadding = 4;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#track}
           attribute's value can be found in the {@link #SwitchCompat} array.
@@ -3603,7 +3603,7 @@ containing a value of this type.
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:track
         */
-        public static final int SwitchCompat_track = 3;
+        public static int SwitchCompat_track = 3;
         /** Attributes that can be used with a Theme.
            <p>Includes the following attributes:</p>
            <table>
@@ -3810,7 +3810,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:actionBarDivider
         */
-        public static final int Theme_actionBarDivider = 19;
+        public static int Theme_actionBarDivider = 19;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#actionBarItemBackground}
           attribute's value can be found in the {@link #Theme} array.
@@ -3820,7 +3820,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:actionBarItemBackground
         */
-        public static final int Theme_actionBarItemBackground = 20;
+        public static int Theme_actionBarItemBackground = 20;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#actionBarPopupTheme}
           attribute's value can be found in the {@link #Theme} array.
@@ -3830,7 +3830,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:actionBarPopupTheme
         */
-        public static final int Theme_actionBarPopupTheme = 13;
+        public static int Theme_actionBarPopupTheme = 13;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#actionBarSize}
           attribute's value can be found in the {@link #Theme} array.
@@ -3854,7 +3854,7 @@ containing a value of this type.
 </table>
           @attr name me.imid.swipebacklayout.lib:actionBarSize
         */
-        public static final int Theme_actionBarSize = 18;
+        public static int Theme_actionBarSize = 18;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#actionBarSplitStyle}
           attribute's value can be found in the {@link #Theme} array.
@@ -3864,7 +3864,7 @@ containing a value of this type.
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:actionBarSplitStyle
         */
-        public static final int Theme_actionBarSplitStyle = 15;
+        public static int Theme_actionBarSplitStyle = 15;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#actionBarStyle}
           attribute's value can be found in the {@link #Theme} array.
@@ -3874,7 +3874,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:actionBarStyle
         */
-        public static final int Theme_actionBarStyle = 14;
+        public static int Theme_actionBarStyle = 14;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#actionBarTabBarStyle}
           attribute's value can be found in the {@link #Theme} array.
@@ -3884,7 +3884,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:actionBarTabBarStyle
         */
-        public static final int Theme_actionBarTabBarStyle = 9;
+        public static int Theme_actionBarTabBarStyle = 9;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#actionBarTabStyle}
           attribute's value can be found in the {@link #Theme} array.
@@ -3894,7 +3894,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:actionBarTabStyle
         */
-        public static final int Theme_actionBarTabStyle = 8;
+        public static int Theme_actionBarTabStyle = 8;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#actionBarTabTextStyle}
           attribute's value can be found in the {@link #Theme} array.
@@ -3904,7 +3904,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:actionBarTabTextStyle
         */
-        public static final int Theme_actionBarTabTextStyle = 10;
+        public static int Theme_actionBarTabTextStyle = 10;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#actionBarTheme}
           attribute's value can be found in the {@link #Theme} array.
@@ -3914,7 +3914,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:actionBarTheme
         */
-        public static final int Theme_actionBarTheme = 16;
+        public static int Theme_actionBarTheme = 16;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#actionBarWidgetTheme}
           attribute's value can be found in the {@link #Theme} array.
@@ -3924,7 +3924,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:actionBarWidgetTheme
         */
-        public static final int Theme_actionBarWidgetTheme = 17;
+        public static int Theme_actionBarWidgetTheme = 17;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#actionButtonStyle}
           attribute's value can be found in the {@link #Theme} array.
@@ -3934,7 +3934,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:actionButtonStyle
         */
-        public static final int Theme_actionButtonStyle = 43;
+        public static int Theme_actionButtonStyle = 43;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#actionDropDownStyle}
           attribute's value can be found in the {@link #Theme} array.
@@ -3944,7 +3944,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:actionDropDownStyle
         */
-        public static final int Theme_actionDropDownStyle = 38;
+        public static int Theme_actionDropDownStyle = 38;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#actionMenuTextAppearance}
           attribute's value can be found in the {@link #Theme} array.
@@ -3954,7 +3954,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:actionMenuTextAppearance
         */
-        public static final int Theme_actionMenuTextAppearance = 21;
+        public static int Theme_actionMenuTextAppearance = 21;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#actionMenuTextColor}
           attribute's value can be found in the {@link #Theme} array.
@@ -3966,7 +3966,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
           @attr name me.imid.swipebacklayout.lib:actionMenuTextColor
         */
-        public static final int Theme_actionMenuTextColor = 22;
+        public static int Theme_actionMenuTextColor = 22;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#actionModeBackground}
           attribute's value can be found in the {@link #Theme} array.
@@ -3976,7 +3976,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:actionModeBackground
         */
-        public static final int Theme_actionModeBackground = 25;
+        public static int Theme_actionModeBackground = 25;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#actionModeCloseButtonStyle}
           attribute's value can be found in the {@link #Theme} array.
@@ -3986,7 +3986,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:actionModeCloseButtonStyle
         */
-        public static final int Theme_actionModeCloseButtonStyle = 24;
+        public static int Theme_actionModeCloseButtonStyle = 24;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#actionModeCloseDrawable}
           attribute's value can be found in the {@link #Theme} array.
@@ -3996,7 +3996,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:actionModeCloseDrawable
         */
-        public static final int Theme_actionModeCloseDrawable = 27;
+        public static int Theme_actionModeCloseDrawable = 27;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#actionModeCopyDrawable}
           attribute's value can be found in the {@link #Theme} array.
@@ -4006,7 +4006,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:actionModeCopyDrawable
         */
-        public static final int Theme_actionModeCopyDrawable = 29;
+        public static int Theme_actionModeCopyDrawable = 29;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#actionModeCutDrawable}
           attribute's value can be found in the {@link #Theme} array.
@@ -4016,7 +4016,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:actionModeCutDrawable
         */
-        public static final int Theme_actionModeCutDrawable = 28;
+        public static int Theme_actionModeCutDrawable = 28;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#actionModeFindDrawable}
           attribute's value can be found in the {@link #Theme} array.
@@ -4026,7 +4026,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:actionModeFindDrawable
         */
-        public static final int Theme_actionModeFindDrawable = 33;
+        public static int Theme_actionModeFindDrawable = 33;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#actionModePasteDrawable}
           attribute's value can be found in the {@link #Theme} array.
@@ -4036,7 +4036,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:actionModePasteDrawable
         */
-        public static final int Theme_actionModePasteDrawable = 30;
+        public static int Theme_actionModePasteDrawable = 30;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#actionModePopupWindowStyle}
           attribute's value can be found in the {@link #Theme} array.
@@ -4046,7 +4046,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:actionModePopupWindowStyle
         */
-        public static final int Theme_actionModePopupWindowStyle = 35;
+        public static int Theme_actionModePopupWindowStyle = 35;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#actionModeSelectAllDrawable}
           attribute's value can be found in the {@link #Theme} array.
@@ -4056,7 +4056,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:actionModeSelectAllDrawable
         */
-        public static final int Theme_actionModeSelectAllDrawable = 31;
+        public static int Theme_actionModeSelectAllDrawable = 31;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#actionModeShareDrawable}
           attribute's value can be found in the {@link #Theme} array.
@@ -4066,7 +4066,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:actionModeShareDrawable
         */
-        public static final int Theme_actionModeShareDrawable = 32;
+        public static int Theme_actionModeShareDrawable = 32;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#actionModeSplitBackground}
           attribute's value can be found in the {@link #Theme} array.
@@ -4076,7 +4076,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:actionModeSplitBackground
         */
-        public static final int Theme_actionModeSplitBackground = 26;
+        public static int Theme_actionModeSplitBackground = 26;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#actionModeStyle}
           attribute's value can be found in the {@link #Theme} array.
@@ -4086,7 +4086,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:actionModeStyle
         */
-        public static final int Theme_actionModeStyle = 23;
+        public static int Theme_actionModeStyle = 23;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#actionModeWebSearchDrawable}
           attribute's value can be found in the {@link #Theme} array.
@@ -4096,7 +4096,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:actionModeWebSearchDrawable
         */
-        public static final int Theme_actionModeWebSearchDrawable = 34;
+        public static int Theme_actionModeWebSearchDrawable = 34;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#actionOverflowButtonStyle}
           attribute's value can be found in the {@link #Theme} array.
@@ -4106,7 +4106,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:actionOverflowButtonStyle
         */
-        public static final int Theme_actionOverflowButtonStyle = 11;
+        public static int Theme_actionOverflowButtonStyle = 11;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#actionOverflowMenuStyle}
           attribute's value can be found in the {@link #Theme} array.
@@ -4116,7 +4116,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:actionOverflowMenuStyle
         */
-        public static final int Theme_actionOverflowMenuStyle = 12;
+        public static int Theme_actionOverflowMenuStyle = 12;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#activityChooserViewStyle}
           attribute's value can be found in the {@link #Theme} array.
@@ -4126,13 +4126,13 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:activityChooserViewStyle
         */
-        public static final int Theme_activityChooserViewStyle = 50;
+        public static int Theme_activityChooserViewStyle = 50;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#windowIsFloating}
           attribute's value can be found in the {@link #Theme} array.
           @attr name android:windowIsFloating
         */
-        public static final int Theme_android_windowIsFloating = 0;
+        public static int Theme_android_windowIsFloating = 0;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#buttonBarButtonStyle}
           attribute's value can be found in the {@link #Theme} array.
@@ -4142,7 +4142,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:buttonBarButtonStyle
         */
-        public static final int Theme_buttonBarButtonStyle = 45;
+        public static int Theme_buttonBarButtonStyle = 45;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#buttonBarStyle}
           attribute's value can be found in the {@link #Theme} array.
@@ -4152,7 +4152,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:buttonBarStyle
         */
-        public static final int Theme_buttonBarStyle = 44;
+        public static int Theme_buttonBarStyle = 44;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#colorAccent}
           attribute's value can be found in the {@link #Theme} array.
@@ -4167,7 +4167,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:colorAccent
         */
-        public static final int Theme_colorAccent = 77;
+        public static int Theme_colorAccent = 77;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#colorButtonNormal}
           attribute's value can be found in the {@link #Theme} array.
@@ -4182,7 +4182,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:colorButtonNormal
         */
-        public static final int Theme_colorButtonNormal = 81;
+        public static int Theme_colorButtonNormal = 81;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#colorControlActivated}
           attribute's value can be found in the {@link #Theme} array.
@@ -4197,7 +4197,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:colorControlActivated
         */
-        public static final int Theme_colorControlActivated = 79;
+        public static int Theme_colorControlActivated = 79;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#colorControlHighlight}
           attribute's value can be found in the {@link #Theme} array.
@@ -4212,7 +4212,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:colorControlHighlight
         */
-        public static final int Theme_colorControlHighlight = 80;
+        public static int Theme_colorControlHighlight = 80;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#colorControlNormal}
           attribute's value can be found in the {@link #Theme} array.
@@ -4227,7 +4227,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:colorControlNormal
         */
-        public static final int Theme_colorControlNormal = 78;
+        public static int Theme_colorControlNormal = 78;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#colorPrimary}
           attribute's value can be found in the {@link #Theme} array.
@@ -4242,7 +4242,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:colorPrimary
         */
-        public static final int Theme_colorPrimary = 75;
+        public static int Theme_colorPrimary = 75;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#colorPrimaryDark}
           attribute's value can be found in the {@link #Theme} array.
@@ -4257,7 +4257,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:colorPrimaryDark
         */
-        public static final int Theme_colorPrimaryDark = 76;
+        public static int Theme_colorPrimaryDark = 76;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#colorSwitchThumbNormal}
           attribute's value can be found in the {@link #Theme} array.
@@ -4272,7 +4272,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:colorSwitchThumbNormal
         */
-        public static final int Theme_colorSwitchThumbNormal = 82;
+        public static int Theme_colorSwitchThumbNormal = 82;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#dividerHorizontal}
           attribute's value can be found in the {@link #Theme} array.
@@ -4282,7 +4282,7 @@ containing a value of this type.
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:dividerHorizontal
         */
-        public static final int Theme_dividerHorizontal = 49;
+        public static int Theme_dividerHorizontal = 49;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#dividerVertical}
           attribute's value can be found in the {@link #Theme} array.
@@ -4292,7 +4292,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:dividerVertical
         */
-        public static final int Theme_dividerVertical = 48;
+        public static int Theme_dividerVertical = 48;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#dropDownListViewStyle}
           attribute's value can be found in the {@link #Theme} array.
@@ -4302,7 +4302,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:dropDownListViewStyle
         */
-        public static final int Theme_dropDownListViewStyle = 67;
+        public static int Theme_dropDownListViewStyle = 67;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#dropdownListPreferredItemHeight}
           attribute's value can be found in the {@link #Theme} array.
@@ -4318,7 +4318,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:dropdownListPreferredItemHeight
         */
-        public static final int Theme_dropdownListPreferredItemHeight = 39;
+        public static int Theme_dropdownListPreferredItemHeight = 39;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#editTextBackground}
           attribute's value can be found in the {@link #Theme} array.
@@ -4328,7 +4328,7 @@ containing a value of this type.
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:editTextBackground
         */
-        public static final int Theme_editTextBackground = 56;
+        public static int Theme_editTextBackground = 56;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#editTextColor}
           attribute's value can be found in the {@link #Theme} array.
@@ -4340,7 +4340,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
           @attr name me.imid.swipebacklayout.lib:editTextColor
         */
-        public static final int Theme_editTextColor = 55;
+        public static int Theme_editTextColor = 55;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#homeAsUpIndicator}
           attribute's value can be found in the {@link #Theme} array.
@@ -4350,7 +4350,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:homeAsUpIndicator
         */
-        public static final int Theme_homeAsUpIndicator = 42;
+        public static int Theme_homeAsUpIndicator = 42;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#listChoiceBackgroundIndicator}
           attribute's value can be found in the {@link #Theme} array.
@@ -4360,7 +4360,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:listChoiceBackgroundIndicator
         */
-        public static final int Theme_listChoiceBackgroundIndicator = 74;
+        public static int Theme_listChoiceBackgroundIndicator = 74;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#listPopupWindowStyle}
           attribute's value can be found in the {@link #Theme} array.
@@ -4370,7 +4370,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:listPopupWindowStyle
         */
-        public static final int Theme_listPopupWindowStyle = 68;
+        public static int Theme_listPopupWindowStyle = 68;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#listPreferredItemHeight}
           attribute's value can be found in the {@link #Theme} array.
@@ -4386,7 +4386,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:listPreferredItemHeight
         */
-        public static final int Theme_listPreferredItemHeight = 62;
+        public static int Theme_listPreferredItemHeight = 62;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#listPreferredItemHeightLarge}
           attribute's value can be found in the {@link #Theme} array.
@@ -4402,7 +4402,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:listPreferredItemHeightLarge
         */
-        public static final int Theme_listPreferredItemHeightLarge = 64;
+        public static int Theme_listPreferredItemHeightLarge = 64;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#listPreferredItemHeightSmall}
           attribute's value can be found in the {@link #Theme} array.
@@ -4418,7 +4418,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:listPreferredItemHeightSmall
         */
-        public static final int Theme_listPreferredItemHeightSmall = 63;
+        public static int Theme_listPreferredItemHeightSmall = 63;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#listPreferredItemPaddingLeft}
           attribute's value can be found in the {@link #Theme} array.
@@ -4434,7 +4434,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:listPreferredItemPaddingLeft
         */
-        public static final int Theme_listPreferredItemPaddingLeft = 65;
+        public static int Theme_listPreferredItemPaddingLeft = 65;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#listPreferredItemPaddingRight}
           attribute's value can be found in the {@link #Theme} array.
@@ -4450,7 +4450,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:listPreferredItemPaddingRight
         */
-        public static final int Theme_listPreferredItemPaddingRight = 66;
+        public static int Theme_listPreferredItemPaddingRight = 66;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#panelBackground}
           attribute's value can be found in the {@link #Theme} array.
@@ -4460,7 +4460,7 @@ containing a value of this type.
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:panelBackground
         */
-        public static final int Theme_panelBackground = 71;
+        public static int Theme_panelBackground = 71;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#panelMenuListTheme}
           attribute's value can be found in the {@link #Theme} array.
@@ -4470,7 +4470,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:panelMenuListTheme
         */
-        public static final int Theme_panelMenuListTheme = 73;
+        public static int Theme_panelMenuListTheme = 73;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#panelMenuListWidth}
           attribute's value can be found in the {@link #Theme} array.
@@ -4486,7 +4486,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:panelMenuListWidth
         */
-        public static final int Theme_panelMenuListWidth = 72;
+        public static int Theme_panelMenuListWidth = 72;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#popupMenuStyle}
           attribute's value can be found in the {@link #Theme} array.
@@ -4496,7 +4496,7 @@ containing a value of this type.
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:popupMenuStyle
         */
-        public static final int Theme_popupMenuStyle = 53;
+        public static int Theme_popupMenuStyle = 53;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#popupWindowStyle}
           attribute's value can be found in the {@link #Theme} array.
@@ -4506,7 +4506,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:popupWindowStyle
         */
-        public static final int Theme_popupWindowStyle = 54;
+        public static int Theme_popupWindowStyle = 54;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#searchViewStyle}
           attribute's value can be found in the {@link #Theme} array.
@@ -4516,7 +4516,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:searchViewStyle
         */
-        public static final int Theme_searchViewStyle = 61;
+        public static int Theme_searchViewStyle = 61;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#selectableItemBackground}
           attribute's value can be found in the {@link #Theme} array.
@@ -4526,7 +4526,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:selectableItemBackground
         */
-        public static final int Theme_selectableItemBackground = 46;
+        public static int Theme_selectableItemBackground = 46;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#selectableItemBackgroundBorderless}
           attribute's value can be found in the {@link #Theme} array.
@@ -4536,7 +4536,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:selectableItemBackgroundBorderless
         */
-        public static final int Theme_selectableItemBackgroundBorderless = 47;
+        public static int Theme_selectableItemBackgroundBorderless = 47;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#spinnerDropDownItemStyle}
           attribute's value can be found in the {@link #Theme} array.
@@ -4546,7 +4546,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:spinnerDropDownItemStyle
         */
-        public static final int Theme_spinnerDropDownItemStyle = 41;
+        public static int Theme_spinnerDropDownItemStyle = 41;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#spinnerStyle}
           attribute's value can be found in the {@link #Theme} array.
@@ -4556,7 +4556,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:spinnerStyle
         */
-        public static final int Theme_spinnerStyle = 40;
+        public static int Theme_spinnerStyle = 40;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#switchStyle}
           attribute's value can be found in the {@link #Theme} array.
@@ -4566,7 +4566,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:switchStyle
         */
-        public static final int Theme_switchStyle = 57;
+        public static int Theme_switchStyle = 57;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#textAppearanceLargePopupMenu}
           attribute's value can be found in the {@link #Theme} array.
@@ -4576,7 +4576,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:textAppearanceLargePopupMenu
         */
-        public static final int Theme_textAppearanceLargePopupMenu = 36;
+        public static int Theme_textAppearanceLargePopupMenu = 36;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#textAppearanceListItem}
           attribute's value can be found in the {@link #Theme} array.
@@ -4586,7 +4586,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:textAppearanceListItem
         */
-        public static final int Theme_textAppearanceListItem = 69;
+        public static int Theme_textAppearanceListItem = 69;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#textAppearanceListItemSmall}
           attribute's value can be found in the {@link #Theme} array.
@@ -4596,7 +4596,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:textAppearanceListItemSmall
         */
-        public static final int Theme_textAppearanceListItemSmall = 70;
+        public static int Theme_textAppearanceListItemSmall = 70;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#textAppearanceSearchResultSubtitle}
           attribute's value can be found in the {@link #Theme} array.
@@ -4606,7 +4606,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:textAppearanceSearchResultSubtitle
         */
-        public static final int Theme_textAppearanceSearchResultSubtitle = 59;
+        public static int Theme_textAppearanceSearchResultSubtitle = 59;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#textAppearanceSearchResultTitle}
           attribute's value can be found in the {@link #Theme} array.
@@ -4616,7 +4616,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:textAppearanceSearchResultTitle
         */
-        public static final int Theme_textAppearanceSearchResultTitle = 58;
+        public static int Theme_textAppearanceSearchResultTitle = 58;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#textAppearanceSmallPopupMenu}
           attribute's value can be found in the {@link #Theme} array.
@@ -4626,7 +4626,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:textAppearanceSmallPopupMenu
         */
-        public static final int Theme_textAppearanceSmallPopupMenu = 37;
+        public static int Theme_textAppearanceSmallPopupMenu = 37;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#textColorSearchUrl}
           attribute's value can be found in the {@link #Theme} array.
@@ -4638,7 +4638,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
           @attr name me.imid.swipebacklayout.lib:textColorSearchUrl
         */
-        public static final int Theme_textColorSearchUrl = 60;
+        public static int Theme_textColorSearchUrl = 60;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#toolbarNavigationButtonStyle}
           attribute's value can be found in the {@link #Theme} array.
@@ -4648,7 +4648,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:toolbarNavigationButtonStyle
         */
-        public static final int Theme_toolbarNavigationButtonStyle = 52;
+        public static int Theme_toolbarNavigationButtonStyle = 52;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#toolbarStyle}
           attribute's value can be found in the {@link #Theme} array.
@@ -4658,7 +4658,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:toolbarStyle
         */
-        public static final int Theme_toolbarStyle = 51;
+        public static int Theme_toolbarStyle = 51;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#windowActionBar}
           attribute's value can be found in the {@link #Theme} array.
@@ -4672,7 +4672,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:windowActionBar
         */
-        public static final int Theme_windowActionBar = 1;
+        public static int Theme_windowActionBar = 1;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#windowActionBarOverlay}
           attribute's value can be found in the {@link #Theme} array.
@@ -4686,7 +4686,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:windowActionBarOverlay
         */
-        public static final int Theme_windowActionBarOverlay = 2;
+        public static int Theme_windowActionBarOverlay = 2;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#windowActionModeOverlay}
           attribute's value can be found in the {@link #Theme} array.
@@ -4700,7 +4700,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:windowActionModeOverlay
         */
-        public static final int Theme_windowActionModeOverlay = 3;
+        public static int Theme_windowActionModeOverlay = 3;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#windowFixedHeightMajor}
           attribute's value can be found in the {@link #Theme} array.
@@ -4719,7 +4719,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:windowFixedHeightMajor
         */
-        public static final int Theme_windowFixedHeightMajor = 7;
+        public static int Theme_windowFixedHeightMajor = 7;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#windowFixedHeightMinor}
           attribute's value can be found in the {@link #Theme} array.
@@ -4738,7 +4738,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:windowFixedHeightMinor
         */
-        public static final int Theme_windowFixedHeightMinor = 5;
+        public static int Theme_windowFixedHeightMinor = 5;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#windowFixedWidthMajor}
           attribute's value can be found in the {@link #Theme} array.
@@ -4757,7 +4757,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:windowFixedWidthMajor
         */
-        public static final int Theme_windowFixedWidthMajor = 4;
+        public static int Theme_windowFixedWidthMajor = 4;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#windowFixedWidthMinor}
           attribute's value can be found in the {@link #Theme} array.
@@ -4776,7 +4776,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:windowFixedWidthMinor
         */
-        public static final int Theme_windowFixedWidthMinor = 6;
+        public static int Theme_windowFixedWidthMinor = 6;
         /** Attributes that can be used with a Toolbar.
            <p>Includes the following attributes:</p>
            <table>
@@ -4842,13 +4842,13 @@ containing a value of this type.
           attribute's value can be found in the {@link #Toolbar} array.
           @attr name android:gravity
         */
-        public static final int Toolbar_android_gravity = 0;
+        public static int Toolbar_android_gravity = 0;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#minHeight}
           attribute's value can be found in the {@link #Toolbar} array.
           @attr name android:minHeight
         */
-        public static final int Toolbar_android_minHeight = 1;
+        public static int Toolbar_android_minHeight = 1;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#collapseContentDescription}
           attribute's value can be found in the {@link #Toolbar} array.
@@ -4862,7 +4862,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:collapseContentDescription
         */
-        public static final int Toolbar_collapseContentDescription = 19;
+        public static int Toolbar_collapseContentDescription = 19;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#collapseIcon}
           attribute's value can be found in the {@link #Toolbar} array.
@@ -4872,7 +4872,7 @@ containing a value of this type.
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:collapseIcon
         */
-        public static final int Toolbar_collapseIcon = 18;
+        public static int Toolbar_collapseIcon = 18;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#contentInsetEnd}
           attribute's value can be found in the {@link #Toolbar} array.
@@ -4888,7 +4888,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:contentInsetEnd
         */
-        public static final int Toolbar_contentInsetEnd = 5;
+        public static int Toolbar_contentInsetEnd = 5;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#contentInsetLeft}
           attribute's value can be found in the {@link #Toolbar} array.
@@ -4904,7 +4904,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:contentInsetLeft
         */
-        public static final int Toolbar_contentInsetLeft = 6;
+        public static int Toolbar_contentInsetLeft = 6;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#contentInsetRight}
           attribute's value can be found in the {@link #Toolbar} array.
@@ -4920,7 +4920,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:contentInsetRight
         */
-        public static final int Toolbar_contentInsetRight = 7;
+        public static int Toolbar_contentInsetRight = 7;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#contentInsetStart}
           attribute's value can be found in the {@link #Toolbar} array.
@@ -4936,7 +4936,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:contentInsetStart
         */
-        public static final int Toolbar_contentInsetStart = 4;
+        public static int Toolbar_contentInsetStart = 4;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#maxButtonHeight}
           attribute's value can be found in the {@link #Toolbar} array.
@@ -4952,7 +4952,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:maxButtonHeight
         */
-        public static final int Toolbar_maxButtonHeight = 16;
+        public static int Toolbar_maxButtonHeight = 16;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#navigationContentDescription}
           attribute's value can be found in the {@link #Toolbar} array.
@@ -4966,7 +4966,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:navigationContentDescription
         */
-        public static final int Toolbar_navigationContentDescription = 21;
+        public static int Toolbar_navigationContentDescription = 21;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#navigationIcon}
           attribute's value can be found in the {@link #Toolbar} array.
@@ -4976,7 +4976,7 @@ containing a value of this type.
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:navigationIcon
         */
-        public static final int Toolbar_navigationIcon = 20;
+        public static int Toolbar_navigationIcon = 20;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#popupTheme}
           attribute's value can be found in the {@link #Toolbar} array.
@@ -4986,7 +4986,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:popupTheme
         */
-        public static final int Toolbar_popupTheme = 8;
+        public static int Toolbar_popupTheme = 8;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#subtitle}
           attribute's value can be found in the {@link #Toolbar} array.
@@ -5000,7 +5000,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:subtitle
         */
-        public static final int Toolbar_subtitle = 3;
+        public static int Toolbar_subtitle = 3;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#subtitleTextAppearance}
           attribute's value can be found in the {@link #Toolbar} array.
@@ -5010,7 +5010,7 @@ containing a value of this type.
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:subtitleTextAppearance
         */
-        public static final int Toolbar_subtitleTextAppearance = 10;
+        public static int Toolbar_subtitleTextAppearance = 10;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#theme}
           attribute's value can be found in the {@link #Toolbar} array.
@@ -5020,7 +5020,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:theme
         */
-        public static final int Toolbar_theme = 17;
+        public static int Toolbar_theme = 17;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#title}
           attribute's value can be found in the {@link #Toolbar} array.
@@ -5034,7 +5034,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:title
         */
-        public static final int Toolbar_title = 2;
+        public static int Toolbar_title = 2;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#titleMarginBottom}
           attribute's value can be found in the {@link #Toolbar} array.
@@ -5050,7 +5050,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:titleMarginBottom
         */
-        public static final int Toolbar_titleMarginBottom = 15;
+        public static int Toolbar_titleMarginBottom = 15;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#titleMarginEnd}
           attribute's value can be found in the {@link #Toolbar} array.
@@ -5066,7 +5066,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:titleMarginEnd
         */
-        public static final int Toolbar_titleMarginEnd = 13;
+        public static int Toolbar_titleMarginEnd = 13;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#titleMarginStart}
           attribute's value can be found in the {@link #Toolbar} array.
@@ -5082,7 +5082,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:titleMarginStart
         */
-        public static final int Toolbar_titleMarginStart = 12;
+        public static int Toolbar_titleMarginStart = 12;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#titleMarginTop}
           attribute's value can be found in the {@link #Toolbar} array.
@@ -5098,7 +5098,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:titleMarginTop
         */
-        public static final int Toolbar_titleMarginTop = 14;
+        public static int Toolbar_titleMarginTop = 14;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#titleMargins}
           attribute's value can be found in the {@link #Toolbar} array.
@@ -5114,7 +5114,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:titleMargins
         */
-        public static final int Toolbar_titleMargins = 11;
+        public static int Toolbar_titleMargins = 11;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#titleTextAppearance}
           attribute's value can be found in the {@link #Toolbar} array.
@@ -5124,7 +5124,7 @@ containing a value of this type.
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name me.imid.swipebacklayout.lib:titleTextAppearance
         */
-        public static final int Toolbar_titleTextAppearance = 9;
+        public static int Toolbar_titleTextAppearance = 9;
         /** Attributes that can be used with a View.
            <p>Includes the following attributes:</p>
            <table>
@@ -5147,7 +5147,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           attribute's value can be found in the {@link #View} array.
           @attr name android:focusable
         */
-        public static final int View_android_focusable = 0;
+        public static int View_android_focusable = 0;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#paddingEnd}
           attribute's value can be found in the {@link #View} array.
@@ -5163,7 +5163,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:paddingEnd
         */
-        public static final int View_paddingEnd = 2;
+        public static int View_paddingEnd = 2;
         /**
           <p>This symbol is the offset where the {@link me.imid.swipebacklayout.lib.R.attr#paddingStart}
           attribute's value can be found in the {@link #View} array.
@@ -5179,7 +5179,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name me.imid.swipebacklayout.lib:paddingStart
         */
-        public static final int View_paddingStart = 1;
+        public static int View_paddingStart = 1;
         /** Attributes that can be used with a ViewStubCompat.
            <p>Includes the following attributes:</p>
            <table>
@@ -5202,18 +5202,18 @@ containing a value of this type.
           attribute's value can be found in the {@link #ViewStubCompat} array.
           @attr name android:id
         */
-        public static final int ViewStubCompat_android_id = 0;
+        public static int ViewStubCompat_android_id = 0;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#inflatedId}
           attribute's value can be found in the {@link #ViewStubCompat} array.
           @attr name android:inflatedId
         */
-        public static final int ViewStubCompat_android_inflatedId = 2;
+        public static int ViewStubCompat_android_inflatedId = 2;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#layout}
           attribute's value can be found in the {@link #ViewStubCompat} array.
           @attr name android:layout
         */
-        public static final int ViewStubCompat_android_layout = 1;
+        public static int ViewStubCompat_android_layout = 1;
     };
 }

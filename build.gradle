@@ -7,7 +7,6 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:+'
-        classpath 'org.ajoberstar:gradle-git:+'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:+'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -22,3 +21,15 @@ allprojects {
         }
     }
 }
+
+ext {
+    compileSdkVersion = 21
+    buildToolsVersion = "21.1.1"
+    checkReleaseBuilds = false
+    abortOnError = false
+    targetSdkVersion =21
+    minSdkVersion=14
+    versionCode=1
+    versionName = "1.0"
+}
+
