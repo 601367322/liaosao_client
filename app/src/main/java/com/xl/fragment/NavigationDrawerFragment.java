@@ -5,26 +5,43 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.xl.activity.R;
+import com.xl.activity.base.BaseFragment;
+import com.xl.util.Utils;
+
+import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.ViewById;
+
+import java.io.IOException;
+
+import pl.droidsonroids.gif.GifDrawable;
 
 
-/**
- * Fragment used for managing interactions for and presentation of a navigation drawer.
- * See the <a href="https://developer.android.com/design/patterns/navigation-drawer.html#Interaction">
- * design guidelines</a> for a complete explanation of the behaviors implemented here.
- */
-public class NavigationDrawerFragment extends Fragment {
+@EFragment(R.layout.fragment_navigation_drawer)
+public class NavigationDrawerFragment extends BaseFragment {
+
+    @ViewById
+    ImageView loading_img;
+
+    @Override
+    public void init() {
+        try {
+            GifDrawable drawable = new GifDrawable(getResources(),R.drawable.more);
+            Utils.setFullScreenImage(loading_img,drawable,getResources().getDimensionPixelSize(R.dimen.more_gif));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 
     /**
      * Remember the position of the selected item.
@@ -80,14 +97,6 @@ public class NavigationDrawerFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         // Indicate that this fragment would like to influence the set of actions in the action bar.
         setHasOptionsMenu(true);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        mDrawerListView =  inflater.inflate(
-                R.layout.fragment_navigation_drawer, container, false);
-        return mDrawerListView;
     }
 
     public boolean isDrawerOpen() {

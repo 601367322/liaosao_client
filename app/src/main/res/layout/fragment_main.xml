@@ -30,12 +30,12 @@
         android:layout_height="match_parent"
         >
 
-        <pl.droidsonroids.gif.GifImageView
+        <ImageView
             android:id="@+id/loading_img"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
-            android:src="@drawable/loading" />
+            android:scaleType="centerCrop" />
 
         <TextView
             android:id="@+id/loading_txt"
