@@ -1,6 +1,7 @@
 package com.xl.activity.base;
 
 import android.os.Bundle;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.xl.application.AM;
@@ -37,5 +38,17 @@ public abstract class BaseActivity extends SwipeBackActivity{
         // TODO Auto-generated method stub
         super.onDestroy();
         AM.getActivityManager().popActivity(this);
+    }
+
+    public void closeInput() {
+        if (getCurrentFocus() != null) {
+            ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE))
+                    .hideSoftInputFromWindow(
+                            getCurrentFocus().getWindowToken(),
+                            InputMethodManager.HIDE_NOT_ALWAYS);
+            ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE))
+                    .hideSoftInputFromWindow(
+                            getCurrentFocus().getWindowToken(), 0);
+        }
     }
 }

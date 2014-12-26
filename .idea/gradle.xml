@@ -11,8 +11,9 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/lib-core" />
             <option value="$PROJECT_DIR$/lib-core-slh" />
+            <option value="$PROJECT_DIR$/lib-float-btn" />
             <option value="$PROJECT_DIR$/lib-manipulation" />
-            <option value="$PROJECT_DIR$/swipebacklayout" />
+            <option value="$PROJECT_DIR$/lib-swipebacklayout" />
           </set>
         </option>
       </GradleProjectSettings>

@@ -9,6 +9,8 @@ public class URLS {
 	
 	public static final String SENDMESSAGE=URL+"b/sendmessage"+LAST;
 	public static final String JOINQUEUE=URL+"b/joinqueue"+LAST;
+    public static final String EXITQUEUE=URL+"b/exitqueue"+LAST;
+    public static final String CLOSECHAT=URL+"b/closechat"+LAST;
 
     public static final String LOGIN=URL+"a/login"+LAST;
 }

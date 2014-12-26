@@ -7,8 +7,9 @@
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib-core/lib-core.iml" filepath="$PROJECT_DIR$/lib-core/lib-core.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib-core-slh/lib-core-slh.iml" filepath="$PROJECT_DIR$/lib-core-slh/lib-core-slh.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lib-float-btn/lib-float-btn.iml" filepath="$PROJECT_DIR$/lib-float-btn/lib-float-btn.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib-manipulation/lib-manipulation.iml" filepath="$PROJECT_DIR$/lib-manipulation/lib-manipulation.iml" />
-      <module fileurl="file://$PROJECT_DIR$/swipebacklayout/swipebacklayout.iml" filepath="$PROJECT_DIR$/swipebacklayout/swipebacklayout.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lib-swipebacklayout/lib-swipebacklayout.iml" filepath="$PROJECT_DIR$/lib-swipebacklayout/lib-swipebacklayout.iml" />
     </modules>
   </component>
 </project>

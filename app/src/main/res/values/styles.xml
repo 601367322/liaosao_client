@@ -10,10 +10,15 @@
             res/values-vXX/styles.xml, while customizations related to
             backward-compatibility can go here.
         -->
+        <item name="actionBarStyle">@style/MyActionBarStyle</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="colorPrimaryDark">@color/holo_blue_dark</item>
         <item name="colorPrimary">@color/holo_blue_light</item>
         <item name="colorAccent">@color/holo_blue_bright</item>
+    </style>
+
+    <style name="MyActionBarStyle" parent="@style/Widget.AppCompat.ActionBar.Solid">
+        <item name="displayOptions">homeAsUp|showTitle</item>
     </style>
 
     <!-- Application theme. -->

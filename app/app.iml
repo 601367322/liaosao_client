@@ -89,6 +89,7 @@
     <orderEntry type="library" exported="" name="support-v4-21.0.3" level="project" />
     <orderEntry type="library" exported="" name="libammsdk" level="project" />
     <orderEntry type="library" exported="" name="universal-image-loader-1.9.4-SNAPSHOT" level="project" />
+    <orderEntry type="library" exported="" name="android-gif-drawable-1.1.1" level="project" />
     <orderEntry type="library" exported="" name="cardview-v7-21.0.3" level="project" />
     <orderEntry type="library" exported="" name="mta-sdk-1.6.2" level="project" />
     <orderEntry type="library" exported="" name="open_sdk_r4066_lite" level="project" />
@@ -102,8 +103,9 @@
     <orderEntry type="library" exported="" name="weibosdkcore" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-21.0.3" level="project" />
     <orderEntry type="library" exported="" name="butterknife-6.0.1-SNAPSHOT" level="project" />
+    <orderEntry type="module" module-name="lib-swipebacklayout" exported="" />
     <orderEntry type="module" module-name="lib-core" exported="" />
-    <orderEntry type="module" module-name="swipebacklayout" exported="" />
+    <orderEntry type="module" module-name="lib-float-btn" exported="" />
     <orderEntry type="module" module-name="lib-core-slh" exported="" />
     <orderEntry type="module" module-name="lib-manipulation" exported="" />
   </component>

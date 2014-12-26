@@ -26,4 +26,7 @@
     <color name="holo_gray_bright">#33CCCCCC</color>
 
     <color name="activity_bg">#f4f0e5</color>
+    <color name="white">#ffffff</color>
+    <color name="white_pressed">#f1f1f1</color>
+    <color name="black">#000000</color>
 </resources>

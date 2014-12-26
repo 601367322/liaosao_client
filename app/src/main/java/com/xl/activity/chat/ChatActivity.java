@@ -2,6 +2,8 @@ package com.xl.activity.chat;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.text.Editable;
 import android.view.KeyEvent;
@@ -22,6 +24,8 @@ import com.xl.anim.TranAnimationAdapter;
 import com.xl.bean.MessageBean;
 import com.xl.util.BroadCastUtil;
 import com.xl.util.JsonHttpResponseHandler;
+import com.xl.util.LogUtil;
+import com.xl.util.StaticUtil;
 import com.xl.util.URLS;
 import com.xl.util.Utils;
 
@@ -29,6 +33,7 @@ import org.androidannotations.annotations.AfterTextChange;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
+import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.Receiver;
 import org.androidannotations.annotations.ViewById;
 import org.json.JSONObject;
@@ -55,6 +60,9 @@ public class ChatActivity extends BaseActivity implements
     AtomicBoolean changeing2 = new AtomicBoolean(false);
 
 	protected void init() {
+
+        setSwipeBackEnable(false);
+
 		content_et.setOnEditorActionListener(this);
 
 		adapter = new ChatAdapters(this, new ArrayList<String>());
@@ -63,12 +71,25 @@ public class ChatActivity extends BaseActivity implements
 
         send_btn.setEnabled(false);
 	}
-	
+
     @Receiver(actions = BroadCastUtil.NEWMESSAGE)
     public void newMessage(Intent intent){
         MessageBean mb=(MessageBean) intent.getExtras().getSerializable("bean");
         adapter.getList().add(mb);
         adapter.notifyDataSetChanged();
+    }
+
+    @Receiver(actions = BroadCastUtil.CLOSECHAT)
+    public void closeChat(Intent intent){
+        String other=intent.getStringExtra(StaticUtil.DEVICEID);
+        if(deviceId.equals(other)){
+            content_et.setText("");
+            content_et.setHint("对方觉得你的脸不行，已退出聊天！");
+            content_et.setEnabled(false);
+            send_btn.setEnabled(false);
+            send_btn.setAlpha(0.5f);
+            closeInput();
+        }
     }
 
 	@AfterTextChange
@@ -112,13 +133,13 @@ public class ChatActivity extends BaseActivity implements
 	void send_btn() {
 
         if(isFastDoubleClick()){
-            toast("太快了，休息一下~");
+            toast(getString(R.string.wait_a_moment));
             return;
         }
 
 		final String context_str = content_et.getText().toString().trim();
 		if (context_str.length() == 0) {
-			toast("请输入内容");
+			toast(getString(R.string.you_fuck_do_not_write_send_jj));
 			content_et.requestFocus();
 			return;
 		}
@@ -181,5 +202,35 @@ public class ChatActivity extends BaseActivity implements
         lastClickTime = time;
         return false;
     }
-	
+
+    @Override
+    public void onBackPressed() {
+        showFinshDialog();
+    }
+
+    @OptionsItem(android.R.id.home)
+    public void backItem(){
+        showFinshDialog();
+    }
+
+    public void showFinshDialog(){
+        new AlertDialog.Builder(this).setTitle(getString(R.string.kiding)).setIcon(R.drawable.dialog_icon).setMessage(getString(R.string.are_you_fuck_sure_do_not_chat)).setPositiveButton(getString(R.string.papa_do_not_chat),new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                scrollToFinishActivity();
+
+                ac.httpClient.get(URLS.CLOSECHAT, ac.getRequestParams(), new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(JSONObject jo) {
+                        LogUtil.d(jo.toString());
+                    }
+                });
+            }
+        }).setNegativeButton(getString(R.string.not_sure), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        }).show();
+    }
 }

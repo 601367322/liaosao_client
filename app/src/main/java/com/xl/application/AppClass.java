@@ -34,6 +34,7 @@ public class AppClass extends Application {
 
 		httpClient=new AsyncHttpClient();
 		httpClient.setCookieStore(new PersistentCookieStore(this));
+        httpClient.setURLEncodingEnabled(false);
 	};
 
 	public RequestParams getRequestParams(){

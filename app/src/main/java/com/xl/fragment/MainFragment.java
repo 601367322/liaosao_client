@@ -1,6 +1,9 @@
 package com.xl.fragment;
 
-import android.widget.Button;
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.view.View;
+import android.widget.TextView;
 
 import com.xl.activity.R;
 import com.xl.activity.base.BaseFragment;
@@ -19,25 +22,48 @@ import org.json.JSONObject;
 public class MainFragment extends BaseFragment {
 
     @ViewById
-    Button startBtn;
+    View connect,loading_img,loading_rl;
     @ViewById
-    Button stopBtn;
-    @ViewById
-    Button isOnline;
+    TextView loading_txt;
+
 
     @Override
     public void init() {
-
-    }
-
-    @Click
-    void startBtn() {
-        ac.startService();
+        loading_img.setEnabled(false);
+        loading_txt.setEnabled(false);
     }
 
     @Click
     void connect() {
         ac.httpClient.post(URLS.JOINQUEUE, ac.getRequestParams(), new JsonHttpResponseHandler() {
+
+            @Override
+            public void onStart() {
+                connect.animate().alpha(0f).setDuration(1500).setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        connect.setEnabled(false);
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        connect.setVisibility(View.GONE);
+                    }
+                }).start();
+                loading_rl.animate().alpha(1f).setDuration(1500).setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        loading_rl.setVisibility(View.VISIBLE);
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        loading_img.setEnabled(true);
+                        loading_txt.setEnabled(true);
+                    }
+                }).start();
+            }
+
             @Override
             public void onSuccess(JSONObject jo) {
                 try {
@@ -57,17 +83,47 @@ public class MainFragment extends BaseFragment {
         });
     }
 
-
-    int i = 1;
-
     @Click
-    void isOnline() {
-        isOnline.setText(ac.isOnline() + "");
-        ac.getBean().setNumber(i++).commit(getActivity());
+    void loading_txt(){
+        loading_txt.setText(R.string.finding2);
+        toast(ac.getString(R.string.why_click_me));
     }
 
     @Click
-    void stopBtn() {
-        ac.stopService();
+    void loading_img(){
+        ac.httpClient.post(URLS.EXITQUEUE, ac.getRequestParams(), new JsonHttpResponseHandler() {
+
+            @Override
+            public void onStart() {
+                connect.animate().alpha(1f).setDuration(1500).setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        connect.setVisibility(View.VISIBLE);
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        connect.setEnabled(true);
+                    }
+                }).start();
+                loading_rl.animate().alpha(0f).setDuration(1500).setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        loading_img.setEnabled(false);
+                        loading_txt.setEnabled(false);
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        loading_rl.setVisibility(View.GONE);
+                    }
+                }).start();
+            }
+
+            @Override
+            public void onSuccess(JSONObject jo) {
+            }
+        });
     }
+
 }
