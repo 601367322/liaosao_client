@@ -5,15 +5,24 @@
     android:background="@color/activity_bg"
     android:orientation="vertical">
 
-    <ListView
-        android:id="@+id/listview"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:cacheColorHint="#00000000"
-        android:divider="@null"
-        android:listSelector="#00000000"
-        android:transcriptMode="alwaysScroll"></ListView>
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <ListView
+            android:id="@+id/listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:cacheColorHint="#00000000"
+            android:divider="@null"
+            android:listSelector="#00000000"
+            android:transcriptMode="alwaysScroll"></ListView>
+
+        <com.xl.custom.CView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -22,6 +31,14 @@
         android:gravity="center_vertical"
         android:minHeight="48dp"
         android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/voice_btn"
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            android:background="@null"
+            android:scaleType="centerInside"
+            android:src="@drawable/mic_selector" />
 
         <EditText
             android:id="@+id/content_et"
@@ -32,7 +49,7 @@
             android:imeOptions="actionSend"
             android:maxLength="150"
             android:minHeight="40dp"
-            android:singleLine="true" />
+            android:textSize="16sp" />
 
         <FrameLayout
             android:layout_width="50dp"
@@ -44,7 +61,8 @@
                 android:layout_height="match_parent"
                 android:alpha="0.5"
                 android:background="@null"
-                android:src="@drawable/ic_action_send_now" />
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_content_send" />
         </FrameLayout>
     </LinearLayout>
 

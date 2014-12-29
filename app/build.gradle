@@ -60,6 +60,7 @@ dependencies {
     compile project(':lib-manipulation')
     compile project(':lib-float-btn')
     compile project(':lib-swipebacklayout')
+    //compile project(':lib-mpchart')
 }
 
 
