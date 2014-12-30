@@ -81,7 +81,7 @@ public class SpeexRecorder implements Runnable {
                     v += tempBuffer[i] * tempBuffer[i];
                 }
     //			Log.i("spl", String.valueOf(v / (float) bufferRead));
-                int value = (int) (Math.abs((int) (v / (float) bufferRead) / 10000) >> 1);
+                int value = Math.abs((int) (v / (float) bufferRead) / 10000) >> 1;
     //			double dB = 10*Math.log10((double)(v/(float)bufferRead));
                 mtl.getMicRealTimeSize(value);
                 encoder.putData(tempBuffer, bufferRead);

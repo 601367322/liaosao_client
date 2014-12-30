@@ -6,4 +6,6 @@
 
     <dimen name="navigation_drawer_width">240dp</dimen>
     <dimen name="more_gif">150dp</dimen>
+
+    <dimen name="chat_bottom_voice_height">208dp</dimen>
 </resources>
