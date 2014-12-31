@@ -8,4 +8,6 @@
     <dimen name="more_gif">150dp</dimen>
 
     <dimen name="chat_bottom_voice_height">208dp</dimen>
+
+    <dimen name="voice_btn_width">80dp</dimen>
 </resources>

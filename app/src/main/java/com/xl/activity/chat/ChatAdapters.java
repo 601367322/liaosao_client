@@ -1,8 +1,10 @@
 package com.xl.activity.chat;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.xl.activity.R;
@@ -13,6 +15,7 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.Optional;
 
 public class ChatAdapters extends BaseAdapterListView<MessageBean> {
 
@@ -24,10 +27,21 @@ public class ChatAdapters extends BaseAdapterListView<MessageBean> {
 	public int getItemViewType(int position) {
 		MessageBean mb = (MessageBean) getList().get(position);
 		if (mb.getToId().equals(ac.deviceId)) {
-			return 0;
+            switch (mb.getMsgType()){
+                case 0:
+                    return 0;
+                case 1:
+                    return 1;
+            }
 		} else {
-			return 1;
+            switch (mb.getMsgType()){
+                case 0:
+                    return 10;
+                case 1:
+                    return 11;
+            }
 		}
+        return -1;
 	}
 
 	@Override
@@ -39,11 +53,20 @@ public class ChatAdapters extends BaseAdapterListView<MessageBean> {
 	public View getView(int position, View view, ViewGroup viewGroup) {
 		ViewHolder holder;
 		if (view == null) {
-			if (getItemViewType(position) == 0)
-				view = View.inflate(context, R.layout.chat_left_layout, null);
-			else {
-				view = View.inflate(context, R.layout.chat_right_layout, null);
-			}
+            switch (getItemViewType(position)){
+                case 0:
+                    LayoutInflater.from(context).inflate(R.layout.chat_left_text_layout,viewGroup,false);
+                    break;
+                case 1:
+                    LayoutInflater.from(context).inflate(R.layout.chat_left_voice_layout,viewGroup,false);
+                    break;
+                case 10:
+                    LayoutInflater.from(context).inflate(R.layout.chat_right_text_layout,viewGroup,false);
+                    break;
+                case 11:
+                    LayoutInflater.from(context).inflate(R.layout.chat_right_voice_layout,viewGroup,false);
+                    break;
+            }
 			holder = new ViewHolder(view);
 			view.setTag(holder);
 		} else {
@@ -56,8 +79,17 @@ public class ChatAdapters extends BaseAdapterListView<MessageBean> {
 
 	static class ViewHolder {
 
+        @Optional
 		@InjectView(R.id.content)
 		TextView content;
+
+        @Optional
+        @InjectView(R.id.voice_img)
+        ImageView voice_img;
+
+        @Optional
+        @InjectView(R.id.voice)
+        View voice;
 
 		public ViewHolder(View view) {
 			ButterKnife.inject(this, view);

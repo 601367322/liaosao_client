@@ -1,10 +1,9 @@
 package com.xl.bean;
 
-import java.io.Serializable;
-
-import com.google.gson.Gson;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+
+import java.io.Serializable;
 
 @DatabaseTable(tableName="MessageBean")
 public class MessageBean implements Serializable{
@@ -29,6 +28,8 @@ public class MessageBean implements Serializable{
 	private String userLogo;
 	@DatabaseField
 	private Integer state;//0 未读  1 已读
+    @DatabaseField
+    private int msgType;
 	public MessageBean() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -108,5 +109,12 @@ public class MessageBean implements Serializable{
 	public void setState(int state) {
 		this.state = state;
 	}
-	
+
+    public int getMsgType() {
+        return msgType;
+    }
+
+    public void setMsgType(int msgType) {
+        this.msgType = msgType;
+    }
 }

@@ -12,6 +12,7 @@ import android.os.Message;
 import android.text.Editable;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewPropertyAnimator;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.view.inputmethod.EditorInfo;
@@ -24,6 +25,7 @@ import android.widget.TextView.OnEditorActionListener;
 
 import com.gauss.recorder.MicRealTimeListenerSpeex;
 import com.gauss.recorder.SpeexRecorder;
+import com.github.johnpersano.supertoasts.SuperToast;
 import com.google.gson.Gson;
 import com.loopj.android.http.RequestParams;
 import com.nhaarman.listviewanimations.appearance.simple.SwingBottomInAnimationAdapter;
@@ -64,13 +66,13 @@ public class ChatActivity extends BaseActivity implements
     @ViewById
     ListView listview;
     @Extra
-    String deviceId;
+    String deviceId = "000000";
     @ViewById
     MyAnimationView ball_view;
     @ViewById
-    View chat_ll1, chat_ll2, cancle_btn,send_voice_btn;
+    View chat_ll1, chat_ll2,voice_anim_view;
     @ViewById
-    TextView time_txt;
+    TextView time_txt,send_voice_btn,cancle_btn;
 
     ChatAdapters adapter;
 
@@ -258,7 +260,7 @@ public class ChatActivity extends BaseActivity implements
     Thread recordThread;//动画线程
     float recodeTime = 0.0f; // 录音的时间
     int voiceValue = 0; // 麦克风获取的音量值
-    private static int MAX_TIME = 60; // 最长录制时间，单位秒，0为无时间限制
+    private static int MAX_TIME = 10; // 最长录制时间，单位秒，0为无时间限制
     private static int MIN_TIME = 1; // 最短录制时间，单位秒，0为无时间限制，建议设为1
 
     @Click(R.id.voice_btn)
@@ -310,16 +312,22 @@ public class ChatActivity extends BaseActivity implements
 
     @Click(R.id.cancle_btn)
     void cancleBtnClick() {
-        imgHandle.sendEmptyMessage(3);
+        closeVoicePanl(cancle_btn, 3);
     }
 
-    void cancleAnim(){
+    void cancleAnim(final AnimatorListenerAdapter adapter1) {
         final RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) chat_ll2.getLayoutParams();
         ValueAnimator whxyBouncer = ObjectAnimator.ofInt(layoutParams.height, 0).setDuration(500);
         whxyBouncer.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
-                chat_ll1.animate().translationY(0).setDuration(200).setListener(null).start();
+                ViewPropertyAnimator animator = chat_ll1.animate().translationY(0).setDuration(200);
+                if(adapter1!=null){
+                    animator.setListener(adapter1);
+                }else{
+                    animator.setListener(null);
+                }
+                animator.start();
             }
         });
         whxyBouncer.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -333,8 +341,27 @@ public class ChatActivity extends BaseActivity implements
     }
 
     @Click(R.id.send_voice_btn)
-    void sendVoiceBtnClick(){
-        imgHandle.sendEmptyMessage(0);
+    void sendVoiceBtnClick() {
+        closeVoicePanl(send_voice_btn,0);
+    }
+
+    void closeVoicePanl(TextView btn,final int message){
+        voice_anim_view.setVisibility(View.VISIBLE);
+        voice_anim_view.setX(btn.getX());
+        voice_anim_view.setY(btn.getY());
+        recorderInstance.setRecording(false);
+        float width =(getResources().getDisplayMetrics().widthPixels/getResources().getDimensionPixelSize(R.dimen.voice_btn_width))*2.5f;
+        voice_anim_view.animate().scaleY(width).scaleX(width).setDuration(500).setListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                cancleAnim(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        imgHandle.sendEmptyMessage(message);
+                    }
+                });
+            }
+        }).start();
     }
 
     // 录音计时线程
@@ -349,7 +376,13 @@ public class ChatActivity extends BaseActivity implements
             recodeTime = 0.0f;
             while (recorderInstance != null && recorderInstance.isRecording()) {
                 if (recodeTime >= MAX_TIME && MAX_TIME != 0) {
-                    imgHandle.sendEmptyMessage(0);
+                    recorderInstance.setRecording(false);
+                    handle.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            send_voice_btn.performClick();
+                        }
+                    });
                 } else {
                     try {
                         Thread.sleep(200);
@@ -371,64 +404,63 @@ public class ChatActivity extends BaseActivity implements
         ball_view.setmHeight(voiceValue);
     }
 
-    int allTime=0;
-    void updateTimeText(){
-        new Handler().postDelayed(new Runnable() {
+    int allTime = 0;
+
+    void updateTimeText() {
+        handle.postDelayed(new Runnable() {
             @Override
             public void run() {
-                time_txt.setText(String.valueOf(++allTime)+"''");
-                if(recorderInstance.isRecording()&&allTime<MAX_TIME) {
+                if (recorderInstance.isRecording() && allTime < MAX_TIME) {
+                    time_txt.setText(String.valueOf(++allTime) + "''");
                     updateTimeText();
                 }
             }
-        },1000);
+        }, 1000);
     }
-
+    Handler handle = new Handler();
     Handler imgHandle = new Handler() {
 
-        public void handleMessage(Message msg) {
+        @Override
+        public void dispatchMessage(Message msg) {
             switch (msg.what) {
                 case 0:
-                    if (recorderInstance != null && recorderInstance.isRecording()) {
-                        recorderInstance.setRecording(false);
-                        voiceValue = 0;
-                        ball_view.setmHeight(0);
-                        if (recodeTime < MIN_TIME) {
-                            File o = new File(filename);
-                            if (o.exists()) {
-                                o.delete();
-                            }
-                        } else {
-                            try {
-                                RequestParams rp=ac.getRequestParams();
-                                rp.put("file", new File(filename));
-                                ac.httpClient.post(URLS.UPLOADVOICEFILE,rp,new JsonHttpResponseHandler(){
-                                    @Override
-                                    public void onSuccess(JSONObject jo) {
-                                        super.onSuccess(jo);
-                                    }
-                                });
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        }
-                        allTime=0;
-                        time_txt.setText("0''");
-                        cancleAnim();
-                    }
-                    break;
-                case 3:
-                    if (recorderInstance != null && recorderInstance.isRecording()) {
-                        recorderInstance.setRecording(false);
-                        voiceValue = 0;
-                        ball_view.setmHeight(0);
+                    revert();
+                    if (recodeTime < MIN_TIME) {
                         File o = new File(filename);
                         if (o.exists()) {
                             o.delete();
                         }
-                        allTime=0;
-                        time_txt.setText("0''");
-                        cancleAnim();
+
+                        SuperToast superToast = new SuperToast(ChatActivity.this);
+                        superToast.setDuration(SuperToast.Duration.LONG);
+                        superToast.setText(getString(R.string.your_JJ_so_short));
+                        superToast.setIcon(R.drawable.weisuo, SuperToast.IconPosition.LEFT);
+                        superToast.show();
+                    } else {
+                        handle.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    RequestParams rp = ac.getRequestParams();
+                                    rp.put("file", new File(filename));
+                                    ac.httpClient.post(URLS.UPLOADVOICEFILE, rp, new JsonHttpResponseHandler() {
+                                        @Override
+                                        public void onSuccess(JSONObject jo) {
+                                            super.onSuccess(jo);
+                                        }
+                                    });
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }, 1000);
+                    }
+                    break;
+                case 3:
+                    revert();
+                    File o = new File(filename);
+                    if (o.exists()) {
+                        o.delete();
                     }
                     break;
                 case 1:
@@ -437,9 +469,19 @@ public class ChatActivity extends BaseActivity implements
                 default:
                     break;
             }
-
+            super.dispatchMessage(msg);
         }
     };
 
+    void revert(){
+        //还原动画
+        voice_anim_view.setVisibility(View.GONE);
+        voice_anim_view.setScaleX(1f);
+        voice_anim_view.setScaleY(1f);
+        voiceValue = 0;//还原录音大小
+        ball_view.setmHeight(voiceValue);//还原球动画
+        allTime = 0;//还原录音时间
+        time_txt.setText(allTime+"''");
+    }
 
 }

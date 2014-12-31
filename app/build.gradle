@@ -55,6 +55,7 @@ dependencies {
     compile 'com.nostra13.universalimageloader:universal-image-loader:+'
     compile 'com.loopj.android:android-async-http:+'
     compile 'pl.droidsonroids.gif:android-gif-drawable:+'
+    compile 'com.github.johnpersano:supertoasts:+@aar'
     compile project(':lib-core')
     compile project(':lib-core-slh')
     compile project(':lib-manipulation')

@@ -21,4 +21,7 @@
     <string name="finding1">正在找喇个寂寞的人儿，点我停止查找。</string>
     <string name="finding2">正在找喇个寂寞的人儿，点图停止查找。</string>
     <string name="why_click_me">点我干嘛？我让你点图啊！</string>
+    <string name="chat_send_txt">Send\n取消</string>
+    <string name="chat_cancle_txt">Cancle\n发送</string>
+    <string name="your_JJ_so_short">Your ** is so short and small!\n你太短小了！</string>
 </resources>
