@@ -2,8 +2,10 @@ package com.xl.bean;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+import com.xl.util.Utils;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @DatabaseTable(tableName="MessageBean")
 public class MessageBean implements Serializable{
@@ -30,6 +32,9 @@ public class MessageBean implements Serializable{
 	private Integer state;//0 未读  1 已读
     @DatabaseField
     private int msgType;
+    @DatabaseField
+    private int loading = 0;//0 正在进行 1完成 -1失败
+
 	public MessageBean() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -41,19 +46,19 @@ public class MessageBean implements Serializable{
         this.content = content;
     }
 
-    public MessageBean(String msgId, String userId, String toId, String fromId,
-			String content, String time, String nickName, String userLogo,
-			int state) {
+    public MessageBean(String userId, String toId,
+			String content, String nickName, String userLogo,int msgType) {
 		super();
-		this.msgId = msgId;
+        this.msgType=msgType;
+		this.msgId = new Date().getTime()+"";
 		this.userId = userId;
 		this.toId = toId;
-		this.fromId = fromId;
+		this.fromId = userId;
 		this.content = content;
-		this.time = time;
+		this.time = Utils.dateFormat.format(new Date());
 		this.nickName = nickName;
 		this.userLogo = userLogo;
-		this.state = state;
+		this.state = 1;
 	}
 	public String getMsgId() {
 		return msgId;
@@ -109,6 +114,14 @@ public class MessageBean implements Serializable{
 	public void setState(int state) {
 		this.state = state;
 	}
+
+    public int getLoading() {
+        return loading;
+    }
+
+    public void setLoading(int loading) {
+        this.loading = loading;
+    }
 
     public int getMsgType() {
         return msgType;

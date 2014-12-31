@@ -55,16 +55,16 @@ public class ChatAdapters extends BaseAdapterListView<MessageBean> {
 		if (view == null) {
             switch (getItemViewType(position)){
                 case 0:
-                    LayoutInflater.from(context).inflate(R.layout.chat_left_text_layout,viewGroup,false);
+                    view=LayoutInflater.from(context).inflate(R.layout.chat_left_text_layout,viewGroup,false);
                     break;
                 case 1:
-                    LayoutInflater.from(context).inflate(R.layout.chat_left_voice_layout,viewGroup,false);
+                    view=LayoutInflater.from(context).inflate(R.layout.chat_left_voice_layout,viewGroup,false);
                     break;
                 case 10:
-                    LayoutInflater.from(context).inflate(R.layout.chat_right_text_layout,viewGroup,false);
+                    view=LayoutInflater.from(context).inflate(R.layout.chat_right_text_layout,viewGroup,false);
                     break;
                 case 11:
-                    LayoutInflater.from(context).inflate(R.layout.chat_right_voice_layout,viewGroup,false);
+                    view=LayoutInflater.from(context).inflate(R.layout.chat_right_voice_layout,viewGroup,false);
                     break;
             }
 			holder = new ViewHolder(view);
@@ -73,7 +73,16 @@ public class ChatAdapters extends BaseAdapterListView<MessageBean> {
 			holder = (ViewHolder) view.getTag();
 		}
 		MessageBean mb = (MessageBean) getItem(position);
-		holder.content.setText(mb.getContent().toString());
+        switch (getItemViewType(position)){
+            case 0:
+            case 10:
+                holder.content.setText(mb.getContent().toString());
+                break;
+            case 1:
+            case 11:
+                break;
+        }
+
 		return view;
 	}
 
@@ -90,6 +99,10 @@ public class ChatAdapters extends BaseAdapterListView<MessageBean> {
         @Optional
         @InjectView(R.id.voice)
         View voice;
+
+        @Optional
+        @InjectView(R.id.progress)
+        View progress;
 
 		public ViewHolder(View view) {
 			ButterKnife.inject(this, view);

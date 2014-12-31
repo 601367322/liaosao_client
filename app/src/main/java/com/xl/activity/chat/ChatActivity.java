@@ -39,7 +39,6 @@ import com.xl.util.LogUtil;
 import com.xl.util.StaticFactory;
 import com.xl.util.StaticUtil;
 import com.xl.util.URLS;
-import com.xl.util.Utils;
 
 import org.androidannotations.annotations.AfterTextChange;
 import org.androidannotations.annotations.Click;
@@ -177,7 +176,7 @@ public class ChatActivity extends BaseActivity implements
 
             @Override
             public void onStart() {
-                MessageBean mb = new MessageBean(new Date().getTime() + "", ac.deviceId, deviceId, ac.deviceId, context_str, Utils.dateFormat.format(new Date()), "", "", 1);
+                MessageBean mb = new MessageBean(ac.deviceId, deviceId,context_str,"", "", 0);
                 adapter.getList().add(mb);
                 adapter.notifyDataSetChanged();
 
@@ -437,23 +436,33 @@ public class ChatActivity extends BaseActivity implements
                         superToast.setIcon(R.drawable.weisuo, SuperToast.IconPosition.LEFT);
                         superToast.show();
                     } else {
-                        handle.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                try {
-                                    RequestParams rp = ac.getRequestParams();
-                                    rp.put("file", new File(filename));
-                                    ac.httpClient.post(URLS.UPLOADVOICEFILE, rp, new JsonHttpResponseHandler() {
-                                        @Override
-                                        public void onSuccess(JSONObject jo) {
-                                            super.onSuccess(jo);
-                                        }
-                                    });
-                                } catch (Exception e) {
-                                    e.printStackTrace();
+                        try {
+                            RequestParams rp = ac.getRequestParams();
+                            rp.put("file", new File(filename));
+                            final MessageBean mb = new MessageBean(ac.deviceId, deviceId, filename, "", "",1);
+                            ac.httpClient.post(URLS.UPLOADVOICEFILE, rp, new JsonHttpResponseHandler() {
+
+                                @Override
+                                public void onStart() {
+                                    adapter.getList().add(mb);
+                                    adapter.notifyDataSetChanged();
                                 }
-                            }
-                        }, 1000);
+
+                                @Override
+                                public void onSuccess(JSONObject jo) {
+                                    mb.setLoading(1);
+                                    adapter.notifyDataSetChanged();
+                                }
+
+                                @Override
+                                public void onFailure() {
+                                    adapter.getList().remove(mb);
+                                    adapter.notifyDataSetChanged();
+                                }
+                            });
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                     break;
                 case 3:
