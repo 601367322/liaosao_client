@@ -5,8 +5,14 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.media.AudioManager;
 import android.os.Handler;
 import android.os.Message;
 import android.text.Editable;
@@ -26,7 +32,7 @@ import android.widget.TextView.OnEditorActionListener;
 import com.gauss.recorder.MicRealTimeListenerSpeex;
 import com.gauss.recorder.SpeexRecorder;
 import com.github.johnpersano.supertoasts.SuperToast;
-import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.loopj.android.http.RequestParams;
 import com.nhaarman.listviewanimations.appearance.simple.SwingBottomInAnimationAdapter;
 import com.xl.activity.R;
@@ -56,7 +62,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 @EActivity(R.layout.chat_activity)
 public class ChatActivity extends BaseActivity implements
-        OnEditorActionListener {
+        OnEditorActionListener,SensorEventListener {
 
     @ViewById
     EditText content_et;
@@ -65,7 +71,7 @@ public class ChatActivity extends BaseActivity implements
     @ViewById
     ListView listview;
     @Extra
-    String deviceId = "000000";
+    String deviceId = "A00000443A4BE6";
     @ViewById
     MyAnimationView ball_view;
     @ViewById
@@ -79,6 +85,10 @@ public class ChatActivity extends BaseActivity implements
     AtomicBoolean changeing2 = new AtomicBoolean(false);
 
     protected void init() {
+
+        if(ac.deviceId.equals("A00000443A4BE6")){
+            deviceId="000000000000000";
+        }
 
         setSwipeBackEnable(false);
 
@@ -166,7 +176,8 @@ public class ChatActivity extends BaseActivity implements
         }
 
         RequestParams rp = ac.getRequestParams();
-        rp.put("content", new Gson().toJson(new MessageBean(ac.deviceId, deviceId, context_str)).toString());
+        rp.put("content", new GsonBuilder()
+                .excludeFieldsWithoutExposeAnnotation().create().toJson(new MessageBean(ac.deviceId, deviceId, context_str)).toString());
         rp.put("toId", deviceId);
         rp.put("fromId", ac.deviceId);
         ac.httpClient.post(URLS.SENDMESSAGE, rp, new JsonHttpResponseHandler() {
@@ -260,7 +271,7 @@ public class ChatActivity extends BaseActivity implements
     Thread recordThread;//动画线程
     float recodeTime = 0.0f; // 录音的时间
     int voiceValue = 0; // 麦克风获取的音量值
-    private static int MAX_TIME = 10; // 最长录制时间，单位秒，0为无时间限制
+    private static int MAX_TIME = 60; // 最长录制时间，单位秒，0为无时间限制
     private static int MIN_TIME = 1; // 最短录制时间，单位秒，0为无时间限制，建议设为1
 
     @Click(R.id.voice_btn)
@@ -495,4 +506,45 @@ public class ChatActivity extends BaseActivity implements
         time_txt.setText(allTime+"''");
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        adapter.stopArm();
+        mSensorManager.unregisterListener(this);
+    }
+
+    SensorManager mSensorManager;
+    Sensor mSensor;
+    AudioManager audioManager;
+
+    @Override
+    protected void onResume() {
+        // TODO Auto-generated method stub
+        super.onResume();
+        if(audioManager==null){
+            audioManager = (AudioManager) this
+                    .getSystemService(Context.AUDIO_SERVICE);
+            mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+            mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
+        }
+        mSensorManager.registerListener(this, mSensor,
+                SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        float range = event.values[0];
+        if (range >= mSensor.getMaximumRange()) {
+            audioManager.setMode(AudioManager.MODE_NORMAL);
+            adapter.replay();
+        } else {
+            audioManager.setMode(AudioManager.MODE_IN_CALL);
+            adapter.replay();
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+    }
 }

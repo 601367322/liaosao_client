@@ -1,22 +1,28 @@
 package com.xl.activity.chat;
 
 import android.content.Context;
+import android.media.MediaPlayer;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.gauss.recorder.SpeexPlayer;
 import com.xl.activity.R;
 import com.xl.activity.base.BaseAdapterListView;
 import com.xl.bean.MessageBean;
 import com.xl.custom.MyImageView;
 import com.xl.util.Utils;
 
+import java.io.File;
 import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnClick;
 import butterknife.Optional;
 import pl.droidsonroids.gif.GifDrawable;
 
@@ -28,7 +34,7 @@ public class ChatAdapters extends BaseAdapterListView<MessageBean> {
 
 	@Override
 	public int getItemViewType(int position) {
-		MessageBean mb = (MessageBean) getList().get(position);
+		MessageBean mb = getList().get(position);
 		if (mb.getToId().equals(ac.deviceId)) {
             switch (mb.getMsgType()){
                 case 0:
@@ -75,7 +81,7 @@ public class ChatAdapters extends BaseAdapterListView<MessageBean> {
 		} else {
 			holder = (ViewHolder) view.getTag();
 		}
-		MessageBean mb = (MessageBean) getItem(position);
+		MessageBean mb = getItem(position);
         switch (getItemViewType(position)){
             case 0:
             case 10:
@@ -88,10 +94,10 @@ public class ChatAdapters extends BaseAdapterListView<MessageBean> {
                 RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) holder.voice.getLayoutParams();
                 layoutParams.width= Utils.dip2px(context,60 + (int) width);
                 holder.voice.setLayoutParams(layoutParams);
-
+                holder.voice.setTag(mb);
                 try {
                     GifDrawable temp1=null;
-                    if(holder.voice_img.getDrawable()==null) {
+                    if(holder.voice_img.getGifDrawable()==null) {
                         switch (getItemViewType(position)){
                             case 1:
                                 temp1 = new GifDrawable(context.getResources(), R.drawable.chat_left_animation);
@@ -108,6 +114,7 @@ public class ChatAdapters extends BaseAdapterListView<MessageBean> {
                         temp1.start();
                     }else{
                         temp1.pause();
+                        temp1.reset();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -118,7 +125,7 @@ public class ChatAdapters extends BaseAdapterListView<MessageBean> {
         return view;
 	}
 
-	static class ViewHolder {
+	class ViewHolder {
 
         @Optional
 		@InjectView(R.id.content)
@@ -139,6 +146,87 @@ public class ChatAdapters extends BaseAdapterListView<MessageBean> {
 		public ViewHolder(View view) {
 			ButterKnife.inject(this, view);
 		}
+
+        @Optional
+        @OnClick(R.id.voice)
+        void voiceClick(View view){
+            MessageBean mb= (MessageBean) view.getTag();
+            playVoice(mb);
+        }
 	}
+
+    SpeexPlayer splayer;
+    MessageBean playingMsg;
+    boolean playState;
+    Handler handler = new Handler(Looper.getMainLooper());
+
+    public void playVoice(MessageBean msg) {
+        if (playState) {
+            stopArm();
+            if (playingMsg.getMsgId() != msg.getMsgId()) {
+                playArm(msg);
+            }
+        } else {
+            playArm(msg);
+        }
+    }
+
+    public void playArm(final MessageBean dm) {
+        File file = new File(dm.getContent());
+        if (!file.exists()) {
+            return;
+        }
+        splayer = new SpeexPlayer(dm.getContent());
+        try {
+            playingMsg = dm;
+
+            dm.setPlaying(true);
+            notifyDataSetChanged();
+            splayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+
+                public void onCompletion(MediaPlayer mp) {
+                    completion(dm);
+                }
+            });
+            splayer.startPlay();
+            playState = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void stopArm() {
+        if(splayer!=null){
+            splayer.stopPlay();
+        }
+        if (playingMsg != null) {
+            playingMsg.setPlaying(false);
+            notifyDataSetChanged();
+        }
+        playState = false;
+        playingMsg=null;
+        splayer = null;
+    }
+
+    public void replay(){
+        MessageBean temp = playingMsg;
+        stopArm();
+        if(temp!=null){
+            playVoice(temp);
+        }
+    }
+
+    void completion(MessageBean dm){
+        dm.setPlaying(false);
+        playState = false;
+        splayer = null;
+        playingMsg=null;
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                notifyDataSetChanged();
+            }
+        });
+    }
 
 }

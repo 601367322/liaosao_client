@@ -1,5 +1,6 @@
 package com.xl.bean;
 
+import com.google.gson.annotations.Expose;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import com.xl.util.Utils;
@@ -12,14 +13,19 @@ public class MessageBean implements Serializable{
 
 	@DatabaseField(id=true)
 	private Integer id;
+    @Expose
 	@DatabaseField(index=true)
 	private String msgId;
+    @Expose
 	@DatabaseField(index=true)
 	private String userId;
+    @Expose
 	@DatabaseField(index=true)
 	private String toId;
+    @Expose
 	@DatabaseField(index=true)
 	private String fromId;
+    @Expose
 	@DatabaseField
 	private String content;
 	@DatabaseField
@@ -30,12 +36,15 @@ public class MessageBean implements Serializable{
 	private String userLogo;
 	@DatabaseField
 	private Integer state;//0 未读  1 已读
+    @Expose
     @DatabaseField
     private int msgType;
     @DatabaseField
     private int loading = 0;//0 正在进行 1完成 -1失败
+    @Expose
     @DatabaseField
     private int voiceTime; //录音时间
+
     private boolean isPlaying; //正在播放
 
 	public MessageBean() {
