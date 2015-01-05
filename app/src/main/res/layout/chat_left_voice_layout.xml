@@ -13,15 +13,15 @@
         android:layout_margin="8dp"
         android:background="@drawable/chat_left_bg"
         android:gravity="center_vertical"
-        android:minHeight="40dp"
+        android:minHeight="35dp"
         android:minWidth="60dp">
 
-        <ImageView
+        <com.xl.custom.MyImageView
             android:id="@+id/voice_img"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:adjustViewBounds="true"
-            android:src="@anim/chat_left_animation" />
+            android:src="@drawable/chat_left_animation" />
     </LinearLayout>
 
     <ProgressBar

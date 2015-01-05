@@ -34,6 +34,9 @@ public class MessageBean implements Serializable{
     private int msgType;
     @DatabaseField
     private int loading = 0;//0 正在进行 1完成 -1失败
+    @DatabaseField
+    private int voiceTime; //录音时间
+    private boolean isPlaying; //正在播放
 
 	public MessageBean() {
 		super();
@@ -60,6 +63,23 @@ public class MessageBean implements Serializable{
 		this.userLogo = userLogo;
 		this.state = 1;
 	}
+
+    public MessageBean(String userId, String toId,
+                       String content, String nickName, String userLogo,int msgType,int voiceTime) {
+        super();
+        this.voiceTime=voiceTime;
+        this.msgType=msgType;
+        this.msgId = new Date().getTime()+"";
+        this.userId = userId;
+        this.toId = toId;
+        this.fromId = userId;
+        this.content = content;
+        this.time = Utils.dateFormat.format(new Date());
+        this.nickName = nickName;
+        this.userLogo = userLogo;
+        this.state = 1;
+    }
+
 	public String getMsgId() {
 		return msgId;
 	}
@@ -115,6 +135,14 @@ public class MessageBean implements Serializable{
 		this.state = state;
 	}
 
+    public int getVoiceTime() {
+        return voiceTime;
+    }
+
+    public void setVoiceTime(int voiceTime) {
+        this.voiceTime = voiceTime;
+    }
+
     public int getLoading() {
         return loading;
     }
@@ -129,5 +157,13 @@ public class MessageBean implements Serializable{
 
     public void setMsgType(int msgType) {
         this.msgType = msgType;
+    }
+
+    public boolean isPlaying() {
+        return isPlaying;
+    }
+
+    public void setPlaying(boolean isPlaying) {
+        this.isPlaying = isPlaying;
     }
 }

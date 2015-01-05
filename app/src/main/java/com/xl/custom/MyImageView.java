@@ -4,15 +4,18 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.AttributeSet;
-import android.view.View;
 import android.widget.ImageView;
 
 import com.xl.util.LogUtil;
+
+import pl.droidsonroids.gif.GifDrawable;
 
 /**
  * TODO: document your custom view class.
  */
 public class MyImageView extends ImageView {
+
+    private GifDrawable drawable;
 
     public MyImageView(Context context) {
         super(context);
@@ -40,22 +43,38 @@ public class MyImageView extends ImageView {
         public void run() {
             invalidate();
             LogUtil.d("invalidate");
-            if(!b)
-            handler.postDelayed(this,1000);
+            if(start)
+            handler.postDelayed(this,200);
         }
     };
 
-    boolean b =false;
+    public void setStart(boolean start) {
+        this.start = start;
+    }
+
+    public GifDrawable getGifDrawable() {
+        return drawable;
+    }
+
+    public void setDrawable(GifDrawable drawable) {
+        this.drawable = drawable;
+    }
+
+    boolean start =false;
 
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        b=false;
     }
 
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        b=true;
+        start=false;
+    }
+
+    public void setImageGifDrawable(GifDrawable drawable) {
+        super.setImageDrawable(drawable);
+        this.drawable= (GifDrawable) drawable;
     }
 }

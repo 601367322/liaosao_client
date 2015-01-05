@@ -57,6 +57,10 @@ public abstract class AnimationAdapter extends BaseAdapterDecorator {
      */
     private boolean mIsRootAdapter;
 
+    public void setmGridViewPossiblyMeasuring(boolean mGridViewPossiblyMeasuring) {
+        this.mGridViewPossiblyMeasuring = mGridViewPossiblyMeasuring;
+    }
+
     /**
      * If the AbsListView is an instance of GridView, this boolean indicates whether the GridView is possibly measuring the view.
      */

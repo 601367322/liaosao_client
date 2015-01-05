@@ -86,6 +86,7 @@ public class ChatActivity extends BaseActivity implements
 
         adapter = new ChatAdapters(this, new ArrayList<String>());
         SwingBottomInAnimationAdapter t = new SwingBottomInAnimationAdapter(adapter, listview);
+        t.setmGridViewPossiblyMeasuring(false);
         listview.setAdapter(t);
 
         send_btn.setEnabled(false);
@@ -264,6 +265,7 @@ public class ChatActivity extends BaseActivity implements
 
     @Click(R.id.voice_btn)
     void voiceBtnClick() {
+        closeInput();
         chat_ll1.animate().translationY(-chat_ll1.getHeight()).setListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
@@ -439,7 +441,7 @@ public class ChatActivity extends BaseActivity implements
                         try {
                             RequestParams rp = ac.getRequestParams();
                             rp.put("file", new File(filename));
-                            final MessageBean mb = new MessageBean(ac.deviceId, deviceId, filename, "", "",1);
+                            final MessageBean mb = new MessageBean(ac.deviceId, deviceId, filename, "", "",1,(int)recodeTime);
                             ac.httpClient.post(URLS.UPLOADVOICEFILE, rp, new JsonHttpResponseHandler() {
 
                                 @Override
