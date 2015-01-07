@@ -41,6 +41,12 @@ public class MessageBean implements Serializable{
     private int msgType;
     @DatabaseField
     private int loading = 0;//0 正在进行 1完成 -1失败
+
+    public static final int LOADING_NODOWNLOAD=0;
+    public static final int LOADING_DOWNLOADING = 2;
+    public static final int LOADING_DOWNLOADED=1;
+    public static final int LOADING_DOWNLOADFAIL=-1;
+
     @Expose
     @DatabaseField
     private int voiceTime; //录音时间
@@ -87,6 +93,7 @@ public class MessageBean implements Serializable{
         this.nickName = nickName;
         this.userLogo = userLogo;
         this.state = 1;
+        setLoading(LOADING_DOWNLOADED);
     }
 
 	public String getMsgId() {

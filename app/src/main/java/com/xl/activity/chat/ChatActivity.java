@@ -86,6 +86,8 @@ public class ChatActivity extends BaseActivity implements
 
     protected void init() {
 
+        ac.startService();
+
         if(ac.deviceId.equals("A00000443A4BE6")){
             deviceId="000000000000000";
         }
@@ -100,6 +102,7 @@ public class ChatActivity extends BaseActivity implements
         listview.setAdapter(t);
 
         send_btn.setEnabled(false);
+
 
     }
 
@@ -452,6 +455,7 @@ public class ChatActivity extends BaseActivity implements
                         try {
                             RequestParams rp = ac.getRequestParams();
                             rp.put("file", new File(filename));
+                            rp.put("toId",deviceId);
                             final MessageBean mb = new MessageBean(ac.deviceId, deviceId, filename, "", "",1,(int)recodeTime);
                             ac.httpClient.post(URLS.UPLOADVOICEFILE, rp, new JsonHttpResponseHandler() {
 
@@ -534,10 +538,10 @@ public class ChatActivity extends BaseActivity implements
     @Override
     public void onSensorChanged(SensorEvent event) {
         float range = event.values[0];
-        if (range >= mSensor.getMaximumRange()) {
+        if (range >= mSensor.getMaximumRange() && audioManager.getMode() != audioManager.MODE_NORMAL) {
             audioManager.setMode(AudioManager.MODE_NORMAL);
             adapter.replay();
-        } else {
+        } else if(range < mSensor.getMaximumRange() && audioManager.getMode() != audioManager.MODE_IN_CALL){
             audioManager.setMode(AudioManager.MODE_IN_CALL);
             adapter.replay();
         }

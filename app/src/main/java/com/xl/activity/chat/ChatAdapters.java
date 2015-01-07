@@ -11,13 +11,19 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.gauss.recorder.SpeexPlayer;
+import com.loopj.android.http.FileAsyncHttpResponseHandler;
 import com.xl.activity.R;
 import com.xl.activity.base.BaseAdapterListView;
 import com.xl.bean.MessageBean;
 import com.xl.custom.MyImageView;
+import com.xl.util.StaticFactory;
+import com.xl.util.URLS;
 import com.xl.util.Utils;
 
+import org.apache.http.Header;
+
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -28,77 +34,79 @@ import pl.droidsonroids.gif.GifDrawable;
 
 public class ChatAdapters extends BaseAdapterListView<MessageBean> {
 
-	public ChatAdapters(Context context, List list) {
-		super(list,context);
-	}
+    List<MessageBean> downloading = new ArrayList<>();
 
-	@Override
-	public int getItemViewType(int position) {
-		MessageBean mb = getList().get(position);
-		if (mb.getToId().equals(ac.deviceId)) {
-            switch (mb.getMsgType()){
+    public ChatAdapters(Context context, List list) {
+        super(list, context);
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        MessageBean mb = getList().get(position);
+        if (mb.getToId().equals(ac.deviceId)) {
+            switch (mb.getMsgType()) {
                 case 0:
                     return 0;
                 case 1:
                     return 1;
             }
-		} else {
-            switch (mb.getMsgType()){
+        } else {
+            switch (mb.getMsgType()) {
                 case 0:
                     return 10;
                 case 1:
                     return 11;
             }
-		}
+        }
         return -1;
-	}
+    }
 
-	@Override
-	public int getViewTypeCount() {
-		return 20;
-	}
+    @Override
+    public int getViewTypeCount() {
+        return 20;
+    }
 
-	@Override
-	public View getView(int position, View view, ViewGroup viewGroup) {
-		ViewHolder holder;
-		if (view == null) {
-            switch (getItemViewType(position)){
+    @Override
+    public View getView(int position, View view, ViewGroup viewGroup) {
+        ViewHolder holder;
+        if (view == null) {
+            switch (getItemViewType(position)) {
                 case 0:
-                    view=LayoutInflater.from(context).inflate(R.layout.chat_left_text_layout,viewGroup,false);
+                    view = LayoutInflater.from(context).inflate(R.layout.chat_left_text_layout, viewGroup, false);
                     break;
                 case 1:
-                    view=LayoutInflater.from(context).inflate(R.layout.chat_left_voice_layout,viewGroup,false);
+                    view = LayoutInflater.from(context).inflate(R.layout.chat_left_voice_layout, viewGroup, false);
                     break;
                 case 10:
-                    view=LayoutInflater.from(context).inflate(R.layout.chat_right_text_layout,viewGroup,false);
+                    view = LayoutInflater.from(context).inflate(R.layout.chat_right_text_layout, viewGroup, false);
                     break;
                 case 11:
-                    view=LayoutInflater.from(context).inflate(R.layout.chat_right_voice_layout,viewGroup,false);
+                    view = LayoutInflater.from(context).inflate(R.layout.chat_right_voice_layout, viewGroup, false);
                     break;
             }
-			holder = new ViewHolder(view);
-			view.setTag(holder);
-		} else {
-			holder = (ViewHolder) view.getTag();
-		}
-		MessageBean mb = getItem(position);
-        switch (getItemViewType(position)){
+            holder = new ViewHolder(view);
+            view.setTag(holder);
+        } else {
+            holder = (ViewHolder) view.getTag();
+        }
+        MessageBean mb = getItem(position);
+        switch (getItemViewType(position)) {
             case 0:
             case 10:
                 holder.content.setText(mb.getContent().toString());
                 break;
             case 1:
             case 11:
-                float scale = (float)mb.getVoiceTime()/60f;
+                float scale = (float) mb.getVoiceTime() / 60f;
                 float width = 150f * scale;
                 RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) holder.voice.getLayoutParams();
-                layoutParams.width= Utils.dip2px(context,60 + (int) width);
+                layoutParams.width = Utils.dip2px(context, 60 + (int) width);
                 holder.voice.setLayoutParams(layoutParams);
                 holder.voice.setTag(mb);
                 try {
-                    GifDrawable temp1=null;
-                    if(holder.voice_img.getGifDrawable()==null) {
-                        switch (getItemViewType(position)){
+                    GifDrawable temp1 = null;
+                    if (holder.voice_img.getGifDrawable() == null) {
+                        switch (getItemViewType(position)) {
                             case 1:
                                 temp1 = new GifDrawable(context.getResources(), R.drawable.chat_left_animation);
                                 break;
@@ -107,14 +115,24 @@ public class ChatAdapters extends BaseAdapterListView<MessageBean> {
                                 break;
                         }
                         holder.voice_img.setImageGifDrawable(temp1);
-                    }else{
-                        temp1=holder.voice_img.getGifDrawable();
+                    } else {
+                        temp1 = holder.voice_img.getGifDrawable();
                     }
-                    if(mb.isPlaying()){
-                        temp1.start();
-                    }else{
-                        temp1.pause();
-                        temp1.reset();
+                    if (mb.getLoading() == MessageBean.LOADING_NODOWNLOAD && getItemViewType(position) == 1 && !downloading.contains(mb)) {
+                        downloading.add(mb);
+                        File file = new File(StaticFactory.APKCardPathChat + mb.getFromId());
+                        if (!file.exists()) {
+                            file.mkdirs();
+                        }
+                        file = new File(file, mb.getContent());
+                        ac.httpClient.get(URLS.DOWNLOADFILE + "/" + ac.deviceId + "/" + mb.getContent() + URLS.LAST, new fileDownloader(file,mb));
+                    } else {
+                        if (mb.isPlaying() && !temp1.isPlaying()) {
+                            temp1.start();
+                        } else if (!mb.isPlaying() && temp1.isPlaying()) {
+                            temp1.pause();
+                            temp1.reset();
+                        }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -123,13 +141,13 @@ public class ChatAdapters extends BaseAdapterListView<MessageBean> {
         }
 
         return view;
-	}
+    }
 
-	class ViewHolder {
+    class ViewHolder {
 
         @Optional
-		@InjectView(R.id.content)
-		TextView content;
+        @InjectView(R.id.content)
+        TextView content;
 
         @Optional
         @InjectView(R.id.voice_img)
@@ -143,17 +161,19 @@ public class ChatAdapters extends BaseAdapterListView<MessageBean> {
         @InjectView(R.id.progress)
         View progress;
 
-		public ViewHolder(View view) {
-			ButterKnife.inject(this, view);
-		}
+        public ViewHolder(View view) {
+            ButterKnife.inject(this, view);
+        }
 
         @Optional
         @OnClick(R.id.voice)
-        void voiceClick(View view){
-            MessageBean mb= (MessageBean) view.getTag();
-            playVoice(mb);
+        void voiceClick(View view) {
+            MessageBean mb = (MessageBean) view.getTag();
+            if(mb.getLoading()==MessageBean.LOADING_DOWNLOADED) {
+                playVoice(mb);
+            }
         }
-	}
+    }
 
     SpeexPlayer splayer;
     MessageBean playingMsg;
@@ -162,8 +182,9 @@ public class ChatAdapters extends BaseAdapterListView<MessageBean> {
 
     public void playVoice(MessageBean msg) {
         if (playState) {
+            MessageBean temp = playingMsg;
             stopArm();
-            if (playingMsg.getMsgId() != msg.getMsgId()) {
+            if (temp.getMsgId() != msg.getMsgId()) {
                 playArm(msg);
             }
         } else {
@@ -196,7 +217,7 @@ public class ChatAdapters extends BaseAdapterListView<MessageBean> {
     }
 
     public void stopArm() {
-        if(splayer!=null){
+        if (splayer != null) {
             splayer.stopPlay();
         }
         if (playingMsg != null) {
@@ -204,23 +225,23 @@ public class ChatAdapters extends BaseAdapterListView<MessageBean> {
             notifyDataSetChanged();
         }
         playState = false;
-        playingMsg=null;
+        playingMsg = null;
         splayer = null;
     }
 
-    public void replay(){
+    public void replay() {
         MessageBean temp = playingMsg;
         stopArm();
-        if(temp!=null){
+        if (temp != null) {
             playVoice(temp);
         }
     }
 
-    void completion(MessageBean dm){
+    void completion(MessageBean dm) {
         dm.setPlaying(false);
         playState = false;
         splayer = null;
-        playingMsg=null;
+        playingMsg = null;
         handler.post(new Runnable() {
             @Override
             public void run() {
@@ -229,4 +250,33 @@ public class ChatAdapters extends BaseAdapterListView<MessageBean> {
         });
     }
 
+    class fileDownloader extends FileAsyncHttpResponseHandler {
+
+        MessageBean messageBean = null;
+
+        public fileDownloader(File file, MessageBean mb) {
+            super(file);
+            this.messageBean = mb;
+        }
+
+        @Override
+        public void onStart() {
+            messageBean.setLoading(MessageBean.LOADING_DOWNLOADING);
+            notifyDataSetChanged();
+        }
+
+        @Override
+        public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file) {
+            messageBean.setLoading(MessageBean.LOADING_DOWNLOADFAIL);
+            downloading.remove(messageBean);
+            notifyDataSetChanged();
+        }
+
+        @Override
+        public void onSuccess(int statusCode, Header[] headers, File file) {
+            messageBean.setLoading(MessageBean.LOADING_DOWNLOADED);
+            messageBean.setContent(file.getPath());
+            notifyDataSetChanged();
+        }
+    }
 }

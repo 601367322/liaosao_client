@@ -12,6 +12,7 @@ public class URLS {
     public static final String EXITQUEUE=URL+"b/exitqueue"+LAST;
     public static final String CLOSECHAT=URL+"b/closechat"+LAST;
     public static final String UPLOADVOICEFILE=URL+"b/uploadfile"+LAST;
+    public static final String DOWNLOADFILE=URL+"b/download";
 
     public static final String LOGIN=URL+"a/login"+LAST;
 }
