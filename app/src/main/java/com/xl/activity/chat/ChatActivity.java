@@ -24,6 +24,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -45,6 +46,7 @@ import com.xl.util.LogUtil;
 import com.xl.util.StaticFactory;
 import com.xl.util.StaticUtil;
 import com.xl.util.URLS;
+import com.xl.util.Utils;
 
 import org.androidannotations.annotations.AfterTextChange;
 import org.androidannotations.annotations.Click;
@@ -75,7 +77,7 @@ public class ChatActivity extends BaseActivity implements
     @ViewById
     MyAnimationView ball_view;
     @ViewById
-    View chat_ll1, chat_ll2,voice_anim_view;
+    View chat_ll1, chat_ll2,voice_anim_view,chat_more_ll,add_btn,image_btn,face_btn;
     @ViewById
     TextView time_txt,send_voice_btn,cancle_btn;
 
@@ -280,49 +282,54 @@ public class ChatActivity extends BaseActivity implements
     @Click(R.id.voice_btn)
     void voiceBtnClick() {
         closeInput();
-        chat_ll1.animate().translationY(-chat_ll1.getHeight()).setListener(new AnimatorListenerAdapter() {
+        closeMore(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
-                final RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) chat_ll2.getLayoutParams();
-                ValueAnimator whxyBouncer = ObjectAnimator.ofInt(0, (int) getResources().getDimension(R.dimen.chat_bottom_voice_height)).setDuration(500);
-                whxyBouncer.addListener(new AnimatorListenerAdapter() {
+                chat_ll1.animate().translationY(-chat_ll1.getHeight()).setListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
-                        if (recorderInstance == null || !recorderInstance.isRecording()) {
+                        final RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) chat_ll2.getLayoutParams();
+                        ValueAnimator whxyBouncer = ObjectAnimator.ofInt(0, (int) getResources().getDimension(R.dimen.chat_bottom_voice_height)).setDuration(500);
+                        whxyBouncer.addListener(new AnimatorListenerAdapter() {
+                            @Override
+                            public void onAnimationEnd(Animator animation) {
+                                if (recorderInstance == null || !recorderInstance.isRecording()) {
 
-                            File file = new File(StaticFactory.APKCardPathChat);
-                            if (!file.exists()) {
-                                file.mkdirs();
-                            }
-                            filename = StaticFactory.APKCardPathChat + String.valueOf((String
-                                    .valueOf(new Date().getTime()) + ".spx")
-                                    .hashCode());
+                                    File file = new File(StaticFactory.APKCardPathChat);
+                                    if (!file.exists()) {
+                                        file.mkdirs();
+                                    }
+                                    filename = StaticFactory.APKCardPathChat + String.valueOf((String
+                                            .valueOf(new Date().getTime()) + ".spx")
+                                            .hashCode());
 
-                            recorderInstance = new SpeexRecorder(filename, new MicRealTimeListenerSpeex() {
+                                    recorderInstance = new SpeexRecorder(filename, new MicRealTimeListenerSpeex() {
 
-                                @Override
-                                public void getMicRealTimeSize(int size) {
-                                    voiceValue = size;
+                                        @Override
+                                        public void getMicRealTimeSize(int size) {
+                                            voiceValue = size;
+                                        }
+                                    });
+                                    Thread th = new Thread(recorderInstance);
+                                    th.start();
+                                    recorderInstance.setRecording(true);
+                                    updateTimeText();
+                                    mythread();
                                 }
-                            });
-                            Thread th = new Thread(recorderInstance);
-                            th.start();
-                            recorderInstance.setRecording(true);
-                            updateTimeText();
-                            mythread();
-                        }
+                            }
+                        });
+                        whxyBouncer.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                            @Override
+                            public void onAnimationUpdate(ValueAnimator animation) {
+                                layoutParams.height = (int) animation.getAnimatedValue();
+                                chat_ll2.setLayoutParams(layoutParams);
+                            }
+                        });
+                        whxyBouncer.start();
                     }
-                });
-                whxyBouncer.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                    @Override
-                    public void onAnimationUpdate(ValueAnimator animation) {
-                        layoutParams.height = (int) animation.getAnimatedValue();
-                        chat_ll2.setLayoutParams(layoutParams);
-                    }
-                });
-                whxyBouncer.start();
+                }).setDuration(200).start();
             }
-        }).setDuration(200).start();
+        });
     }
 
     @Click(R.id.cancle_btn)
@@ -549,6 +556,49 @@ public class ChatActivity extends BaseActivity implements
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
+    }
 
+    @Click
+    void add_btn(final View view){
+        closeMore(null);
+    }
+
+    void closeMore(AnimatorListenerAdapter listener){
+        final ValueAnimator animator = ObjectAnimator.ofInt(40, 160);
+        animator.setDuration(200);
+        final LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) chat_more_ll.getLayoutParams();
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                layoutParams.width = Utils.dip2px(getApplicationContext(), (int) animation.getAnimatedValue());
+                chat_more_ll.setLayoutParams(layoutParams);
+            }
+        });
+        if(add_btn.getRotation()==0) {
+            add_btn.animate().rotation(225f).setDuration(200).start();
+            animator.start();
+        }else{
+            animator.setIntValues(160,40);
+            if(listener!=null){
+                animator.addListener(listener);
+            }
+            animator.start();
+            add_btn.animate().rotation(0f).setDuration(200).start();
+        }
+    }
+
+    @Click
+    void image_btn(){
+        closeMore(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                new AlertDialog.Builder(ChatActivity.this).setItems(new String[]{"拍照","相册"},new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                }).create().show();
+            }
+        });
     }
 }

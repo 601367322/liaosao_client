@@ -38,13 +38,47 @@
             android:minHeight="48dp"
             android:orientation="horizontal">
 
-            <ImageButton
-                android:id="@+id/voice_btn"
-                android:layout_width="50dp"
-                android:layout_height="40dp"
-                android:background="@null"
-                android:scaleType="centerInside"
-                android:src="@drawable/mic_selector" />
+            <LinearLayout
+                android:id="@+id/chat_more_ll"
+                android:layout_width="40dp"
+                android:gravity="center_vertical"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/add_btn"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@null"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_content_add" />
+
+                <ImageButton
+                    android:id="@+id/voice_btn"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@null"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/mic_selector"
+                     />
+
+                <ImageButton
+                    android:id="@+id/image_btn"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@null"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_image_camera_alt"
+                     />
+
+                <ImageButton
+                    android:id="@+id/face_btn"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@null"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_image_tag_faces"
+                     />
+            </LinearLayout>
 
             <EditText
                 android:id="@+id/content_et"
@@ -54,8 +88,8 @@
                 android:hint="@string/say_something"
                 android:imeOptions="actionSend"
                 android:maxLength="150"
-                android:singleLine="true"
                 android:minHeight="40dp"
+                android:singleLine="true"
                 android:textSize="16sp" />
 
             <FrameLayout
@@ -80,10 +114,10 @@
 
             <ImageView
                 android:id="@+id/img1"
-                android:layout_marginTop="16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
+                android:layout_marginTop="16dp"
                 android:src="@drawable/jinguanzhang" />
 
             <TextView
@@ -100,14 +134,14 @@
             <TextView
                 android:id="@+id/time_txt"
                 android:layout_width="@dimen/voice_btn_width"
-                android:layout_below="@id/text1"
                 android:layout_height="50dp"
+                android:layout_below="@id/text1"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/btn_fab_default"
                 android:gravity="center"
-                android:layout_marginBottom="16dp"
                 android:padding="@dimen/activity_horizontal_margin"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
                 android:text="0''"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
@@ -117,10 +151,10 @@
                 android:layout_width="@dimen/voice_btn_width"
                 android:layout_height="@dimen/voice_btn_width"
                 android:layout_centerVertical="true"
-                android:background="@drawable/btn_fab_default"
-                android:gravity="center"
-                android:clickable="true"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:background="@drawable/btn_fab_default"
+                android:clickable="true"
+                android:gravity="center"
                 android:text="@string/chat_cancle_txt"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
@@ -129,11 +163,11 @@
                 android:id="@+id/send_voice_btn"
                 android:layout_width="@dimen/voice_btn_width"
                 android:layout_height="@dimen/voice_btn_width"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:clickable="true"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:background="@drawable/btn_fab_default"
+                android:clickable="true"
                 android:gravity="center"
                 android:padding="16dp"
                 android:text="@string/chat_send_txt"
@@ -142,10 +176,10 @@
 
             <View
                 android:id="@+id/voice_anim_view"
-                android:visibility="gone"
                 android:layout_width="@dimen/voice_btn_width"
+                android:layout_height="@dimen/voice_btn_width"
                 android:background="@drawable/btn_fab_default"
-                android:layout_height="@dimen/voice_btn_width"/>
+                android:visibility="gone" />
         </RelativeLayout>
     </RelativeLayout>
 </LinearLayout>
