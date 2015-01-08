@@ -56,11 +56,14 @@ dependencies {
     compile 'com.loopj.android:android-async-http:+'
     compile 'pl.droidsonroids.gif:android-gif-drawable:+'
     compile 'com.github.johnpersano:supertoasts:+@aar'
+    compile 'com.github.siyamed:android-shape-imageview:+@aar'
     compile project(':lib-core')
     compile project(':lib-core-slh')
     compile project(':lib-manipulation')
     compile project(':lib-float-btn')
     compile project(':lib-swipebacklayout')
+    compile project(':lib-photoview')
+
     //compile project(':lib-mpchart')
 }
 

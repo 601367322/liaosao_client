@@ -1,6 +1,7 @@
 package com.xl.activity.chat;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.os.Handler;
 import android.os.Looper;
@@ -11,7 +12,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.gauss.recorder.SpeexPlayer;
+import com.github.siyamed.shapeimageview.mask.PorterShapeImageView;
 import com.loopj.android.http.FileAsyncHttpResponseHandler;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.xl.activity.R;
 import com.xl.activity.base.BaseAdapterListView;
 import com.xl.bean.MessageBean;
@@ -49,6 +54,8 @@ public class ChatAdapters extends BaseAdapterListView<MessageBean> {
                     return 0;
                 case 1:
                     return 1;
+                case 2:
+                    return 2;
             }
         } else {
             switch (mb.getMsgType()) {
@@ -56,6 +63,8 @@ public class ChatAdapters extends BaseAdapterListView<MessageBean> {
                     return 10;
                 case 1:
                     return 11;
+                case 2:
+                    return 12;
             }
         }
         return -1;
@@ -77,11 +86,17 @@ public class ChatAdapters extends BaseAdapterListView<MessageBean> {
                 case 1:
                     view = LayoutInflater.from(context).inflate(R.layout.chat_left_voice_layout, viewGroup, false);
                     break;
+                case 2:
+                    view = LayoutInflater.from(context).inflate(R.layout.chat_left_img_layout, viewGroup, false);
+                    break;
                 case 10:
                     view = LayoutInflater.from(context).inflate(R.layout.chat_right_text_layout, viewGroup, false);
                     break;
                 case 11:
                     view = LayoutInflater.from(context).inflate(R.layout.chat_right_voice_layout, viewGroup, false);
+                    break;
+                case 12:
+                    view = LayoutInflater.from(context).inflate(R.layout.chat_right_img_layout, viewGroup, false);
                     break;
             }
             holder = new ViewHolder(view);
@@ -125,7 +140,7 @@ public class ChatAdapters extends BaseAdapterListView<MessageBean> {
                             file.mkdirs();
                         }
                         file = new File(file, mb.getContent());
-                        ac.httpClient.get(URLS.DOWNLOADFILE + "/" + ac.deviceId + "/" + mb.getContent() + URLS.LAST, new fileDownloader(file,mb));
+                        ac.httpClient.get(URLS.DOWNLOADFILE + ac.deviceId + "/" + mb.getContent() + URLS.LAST, new fileDownloader(file,mb));
                     } else {
                         if (mb.isPlaying() && !temp1.isPlaying()) {
                             temp1.start();
@@ -137,6 +152,16 @@ public class ChatAdapters extends BaseAdapterListView<MessageBean> {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+                break;
+            case 2:
+                ImageLoader.getInstance().displayImage(URLS.DOWNLOADFILE+ac.deviceId+"/"+mb.getContent()+URLS.LAST,holder.img,listener);
+                holder.img.setTag(URLS.DOWNLOADFILE+ac.deviceId+"/"+mb.getContent()+URLS.LAST);
+                holder.img.setOnClickListener(clickListener);
+                break;
+            case 12:
+                ImageLoader.getInstance().displayImage("file://"+mb.getContent(),holder.img,listener);
+                holder.img.setTag("file://"+mb.getContent());
+                holder.img.setOnClickListener(clickListener);
                 break;
         }
 
@@ -160,6 +185,10 @@ public class ChatAdapters extends BaseAdapterListView<MessageBean> {
         @Optional
         @InjectView(R.id.progress)
         View progress;
+
+        @Optional
+        @InjectView(R.id.img)
+        PorterShapeImageView img;
 
         public ViewHolder(View view) {
             ButterKnife.inject(this, view);
@@ -279,4 +308,41 @@ public class ChatAdapters extends BaseAdapterListView<MessageBean> {
             notifyDataSetChanged();
         }
     }
+
+    ImageLoadingListener listener = new ImageLoadingListener() {
+        @Override
+        public void onLoadingStarted(String imageUri, View view) {
+
+        }
+
+        @Override
+        public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+
+        }
+
+        @Override
+        public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+            int screen_width=(int)((float)context.getResources().getDisplayMetrics().widthPixels/2f);
+            int img_width=loadedImage.getWidth();
+            int max_widht=img_width>screen_width?screen_width:img_width;
+            float scale = (float)img_width/(float)max_widht;
+            int new_height = (int)((float)loadedImage.getHeight()/scale);
+            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
+            layoutParams.width=max_widht;
+            layoutParams.height=new_height;
+            view.setLayoutParams(layoutParams);
+        }
+
+        @Override
+        public void onLoadingCancelled(String imageUri, View view) {
+
+        }
+    };
+
+    View.OnClickListener clickListener=new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            ImageViewActivity_.intent(context).imageUrl(v.getTag().toString()).start();
+        }
+    };
 }

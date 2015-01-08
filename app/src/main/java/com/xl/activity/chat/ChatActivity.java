@@ -5,16 +5,20 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.app.AlertDialog;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.media.AudioManager;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.view.KeyEvent;
 import android.view.View;
@@ -52,6 +56,7 @@ import org.androidannotations.annotations.AfterTextChange;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
+import org.androidannotations.annotations.OnActivityResult;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.Receiver;
 import org.androidannotations.annotations.ViewById;
@@ -64,7 +69,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 @EActivity(R.layout.chat_activity)
 public class ChatActivity extends BaseActivity implements
-        OnEditorActionListener,SensorEventListener {
+        OnEditorActionListener, SensorEventListener {
 
     @ViewById
     EditText content_et;
@@ -77,9 +82,10 @@ public class ChatActivity extends BaseActivity implements
     @ViewById
     MyAnimationView ball_view;
     @ViewById
-    View chat_ll1, chat_ll2,voice_anim_view,chat_more_ll,add_btn,image_btn,face_btn;
+    View chat_ll1, chat_ll2, voice_anim_view, chat_more_ll, add_btn, image_btn, face_btn;
     @ViewById
-    TextView time_txt,send_voice_btn,cancle_btn;
+    TextView time_txt, send_voice_btn, cancle_btn;
+    public static final int Album = 2, Camera = 1;
 
     ChatAdapters adapter;
 
@@ -90,8 +96,8 @@ public class ChatActivity extends BaseActivity implements
 
         ac.startService();
 
-        if(ac.deviceId.equals("A00000443A4BE6")){
-            deviceId="000000000000000";
+        if (ac.deviceId.equals("A00000443A4BE6")) {
+            deviceId = "000000000000000";
         }
 
         setSwipeBackEnable(false);
@@ -193,7 +199,7 @@ public class ChatActivity extends BaseActivity implements
 
             @Override
             public void onStart() {
-                MessageBean mb = new MessageBean(ac.deviceId, deviceId,context_str,"", "", 0);
+                MessageBean mb = new MessageBean(ac.deviceId, deviceId, context_str, "", "", 0);
                 adapter.getList().add(mb);
                 adapter.notifyDataSetChanged();
 
@@ -344,9 +350,9 @@ public class ChatActivity extends BaseActivity implements
             @Override
             public void onAnimationEnd(Animator animation) {
                 ViewPropertyAnimator animator = chat_ll1.animate().translationY(0).setDuration(200);
-                if(adapter1!=null){
+                if (adapter1 != null) {
                     animator.setListener(adapter1);
-                }else{
+                } else {
                     animator.setListener(null);
                 }
                 animator.start();
@@ -364,15 +370,15 @@ public class ChatActivity extends BaseActivity implements
 
     @Click(R.id.send_voice_btn)
     void sendVoiceBtnClick() {
-        closeVoicePanl(send_voice_btn,0);
+        closeVoicePanl(send_voice_btn, 0);
     }
 
-    void closeVoicePanl(TextView btn,final int message){
+    void closeVoicePanl(TextView btn, final int message) {
         voice_anim_view.setVisibility(View.VISIBLE);
         voice_anim_view.setX(btn.getX());
         voice_anim_view.setY(btn.getY());
         recorderInstance.setRecording(false);
-        float width =(getResources().getDisplayMetrics().widthPixels/getResources().getDimensionPixelSize(R.dimen.voice_btn_width))*2.5f;
+        float width = (getResources().getDisplayMetrics().widthPixels / getResources().getDimensionPixelSize(R.dimen.voice_btn_width)) * 2.5f;
         voice_anim_view.animate().scaleY(width).scaleX(width).setDuration(500).setListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
@@ -439,6 +445,7 @@ public class ChatActivity extends BaseActivity implements
             }
         }, 1000);
     }
+
     Handler handle = new Handler();
     Handler imgHandle = new Handler() {
 
@@ -459,34 +466,7 @@ public class ChatActivity extends BaseActivity implements
                         superToast.setIcon(R.drawable.weisuo, SuperToast.IconPosition.LEFT);
                         superToast.show();
                     } else {
-                        try {
-                            RequestParams rp = ac.getRequestParams();
-                            rp.put("file", new File(filename));
-                            rp.put("toId",deviceId);
-                            final MessageBean mb = new MessageBean(ac.deviceId, deviceId, filename, "", "",1,(int)recodeTime);
-                            ac.httpClient.post(URLS.UPLOADVOICEFILE, rp, new JsonHttpResponseHandler() {
-
-                                @Override
-                                public void onStart() {
-                                    adapter.getList().add(mb);
-                                    adapter.notifyDataSetChanged();
-                                }
-
-                                @Override
-                                public void onSuccess(JSONObject jo) {
-                                    mb.setLoading(1);
-                                    adapter.notifyDataSetChanged();
-                                }
-
-                                @Override
-                                public void onFailure() {
-                                    adapter.getList().remove(mb);
-                                    adapter.notifyDataSetChanged();
-                                }
-                            });
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                        sendFile(1);
                     }
                     break;
                 case 3:
@@ -506,7 +486,7 @@ public class ChatActivity extends BaseActivity implements
         }
     };
 
-    void revert(){
+    void revert() {
         //还原动画
         voice_anim_view.setVisibility(View.GONE);
         voice_anim_view.setScaleX(1f);
@@ -514,7 +494,7 @@ public class ChatActivity extends BaseActivity implements
         voiceValue = 0;//还原录音大小
         ball_view.setmHeight(voiceValue);//还原球动画
         allTime = 0;//还原录音时间
-        time_txt.setText(allTime+"''");
+        time_txt.setText(allTime + "''");
     }
 
     @Override
@@ -532,7 +512,7 @@ public class ChatActivity extends BaseActivity implements
     protected void onResume() {
         // TODO Auto-generated method stub
         super.onResume();
-        if(audioManager==null){
+        if (audioManager == null) {
             audioManager = (AudioManager) this
                     .getSystemService(Context.AUDIO_SERVICE);
             mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -548,7 +528,7 @@ public class ChatActivity extends BaseActivity implements
         if (range >= mSensor.getMaximumRange() && audioManager.getMode() != audioManager.MODE_NORMAL) {
             audioManager.setMode(AudioManager.MODE_NORMAL);
             adapter.replay();
-        } else if(range < mSensor.getMaximumRange() && audioManager.getMode() != audioManager.MODE_IN_CALL){
+        } else if (range < mSensor.getMaximumRange() && audioManager.getMode() != audioManager.MODE_IN_CALL) {
             audioManager.setMode(AudioManager.MODE_IN_CALL);
             adapter.replay();
         }
@@ -559,11 +539,11 @@ public class ChatActivity extends BaseActivity implements
     }
 
     @Click
-    void add_btn(final View view){
+    void add_btn(final View view) {
         closeMore(null);
     }
 
-    void closeMore(AnimatorListenerAdapter listener){
+    void closeMore(AnimatorListenerAdapter listener) {
         final ValueAnimator animator = ObjectAnimator.ofInt(40, 160);
         animator.setDuration(200);
         final LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) chat_more_ll.getLayoutParams();
@@ -574,12 +554,12 @@ public class ChatActivity extends BaseActivity implements
                 chat_more_ll.setLayoutParams(layoutParams);
             }
         });
-        if(add_btn.getRotation()==0) {
+        if (add_btn.getRotation() == 0) {
             add_btn.animate().rotation(225f).setDuration(200).start();
             animator.start();
-        }else{
-            animator.setIntValues(160,40);
-            if(listener!=null){
+        } else {
+            animator.setIntValues(160, 40);
+            if (listener != null) {
                 animator.addListener(listener);
             }
             animator.start();
@@ -588,17 +568,123 @@ public class ChatActivity extends BaseActivity implements
     }
 
     @Click
-    void image_btn(){
+    void image_btn() {
         closeMore(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
-                new AlertDialog.Builder(ChatActivity.this).setItems(new String[]{"拍照","相册"},new DialogInterface.OnClickListener() {
+                new AlertDialog.Builder(ChatActivity.this).setTitle(getString(R.string.dont_chose_fail)).setIcon(R.drawable.weisuo_yuan).setItems(new String[]{getString(R.string.Camera), getString(R.string.Album)}, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
+                        switch (which) {
+                            case 0:
+                                if (Utils.existSDcard()) {
+                                    Intent intent = new Intent(); // 调用照相机
+                                    String messagepath = StaticFactory.APKCardPathChat;
+                                    File fa = new File(messagepath);
+                                    if (!fa.exists()) {
+                                        fa.mkdirs();
+                                    }
+                                    filename = messagepath + new Date().getTime();// 图片路径
+                                    intent.putExtra(MediaStore.EXTRA_OUTPUT,
+                                            Uri.fromFile(new File(filename)));
+                                    intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
+                                    startActivityForResult(intent, Camera);
+                                } else {
+                                    SuperToast toast = new SuperToast(ChatActivity.this);
+                                    toast.setDuration(SuperToast.Duration.SHORT);
+                                    toast.setIcon(R.drawable.kiding, SuperToast.IconPosition.LEFT);
+                                    toast.setText("请检查是否安装存储卡!");
+                                    toast.show();
+                                }
+                                break;
+                            case 1:
+                                if (Utils.existSDcard()) {
+                                    Intent intent = new Intent();
+                                    String messagepath = StaticFactory.APKCardPathChat;
+                                    File fa = new File(messagepath);
+                                    if (!fa.exists()) {
+                                        fa.mkdirs();
+                                    }
+                                    intent.setType("image/*");
+                                    intent.setAction(Intent.ACTION_GET_CONTENT);
+                                    startActivityForResult(intent, Album);
+                                } else {
+                                    SuperToast toast = new SuperToast(ChatActivity.this);
+                                    toast.setDuration(SuperToast.Duration.SHORT);
+                                    toast.setIcon(R.drawable.kiding, SuperToast.IconPosition.LEFT);
+                                    toast.setText("请检查是否安装存储卡!");
+                                    toast.show();
+                                }
+                                break;
+                        }
                     }
                 }).create().show();
             }
         });
+    }
+
+    @OnActivityResult(value = ChatActivity.Camera)
+    void onCameraResult() {
+        if (filename != null) {
+            File fi = new File(filename);
+            if (fi != null && fi.exists()) {
+                Utils.downsize(filename, filename, this);
+                sendFile(2);
+            }
+            fi = null;
+        }
+    }
+
+    @OnActivityResult(value = ChatActivity.Album)
+    void onAlbumResult(Intent intent) {
+        if (intent == null) {
+            return;
+        }
+        ContentResolver resolver = getContentResolver();
+        Uri imgUri = intent.getData();
+        try {
+            Cursor cursor = resolver.query(imgUri, null, null, null, null);
+            cursor.moveToFirst();
+            filename = cursor.getString(1);
+            Utils.downsize(
+                    filename,
+                    filename = StaticFactory.APKCardPath
+                            + new Date().getTime(), this);
+            sendFile(2);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    void sendFile(int type) {
+        try {
+            RequestParams rp = ac.getRequestParams();
+            rp.put("file", new File(filename));
+            rp.put("toId", deviceId);
+            rp.put("msgType", type);
+            final MessageBean mb = new MessageBean(ac.deviceId, deviceId, filename, "", "", type, (int) recodeTime);
+            ac.httpClient.post(URLS.UPLOADVOICEFILE, rp, new JsonHttpResponseHandler() {
+
+                @Override
+                public void onStart() {
+                    adapter.getList().add(mb);
+                    adapter.notifyDataSetChanged();
+                }
+
+                @Override
+                public void onSuccess(JSONObject jo) {
+                    mb.setLoading(1);
+                    adapter.notifyDataSetChanged();
+                }
+
+                @Override
+                public void onFailure() {
+                    adapter.getList().remove(mb);
+                    adapter.notifyDataSetChanged();
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -24,4 +24,7 @@
     <string name="chat_send_txt">Send\n取消</string>
     <string name="chat_cancle_txt">Cancle\n发送</string>
     <string name="your_JJ_so_short">Your ** is so short and small!\n你太短小了！</string>
+    <string name="dont_chose_fail">千万不要选错哦~</string>
+    <string name="Camera">Xiang Ce\n拍照</string>
+    <string name="Album">Pai Zhao\n相册</string>
 </resources>

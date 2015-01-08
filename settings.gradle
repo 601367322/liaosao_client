@@ -1,1 +1,1 @@
-include ':app','lib-swipebacklayout', 'lib-core', 'lib-manipulation', 'lib-core-slh','lib-float-btn'
+include ':app','lib-swipebacklayout', 'lib-core', 'lib-manipulation', 'lib-core-slh','lib-float-btn','lib-photoview'
