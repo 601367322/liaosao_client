@@ -10,6 +10,7 @@
       <module fileurl="file://$PROJECT_DIR$/lib-manipulation/lib-manipulation.iml" filepath="$PROJECT_DIR$/lib-manipulation/lib-manipulation.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib-photoview/lib-photoview.iml" filepath="$PROJECT_DIR$/lib-photoview/lib-photoview.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib-swipebacklayout/lib-swipebacklayout.iml" filepath="$PROJECT_DIR$/lib-swipebacklayout/lib-swipebacklayout.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lib-umeng/lib-umeng.iml" filepath="$PROJECT_DIR$/lib-umeng/lib-umeng.iml" />
     </modules>
   </component>
 </project>

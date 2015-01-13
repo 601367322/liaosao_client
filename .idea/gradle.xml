@@ -14,6 +14,7 @@
             <option value="$PROJECT_DIR$/lib-manipulation" />
             <option value="$PROJECT_DIR$/lib-photoview" />
             <option value="$PROJECT_DIR$/lib-swipebacklayout" />
+            <option value="$PROJECT_DIR$/lib-umeng" />
           </set>
         </option>
       </GradleProjectSettings>

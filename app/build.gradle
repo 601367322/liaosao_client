@@ -64,7 +64,7 @@ dependencies {
     compile project(':lib-float-btn')//floatBtn
     compile project(':lib-swipebacklayout')//滑动返回
     compile project(':lib-photoview')//photoview
-
+    compile project(':lib-umeng')//umeng更新
     //compile project(':lib-mpchart')
 }
 
