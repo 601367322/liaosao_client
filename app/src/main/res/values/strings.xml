@@ -27,4 +27,10 @@
     <string name="dont_chose_fail">千万不要选错哦~</string>
     <string name="Camera">Xiang Ce\n拍照</string>
     <string name="Album">Pai Zhao\n相册</string>
+    <string name="beijua">悲剧啊！</string>
+    <string name="resend_message">あれ?送信に失敗しました!再送?\n啊咧？发送失败！重发？</string>
+    <string name="resend_btn">再送\n重发</string>
+    <string name="cancle_send_btn">キャンセル\n取消</string>
+    <string name="des">本软件除正常统计软件使用情况以外，不会保留任何用户主动输入的聊天信息。请及时做好截屏、笔记、要微信、要电话的准备哟。拒绝黄、赌、毒从我做起，么么哒~</string>
+    <string name="guaiwolo">ネットワーク接続が切れ、私のせいなのね？\n网断了，怪我咯？</string>
 </resources>

@@ -42,27 +42,28 @@ repositories {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.google.code.gson:gson:+'
-    compile 'com.android.support:support-v4:21.+'
+    compile 'com.google.code.gson:gson:+'//json
+    compile 'com.android.support:support-v4:+'
     compile 'com.android.support:appcompat-v7:+'
-    compile 'com.android.support:recyclerview-v7:+'
+    //compile 'com.android.support:recyclerview-v7:+'
     compile 'com.android.support:cardview-v7:+'
-    apt "org.androidannotations:androidannotations:+"
-    compile "org.androidannotations:androidannotations-api:+"
-    compile "com.jakewharton:butterknife:+"
-    compile 'org.lucasr.twowayview:core:+@aar'
-    compile 'org.lucasr.twowayview:layouts:+@aar'
-    compile 'com.nostra13.universalimageloader:universal-image-loader:+'
-    compile 'com.loopj.android:android-async-http:+'
-    compile 'pl.droidsonroids.gif:android-gif-drawable:+'
-    compile 'com.github.johnpersano:supertoasts:+@aar'
-    compile 'com.github.siyamed:android-shape-imageview:+@aar'
-    compile project(':lib-core')
-    compile project(':lib-core-slh')
-    compile project(':lib-manipulation')
-    compile project(':lib-float-btn')
-    compile project(':lib-swipebacklayout')
-    compile project(':lib-photoview')
+    apt "org.androidannotations:androidannotations:+"//注解
+    compile "org.androidannotations:androidannotations-api:+"//注解
+    compile "com.jakewharton:butterknife:+"//注解
+    //compile 'org.lucasr.twowayview:core:+@aar'
+    //compile 'org.lucasr.twowayview:layouts:+@aar'
+    compile 'com.nostra13.universalimageloader:universal-image-loader:+'//图片加载
+    compile 'com.loopj.android:android-async-http:+'//网络加载
+    compile 'pl.droidsonroids.gif:android-gif-drawable:+'//GIF
+    compile 'com.github.johnpersano:supertoasts:+@aar'//SuperToast
+    compile 'com.github.siyamed:android-shape-imageview:+@aar'//多边形图片
+    compile 'com.umeng.analytics:analytics:latest.integration'//友盟
+    compile 'de.greenrobot:eventbus:+'//eventbus
+    compile project(':lib-core')//listview动画
+    compile project(':lib-manipulation')//listview动画
+    compile project(':lib-float-btn')//floatBtn
+    compile project(':lib-swipebacklayout')//滑动返回
+    compile project(':lib-photoview')//photoview
 
     //compile project(':lib-mpchart')
 }

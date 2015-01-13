@@ -53,7 +53,7 @@ public class Welcome extends BaseActivity {
     Tencent mTencent;
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
         getActionBar().setTitle(R.string.onekeylogin);
     }

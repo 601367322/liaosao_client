@@ -8,4 +8,6 @@ public class BroadCastUtil {
 	public static final String NEWMESSAGE="com.xl.broadcast.newmessage";
 
     public static final String CLOSECHAT="com.xl.broadcast.closechat";
+
+    public static final String DISCONNECT="com.xl.broadcast.disconnect";
 }

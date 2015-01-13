@@ -1,16 +1,5 @@
 package com.xl.service;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.InetSocketAddress;
-import java.net.Socket;
-
-import org.androidannotations.annotations.App;
-import org.androidannotations.annotations.EService;
-import org.androidannotations.annotations.sharedpreferences.Pref;
-
 import android.app.AlarmManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -24,8 +13,19 @@ import android.net.NetworkInfo;
 import android.os.IBinder;
 
 import com.xl.application.AppClass;
+import com.xl.util.BroadCastUtil;
 import com.xl.util.LogUtil;
 import com.xl.util.URLS;
+
+import org.androidannotations.annotations.App;
+import org.androidannotations.annotations.EService;
+import org.androidannotations.annotations.sharedpreferences.Pref;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.InetSocketAddress;
+import java.net.Socket;
 
 @EService
 public class PushService extends Service {
@@ -343,7 +343,10 @@ public class PushService extends Service {
 				log("Unexpected I/O error: " + e.toString());
 			} finally {
 				stopKeepAlives();
-				hideNotification();
+//				hideNotification();
+
+                Intent intent = new Intent(BroadCastUtil.DISCONNECT);
+                sendBroadcast(intent);
 
 				if (mAbort == true)
 					log("Connection aborted, shutting down.");

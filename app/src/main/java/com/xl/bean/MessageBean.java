@@ -58,10 +58,12 @@ public class MessageBean implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 
-    public MessageBean(String fromId, String toId, String content) {
+    public MessageBean(String fromId, String toId, String content,int msgType) {
         this.fromId = fromId;
         this.toId = toId;
+        this.msgType=msgType;
         this.content = content;
+        setLoading(LOADING_DOWNLOADING);
     }
 
     public MessageBean(String userId, String toId,
@@ -77,6 +79,7 @@ public class MessageBean implements Serializable{
 		this.nickName = nickName;
 		this.userLogo = userLogo;
 		this.state = 1;
+        setLoading(LOADING_DOWNLOADING);
 	}
 
     public MessageBean(String userId, String toId,
@@ -93,7 +96,7 @@ public class MessageBean implements Serializable{
         this.nickName = nickName;
         this.userLogo = userLogo;
         this.state = 1;
-        setLoading(LOADING_DOWNLOADED);
+        setLoading(LOADING_DOWNLOADING);
     }
 
 	public String getMsgId() {

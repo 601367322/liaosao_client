@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <com.github.siyamed.shapeimageview.mask.PorterShapeImageView
@@ -21,4 +21,13 @@
         android:layout_alignTop="@id/img"
         android:layout_toRightOf="@id/img"
         android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/error"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/chat_error_icon"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/img"
+        android:visibility="gone"/>
 </RelativeLayout>

@@ -1,6 +1,7 @@
 package com.xl.util;
 
 import org.apache.http.Header;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class JsonHttpResponseHandler extends
@@ -22,8 +23,18 @@ public class JsonHttpResponseHandler extends
 		// TODO Auto-generated method stub
 		onFailure();
 	}
-	
-	public void onFailure(){
+
+    @Override
+    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+        onFailure();
+    }
+
+    @Override
+    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
+        onFailure();
+    }
+
+    public void onFailure(){
 		
 	}
 	

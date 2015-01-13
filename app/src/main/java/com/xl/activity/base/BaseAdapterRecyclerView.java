@@ -1,12 +1,15 @@
+/*
 package com.xl.activity.base;
 
 import android.content.Context;
 
 import java.util.List;
 
+*/
 /**
  * Created by Administrator on 2014/12/22.
- */
+ *//*
+
 public abstract class BaseAdapterRecyclerView<E> extends HeaderRecyclerViewAdapterV2{
 
     public List<E> list;
@@ -38,3 +41,4 @@ public abstract class BaseAdapterRecyclerView<E> extends HeaderRecyclerViewAdapt
         return list == null ? 0 : list.size();
     }
 }
+*/

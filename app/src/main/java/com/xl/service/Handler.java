@@ -1,21 +1,18 @@
 package com.xl.service;
 
 import android.annotation.SuppressLint;
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.xl.activity.R;
 import com.xl.application.AppClass_;
 import com.xl.bean.MessageBean;
 import com.xl.util.BroadCastUtil;
 import com.xl.util.LogUtil;
 import com.xl.util.StaticUtil;
 
-import org.androidannotations.api.SdkVersionHelper;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -90,7 +87,7 @@ public class Handler {
     @SuppressWarnings("deprecation")
     @SuppressLint("NewApi")
     public void orderConnectChat(JSONObject jo) {
-        Notification.Builder builder = new Notification.Builder(context)
+        /*Notification.Builder builder = new Notification.Builder(context)
                 .setSmallIcon(R.drawable.ic_stat_icon).setContentTitle("您有一条新消息")
                 .setOnlyAlertOnce(true)
                 .setContentText("一位陌生人将与你聊天").setNumber(1).setAutoCancel(true)
@@ -101,7 +98,7 @@ public class Handler {
         } else {
             notification = builder.getNotification();
         }
-        manager.notify(0, notification);
+        manager.notify(0, notification);*/
 
         try {
             Intent i = new Intent(BroadCastUtil.STARTCHAT);

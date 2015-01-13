@@ -21,6 +21,7 @@ import com.xl.activity.R;
 import com.xl.activity.base.BaseAdapterListView;
 import com.xl.bean.MessageBean;
 import com.xl.custom.MyImageView;
+import com.xl.util.GifDrawableCache;
 import com.xl.util.StaticFactory;
 import com.xl.util.URLS;
 import com.xl.util.Utils;
@@ -35,6 +36,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 import butterknife.Optional;
+import de.greenrobot.event.EventBus;
 import pl.droidsonroids.gif.GifDrawable;
 
 public class ChatAdapters extends BaseAdapterListView<MessageBean> {
@@ -49,14 +51,7 @@ public class ChatAdapters extends BaseAdapterListView<MessageBean> {
     public int getItemViewType(int position) {
         MessageBean mb = getList().get(position);
         if (mb.getToId().equals(ac.deviceId)) {
-            switch (mb.getMsgType()) {
-                case 0:
-                    return 0;
-                case 1:
-                    return 1;
-                case 2:
-                    return 2;
-            }
+            return mb.getMsgType();
         } else {
             switch (mb.getMsgType()) {
                 case 0:
@@ -65,6 +60,8 @@ public class ChatAdapters extends BaseAdapterListView<MessageBean> {
                     return 11;
                 case 2:
                     return 12;
+                case 3:
+                    return 13;
             }
         }
         return -1;
@@ -89,6 +86,9 @@ public class ChatAdapters extends BaseAdapterListView<MessageBean> {
                 case 2:
                     view = LayoutInflater.from(context).inflate(R.layout.chat_left_img_layout, viewGroup, false);
                     break;
+                case 3:
+                    view = LayoutInflater.from(context).inflate(R.layout.chat_left_face_layout, viewGroup, false);
+                    break;
                 case 10:
                     view = LayoutInflater.from(context).inflate(R.layout.chat_right_text_layout, viewGroup, false);
                     break;
@@ -97,6 +97,9 @@ public class ChatAdapters extends BaseAdapterListView<MessageBean> {
                     break;
                 case 12:
                     view = LayoutInflater.from(context).inflate(R.layout.chat_right_img_layout, viewGroup, false);
+                    break;
+                case 13:
+                    view = LayoutInflater.from(context).inflate(R.layout.chat_right_face_layout, viewGroup, false);
                     break;
             }
             holder = new ViewHolder(view);
@@ -140,7 +143,7 @@ public class ChatAdapters extends BaseAdapterListView<MessageBean> {
                             file.mkdirs();
                         }
                         file = new File(file, mb.getContent());
-                        ac.httpClient.get(URLS.DOWNLOADFILE + ac.deviceId + "/" + mb.getContent() + URLS.LAST, new fileDownloader(file,mb));
+                        ac.httpClient.get(URLS.DOWNLOADFILE + ac.deviceId + "/" + mb.getContent() + URLS.LAST, new fileDownloader(file, mb));
                     } else {
                         if (mb.isPlaying() && !temp1.isPlaying()) {
                             temp1.start();
@@ -154,17 +157,41 @@ public class ChatAdapters extends BaseAdapterListView<MessageBean> {
                 }
                 break;
             case 2:
-                ImageLoader.getInstance().displayImage(URLS.DOWNLOADFILE+ac.deviceId+"/"+mb.getContent()+URLS.LAST,holder.img,listener);
-                holder.img.setTag(URLS.DOWNLOADFILE+ac.deviceId+"/"+mb.getContent()+URLS.LAST);
+                ImageLoader.getInstance().displayImage(URLS.DOWNLOADFILE + ac.deviceId + "/" + mb.getContent() + URLS.LAST, holder.img, new imgListener(mb));
+                holder.img.setTag(URLS.DOWNLOADFILE + ac.deviceId + "/" + mb.getContent() + URLS.LAST);
                 holder.img.setOnClickListener(clickListener);
                 break;
             case 12:
-                ImageLoader.getInstance().displayImage("file://"+mb.getContent(),holder.img,listener);
-                holder.img.setTag("file://"+mb.getContent());
+                ImageLoader.getInstance().displayImage("file://" + mb.getContent(), holder.img, new imgListener(null));
+                holder.img.setTag("file://" + mb.getContent());
                 holder.img.setOnClickListener(clickListener);
                 break;
+            case 3:
+            case 13:
+                GifDrawable drawable = GifDrawableCache.getInstance().getDrawable((long) context.getResources().getIdentifier(mb.getContent(), "drawable", context.getPackageName()), context);
+                int img_width = drawable.getMinimumWidth();
+                int max_widht = Utils.dip2px(context, 80);
+                float scale1 = (float) img_width / (float) max_widht;
+                int new_height = (int) ((float) drawable.getMinimumHeight() / scale1);
+                RelativeLayout.LayoutParams layoutParams1 = (RelativeLayout.LayoutParams) holder.face.getLayoutParams();
+                layoutParams1.width = max_widht;
+                layoutParams1.height = new_height;
+                holder.face.setLayoutParams(layoutParams1);
+                holder.face.setImageGifDrawable(drawable);
+                holder.face.setStart(true);
+                break;
         }
-
+        if (mb.getLoading() == MessageBean.LOADING_DOWNLOADING) {
+            holder.progress.setVisibility(View.VISIBLE);
+        } else {
+            holder.progress.setVisibility(View.GONE);
+        }
+        if (mb.getLoading() == MessageBean.LOADING_DOWNLOADFAIL) {
+            holder.error.setVisibility(View.VISIBLE);
+            holder.error.setTag(mb);
+        } else {
+            holder.error.setVisibility(View.GONE);
+        }
         return view;
     }
 
@@ -190,6 +217,14 @@ public class ChatAdapters extends BaseAdapterListView<MessageBean> {
         @InjectView(R.id.img)
         PorterShapeImageView img;
 
+        @Optional
+        @InjectView(R.id.face)
+        MyImageView face;
+
+        @Optional
+        @InjectView(R.id.error)
+        View error;
+
         public ViewHolder(View view) {
             ButterKnife.inject(this, view);
         }
@@ -198,8 +233,17 @@ public class ChatAdapters extends BaseAdapterListView<MessageBean> {
         @OnClick(R.id.voice)
         void voiceClick(View view) {
             MessageBean mb = (MessageBean) view.getTag();
-            if(mb.getLoading()==MessageBean.LOADING_DOWNLOADED) {
+            if (mb.getLoading() == MessageBean.LOADING_DOWNLOADED) {
                 playVoice(mb);
+            }
+        }
+
+        @Optional
+        @OnClick(R.id.error)
+        void errorClick(View view) {
+            MessageBean mb = (MessageBean) view.getTag();
+            if (mb != null) {
+                EventBus.getDefault().post(mb);
             }
         }
     }
@@ -305,41 +349,63 @@ public class ChatAdapters extends BaseAdapterListView<MessageBean> {
         public void onSuccess(int statusCode, Header[] headers, File file) {
             messageBean.setLoading(MessageBean.LOADING_DOWNLOADED);
             messageBean.setContent(file.getPath());
+            downloading.remove(messageBean);
             notifyDataSetChanged();
         }
     }
 
-    ImageLoadingListener listener = new ImageLoadingListener() {
+    class imgListener implements ImageLoadingListener {
+
+        private MessageBean mb;
+
+        public imgListener(MessageBean mb) {
+            this.mb = mb;
+        }
+
         @Override
         public void onLoadingStarted(String imageUri, View view) {
-
+            if (mb != null) {
+                mb.setLoading(MessageBean.LOADING_DOWNLOADING);
+                notifyDataSetChanged();
+            }
         }
 
         @Override
         public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-
+            if (mb != null) {
+                mb.setLoading(MessageBean.LOADING_DOWNLOADFAIL);
+                downloading.remove(mb);
+                notifyDataSetChanged();
+            }
         }
 
         @Override
         public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-            int screen_width=(int)((float)context.getResources().getDisplayMetrics().widthPixels/2f);
-            int img_width=loadedImage.getWidth();
-            int max_widht=img_width>screen_width?screen_width:img_width;
-            float scale = (float)img_width/(float)max_widht;
-            int new_height = (int)((float)loadedImage.getHeight()/scale);
+            int screen_width = (int) ((float) context.getResources().getDisplayMetrics().widthPixels / 2f);
+            int img_width = loadedImage.getWidth();
+            int max_widht = img_width > screen_width ? screen_width : img_width;
+            float scale = (float) img_width / (float) max_widht;
+            int new_height = (int) ((float) loadedImage.getHeight() / scale);
             RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
-            layoutParams.width=max_widht;
-            layoutParams.height=new_height;
+            layoutParams.width = max_widht;
+            layoutParams.height = new_height;
             view.setLayoutParams(layoutParams);
+            if (mb != null) {
+                mb.setLoading(MessageBean.LOADING_DOWNLOADED);
+                downloading.remove(mb);
+                notifyDataSetChanged();
+            }
         }
 
         @Override
         public void onLoadingCancelled(String imageUri, View view) {
 
         }
-    };
+    }
 
-    View.OnClickListener clickListener=new View.OnClickListener() {
+    ;
+
+    View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             ImageViewActivity_.intent(context).imageUrl(v.getTag().toString()).start();

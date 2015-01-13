@@ -6,8 +6,6 @@ import android.os.Looper;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
-import com.xl.util.LogUtil;
-
 import pl.droidsonroids.gif.GifDrawable;
 
 /**
@@ -42,9 +40,8 @@ public class MyImageView extends ImageView {
         @Override
         public void run() {
             invalidate();
-            LogUtil.d("invalidate");
             if(start)
-            handler.postDelayed(this,200);
+            handler.postDelayed(this,150);
         }
     };
 

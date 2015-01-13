@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import com.umeng.analytics.MobclickAgent;
 import com.xl.application.AM;
 import com.xl.application.AppClass;
 
@@ -50,5 +51,14 @@ public abstract class BaseActivity extends SwipeBackActivity{
                     .hideSoftInputFromWindow(
                             getCurrentFocus().getWindowToken(), 0);
         }
+    }
+
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }

@@ -1,8 +1,10 @@
+/*
 package com.xl.activity.base;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
+*/
 /**
  * Created by sebnapi on 08.11.14.
  * <p/>
@@ -22,7 +24,8 @@ import android.view.ViewGroup;
  * is not using generics as RecyclerView.Adapter make yourself sure to cast right.
  * <p/>
  * TOTALLY UNTESTED - USE WITH CARE - HAVE FUN :)
- */
+ *//*
+
 public abstract class HeaderRecyclerViewAdapterV2 extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int TYPE_HEADER = Integer.MIN_VALUE;
     private static final int TYPE_FOOTER = Integer.MIN_VALUE + 1;
@@ -93,12 +96,14 @@ public abstract class HeaderRecyclerViewAdapterV2 extends RecyclerView.Adapter<R
 
     public abstract int getBasicItemCount();
 
-    /**
+    */
+/**
      * make sure you don't use [Integer.MAX_VALUE-1, Integer.MAX_VALUE] as BasicItemViewType
      *
      * @param position
      * @return
-     */
+     *//*
+
     public abstract int getBasicItemType(int position);
 
-}
+}*/

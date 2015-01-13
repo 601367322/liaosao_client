@@ -1,3 +1,4 @@
+/*
 package com.xl.custom;
 
 import android.content.Context;
@@ -5,9 +6,11 @@ import android.util.AttributeSet;
 
 import org.lucasr.twowayview.widget.TwoWayView;
 
+*/
 /**
  * Created by sbb on 2014/12/24.
- */
+ *//*
+
 public class MyRecyclerView extends TwoWayView {
 
     public MyRecyclerView(Context context) {
@@ -33,3 +36,4 @@ public class MyRecyclerView extends TwoWayView {
 
     }
 }
+*/

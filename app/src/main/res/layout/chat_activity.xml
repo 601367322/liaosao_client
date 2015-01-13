@@ -15,6 +15,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:cacheColorHint="#00000000"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:clipToPadding="false"
             android:divider="@null"
             android:listSelector="#00000000"
             android:transcriptMode="alwaysScroll"></ListView>
@@ -23,6 +26,17 @@
             android:id="@+id/ball_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+
+        <GridView
+            android:id="@+id/face_grid"
+            android:layout_width="match_parent"
+            android:stretchMode="columnWidth"
+            android:horizontalSpacing="5dp"
+            android:visibility="gone"
+            android:verticalSpacing="5dp"
+            android:layout_alignParentBottom="true"
+            android:layout_height="wrap_content"
+            android:numColumns="5"></GridView>
     </RelativeLayout>
 
     <RelativeLayout
@@ -41,8 +55,8 @@
             <LinearLayout
                 android:id="@+id/chat_more_ll"
                 android:layout_width="40dp"
-                android:gravity="center_vertical"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical">
 
                 <ImageButton
                     android:id="@+id/add_btn"
@@ -58,8 +72,7 @@
                     android:layout_height="40dp"
                     android:background="@null"
                     android:scaleType="centerInside"
-                    android:src="@drawable/mic_selector"
-                     />
+                    android:src="@drawable/mic_selector" />
 
                 <ImageButton
                     android:id="@+id/image_btn"
@@ -67,8 +80,7 @@
                     android:layout_height="40dp"
                     android:background="@null"
                     android:scaleType="centerInside"
-                    android:src="@drawable/ic_image_camera_alt"
-                     />
+                    android:src="@drawable/ic_image_camera_alt" />
 
                 <ImageButton
                     android:id="@+id/face_btn"
@@ -76,8 +88,7 @@
                     android:layout_height="40dp"
                     android:background="@null"
                     android:scaleType="centerInside"
-                    android:src="@drawable/ic_image_tag_faces"
-                     />
+                    android:src="@drawable/ic_image_tag_faces" />
             </LinearLayout>
 
             <EditText

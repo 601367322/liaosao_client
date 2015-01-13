@@ -85,7 +85,9 @@
     <orderEntry type="jdk" jdkName="Android API 21 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="gson-2.3.1" level="project" />
+    <orderEntry type="library" exported="" name="eventbus-2.4.0" level="project" />
     <orderEntry type="library" exported="" name="androidannotations-api-3.3-SNAPSHOT" level="project" />
+    <orderEntry type="library" exported="" name="youmisdk" level="project" />
     <orderEntry type="library" exported="" name="android-gif-drawable-1.1.2-SNAPSHOT" level="project" />
     <orderEntry type="library" exported="" name="support-v4-21.0.3" level="project" />
     <orderEntry type="library" exported="" name="libammsdk" level="project" />
@@ -94,22 +96,19 @@
     <orderEntry type="library" exported="" name="cardview-v7-21.0.3" level="project" />
     <orderEntry type="library" exported="" name="mta-sdk-1.6.2" level="project" />
     <orderEntry type="library" exported="" name="open_sdk_r4066_lite" level="project" />
-    <orderEntry type="library" exported="" name="layouts-1.0.0-SNAPSHOT" level="project" />
     <orderEntry type="library" exported="" name="ormlite-android-4.48" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-21.0.3" level="project" />
-    <orderEntry type="library" exported="" name="core-1.0.0-SNAPSHOT" level="project" />
     <orderEntry type="library" exported="" name="android-async-http-1.4.7-SNAPSHOT" level="project" />
     <orderEntry type="library" exported="" name="ormlite-core-4.48" level="project" />
-    <orderEntry type="library" exported="" name="recyclerview-v7-21.0.3" level="project" />
     <orderEntry type="library" exported="" name="weibosdkcore" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-21.0.3" level="project" />
     <orderEntry type="library" exported="" name="android-shape-imageview-0.9.2" level="project" />
+    <orderEntry type="library" exported="" name="analytics-5.2.4" level="project" />
     <orderEntry type="library" exported="" name="butterknife-6.0.1-SNAPSHOT" level="project" />
     <orderEntry type="module" module-name="lib-swipebacklayout" exported="" />
     <orderEntry type="module" module-name="lib-core" exported="" />
     <orderEntry type="module" module-name="lib-float-btn" exported="" />
     <orderEntry type="module" module-name="lib-photoview" exported="" />
-    <orderEntry type="module" module-name="lib-core-slh" exported="" />
     <orderEntry type="module" module-name="lib-manipulation" exported="" />
   </component>
 </module>
