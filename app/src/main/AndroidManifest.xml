@@ -52,6 +52,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>-->
         </activity>
+
+        <activity
+            android:name="com.xl.activity.setting.HelpActivity_"
+            android:screenOrientation="portrait">
+        </activity>
+
         <activity
             android:name="com.xl.activity.chat.ImageViewActivity_"
             android:screenOrientation="portrait"
@@ -106,8 +112,21 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             />
 
+        <!-- 友盟 -->
         <meta-data android:value="54af4845fd98c5569900016a" android:name="UMENG_APPKEY"></meta-data>
         <meta-data android:value="LIAOSHAO" android:name="UMENG_CHANNEL"/>
+
+        <service
+            android:name="com.umeng.update.net.DownloadingService"
+            android:process=":DownloadingService" >
+        </service>
+        <activity
+            android:name="com.umeng.update.UpdateDialogActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+        </activity>
+
+        <activity
+            android:name="com.umeng.fb.ConversationActivity"/>
 
         <!--有米-->
         <activity
@@ -125,6 +144,8 @@
                 <data android:scheme="package" />
             </intent-filter>
         </receiver>
+
+
     </application>
 
 </manifest>

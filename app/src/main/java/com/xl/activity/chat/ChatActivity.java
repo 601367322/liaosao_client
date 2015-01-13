@@ -91,7 +91,7 @@ public class ChatActivity extends BaseActivity implements
     @ViewById
     ListView listview;
     @Extra
-    String deviceId = "A00000443A4BE6";
+    String deviceId = null;
     @ViewById
     MyAnimationView ball_view;
     @ViewById
@@ -112,9 +112,9 @@ public class ChatActivity extends BaseActivity implements
 
 //        ac.startService();
 
-        if (ac.deviceId.equals("A00000443A4BE6")) {
-            deviceId = "000000000000000";
-        }
+//        if (ac.deviceId.equals("A00000443A4BE6")) {
+//            deviceId = "000000000000000";
+//        }
 
         setSwipeBackEnable(false);
 
