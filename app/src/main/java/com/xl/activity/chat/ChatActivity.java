@@ -130,9 +130,16 @@ public class ChatActivity extends BaseActivity implements
         EventBus.getDefault().register(this);
 
 
-        SpotManager.getInstance(this).showSpotAds(this);
+        handle.postDelayed(ad,30*1000);
 
     }
+
+    Runnable ad = new Runnable() {
+        @Override
+        public void run() {
+            SpotManager.getInstance(ChatActivity.this).showSpotAds(ChatActivity.this);
+        }
+    };
 
     public void onEvent(final MessageBean mb){
         if(mb.getToId().equals(ac.deviceId)) {
@@ -590,6 +597,12 @@ public class ChatActivity extends BaseActivity implements
         }
         mSensorManager.registerListener(this, mSensor,
                 SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        handle.removeCallbacks(ad);
     }
 
     @Override

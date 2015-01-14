@@ -2,8 +2,9 @@ package com.xl.util;
 
 public class URLS {
 
-	public static final String URL = "http://123.56.114.98:8080/product/";
-	public static final String IP = "123.56.114.98";
+    public static final String IP = "123.56.114.98";
+	public static final String URL = "http://"+IP+"/";
+
 	public static final int PORT = 8181;
 	public static final String LAST=".do";
 	
