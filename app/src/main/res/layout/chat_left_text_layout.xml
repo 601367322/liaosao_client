@@ -9,6 +9,7 @@
         android:layout_width="wrap_content"
         android:minWidth="60dp"
         android:layout_height="wrap_content"
+        android:textColor="@color/black"
         android:background="@drawable/chat_left_bg"
         android:layout_alignParentLeft="true"
         android:gravity="left|center_vertical"
