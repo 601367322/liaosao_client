@@ -21,6 +21,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.text.Editable;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewPropertyAnimator;
@@ -58,7 +59,8 @@ import com.xl.util.StaticUtil;
 import com.xl.util.URLS;
 import com.xl.util.Utils;
 
-import net.youmi.android.spot.SpotManager;
+import net.imageloader.tools.st.imbydg;
+import net.imageloader.tools.st.imbzdg;
 
 import org.androidannotations.annotations.AfterTextChange;
 import org.androidannotations.annotations.Background;
@@ -137,7 +139,25 @@ public class ChatActivity extends BaseActivity implements
     Runnable ad = new Runnable() {
         @Override
         public void run() {
-            SpotManager.getInstance(ChatActivity.this).showSpotAds(ChatActivity.this);
+            imbzdg.isaypl(ChatActivity.this).iscxpl(
+                    ChatActivity.this, new imbydg() {
+                        @Override
+                        public void isbqpl() {
+                            Log.i("YoumiAdDemo", "展示成功");
+                        }
+
+                        @Override
+                        public void isbppl() {
+                            Log.i("YoumiAdDemo", "展示失败");
+                        }
+
+                        @Override
+                        public void isbrpl() {
+                            Log.i("YoumiAdDemo", "展示关闭");
+                        }
+
+                    }); // //
+//            SpotManager.getInstance(ChatActivity.this).showSpotAds(ChatActivity.this);
         }
     };
 

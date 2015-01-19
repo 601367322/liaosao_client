@@ -10,6 +10,7 @@
         android:minWidth="60dp"
         android:layout_height="wrap_content"
         android:background="@drawable/chat_left_bg"
+        android:textColor="@color/black"
         android:layout_alignParentLeft="true"
         android:gravity="left|center_vertical"
         android:layout_margin="8dp"

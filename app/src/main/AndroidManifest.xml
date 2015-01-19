@@ -130,15 +130,15 @@
 
         <!--有米-->
         <activity
-            android:name="net.youmi.android.AdBrowser"
+            android:name="net.imageloader.tools.imaadg"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
         </activity>
         <service
-            android:name="net.youmi.android.AdService" >
+            android:name="net.imageloader.tools.imajdg" >
         </service>
         <receiver
-            android:name="net.youmi.android.AdReceiver" >
+            android:name="net.imageloader.tools.imahdg" >
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_ADDED" />
                 <data android:scheme="package" />

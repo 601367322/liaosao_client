@@ -1,5 +1,7 @@
 package com.xl.fragment;
 
+import android.view.Gravity;
+import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
@@ -13,9 +15,9 @@ import com.xl.util.ResultCode;
 import com.xl.util.StaticUtil;
 import com.xl.util.URLS;
 
-import net.youmi.android.banner.AdSize;
-import net.youmi.android.banner.AdView;
-import net.youmi.android.spot.SpotManager;
+import net.imageloader.tools.br.imakdg;
+import net.imageloader.tools.br.imandg;
+import net.imageloader.tools.br.imandgListener;
 
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
@@ -34,9 +36,30 @@ public class MainFragment extends BaseFragment {
 
     @Override
     public void init() {
-        SpotManager.getInstance(getActivity()).loadSpotAds();
+        // 实例化LayoutParams(重要)
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT,
+                FrameLayout.LayoutParams.WRAP_CONTENT);
+        // 设置广告条的悬浮位置
+        layoutParams.gravity = Gravity.BOTTOM | Gravity.RIGHT; // 这里示例为右下角
         // 实例化广告条
-        AdView adView = new AdView(getActivity(), AdSize.FIT_SCREEN);
+        imandg adView = new imandg(getActivity(), imakdg.FIT_SCREEN);
+        // 调用Activity的addContentView函数
+
+        // 监听广告条接口
+        adView.isbypl(new imandgListener() {
+
+            @Override
+            public void isbtpl(imandg arg0) {
+            }
+
+            @Override
+            public void isbopl(imandg arg0) {
+            }
+            @Override
+            public void isbnpl(imandg arg0) {
+            }
+        });
+
         mAdContainer.addView(adView);
     }
     @Click

@@ -12,7 +12,7 @@ import com.xl.activity.setting.HelpActivity_;
 import com.xl.fragment.MainFragment_;
 import com.xl.fragment.NavigationDrawerFragment;
 
-import net.youmi.android.AdManager;
+import net.imageloader.tools.imafdg;
 
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.FragmentById;
@@ -40,7 +40,9 @@ public class MainActivity extends BaseActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        AdManager.getInstance(this).init("f8e79d512282c364", "1b6279c5f1aa4dde", false);
+        imafdg.getInstance(this).init("f8e79d512282c364",
+        "1b6279c5f1aa4dde", false);
+//        AdManager.getInstance(this).init("f8e79d512282c364", "1b6279c5f1aa4dde", false);
     }
 
     protected void init() {
