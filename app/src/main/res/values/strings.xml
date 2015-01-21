@@ -34,4 +34,5 @@
     <string name="des">　　点击首页中间的笑脸，进入等待，如果匹配到聊天对象，即进入聊天界面。\n　　再次点击首页中间笑脸，退出等待。\n　　本软件除正常统计软件使用情况以外，不会保留任何用户主动输入的聊天信息。请及时做好截屏、笔记、要微信、要电话的准备哟。拒绝黄、赌、毒从我做起，么么哒~\n　　最终解释权归申兵兵所有。</string>
     <string name="guaiwolo">ネットワーク接続が切れ、私のせいなのね？\n网断了，怪我咯？</string>
     <string name="help_and_shuoming">帮助和说明</string>
+    <string name="setting">设置</string>
 </resources>

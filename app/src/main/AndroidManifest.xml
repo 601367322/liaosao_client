@@ -57,6 +57,10 @@
             android:name="com.xl.activity.setting.HelpActivity_"
             android:screenOrientation="portrait">
         </activity>
+        <activity
+            android:name="com.xl.activity.setting.SettingActivity_"
+            android:screenOrientation="portrait">
+        </activity>
 
         <activity
             android:name="com.xl.activity.chat.ImageViewActivity_"

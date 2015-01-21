@@ -59,15 +59,16 @@ dependencies {
     compile 'com.github.siyamed:android-shape-imageview:+@aar'//多边形图片
     compile 'com.umeng.analytics:analytics:latest.integration'//友盟
     compile 'de.greenrobot:eventbus:+'//eventbus
-    compile project(':lib-core')//listview动画
-    compile project(':lib-manipulation')//listview动画
+//    compile 'com.github.navasmdc:MaterialDesign:1.+@aar'//MeterialDesign
+    //compile project(':lib-core')//listview动画
+    //compile project(':lib-manipulation')//listview动画
     compile project(':lib-float-btn')//floatBtn
     compile project(':lib-swipebacklayout')//滑动返回
     compile project(':lib-photoview')//photoview
     compile project(':lib-umeng')//umeng更新
+    compile project(':lib-materialdesign')//MeterialDesign
     //compile project(':lib-mpchart')
 }
-
 
 apt {
     arguments {

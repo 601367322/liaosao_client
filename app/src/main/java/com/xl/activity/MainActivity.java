@@ -2,20 +2,19 @@ package com.xl.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
 
 import com.umeng.fb.FeedbackAgent;
 import com.umeng.update.UmengUpdateAgent;
 import com.xl.activity.base.BaseActivity;
 import com.xl.activity.setting.HelpActivity_;
+import com.xl.activity.setting.SettingActivity_;
 import com.xl.fragment.MainFragment_;
 import com.xl.fragment.NavigationDrawerFragment;
 
 import net.imageloader.tools.imafdg;
 
 import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.FragmentById;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.OptionsMenuItem;
@@ -25,8 +24,8 @@ import org.androidannotations.annotations.OptionsMenuItem;
 public class MainActivity extends BaseActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
-    @FragmentById(R.id.navigation_drawer)
-    public NavigationDrawerFragment mNavigationDrawerFragment;
+//    @FragmentById(R.id.navigation_drawer)
+//    public NavigationDrawerFragment mNavigationDrawerFragment;
 
     @Override
     protected boolean canSwipe() {
@@ -42,6 +41,8 @@ public class MainActivity extends BaseActivity
         super.onCreate(savedInstanceState);
         imafdg.getInstance(this).init("f8e79d512282c364",
         "1b6279c5f1aa4dde", false);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 //        AdManager.getInstance(this).init("f8e79d512282c364", "1b6279c5f1aa4dde", false);
     }
 
@@ -50,9 +51,9 @@ public class MainActivity extends BaseActivity
 
         ac.startService();
 
-        mNavigationDrawerFragment.setUp(
-                R.id.navigation_drawer,
-                (DrawerLayout) findViewById(R.id.drawer_layout));
+//        mNavigationDrawerFragment.setUp(
+//                R.id.navigation_drawer,
+//                (DrawerLayout) findViewById(R.id.drawer_layout));
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.container, new MainFragment_())
@@ -70,6 +71,11 @@ public class MainActivity extends BaseActivity
     void commit(){
         FeedbackAgent agent = new FeedbackAgent(this);
         agent.startFeedbackActivity();
+    }
+
+    @OptionsItem(R.id.setting)
+    void setting(){
+        SettingActivity_.intent(this).start();
     }
 
     @OptionsItem(R.id.help)

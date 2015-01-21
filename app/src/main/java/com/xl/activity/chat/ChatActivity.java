@@ -2,7 +2,6 @@ package com.xl.activity.chat;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.app.AlertDialog;
@@ -28,6 +27,7 @@ import android.view.ViewPropertyAnimator;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -44,7 +44,6 @@ import com.gauss.recorder.SpeexRecorder;
 import com.github.johnpersano.supertoasts.SuperToast;
 import com.google.gson.GsonBuilder;
 import com.loopj.android.http.RequestParams;
-import com.nhaarman.listviewanimations.appearance.simple.SwingBottomInAnimationAdapter;
 import com.umeng.analytics.MobclickAgent;
 import com.xl.activity.R;
 import com.xl.activity.base.BaseActivity;
@@ -70,6 +69,7 @@ import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.OnActivityResult;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.Receiver;
+import org.androidannotations.annotations.Touch;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 import org.json.JSONObject;
@@ -123,16 +123,16 @@ public class ChatActivity extends BaseActivity implements
         content_et.setOnEditorActionListener(this);
 
         adapter = new ChatAdapters(this, new ArrayList<String>());
-        SwingBottomInAnimationAdapter t = new SwingBottomInAnimationAdapter(adapter, listview);
-        t.setmGridViewPossiblyMeasuring(false);
-        listview.setAdapter(t);
+//        SwingBottomInAnimationAdapter t = new SwingBottomInAnimationAdapter(adapter, listview);
+//        t.setmGridViewPossiblyMeasuring(false);
+        listview.setAdapter(adapter);
 
         send_btn.setEnabled(false);
 
         EventBus.getDefault().register(this);
 
 
-        handle.postDelayed(ad,30*1000);
+        handle.postDelayed(ad, 30 * 1000);
 
     }
 
@@ -161,8 +161,8 @@ public class ChatActivity extends BaseActivity implements
         }
     };
 
-    public void onEvent(final MessageBean mb){
-        if(mb.getToId().equals(ac.deviceId)) {
+    public void onEvent(final MessageBean mb) {
+        if (mb.getToId().equals(ac.deviceId)) {
             new AlertDialog.Builder(ChatActivity.this).setIcon(R.drawable.beiju).setTitle(getString(R.string.beijua)).setMessage(getString(R.string.resend_message)).setPositiveButton(getString(R.string.resend_btn), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -185,7 +185,7 @@ public class ChatActivity extends BaseActivity implements
 
                 }
             }).create().show();
-        }else{
+        } else {
             mb.setLoading(MessageBean.LOADING_NODOWNLOAD);
             adapter.notifyDataSetChanged();
         }
@@ -202,7 +202,7 @@ public class ChatActivity extends BaseActivity implements
     public void closeChat(Intent intent) {
         String other = intent.getStringExtra(StaticUtil.DEVICEID);
         if (deviceId.equals(other)) {
-            if(add_btn.getRotation()>0) {
+            if (add_btn.getRotation() > 0) {
                 closeMore(null);
             }
             content_et.setText("");
@@ -272,9 +272,9 @@ public class ChatActivity extends BaseActivity implements
         sendText(context_str, 0);
     }
 
-    void sendText(final String context_str,int msgType){
+    void sendText(final String context_str, int msgType) {
         RequestParams rp = ac.getRequestParams();
-        final MessageBean mb=new MessageBean(ac.deviceId, deviceId, context_str,msgType);
+        final MessageBean mb = new MessageBean(ac.deviceId, deviceId, context_str, msgType);
         rp.put("content", new GsonBuilder()
                 .excludeFieldsWithoutExposeAnnotation().create().toJson(mb).toString());
         rp.put("toId", deviceId);
@@ -314,7 +314,7 @@ public class ChatActivity extends BaseActivity implements
                         send_btn.setAlpha(0.5f);
                     }
                 }).start();
-
+                scrollToLast();
             }
 
             @Override
@@ -326,7 +326,7 @@ public class ChatActivity extends BaseActivity implements
     }
 
     @UiThread(delay = 500)
-    void notifyData(){
+    void notifyData() {
         adapter.notifyDataSetChanged();
     }
 
@@ -344,8 +344,8 @@ public class ChatActivity extends BaseActivity implements
 
     @Override
     public void onBackPressed() {
-        if(!closeGridView())
-        showFinshDialog();
+        if (!closeGridView())
+            showFinshDialog();
     }
 
     @OptionsItem(android.R.id.home)
@@ -764,10 +764,10 @@ public class ChatActivity extends BaseActivity implements
 
     @UiThread
     void sendFile(int type) {
-        if(type==1){
-            MobclickAgent.onEvent(ChatActivity.this,EventID.SEND_VOICE);
-        }else if(type==2){
-            MobclickAgent.onEvent(ChatActivity.this,EventID.SEND_IMG);
+        if (type == 1) {
+            MobclickAgent.onEvent(ChatActivity.this, EventID.SEND_VOICE);
+        } else if (type == 2) {
+            MobclickAgent.onEvent(ChatActivity.this, EventID.SEND_IMG);
         }
         try {
             RequestParams rp = ac.getRequestParams();
@@ -781,6 +781,7 @@ public class ChatActivity extends BaseActivity implements
                 public void onStart() {
                     adapter.getList().add(mb);
                     adapter.notifyDataSetChanged();
+                    scrollToLast();
                 }
 
                 @Override
@@ -801,83 +802,96 @@ public class ChatActivity extends BaseActivity implements
     }
 
     ArrayList<HashMap<String, Object>> lstImageItem = null;
+
     @Click(R.id.face_btn)
-    void faceBtnClick(){
+    void faceBtnClick() {
         closeInput();
         closeMore(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
                 face_grid.setVisibility(View.VISIBLE);
-                lstImageItem = new ArrayList<>();
-                for(int i=1;i<=25;i++)
-                {
-                    HashMap<String, Object> map = new HashMap<>();
-                    map.put("face_img", getResources().getIdentifier("face_"+i, "drawable", getPackageName()));
-                    lstImageItem.add(map);
+                if (lstImageItem == null) {
+                    lstImageItem = new ArrayList<>();
+                    for (int i = 1; i <= 25; i++) {
+                        HashMap<String, Object> map = new HashMap<>();
+                        map.put("face_img", getResources().getIdentifier("face_" + i, "drawable", getPackageName()));
+                        lstImageItem.add(map);
+                    }
+                    SimpleAdapter saImageItems = new SimpleAdapter(ChatActivity.this,
+                            lstImageItem,
+                            R.layout.face_item,
+                            new String[]{"face_img"},
+                            new int[]{R.id.face_img});
+                    face_grid.setAdapter(saImageItems);
+
+                    face_grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            MobclickAgent.onEvent(ChatActivity.this, EventID.SEND_FACE);
+                            sendText("face_" + (position + 1), 3);
+                            closeGridView();
+                        }
+                    });
                 }
-                SimpleAdapter saImageItems = new SimpleAdapter(ChatActivity.this,
-                        lstImageItem,
-                        R.layout.face_item,
-                        new String[] {"face_img"},
-                        new int[] {R.id.face_img});
-                final SwingBottomInAnimationAdapter t1 = new SwingBottomInAnimationAdapter(saImageItems, face_grid);
-                t1.getViewAnimator().setInitialDelayMillis(0);
-                t1.getViewAnimator().setAnimationDelayMillis(25);
-                t1.getViewAnimator().setAnimationDurationMillis(100);
-                face_grid.setAdapter(t1);
-                face_grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                ValueAnimator animator = ObjectAnimator.ofFloat(face_grid, "translationY", face_grid.getMeasuredHeight(), 0);
+                animator.addListener(new AnimatorListenerAdapter() {
                     @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        MobclickAgent.onEvent(ChatActivity.this,EventID.SEND_FACE);
-                        sendText("face_"+(position+1),3);
-                        closeGridView();
+                    public void onAnimationStart(Animator animation) {
+                        face_grid.setVisibility(View.VISIBLE);
                     }
                 });
+                animator.setDuration(200).start();
             }
         });
 
 
     }
 
-    boolean closeGridView(){
-        if(face_grid.getChildCount()>0){
-            for(int i=0;i<face_grid.getChildCount();i++) {
-                ValueAnimator animator = ObjectAnimator.ofFloat(face_grid.getChildAt(face_grid.getChildCount()-1-i), "translationY", 0, face_grid.getMeasuredHeight() >> 1);
-                ValueAnimator animator1 = ObjectAnimator.ofFloat(face_grid.getChildAt(face_grid.getChildCount()-1-i), "alpha", 1, 0);
-                AnimatorSet set = new AnimatorSet();
-                set.setDuration(100);
-                set.playTogether(animator, animator1);
-                set.setStartDelay(i * 25);
-                if(i==face_grid.getChildCount()-1) {
-                    set.addListener(new AnimatorListenerAdapter() {
-                        @Override
-                        public void onAnimationEnd(Animator animation) {
-                            lstImageItem.clear();
-                            SwingBottomInAnimationAdapter adapter1 = (SwingBottomInAnimationAdapter) face_grid.getAdapter();
-                            adapter1.notifyDataSetChanged();
-                        }
-                    });
-                }
-                set.start();
-            }
-            return true;
-        }
-        return false;
-    }
 
     @Click(R.id.content_et)
-    void contentETClick(){
+    void contentETClick() {
         closeGridView();
+    }
+
+    boolean closeGridView() {
+        if(face_grid.getVisibility()==View.GONE){
+            return false;
+        }else {
+            ValueAnimator animator = ObjectAnimator.ofFloat(face_grid, "translationY", 0, face_grid.getMeasuredHeight());
+            animator.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    face_grid.setVisibility(View.GONE);
+                }
+            });
+            animator.setDuration(200).start();
+            return true;
+        }
     }
 
 
     @Receiver(actions = BroadCastUtil.DISCONNECT)
-    void disconnect(){
+    void disconnect() {
         SuperToast toast = new SuperToast(this);
         toast.setIcon(R.drawable.wunai, SuperToast.IconPosition.LEFT);
         toast.setText(getString(R.string.guaiwolo));
         toast.setDuration(SuperToast.Duration.LONG);
         toast.show();
         finish();
+    }
+
+    @Touch
+    boolean listview(){
+        closeInput();
+        closeGridView();
+        listview.setTranscriptMode(AbsListView.TRANSCRIPT_MODE_NORMAL);
+        return false;
+    }
+
+    @UiThread
+    void scrollToLast(){
+        listview.setSelection(adapter.getCount() - 1);
+        listview.setTranscriptMode(AbsListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
     }
 }
