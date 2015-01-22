@@ -105,11 +105,10 @@
     <orderEntry type="library" exported="" name="android-shape-imageview-0.9.2" level="project" />
     <orderEntry type="library" exported="" name="analytics-5.2.4" level="project" />
     <orderEntry type="library" exported="" name="butterknife-6.0.1-SNAPSHOT" level="project" />
-    <orderEntry type="module" module-name="lib-core" exported="" />
     <orderEntry type="module" module-name="lib-float-btn" exported="" />
+    <orderEntry type="module" module-name="lib-animation-list-manipulation" exported="" />
     <orderEntry type="module" module-name="lib-photoview" exported="" />
     <orderEntry type="module" module-name="lib-umeng" exported="" />
-    <orderEntry type="module" module-name="lib-manipulation" exported="" />
     <orderEntry type="module" module-name="lib-materialdesign" exported="" />
   </component>
 </module>

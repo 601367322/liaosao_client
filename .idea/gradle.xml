@@ -9,9 +9,9 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/lib-core" />
+            <option value="$PROJECT_DIR$/lib-animation-list-core" />
+            <option value="$PROJECT_DIR$/lib-animation-list-manipulation" />
             <option value="$PROJECT_DIR$/lib-float-btn" />
-            <option value="$PROJECT_DIR$/lib-manipulation" />
             <option value="$PROJECT_DIR$/lib-materialdesign" />
             <option value="$PROJECT_DIR$/lib-photoview" />
             <option value="$PROJECT_DIR$/lib-umeng" />
