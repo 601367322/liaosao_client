@@ -72,15 +72,11 @@ MERGED from com.android.support:appcompat-v7:21.0.3:16:5
 MERGED from com.android.support:support-v4:21.0.3:16:5
 MERGED from com.android.support:cardview-v7:21.0.3:16:5
 MERGED from com.github.johnpersano:supertoasts:1.3.4.1:5:5
-MERGED from LiaoSao:lib-core:unspecified:24:5
-MERGED from LiaoSao:lib-manipulation:unspecified:24:5
-MERGED from LiaoSao:lib-core:unspecified:24:5
+MERGED from LiaoSao:lib-animation-list-manipulation:unspecified:24:5
+MERGED from LiaoSao:lib-animation-list-core:unspecified:24:5
 MERGED from LiaoSao:lib-float-btn:unspecified:10:5
-MERGED from LiaoSao:lib-swipebacklayout:unspecified:11:5
-MERGED from com.android.support:support-v4:21.0.3:16:5
-MERGED from com.android.support:appcompat-v7:21.0.3:16:5
-MERGED from com.android.support:support-v4:21.0.3:16:5
 MERGED from LiaoSao:lib-photoview:unspecified:11:5
+MERGED from com.android.support:support-v4:21.0.3:16:5
 MERGED from com.android.support:support-v4:21.0.3:16:5
 	android:label
 		ADDED from AndroidManifest.xml:28:9
@@ -132,162 +128,168 @@ ADDED from AndroidManifest.xml:56:9
 		ADDED from AndroidManifest.xml:58:13
 	android:name
 		ADDED from AndroidManifest.xml:57:13
-activity#com.xl.activity.chat.ImageViewActivity_
-ADDED from AndroidManifest.xml:61:9
+activity#com.xl.activity.setting.SettingActivity
+ADDED from AndroidManifest.xml:60:9
 	android:screenOrientation
-		ADDED from AndroidManifest.xml:63:13
-	android:windowSoftInputMode
-		ADDED from AndroidManifest.xml:64:13
-	android:name
 		ADDED from AndroidManifest.xml:62:13
-activity#com.xl.activity.wxapi.WXEntryActivity
-ADDED from AndroidManifest.xml:68:9
+	android:name
+		ADDED from AndroidManifest.xml:61:13
+activity#com.xl.activity.chat.ImageViewActivity_
+ADDED from AndroidManifest.xml:70:9
 	android:screenOrientation
 		ADDED from AndroidManifest.xml:72:13
-	android:launchMode
-		ADDED from AndroidManifest.xml:71:13
-	android:exported
-		ADDED from AndroidManifest.xml:70:13
-	android:theme
+	android:windowSoftInputMode
 		ADDED from AndroidManifest.xml:73:13
 	android:name
-		ADDED from AndroidManifest.xml:69:13
-service#com.xl.service.PushService_
-ADDED from AndroidManifest.xml:75:9
-	android:enabled
-		ADDED from AndroidManifest.xml:77:13
-	android:process
-		ADDED from AndroidManifest.xml:78:13
+		ADDED from AndroidManifest.xml:71:13
+activity#com.xl.activity.wxapi.WXEntryActivity
+ADDED from AndroidManifest.xml:77:9
+	android:screenOrientation
+		ADDED from AndroidManifest.xml:81:13
+	android:launchMode
+		ADDED from AndroidManifest.xml:80:13
 	android:exported
 		ADDED from AndroidManifest.xml:79:13
+	android:theme
+		ADDED from AndroidManifest.xml:82:13
 	android:name
-		ADDED from AndroidManifest.xml:76:13
+		ADDED from AndroidManifest.xml:78:13
+service#com.xl.service.PushService_
+ADDED from AndroidManifest.xml:84:9
+	android:enabled
+		ADDED from AndroidManifest.xml:86:13
+	android:process
+		ADDED from AndroidManifest.xml:87:13
+	android:exported
+		ADDED from AndroidManifest.xml:88:13
+	android:name
+		ADDED from AndroidManifest.xml:85:13
 intent-filter#com.xl.keepalive.KEEP_ALIVE+com.xl.keepalive.RECONNECT+com.xl.keepalive.START+com.xl.keepalive.STOP
-ADDED from AndroidManifest.xml:80:13
-action#com.xl.keepalive.START
-ADDED from AndroidManifest.xml:81:17
-	android:name
-		ADDED from AndroidManifest.xml:81:25
-action#com.xl.keepalive.STOP
-ADDED from AndroidManifest.xml:82:17
-	android:name
-		ADDED from AndroidManifest.xml:82:25
-action#com.xl.keepalive.KEEP_ALIVE
-ADDED from AndroidManifest.xml:83:17
-	android:name
-		ADDED from AndroidManifest.xml:83:25
-action#com.xl.keepalive.RECONNECT
-ADDED from AndroidManifest.xml:84:17
-	android:name
-		ADDED from AndroidManifest.xml:84:25
-receiver#com.xl.receiver.XLReceiver_
-ADDED from AndroidManifest.xml:88:9
-	android:name
-		ADDED from AndroidManifest.xml:88:19
-intent-filter#android.net.conn.CONNECTIVITY_CHANGE+com.xl.broadcast.startchat
 ADDED from AndroidManifest.xml:89:13
-action#android.net.conn.CONNECTIVITY_CHANGE
+action#com.xl.keepalive.START
 ADDED from AndroidManifest.xml:90:17
 	android:name
 		ADDED from AndroidManifest.xml:90:25
-action#com.xl.broadcast.startchat
+action#com.xl.keepalive.STOP
 ADDED from AndroidManifest.xml:91:17
 	android:name
 		ADDED from AndroidManifest.xml:91:25
+action#com.xl.keepalive.KEEP_ALIVE
+ADDED from AndroidManifest.xml:92:17
+	android:name
+		ADDED from AndroidManifest.xml:92:25
+action#com.xl.keepalive.RECONNECT
+ADDED from AndroidManifest.xml:93:17
+	android:name
+		ADDED from AndroidManifest.xml:93:25
+receiver#com.xl.receiver.XLReceiver_
+ADDED from AndroidManifest.xml:97:9
+	android:name
+		ADDED from AndroidManifest.xml:97:19
+intent-filter#android.net.conn.CONNECTIVITY_CHANGE+com.xl.broadcast.startchat
+ADDED from AndroidManifest.xml:98:13
+action#android.net.conn.CONNECTIVITY_CHANGE
+ADDED from AndroidManifest.xml:99:17
+	android:name
+		ADDED from AndroidManifest.xml:99:25
+action#com.xl.broadcast.startchat
+ADDED from AndroidManifest.xml:100:17
+	android:name
+		ADDED from AndroidManifest.xml:100:25
 receiver#com.xl.receiver.BootCompletedAlarmReceiver_
-ADDED from AndroidManifest.xml:94:9
+ADDED from AndroidManifest.xml:103:9
 	android:name
-		ADDED from AndroidManifest.xml:94:19
+		ADDED from AndroidManifest.xml:103:19
 intent-filter#android.intent.action.BOOT_COMPLETED
-ADDED from AndroidManifest.xml:95:13
+ADDED from AndroidManifest.xml:104:13
 action#android.intent.action.BOOT_COMPLETED
-ADDED from AndroidManifest.xml:96:17
-	android:name
-		ADDED from AndroidManifest.xml:96:25
-activity#com.tencent.tauth.AuthActivity
-ADDED from AndroidManifest.xml:99:9
-	android:launchMode
-		ADDED from AndroidManifest.xml:102:13
-	android:noHistory
-		ADDED from AndroidManifest.xml:101:13
-	android:name
-		ADDED from AndroidManifest.xml:100:13
-intent-filter#android.intent.action.VIEW+android.intent.category.BROWSABLE+android.intent.category.DEFAULT
-ADDED from AndroidManifest.xml:103:13
-action#android.intent.action.VIEW
-ADDED from AndroidManifest.xml:104:17
-	android:name
-		ADDED from AndroidManifest.xml:104:25
-category#android.intent.category.DEFAULT
 ADDED from AndroidManifest.xml:105:17
 	android:name
-		ADDED from AndroidManifest.xml:105:27
-category#android.intent.category.BROWSABLE
-ADDED from AndroidManifest.xml:106:17
-	android:name
-		ADDED from AndroidManifest.xml:106:27
-data
-ADDED from AndroidManifest.xml:107:17
-	android:scheme
-		ADDED from AndroidManifest.xml:107:23
-activity#com.tencent.connect.common.AssistActivity
-ADDED from AndroidManifest.xml:110:9
-	android:configChanges
-		ADDED from AndroidManifest.xml:112:13
-	android:theme
+		ADDED from AndroidManifest.xml:105:25
+activity#com.tencent.tauth.AuthActivity
+ADDED from AndroidManifest.xml:108:9
+	android:launchMode
 		ADDED from AndroidManifest.xml:111:13
+	android:noHistory
+		ADDED from AndroidManifest.xml:110:13
 	android:name
-		ADDED from AndroidManifest.xml:110:19
-meta-data#UMENG_APPKEY
-ADDED from AndroidManifest.xml:116:9
-	android:value
-		ADDED from AndroidManifest.xml:116:20
+		ADDED from AndroidManifest.xml:109:13
+intent-filter#android.intent.action.VIEW+android.intent.category.BROWSABLE+android.intent.category.DEFAULT
+ADDED from AndroidManifest.xml:112:13
+action#android.intent.action.VIEW
+ADDED from AndroidManifest.xml:113:17
 	android:name
-		ADDED from AndroidManifest.xml:116:61
-meta-data#UMENG_CHANNEL
-ADDED from AndroidManifest.xml:117:9
-	android:value
-		ADDED from AndroidManifest.xml:117:20
+		ADDED from AndroidManifest.xml:113:25
+category#android.intent.category.DEFAULT
+ADDED from AndroidManifest.xml:114:17
 	android:name
-		ADDED from AndroidManifest.xml:117:45
-service#com.umeng.update.net.DownloadingService
+		ADDED from AndroidManifest.xml:114:27
+category#android.intent.category.BROWSABLE
+ADDED from AndroidManifest.xml:115:17
+	android:name
+		ADDED from AndroidManifest.xml:115:27
+data
+ADDED from AndroidManifest.xml:116:17
+	android:scheme
+		ADDED from AndroidManifest.xml:116:23
+activity#com.tencent.connect.common.AssistActivity
 ADDED from AndroidManifest.xml:119:9
-	android:process
+	android:configChanges
 		ADDED from AndroidManifest.xml:121:13
-	android:name
-		ADDED from AndroidManifest.xml:120:13
-activity#com.umeng.update.UpdateDialogActivity
-ADDED from AndroidManifest.xml:123:9
 	android:theme
-		ADDED from AndroidManifest.xml:125:13
+		ADDED from AndroidManifest.xml:120:13
 	android:name
-		ADDED from AndroidManifest.xml:124:13
-activity#com.umeng.fb.ConversationActivity
+		ADDED from AndroidManifest.xml:119:19
+meta-data#UMENG_APPKEY
+ADDED from AndroidManifest.xml:125:9
+	android:value
+		ADDED from AndroidManifest.xml:125:20
+	android:name
+		ADDED from AndroidManifest.xml:125:61
+meta-data#UMENG_CHANNEL
+ADDED from AndroidManifest.xml:126:9
+	android:value
+		ADDED from AndroidManifest.xml:126:20
+	android:name
+		ADDED from AndroidManifest.xml:126:45
+service#com.umeng.update.net.DownloadingService
 ADDED from AndroidManifest.xml:128:9
+	android:process
+		ADDED from AndroidManifest.xml:130:13
 	android:name
 		ADDED from AndroidManifest.xml:129:13
-activity#net.imageloader.tools.imaadg
+activity#com.umeng.update.UpdateDialogActivity
 ADDED from AndroidManifest.xml:132:9
-	android:configChanges
-		ADDED from AndroidManifest.xml:134:13
 	android:theme
-		ADDED from AndroidManifest.xml:135:13
+		ADDED from AndroidManifest.xml:134:13
 	android:name
 		ADDED from AndroidManifest.xml:133:13
-service#net.imageloader.tools.imajdg
+activity#com.umeng.fb.ConversationActivity
 ADDED from AndroidManifest.xml:137:9
 	android:name
 		ADDED from AndroidManifest.xml:138:13
+activity#net.imageloader.tools.imaadg
+ADDED from AndroidManifest.xml:141:9
+	android:configChanges
+		ADDED from AndroidManifest.xml:143:13
+	android:theme
+		ADDED from AndroidManifest.xml:144:13
+	android:name
+		ADDED from AndroidManifest.xml:142:13
+service#net.imageloader.tools.imajdg
+ADDED from AndroidManifest.xml:146:9
+	android:name
+		ADDED from AndroidManifest.xml:147:13
 receiver#net.imageloader.tools.imahdg
-ADDED from AndroidManifest.xml:140:9
+ADDED from AndroidManifest.xml:149:9
 	android:name
-		ADDED from AndroidManifest.xml:141:13
+		ADDED from AndroidManifest.xml:150:13
 intent-filter#android.intent.action.PACKAGE_ADDED
-ADDED from AndroidManifest.xml:142:13
+ADDED from AndroidManifest.xml:151:13
 action#android.intent.action.PACKAGE_ADDED
-ADDED from AndroidManifest.xml:143:17
+ADDED from AndroidManifest.xml:152:17
 	android:name
-		ADDED from AndroidManifest.xml:143:25
+		ADDED from AndroidManifest.xml:152:25
 uses-sdk
 INJECTED from AndroidManifest.xml:0:0 reason: use-sdk injection requested
 MERGED from com.android.support:support-v4:21.0.3:15:5
@@ -297,17 +299,14 @@ MERGED from com.android.support:cardview-v7:21.0.3:15:5
 MERGED from pl.droidsonroids.gif:android-gif-drawable:1.1.3-SNAPSHOT:6:5
 MERGED from com.github.johnpersano:supertoasts:1.3.4.1:3:5
 MERGED from com.github.siyamed:android-shape-imageview:0.9.2:8:5
-MERGED from LiaoSao:lib-core:unspecified:20:5
-MERGED from LiaoSao:lib-manipulation:unspecified:20:5
-MERGED from LiaoSao:lib-core:unspecified:20:5
+MERGED from LiaoSao:lib-animation-list-manipulation:unspecified:20:5
+MERGED from LiaoSao:lib-animation-list-core:unspecified:20:5
 MERGED from LiaoSao:lib-float-btn:unspecified:6:5
-MERGED from LiaoSao:lib-swipebacklayout:unspecified:7:5
-MERGED from com.android.support:support-v4:21.0.3:15:5
-MERGED from com.android.support:appcompat-v7:21.0.3:15:5
-MERGED from com.android.support:support-v4:21.0.3:15:5
 MERGED from LiaoSao:lib-photoview:unspecified:7:5
 MERGED from com.android.support:support-v4:21.0.3:15:5
 MERGED from LiaoSao:lib-umeng:unspecified:5:5
+MERGED from LiaoSao:lib-materialdesign:unspecified:5:5
+MERGED from com.android.support:support-v4:21.0.3:15:5
 	android:targetSdkVersion
 		INJECTED from AndroidManifest.xml:0:0
 		INJECTED from AndroidManifest.xml:0:0
@@ -315,10 +314,10 @@ MERGED from LiaoSao:lib-umeng:unspecified:5:5
 		INJECTED from AndroidManifest.xml:0:0
 		INJECTED from AndroidManifest.xml:0:0
 activity#com.nhaarman.listviewanimations.itemmanipulation.swipedismiss.SwipeTouchListenerTestActivity
-ADDED from LiaoSao:lib-manipulation:unspecified:25:9
+ADDED from LiaoSao:lib-animation-list-manipulation:unspecified:25:9
 	android:name
-		ADDED from LiaoSao:lib-manipulation:unspecified:25:19
+		ADDED from LiaoSao:lib-animation-list-manipulation:unspecified:25:19
 activity#com.nhaarman.listviewanimations.itemmanipulation.dragdrop.DynamicListViewTestActivity
-ADDED from LiaoSao:lib-manipulation:unspecified:26:9
+ADDED from LiaoSao:lib-animation-list-manipulation:unspecified:26:9
 	android:name
-		ADDED from LiaoSao:lib-manipulation:unspecified:26:19
+		ADDED from LiaoSao:lib-animation-list-manipulation:unspecified:26:19

@@ -1,6 +1,7 @@
 package com.xl.activity.chat;
 
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -33,6 +34,7 @@ public class ImageViewActivity extends BaseActivity {
         imageView = new ImageView(this);
         imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
         FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        layoutParams.gravity= Gravity.CENTER;
         imageView.setLayoutParams(layoutParams);
         mAttacher = new PhotoViewAttacher(imageView);
         ImageLoader.getInstance().displayImage(imageUrl,imageView);

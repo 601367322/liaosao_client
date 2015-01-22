@@ -16,6 +16,7 @@ import com.github.siyamed.shapeimageview.mask.PorterShapeImageView;
 import com.loopj.android.http.FileAsyncHttpResponseHandler;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.assist.ImageSize;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.xl.activity.R;
 import com.xl.activity.base.BaseAdapterListView;
@@ -41,10 +42,12 @@ import pl.droidsonroids.gif.GifDrawable;
 
 public class ChatAdapters extends BaseAdapterListView<MessageBean> {
 
+    public ImageSize targetSize=null;
     List<MessageBean> downloading = new ArrayList<>();
 
     public ChatAdapters(Context context, List list) {
         super(list, context);
+        targetSize= new ImageSize((int)(context.getResources().getDisplayMetrics().widthPixels / 2f), (int)(context.getResources().getDisplayMetrics().heightPixels / 2f));
     }
 
     @Override
@@ -108,6 +111,7 @@ public class ChatAdapters extends BaseAdapterListView<MessageBean> {
             holder = (ViewHolder) view.getTag();
         }
         MessageBean mb = getItem(position);
+        RelativeLayout.LayoutParams layoutParams2=null;
         switch (getItemViewType(position)) {
             case 0:
             case 10:
@@ -157,11 +161,19 @@ public class ChatAdapters extends BaseAdapterListView<MessageBean> {
                 }
                 break;
             case 2:
+                layoutParams2 = (RelativeLayout.LayoutParams) holder.img.getLayoutParams();
+                layoutParams2.width = (int) ((float) context.getResources().getDisplayMetrics().widthPixels / 2f);
+                layoutParams2.height = (int) ((float) context.getResources().getDisplayMetrics().heightPixels / 2f);
+                holder.img.setLayoutParams(layoutParams2);
                 ImageLoader.getInstance().displayImage(URLS.DOWNLOADFILE + ac.deviceId + "/" + mb.getContent() + URLS.LAST, holder.img, new imgListener(mb));
                 holder.img.setTag(URLS.DOWNLOADFILE + ac.deviceId + "/" + mb.getContent() + URLS.LAST);
                 holder.img.setOnClickListener(clickListener);
                 break;
             case 12:
+                layoutParams2 = (RelativeLayout.LayoutParams) holder.img.getLayoutParams();
+                layoutParams2.width = (int) ((float) context.getResources().getDisplayMetrics().widthPixels / 2f);
+                layoutParams2.height = (int) ((float) context.getResources().getDisplayMetrics().heightPixels / 2f);
+                holder.img.setLayoutParams(layoutParams2);
                 ImageLoader.getInstance().displayImage("file://" + mb.getContent(), holder.img, new imgListener(null));
                 holder.img.setTag("file://" + mb.getContent());
                 holder.img.setOnClickListener(clickListener);
