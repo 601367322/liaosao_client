@@ -109,7 +109,7 @@ public class MainActivity extends BaseActivity
         }*/
         intent.setType("text/plain");
         intent.putExtra(Intent.EXTRA_SUBJECT, "寂寞了吗？来一发吧。");
-        intent.putExtra(Intent.EXTRA_TEXT, "我在"+getString(R.string.app_name)+"，要不要一起啊~");
+        intent.putExtra(Intent.EXTRA_TEXT, "我在"+getString(R.string.app_name)+"，要不要一起啊~ http://t.cn/RZTbceg");
         intent.putExtra(Intent.EXTRA_TITLE, getString(R.string.app_name));
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         return intent;
