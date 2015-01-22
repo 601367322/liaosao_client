@@ -8,7 +8,7 @@ import com.umeng.fb.FeedbackAgent;
 import com.umeng.update.UmengUpdateAgent;
 import com.xl.activity.base.BaseActivity;
 import com.xl.activity.setting.HelpActivity_;
-import com.xl.activity.setting.SettingActivity_;
+import com.xl.activity.setting.SettingActivity;
 import com.xl.fragment.MainFragment_;
 import com.xl.fragment.NavigationDrawerFragment;
 
@@ -27,10 +27,10 @@ public class MainActivity extends BaseActivity
 //    @FragmentById(R.id.navigation_drawer)
 //    public NavigationDrawerFragment mNavigationDrawerFragment;
 
-    @Override
-    protected boolean canSwipe() {
-        return false;
-    }
+//    @Override
+//    protected boolean canSwipe() {
+//        return false;
+//    }
 
     @OptionsMenuItem(R.id.menu_item_share)
     MenuItem shareItem;
@@ -47,7 +47,7 @@ public class MainActivity extends BaseActivity
     }
 
     protected void init() {
-        setSwipeBackEnable(false);
+//        setSwipeBackEnable(false);
 
         ac.startService();
 
@@ -75,7 +75,8 @@ public class MainActivity extends BaseActivity
 
     @OptionsItem(R.id.setting)
     void setting(){
-        SettingActivity_.intent(this).start();
+        Intent intent = new Intent(this, SettingActivity.class);
+        startActivity(intent);
     }
 
     @OptionsItem(R.id.help)

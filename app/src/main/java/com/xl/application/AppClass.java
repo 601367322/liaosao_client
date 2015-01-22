@@ -15,6 +15,7 @@ import com.loopj.android.http.RequestParams;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.xl.activity.share.CommonShared;
 import com.xl.bean.SharedBean.Bean;
 import com.xl.db.DBHelper;
 import com.xl.service.IPushService;
@@ -28,6 +29,7 @@ public class AppClass extends Application {
 	
 	public AsyncHttpClient httpClient;
 	public String deviceId;
+    public CommonShared cs;
 
     public static final DisplayImageOptions options_no_default = new DisplayImageOptions.Builder()
             .cacheInMemory(true).cacheOnDisk(true).build();
@@ -48,6 +50,8 @@ public class AppClass extends Application {
 //        L.writeLogs(false);
 //        L.writeDebugLogs(false);
         ImageLoader.getInstance().init(config);
+
+        cs=new CommonShared(this);
 	};
 
 	public RequestParams getRequestParams(){

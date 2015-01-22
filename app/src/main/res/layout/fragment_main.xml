@@ -16,5 +16,4 @@
         app:fab_colorPressed="@color/white_pressed"
         app:fab_icon="@drawable/touch_my_face"
         app:fab_size="large" />
-
 </RelativeLayout>

@@ -1,6 +1,7 @@
 package com.xl.activity.base;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
@@ -12,10 +13,8 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.App;
 import org.androidannotations.annotations.EActivity;
 
-import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
-
 @EActivity
-public abstract class BaseActivity extends SwipeBackActivity{
+public abstract class BaseActivity extends ActionBarActivity{
     @App
     protected AppClass ac;
 

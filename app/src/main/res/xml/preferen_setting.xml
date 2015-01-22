@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="通知提醒">
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="sound"
+            android:summaryOff="关闭"
+            android:summaryOn="开启"
+            android:title="声音" />
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="vibration"
+            android:summaryOff="关闭"
+            android:summaryOn="开启"
+            android:title="震动" />
+    </PreferenceCategory>
+</PreferenceScreen>

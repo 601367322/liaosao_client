@@ -8,7 +8,7 @@ public abstract class BaseBackActivity extends BaseActivity{
 
     @OptionsItem(android.R.id.home)
     public void homeClick(){
-        scrollToFinishActivity();
+        finish();
     }
 
 }

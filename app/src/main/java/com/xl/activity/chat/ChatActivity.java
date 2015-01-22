@@ -2,9 +2,11 @@ package com.xl.activity.chat;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.app.AlertDialog;
+import android.app.NotificationManager;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -44,6 +46,7 @@ import com.gauss.recorder.SpeexRecorder;
 import com.github.johnpersano.supertoasts.SuperToast;
 import com.google.gson.GsonBuilder;
 import com.loopj.android.http.RequestParams;
+import com.nhaarman.listviewanimations.appearance.simple.SwingBottomInAnimationAdapter;
 import com.umeng.analytics.MobclickAgent;
 import com.xl.activity.R;
 import com.xl.activity.base.BaseActivity;
@@ -53,6 +56,7 @@ import com.xl.util.BroadCastUtil;
 import com.xl.util.EventID;
 import com.xl.util.JsonHttpResponseHandler;
 import com.xl.util.LogUtil;
+import com.xl.util.ResultCode;
 import com.xl.util.StaticFactory;
 import com.xl.util.StaticUtil;
 import com.xl.util.URLS;
@@ -72,6 +76,7 @@ import org.androidannotations.annotations.Receiver;
 import org.androidannotations.annotations.Touch;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -118,14 +123,14 @@ public class ChatActivity extends BaseActivity implements
 //            deviceId = "000000000000000";
 //        }
 
-        setSwipeBackEnable(false);
+//        setSwipeBackEnable(false);
 
         content_et.setOnEditorActionListener(this);
 
         adapter = new ChatAdapters(this, new ArrayList<String>());
-//        SwingBottomInAnimationAdapter t = new SwingBottomInAnimationAdapter(adapter, listview);
-//        t.setmGridViewPossiblyMeasuring(false);
-        listview.setAdapter(adapter);
+        SwingBottomInAnimationAdapter t = new SwingBottomInAnimationAdapter(adapter);
+        t.setAbsListView(listview);
+        listview.setAdapter(t);
 
         send_btn.setEnabled(false);
 
@@ -196,6 +201,7 @@ public class ChatActivity extends BaseActivity implements
         MessageBean mb = (MessageBean) intent.getExtras().getSerializable("bean");
         adapter.getList().add(mb);
         adapter.notifyDataSetChanged();
+
     }
 
     @Receiver(actions = BroadCastUtil.CLOSECHAT)
@@ -282,8 +288,28 @@ public class ChatActivity extends BaseActivity implements
         ac.httpClient.post(URLS.SENDMESSAGE, rp, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(JSONObject jo) {
-                mb.setLoading(MessageBean.LOADING_DOWNLOADED);
-                notifyData();
+                try {
+                    int status = jo.getInt(ResultCode.STATUS);
+                    switch (status){
+                        case ResultCode.SUCCESS:
+                            mb.setLoading(MessageBean.LOADING_DOWNLOADED);
+                            notifyData();
+                            if(jo.has(ResultCode.INFO)){
+                                if(jo.optInt(ResultCode.INFO)==ResultCode.DISCONNECT){
+                                    Intent intent = new Intent(BroadCastUtil.CLOSECHAT);
+                                    intent.putExtra(StaticUtil.DEVICEID, deviceId);
+                                    sendBroadcast(intent);
+                                }
+                            }
+                            break;
+                        case ResultCode.FAIL:
+                            mb.setLoading(MessageBean.LOADING_DOWNLOADFAIL);
+                            notifyData();
+                            break;
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
@@ -357,7 +383,7 @@ public class ChatActivity extends BaseActivity implements
         new AlertDialog.Builder(this).setTitle(getString(R.string.kiding)).setIcon(R.drawable.dialog_icon).setMessage(getString(R.string.are_you_fuck_sure_do_not_chat)).setPositiveButton(getString(R.string.papa_do_not_chat), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                scrollToFinishActivity();
+                finish();
 
                 ac.httpClient.get(URLS.CLOSECHAT, ac.getRequestParams(), new JsonHttpResponseHandler() {
                     @Override
@@ -623,6 +649,8 @@ public class ChatActivity extends BaseActivity implements
     protected void onDestroy() {
         super.onDestroy();
         handle.removeCallbacks(ad);
+        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.cancel(0);
     }
 
     @Override
@@ -786,8 +814,30 @@ public class ChatActivity extends BaseActivity implements
 
                 @Override
                 public void onSuccess(JSONObject jo) {
-                    mb.setLoading(MessageBean.LOADING_DOWNLOADED);
-                    notifyData();
+                    try {
+                        int status = jo.getInt(ResultCode.STATUS);
+                        switch (status){
+                            case ResultCode.SUCCESS:
+                                mb.setLoading(MessageBean.LOADING_DOWNLOADED);
+                                notifyData();
+                                if(jo.has(ResultCode.INFO)){
+                                    if(jo.optInt(ResultCode.INFO)==ResultCode.DISCONNECT){
+                                        Intent intent = new Intent(BroadCastUtil.CLOSECHAT);
+                                        intent.putExtra(StaticUtil.DEVICEID, deviceId);
+                                        sendBroadcast(intent);
+                                    }
+                                }
+                                break;
+                            case ResultCode.FAIL:
+                                mb.setLoading(MessageBean.LOADING_DOWNLOADFAIL);
+                                notifyData();
+                                break;
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        mb.setLoading(MessageBean.LOADING_DOWNLOADFAIL);
+                        notifyData();
+                    }
                 }
 
                 @Override
@@ -810,38 +860,32 @@ public class ChatActivity extends BaseActivity implements
             @Override
             public void onAnimationEnd(Animator animation) {
                 face_grid.setVisibility(View.VISIBLE);
-                if (lstImageItem == null) {
-                    lstImageItem = new ArrayList<>();
-                    for (int i = 1; i <= 25; i++) {
-                        HashMap<String, Object> map = new HashMap<>();
-                        map.put("face_img", getResources().getIdentifier("face_" + i, "drawable", getPackageName()));
-                        lstImageItem.add(map);
-                    }
-                    SimpleAdapter saImageItems = new SimpleAdapter(ChatActivity.this,
-                            lstImageItem,
-                            R.layout.face_item,
-                            new String[]{"face_img"},
-                            new int[]{R.id.face_img});
-                    face_grid.setAdapter(saImageItems);
-
-                    face_grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            MobclickAgent.onEvent(ChatActivity.this, EventID.SEND_FACE);
-                            sendText("face_" + (position + 1), 3);
-                            closeGridView();
-                        }
-                    });
+                lstImageItem = new ArrayList<>();
+                for(int i=1;i<=25;i++)
+                {
+                    HashMap<String, Object> map = new HashMap<>();
+                    map.put("face_img", getResources().getIdentifier("face_"+i, "drawable", getPackageName()));
+                    lstImageItem.add(map);
                 }
-
-                ValueAnimator animator = ObjectAnimator.ofFloat(face_grid, "translationY", face_grid.getMeasuredHeight(), 0);
-                animator.addListener(new AnimatorListenerAdapter() {
+                SimpleAdapter saImageItems = new SimpleAdapter(ChatActivity.this,
+                        lstImageItem,
+                        R.layout.face_item,
+                        new String[] {"face_img"},
+                        new int[] {R.id.face_img});
+                final SwingBottomInAnimationAdapter t1 = new SwingBottomInAnimationAdapter(saImageItems);
+                t1.setAbsListView(face_grid);
+                t1.getViewAnimator().setInitialDelayMillis(0);
+                t1.getViewAnimator().setAnimationDelayMillis(25);
+                t1.getViewAnimator().setAnimationDurationMillis(100);
+                face_grid.setAdapter(t1);
+                face_grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
-                    public void onAnimationStart(Animator animation) {
-                        face_grid.setVisibility(View.VISIBLE);
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        MobclickAgent.onEvent(ChatActivity.this, EventID.SEND_FACE);
+                        sendText("face_" + (position + 1), 3);
+                        closeGridView();
                     }
                 });
-                animator.setDuration(200).start();
             }
         });
 
@@ -855,19 +899,29 @@ public class ChatActivity extends BaseActivity implements
     }
 
     boolean closeGridView() {
-        if(face_grid.getVisibility()==View.GONE){
-            return false;
-        }else {
-            ValueAnimator animator = ObjectAnimator.ofFloat(face_grid, "translationY", 0, face_grid.getMeasuredHeight());
-            animator.addListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    face_grid.setVisibility(View.GONE);
+        if(face_grid.getChildCount()>0){
+            for(int i=0;i<face_grid.getChildCount();i++) {
+                ValueAnimator animator = ObjectAnimator.ofFloat(face_grid.getChildAt(face_grid.getChildCount()-1-i), "translationY", 0, face_grid.getMeasuredHeight() >> 1);
+                ValueAnimator animator1 = ObjectAnimator.ofFloat(face_grid.getChildAt(face_grid.getChildCount()-1-i), "alpha", 1, 0);
+                AnimatorSet set = new AnimatorSet();
+                set.setDuration(100);
+                set.playTogether(animator, animator1);
+                set.setStartDelay(i * 25);
+                if(i==face_grid.getChildCount()-1) {
+                    set.addListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            lstImageItem.clear();
+                            SwingBottomInAnimationAdapter adapter1 = (SwingBottomInAnimationAdapter) face_grid.getAdapter();
+                            adapter1.notifyDataSetChanged();
+                        }
+                    });
                 }
-            });
-            animator.setDuration(200).start();
+                set.start();
+            }
             return true;
         }
+        return false;
     }
 
 

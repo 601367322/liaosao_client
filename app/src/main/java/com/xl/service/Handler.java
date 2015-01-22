@@ -1,18 +1,26 @@
 package com.xl.service;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
+import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
+import android.support.v4.app.NotificationCompat;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.xl.activity.R;
+import com.xl.activity.share.CommonShared;
 import com.xl.application.AppClass_;
 import com.xl.bean.MessageBean;
 import com.xl.util.BroadCastUtil;
 import com.xl.util.LogUtil;
 import com.xl.util.StaticUtil;
 
+import org.androidannotations.api.SdkVersionHelper;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -66,9 +74,52 @@ public class Handler {
         }
     }
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public void orderSendMessage(JSONObject jo) {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
+                .setSmallIcon(R.drawable.ic_stat_icon).setContentTitle("您有一条新消息")
+                .setOnlyAlertOnce(false).setNumber(1).setAutoCancel(true)
+                .setDefaults(Notification.DEFAULT_ALL);
         MessageBean mb = new Gson().fromJson(jo.toString(), new TypeToken<MessageBean>() {
         }.getType());
+
+        switch (mb.getMsgType()){
+            case MessageBean.TEXT:
+                builder.setContentText(mb.getContent());
+                break;
+            case MessageBean.FACE:
+                builder.setContentText("[表情]");
+                break;
+            case MessageBean.IMAGE:
+                builder.setContentText("[图片]");
+                break;
+            case MessageBean.VOICE:
+                builder.setContentText("[语音]");
+                break;
+        }
+
+        if(ac.cs.getSound()== CommonShared.ON && ac.cs.getVibration()==CommonShared.ON){
+            builder.setDefaults(Notification.DEFAULT_ALL);
+        }else if(ac.cs.getSound()== CommonShared.ON && ac.cs.getVibration()==CommonShared.OFF){
+            builder.setDefaults(Notification.DEFAULT_SOUND);
+        }else if(ac.cs.getSound()== CommonShared.OFF && ac.cs.getVibration()==CommonShared.ON){
+            builder.setDefaults(Notification.DEFAULT_VIBRATE);
+        }
+        if(mb.getMsgType()==MessageBean.TEXT) {
+            builder.setContentText(mb.getContent());
+        }
+        PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
+                new Intent(), PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(contentIntent);
+        Notification notification = null;
+        if (SdkVersionHelper.getSdkInt() >= Build.VERSION_CODES.JELLY_BEAN) {
+            notification = builder.build();
+        } else {
+            notification = builder.getNotification();
+        }
+        manager.notify(0, notification);
+
+
         Intent intent = new Intent(BroadCastUtil.NEWMESSAGE);
         intent.putExtra("bean", mb);
         context.sendBroadcast(intent);
@@ -87,19 +138,6 @@ public class Handler {
     @SuppressWarnings("deprecation")
     @SuppressLint("NewApi")
     public void orderConnectChat(JSONObject jo) {
-        /*Notification.Builder builder = new Notification.Builder(context)
-                .setSmallIcon(R.drawable.ic_stat_icon).setContentTitle("您有一条新消息")
-                .setOnlyAlertOnce(true)
-                .setContentText("一位陌生人将与你聊天").setNumber(1).setAutoCancel(true)
-                .setDefaults(Notification.DEFAULT_ALL);
-        Notification notification = null;
-        if (SdkVersionHelper.getSdkInt() >= 16) {
-            notification = builder.build();
-        } else {
-            notification = builder.getNotification();
-        }
-        manager.notify(0, notification);*/
-
         try {
             Intent i = new Intent(BroadCastUtil.STARTCHAT);
             i.putExtra(StaticUtil.OTHERDEVICEID, jo.getString(StaticUtil.OTHERDEVICEID));

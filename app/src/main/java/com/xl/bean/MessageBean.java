@@ -42,6 +42,12 @@ public class MessageBean implements Serializable{
     @DatabaseField
     private int loading = 0;//0 正在进行 1完成 -1失败
 
+
+    public static final int TEXT=0;
+    public static final int VOICE=1;
+    public static final int IMAGE=2;
+    public static final int FACE=3;
+
     public static final int LOADING_NODOWNLOAD=0;
     public static final int LOADING_DOWNLOADING = 2;
     public static final int LOADING_DOWNLOADED=1;
