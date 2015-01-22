@@ -129,6 +129,7 @@ public class ChatActivity extends BaseActivity implements
 
         adapter = new ChatAdapters(this, new ArrayList<String>());
         SwingBottomInAnimationAdapter t = new SwingBottomInAnimationAdapter(adapter);
+        t.setmGridViewPossiblyMeasuring(false);
         t.setAbsListView(listview);
         listview.setAdapter(t);
 

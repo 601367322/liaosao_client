@@ -1,1 +1,1 @@
-include ':app', ':lib-umeng', ':lib-materialdesign', 'lib-float-btn','lib-photoview'
+include ':app', ':lib-umeng', ':lib-materialdesign','lib-core','lib-manipulation', 'lib-float-btn','lib-photoview'
