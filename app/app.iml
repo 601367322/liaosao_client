@@ -90,7 +90,6 @@
     <orderEntry type="library" exported="" name="youmisdk" level="project" />
     <orderEntry type="library" exported="" name="support-v4-21.0.3" level="project" />
     <orderEntry type="library" exported="" name="libammsdk" level="project" />
-    <orderEntry type="library" exported="" name="universal-image-loader-1.9.4-SNAPSHOT" level="project" />
     <orderEntry type="library" exported="" name="supertoasts-1.3.4.1" level="project" />
     <orderEntry type="library" exported="" name="cardview-v7-21.0.3" level="project" />
     <orderEntry type="library" exported="" name="mta-sdk-1.6.2" level="project" />
@@ -106,6 +105,7 @@
     <orderEntry type="library" exported="" name="analytics-5.2.4" level="project" />
     <orderEntry type="library" exported="" name="butterknife-6.0.1-SNAPSHOT" level="project" />
     <orderEntry type="module" module-name="lib-float-btn" exported="" />
+    <orderEntry type="module" module-name="lib-imageloader" exported="" />
     <orderEntry type="module" module-name="lib-animation-list-manipulation" exported="" />
     <orderEntry type="module" module-name="lib-photoview" exported="" />
     <orderEntry type="module" module-name="lib-umeng" exported="" />

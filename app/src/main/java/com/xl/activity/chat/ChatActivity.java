@@ -168,7 +168,7 @@ public class ChatActivity extends BaseActivity implements
     };
 
     public void onEvent(final MessageBean mb) {
-        if (mb.getToId().equals(ac.deviceId)) {
+        if (!mb.getToId().equals(ac.deviceId)) {
             new AlertDialog.Builder(ChatActivity.this).setIcon(R.drawable.beiju).setTitle(getString(R.string.beijua)).setMessage(getString(R.string.resend_message)).setPositiveButton(getString(R.string.resend_btn), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {

@@ -1,5 +1,6 @@
 package com.xl.activity.chat;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -8,6 +9,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.xl.activity.base.BaseActivity;
 
 import org.androidannotations.annotations.EActivity;
@@ -37,7 +40,27 @@ public class ImageViewActivity extends BaseActivity {
         layoutParams.gravity= Gravity.CENTER;
         imageView.setLayoutParams(layoutParams);
         mAttacher = new PhotoViewAttacher(imageView);
-        ImageLoader.getInstance().displayImage(imageUrl,imageView);
+        ImageLoader.getInstance().displayImage(imageUrl,imageView,null,new ImageLoadingListener() {
+            @Override
+            public void onLoadingStarted(String imageUri, View view) {
+
+            }
+
+            @Override
+            public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+
+            }
+
+            @Override
+            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                mAttacher.update();
+            }
+
+            @Override
+            public void onLoadingCancelled(String imageUri, View view) {
+
+            }
+        });
         setContentView(imageView);
     }
 

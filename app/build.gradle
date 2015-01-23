@@ -52,7 +52,7 @@ dependencies {
     compile "com.jakewharton:butterknife:+"//注解
     //compile 'org.lucasr.twowayview:core:+@aar'
     //compile 'org.lucasr.twowayview:layouts:+@aar'
-    compile 'com.nostra13.universalimageloader:universal-image-loader:+'//图片加载
+//    compile 'com.nostra13.universalimageloader:universal-image-loader:+'//图片加载
     compile 'com.loopj.android:android-async-http:+'//网络加载
     compile 'pl.droidsonroids.gif:android-gif-drawable:+'//GIF
     compile 'com.github.johnpersano:supertoasts:+@aar'//SuperToast
@@ -69,6 +69,7 @@ dependencies {
     compile project(':lib-photoview')//photoview
     compile project(':lib-umeng')//umeng更新
     compile project(':lib-materialdesign')//MeterialDesign
+    compile project(':lib-imageloader')//universal-image-loader
     //compile project(':lib-mpchart')
 }
 

@@ -8,15 +8,16 @@ import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.gauss.recorder.SpeexPlayer;
 import com.github.siyamed.shapeimageview.mask.PorterShapeImageView;
 import com.loopj.android.http.FileAsyncHttpResponseHandler;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.assist.ImageSize;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.xl.activity.R;
 import com.xl.activity.base.BaseAdapterListView;
@@ -42,12 +43,13 @@ import pl.droidsonroids.gif.GifDrawable;
 
 public class ChatAdapters extends BaseAdapterListView<MessageBean> {
 
-    public ImageSize targetSize=null;
     List<MessageBean> downloading = new ArrayList<>();
+    DisplayImageOptions options_default = new DisplayImageOptions.Builder().showImageForEmptyUri(R.drawable.aio_image_default)
+            .showImageOnFail(R.drawable.aio_image_default).showImageOnLoading(R.drawable.aio_image_default)
+            .cacheInMemory(true).cacheOnDisk(true).build();
 
     public ChatAdapters(Context context, List list) {
         super(list, context);
-        targetSize= new ImageSize((int)(context.getResources().getDisplayMetrics().widthPixels / 2f), (int)(context.getResources().getDisplayMetrics().heightPixels / 2f));
     }
 
     @Override
@@ -111,7 +113,6 @@ public class ChatAdapters extends BaseAdapterListView<MessageBean> {
             holder = (ViewHolder) view.getTag();
         }
         MessageBean mb = getItem(position);
-        RelativeLayout.LayoutParams layoutParams2=null;
         switch (getItemViewType(position)) {
             case 0:
             case 10:
@@ -161,20 +162,14 @@ public class ChatAdapters extends BaseAdapterListView<MessageBean> {
                 }
                 break;
             case 2:
-                layoutParams2 = (RelativeLayout.LayoutParams) holder.img.getLayoutParams();
-                layoutParams2.width = (int) ((float) context.getResources().getDisplayMetrics().widthPixels / 2f);
-                layoutParams2.height = (int) ((float) context.getResources().getDisplayMetrics().heightPixels / 2f);
-                holder.img.setLayoutParams(layoutParams2);
-                ImageLoader.getInstance().displayImage(URLS.DOWNLOADFILE + ac.deviceId + "/" + mb.getContent() + URLS.LAST, holder.img, new imgListener(mb));
+                setImageSize(mb, holder.img);
+                ImageLoader.getInstance().displayImage(URLS.DOWNLOADFILE + ac.deviceId + "/" + mb.getContent() + URLS.LAST, holder.img,options_default, new imgListener(mb));
                 holder.img.setTag(URLS.DOWNLOADFILE + ac.deviceId + "/" + mb.getContent() + URLS.LAST);
                 holder.img.setOnClickListener(clickListener);
                 break;
             case 12:
-                layoutParams2 = (RelativeLayout.LayoutParams) holder.img.getLayoutParams();
-                layoutParams2.width = (int) ((float) context.getResources().getDisplayMetrics().widthPixels / 2f);
-                layoutParams2.height = (int) ((float) context.getResources().getDisplayMetrics().heightPixels / 2f);
-                holder.img.setLayoutParams(layoutParams2);
-                ImageLoader.getInstance().displayImage("file://" + mb.getContent(), holder.img, new imgListener(null));
+                setImageSize(mb,holder.img);
+                ImageLoader.getInstance().displayImage("file://" + mb.getContent(), holder.img,options_default, new imgListener(mb));
                 holder.img.setTag("file://" + mb.getContent());
                 holder.img.setOnClickListener(clickListener);
                 break;
@@ -205,6 +200,17 @@ public class ChatAdapters extends BaseAdapterListView<MessageBean> {
             holder.error.setVisibility(View.GONE);
         }
         return view;
+    }
+
+    void setImageSize(MessageBean mb,ImageView view){
+        RelativeLayout.LayoutParams layoutParams2 = (RelativeLayout.LayoutParams) view.getLayoutParams();
+        if(mb.imageSize==null) {
+            layoutParams2.width = (int) ((float) context.getResources().getDisplayMetrics().widthPixels / 3f);
+        }else{
+            layoutParams2.width = mb.imageSize.getWidth();
+            layoutParams2.height = mb.imageSize.getHeight();
+        }
+        view.setLayoutParams(layoutParams2);
     }
 
     class ViewHolder {
@@ -376,7 +382,7 @@ public class ChatAdapters extends BaseAdapterListView<MessageBean> {
 
         @Override
         public void onLoadingStarted(String imageUri, View view) {
-            if (mb != null) {
+            if (mb != null&&mb.getToId().equals(ac.deviceId)) {
                 mb.setLoading(MessageBean.LOADING_DOWNLOADING);
                 notifyDataSetChanged();
             }
@@ -384,7 +390,7 @@ public class ChatAdapters extends BaseAdapterListView<MessageBean> {
 
         @Override
         public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-            if (mb != null) {
+            if (mb != null&&mb.getToId().equals(ac.deviceId)) {
                 mb.setLoading(MessageBean.LOADING_DOWNLOADFAIL);
                 downloading.remove(mb);
                 notifyDataSetChanged();
@@ -393,19 +399,26 @@ public class ChatAdapters extends BaseAdapterListView<MessageBean> {
 
         @Override
         public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-            int screen_width = (int) ((float) context.getResources().getDisplayMetrics().widthPixels / 2f);
-            int img_width = loadedImage.getWidth();
-            int max_widht = img_width > screen_width ? screen_width : img_width;
-            float scale = (float) img_width / (float) max_widht;
-            int new_height = (int) ((float) loadedImage.getHeight() / scale);
-            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
-            layoutParams.width = max_widht;
-            layoutParams.height = new_height;
-            view.setLayoutParams(layoutParams);
+            if(mb.imageSize==null) {
+                int screen_width = (int) ((float) context.getResources().getDisplayMetrics().widthPixels / 3f);
+                int img_width = loadedImage.getWidth();
+                int max_widht = img_width > screen_width ? screen_width : img_width;
+                float scale = (float) img_width / (float) max_widht;
+                int new_height = (int) ((float) loadedImage.getHeight() / scale);
+                RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
+                layoutParams.width = max_widht;
+                layoutParams.height = new_height;
+                view.setLayoutParams(layoutParams);
+                if (mb != null) {
+                    mb.imageSize = new MessageBean.ImageSize(max_widht, new_height);
+                }
+            }
             if (mb != null) {
-                mb.setLoading(MessageBean.LOADING_DOWNLOADED);
-                downloading.remove(mb);
-                notifyDataSetChanged();
+                if (mb.getToId().equals(ac.deviceId)) {
+                    mb.setLoading(MessageBean.LOADING_DOWNLOADED);
+                    downloading.remove(mb);
+                    notifyDataSetChanged();
+                }
             }
         }
 
