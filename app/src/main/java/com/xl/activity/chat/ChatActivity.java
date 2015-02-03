@@ -162,6 +162,7 @@ public class ChatActivity extends BaseActivity implements
                     @Override
                     public void isbppl() {
                         Log.i("YoumiAdDemo", "展示失败");
+                        showScreenAdFail();
                     }
 
                     @Override
@@ -170,6 +171,17 @@ public class ChatActivity extends BaseActivity implements
                     }
 
                 });
+    }
+
+    @UiThread
+    public void showScreenAdFail(){
+        SuperToast superToast = new SuperToast(this);
+        superToast.setText("广告弹出失败。。。我还会再来的。。");
+        superToast.setDuration(SuperToast.Duration.LONG);
+        superToast.setIcon(R.drawable.weisuo, SuperToast.IconPosition.LEFT);
+        superToast.show();
+        showScreenAdBefore();
+        showScreenAd();
     }
 
     public void onEvent(final MessageBean mb) {
