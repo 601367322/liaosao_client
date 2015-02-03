@@ -31,4 +31,8 @@
     <color name="black">#000000</color>
     <color name="fab_color_pressed">#007787</color>
     <color name="fab_color_shadow">#44000000</color>
+
+    <color name="card_color1">#ddcea5</color>
+    <color name="card_color2">#ccb9d5</color>
+    <color name="card_color3">#5e29f4</color>
 </resources>

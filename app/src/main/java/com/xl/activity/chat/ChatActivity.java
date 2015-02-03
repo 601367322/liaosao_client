@@ -137,35 +137,40 @@ public class ChatActivity extends BaseActivity implements
 
         EventBus.getDefault().register(this);
 
-
-        handle.postDelayed(ad, 30 * 1000);
-
+        showScreenAdBefore();
+        showScreenAd();
     }
 
-    Runnable ad = new Runnable() {
-        @Override
-        public void run() {
-            imbzdg.isaypl(ChatActivity.this).iscxpl(
-                    ChatActivity.this, new imbydg() {
-                        @Override
-                        public void isbqpl() {
-                            Log.i("YoumiAdDemo", "展示成功");
-                        }
+    @UiThread(delay = 25 * 1000)
+    public void showScreenAdBefore() {
+        SuperToast superToast = new SuperToast(this);
+        superToast.setText("闪开！我要弹广告啦！！！");
+        superToast.setDuration(SuperToast.Duration.LONG);
+        superToast.setIcon(R.drawable.stop, SuperToast.IconPosition.LEFT);
+        superToast.show();
+    }
 
-                        @Override
-                        public void isbppl() {
-                            Log.i("YoumiAdDemo", "展示失败");
-                        }
+    @UiThread(delay = 30 * 1000)
+    public void showScreenAd() {
+        imbzdg.isaypl(ChatActivity.this).iscxpl(
+                ChatActivity.this, new imbydg() {
+                    @Override
+                    public void isbqpl() {
+                        Log.i("YoumiAdDemo", "展示成功");
+                    }
 
-                        @Override
-                        public void isbrpl() {
-                            Log.i("YoumiAdDemo", "展示关闭");
-                        }
+                    @Override
+                    public void isbppl() {
+                        Log.i("YoumiAdDemo", "展示失败");
+                    }
 
-                    }); // //
-//            SpotManager.getInstance(ChatActivity.this).showSpotAds(ChatActivity.this);
-        }
-    };
+                    @Override
+                    public void isbrpl() {
+                        Log.i("YoumiAdDemo", "展示关闭");
+                    }
+
+                });
+    }
 
     public void onEvent(final MessageBean mb) {
         if (!mb.getToId().equals(ac.deviceId)) {
@@ -291,12 +296,12 @@ public class ChatActivity extends BaseActivity implements
             public void onSuccess(JSONObject jo) {
                 try {
                     int status = jo.getInt(ResultCode.STATUS);
-                    switch (status){
+                    switch (status) {
                         case ResultCode.SUCCESS:
                             mb.setLoading(MessageBean.LOADING_DOWNLOADED);
                             notifyData();
-                            if(jo.has(ResultCode.INFO)){
-                                if(jo.optInt(ResultCode.INFO)==ResultCode.DISCONNECT){
+                            if (jo.has(ResultCode.INFO)) {
+                                if (jo.optInt(ResultCode.INFO) == ResultCode.DISCONNECT) {
                                     Intent intent = new Intent(BroadCastUtil.CLOSECHAT);
                                     intent.putExtra(StaticUtil.DEVICEID, deviceId);
                                     sendBroadcast(intent);
@@ -649,7 +654,7 @@ public class ChatActivity extends BaseActivity implements
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        handle.removeCallbacks(ad);
+
         NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         manager.cancel(0);
     }
@@ -817,12 +822,12 @@ public class ChatActivity extends BaseActivity implements
                 public void onSuccess(JSONObject jo) {
                     try {
                         int status = jo.getInt(ResultCode.STATUS);
-                        switch (status){
+                        switch (status) {
                             case ResultCode.SUCCESS:
                                 mb.setLoading(MessageBean.LOADING_DOWNLOADED);
                                 notifyData();
-                                if(jo.has(ResultCode.INFO)){
-                                    if(jo.optInt(ResultCode.INFO)==ResultCode.DISCONNECT){
+                                if (jo.has(ResultCode.INFO)) {
+                                    if (jo.optInt(ResultCode.INFO) == ResultCode.DISCONNECT) {
                                         Intent intent = new Intent(BroadCastUtil.CLOSECHAT);
                                         intent.putExtra(StaticUtil.DEVICEID, deviceId);
                                         sendBroadcast(intent);
@@ -862,17 +867,16 @@ public class ChatActivity extends BaseActivity implements
             public void onAnimationEnd(Animator animation) {
                 face_grid.setVisibility(View.VISIBLE);
                 lstImageItem = new ArrayList<>();
-                for(int i=1;i<=25;i++)
-                {
+                for (int i = 1; i <= 25; i++) {
                     HashMap<String, Object> map = new HashMap<>();
-                    map.put("face_img", getResources().getIdentifier("face_"+i, "drawable", getPackageName()));
+                    map.put("face_img", getResources().getIdentifier("face_" + i, "drawable", getPackageName()));
                     lstImageItem.add(map);
                 }
                 SimpleAdapter saImageItems = new SimpleAdapter(ChatActivity.this,
                         lstImageItem,
                         R.layout.face_item,
-                        new String[] {"face_img"},
-                        new int[] {R.id.face_img});
+                        new String[]{"face_img"},
+                        new int[]{R.id.face_img});
                 final SwingBottomInAnimationAdapter t1 = new SwingBottomInAnimationAdapter(saImageItems);
                 t1.setAbsListView(face_grid);
                 t1.getViewAnimator().setInitialDelayMillis(0);
@@ -900,15 +904,15 @@ public class ChatActivity extends BaseActivity implements
     }
 
     boolean closeGridView() {
-        if(face_grid.getChildCount()>0){
-            for(int i=0;i<face_grid.getChildCount();i++) {
-                ValueAnimator animator = ObjectAnimator.ofFloat(face_grid.getChildAt(face_grid.getChildCount()-1-i), "translationY", 0, face_grid.getMeasuredHeight() >> 1);
-                ValueAnimator animator1 = ObjectAnimator.ofFloat(face_grid.getChildAt(face_grid.getChildCount()-1-i), "alpha", 1, 0);
+        if (face_grid.getChildCount() > 0) {
+            for (int i = 0; i < face_grid.getChildCount(); i++) {
+                ValueAnimator animator = ObjectAnimator.ofFloat(face_grid.getChildAt(face_grid.getChildCount() - 1 - i), "translationY", 0, face_grid.getMeasuredHeight() >> 1);
+                ValueAnimator animator1 = ObjectAnimator.ofFloat(face_grid.getChildAt(face_grid.getChildCount() - 1 - i), "alpha", 1, 0);
                 AnimatorSet set = new AnimatorSet();
                 set.setDuration(100);
                 set.playTogether(animator, animator1);
                 set.setStartDelay(i * 25);
-                if(i==face_grid.getChildCount()-1) {
+                if (i == face_grid.getChildCount() - 1) {
                     set.addListener(new AnimatorListenerAdapter() {
                         @Override
                         public void onAnimationEnd(Animator animation) {
@@ -937,7 +941,7 @@ public class ChatActivity extends BaseActivity implements
     }
 
     @Touch
-    boolean listview(){
+    boolean listview() {
         closeInput();
         closeGridView();
         listview.setTranscriptMode(AbsListView.TRANSCRIPT_MODE_NORMAL);
@@ -945,7 +949,7 @@ public class ChatActivity extends BaseActivity implements
     }
 
     @UiThread
-    void scrollToLast(){
+    void scrollToLast() {
         listview.setSelection(adapter.getCount() - 1);
         listview.setTranscriptMode(AbsListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
     }

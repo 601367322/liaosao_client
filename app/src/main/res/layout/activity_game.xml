@@ -1,0 +1,46 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#bbaba0"
+
+    android:orientation="vertical"
+    tools:context="${relativePackage}.${activityClass}">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:text="　　游戏玩法：手指上下左右，摩擦屏幕，摩擦、摩擦，似爪牙、似魔鬼的步伐，两个相同的圈将合并。"
+        android:textColor="@color/black" />
+
+    <RelativeLayout
+        android:id="@+id/content"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <com.xl.game.GameView
+            android:id="@+id/gameView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"></com.xl.game.GameView>
+
+        <com.xl.custom.SquareLayout
+            android:id="@+id/hide_ll"
+            android:clickable="true"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/restart_btn"
+                android:layout_width="match_parent"
+                android:textSize="40dp"
+                android:text="失败！\n重新开始"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:layout_height="wrap_content" />
+            </com.xl.custom.SquareLayout>
+    </RelativeLayout>
+
+</LinearLayout>

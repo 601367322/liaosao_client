@@ -1,6 +1,9 @@
 package com.xl.fragment;
 
 import android.view.Gravity;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
@@ -8,6 +11,7 @@ import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.xl.activity.R;
 import com.xl.activity.base.BaseFragment;
 import com.xl.activity.chat.ChatActivity_;
+import com.xl.game.GameActivity_;
 import com.xl.util.BroadCastUtil;
 import com.xl.util.GifDrawableCache;
 import com.xl.util.JsonHttpResponseHandler;
@@ -17,11 +21,11 @@ import com.xl.util.URLS;
 
 import net.imageloader.tools.br.imakdg;
 import net.imageloader.tools.br.imandg;
-import net.imageloader.tools.br.imandgListener;
 
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.Receiver;
+import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 import org.json.JSONObject;
 
@@ -34,6 +38,9 @@ public class MainFragment extends BaseFragment {
     @ViewById
     RelativeLayout mAdContainer;
 
+    @ViewById
+    View to_game;
+
     @Override
     public void init() {
         // 实例化LayoutParams(重要)
@@ -45,21 +52,6 @@ public class MainFragment extends BaseFragment {
         imandg adView = new imandg(getActivity(), imakdg.FIT_SCREEN);
         // 调用Activity的addContentView函数
 
-        // 监听广告条接口
-        adView.isbypl(new imandgListener() {
-
-            @Override
-            public void isbtpl(imandg arg0) {
-            }
-
-            @Override
-            public void isbopl(imandg arg0) {
-            }
-            @Override
-            public void isbnpl(imandg arg0) {
-            }
-        });
-
         mAdContainer.addView(adView);
     }
     @Click
@@ -67,6 +59,8 @@ public class MainFragment extends BaseFragment {
 
         if(connect.getTag()==null) {
             connect.setTag("1");
+
+            loadmoreTime();
             ac.httpClient.post(URLS.JOINQUEUE, ac.getRequestParams(), new JsonHttpResponseHandler() {
 
                 @Override
@@ -112,10 +106,28 @@ public class MainFragment extends BaseFragment {
     void cancle(){
         connect.setTag(null);
         connect.setIcon(R.drawable.touch_my_face);
+        loadmoreTime();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+    }
+
+    @Click
+    void to_game(){
+        GameActivity_.intent(this).start();
+    }
+
+    @UiThread(delay = 3000)
+    public void loadmoreTime(){
+        if(connect.getTag()!=null){
+            to_game.setVisibility(View.VISIBLE);
+            Animation shake = AnimationUtils.loadAnimation(getActivity(), R.anim.shake);
+            to_game.startAnimation(shake);
+        }else{
+            to_game.setVisibility(View.GONE);
+            to_game.clearAnimation();
+        }
     }
 }
