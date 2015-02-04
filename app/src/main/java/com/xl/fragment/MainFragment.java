@@ -106,7 +106,7 @@ public class MainFragment extends BaseFragment {
     void cancle(){
         connect.setTag(null);
         connect.setIcon(R.drawable.touch_my_face);
-        loadmoreTime();
+        hideToGame();
     }
 
     @Override
@@ -121,6 +121,10 @@ public class MainFragment extends BaseFragment {
 
     @UiThread(delay = 1500)
     public void loadmoreTime(){
+        hideToGame();
+    }
+
+    public void hideToGame(){
         if(connect.getTag()!=null){
             to_game.setVisibility(View.VISIBLE);
             Animation shake = AnimationUtils.loadAnimation(getActivity(), R.anim.shake);
