@@ -60,6 +60,7 @@ public class MainActivity extends BaseActivity
                 .commit();
 
         UmengUpdateAgent.update(this);
+        UmengUpdateAgent.setUpdateListener(null);
     }
 
     @OptionsItem(R.id.menu_item_share)
