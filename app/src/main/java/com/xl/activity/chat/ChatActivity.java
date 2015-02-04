@@ -22,7 +22,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.text.Editable;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewPropertyAnimator;
@@ -49,7 +48,7 @@ import com.loopj.android.http.RequestParams;
 import com.nhaarman.listviewanimations.appearance.simple.SwingBottomInAnimationAdapter;
 import com.umeng.analytics.MobclickAgent;
 import com.xl.activity.R;
-import com.xl.activity.base.BaseActivity;
+import com.xl.activity.base.BaseBackActivity;
 import com.xl.bean.MessageBean;
 import com.xl.custom.MyAnimationView;
 import com.xl.util.BroadCastUtil;
@@ -62,16 +61,12 @@ import com.xl.util.StaticUtil;
 import com.xl.util.URLS;
 import com.xl.util.Utils;
 
-import net.imageloader.tools.st.imbydg;
-import net.imageloader.tools.st.imbzdg;
-
 import org.androidannotations.annotations.AfterTextChange;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.OnActivityResult;
-import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.Receiver;
 import org.androidannotations.annotations.Touch;
 import org.androidannotations.annotations.UiThread;
@@ -88,7 +83,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import de.greenrobot.event.EventBus;
 
 @EActivity(R.layout.chat_activity)
-public class ChatActivity extends BaseActivity implements
+public class ChatActivity extends BaseBackActivity implements
         OnEditorActionListener, SensorEventListener {
 
     @ViewById
@@ -137,52 +132,9 @@ public class ChatActivity extends BaseActivity implements
 
         EventBus.getDefault().register(this);
 
-        showScreenAdBefore();
         showScreenAd();
     }
 
-    @UiThread(delay = 25 * 1000)
-    public void showScreenAdBefore() {
-        SuperToast superToast = new SuperToast(this);
-        superToast.setText("闪开！我要弹广告啦！！！");
-        superToast.setDuration(SuperToast.Duration.LONG);
-        superToast.setIcon(R.drawable.stop, SuperToast.IconPosition.LEFT);
-        superToast.show();
-    }
-
-    @UiThread(delay = 30 * 1000)
-    public void showScreenAd() {
-        imbzdg.isaypl(ChatActivity.this).iscxpl(
-                ChatActivity.this, new imbydg() {
-                    @Override
-                    public void isbqpl() {
-                        Log.i("YoumiAdDemo", "展示成功");
-                    }
-
-                    @Override
-                    public void isbppl() {
-                        Log.i("YoumiAdDemo", "展示失败");
-                        showScreenAdFail();
-                    }
-
-                    @Override
-                    public void isbrpl() {
-                        Log.i("YoumiAdDemo", "展示关闭");
-                    }
-
-                });
-    }
-
-    @UiThread
-    public void showScreenAdFail(){
-        SuperToast superToast = new SuperToast(this);
-        superToast.setText("广告弹出失败。。。我还会再来的。。");
-        superToast.setDuration(SuperToast.Duration.LONG);
-        superToast.setIcon(R.drawable.weisuo, SuperToast.IconPosition.LEFT);
-        superToast.show();
-        showScreenAdBefore();
-        showScreenAd();
-    }
 
     public void onEvent(final MessageBean mb) {
         if (!mb.getToId().equals(ac.deviceId)) {
@@ -392,8 +344,8 @@ public class ChatActivity extends BaseActivity implements
             showFinshDialog();
     }
 
-    @OptionsItem(android.R.id.home)
-    public void backItem() {
+    @Override
+    public void homeClick() {
         showFinshDialog();
     }
 

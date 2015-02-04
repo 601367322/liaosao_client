@@ -2,6 +2,7 @@ package com.xl.game;
 
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.xl.activity.R;
 import com.xl.activity.base.BaseBackActivity;
@@ -23,6 +24,8 @@ public class GameActivity extends BaseBackActivity{
     RelativeLayout content;
     @ViewById
     View hide_ll,restart_btn;
+    @ViewById
+    TextView tv_names;
 
     @Override
     public void onResume() {
@@ -34,7 +37,8 @@ public class GameActivity extends BaseBackActivity{
     protected void init() {
         gameView.setListener(new GameView.GameViewListener() {
             @Override
-            public void onFinishListener() {
+            public void onFinishListener(String names) {
+                tv_names.setText("恭喜你获得\""+names+"\"称号,祝你早日升职加薪，当上总经理，迎娶白富美，走上人生巅峰~~~");
                 hide_ll.setVisibility(View.VISIBLE);
             }
         });
@@ -49,6 +53,8 @@ public class GameActivity extends BaseBackActivity{
         // 调用Activity的addContentView函数
 
         content.addView(adView,layoutParams);
+
+        showScreenAd();
     }
 
     @Click
@@ -56,4 +62,5 @@ public class GameActivity extends BaseBackActivity{
         gameView.reseat();
         hide_ll.setVisibility(View.GONE);
     }
+
 }

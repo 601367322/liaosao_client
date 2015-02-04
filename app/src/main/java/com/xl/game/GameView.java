@@ -140,8 +140,19 @@ public class GameView extends FrameLayout implements OnTouchListener {
                     }
                 }
             }
-            if (listener != null && !nul)
-                listener.onFinishListener();
+            if (listener != null && !nul) {
+                int max = 0;
+                for (int x = 0; x < MAX_COLUM; x++) {
+                    for (int y = 0; y < MAX_COLUM; y++) {
+                        Card card = cardsMap[x][y];
+                        if(card.getNum()>max){
+                            max=card.getNum();
+                        }
+                    }
+                }
+
+                listener.onFinishListener(Card.names[max]);
+            }
         }
     }
 
@@ -391,7 +402,7 @@ public class GameView extends FrameLayout implements OnTouchListener {
 
     public interface GameViewListener {
 
-        public void onFinishListener();
+        public void onFinishListener(String names);
 
     }
 

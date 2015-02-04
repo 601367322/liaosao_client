@@ -69,7 +69,7 @@ public class Card extends FrameLayout {
             R.color.card_color3,
             R.color.white, R.color.white};
 
-    private String[] names = {
+    public static String[] names = {
             "小学生",
             "中学生",
             "高中生",
@@ -164,6 +164,7 @@ public class Card extends FrameLayout {
         lable = new AutofitTextView(getContext());
         lable.setTextSize(24);
         lable.setSingleLine(true);
+        lable.setPadding(10,0,10,0);
         AutofitHelper.create(lable);
         lable.setGravity(Gravity.CENTER);
 

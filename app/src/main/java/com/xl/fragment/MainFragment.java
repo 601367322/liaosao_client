@@ -119,7 +119,7 @@ public class MainFragment extends BaseFragment {
         GameActivity_.intent(this).start();
     }
 
-    @UiThread(delay = 3000)
+    @UiThread(delay = 1500)
     public void loadmoreTime(){
         if(connect.getTag()!=null){
             to_game.setVisibility(View.VISIBLE);

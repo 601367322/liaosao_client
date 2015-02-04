@@ -10,7 +10,10 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="20dp"
+        android:paddingTop="10dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="10dp"
         android:text="　　游戏玩法：手指上下左右，摩擦屏幕，摩擦、摩擦，似爪牙、似魔鬼的步伐，两个相同的圈将合并。"
         android:textColor="@color/black" />
 
@@ -27,20 +30,38 @@
 
         <com.xl.custom.SquareLayout
             android:id="@+id/hide_ll"
-            android:clickable="true"
-            android:visibility="gone"
+            android:background="#ccffffff"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/restart_btn"
+            android:visibility="gone"
+            android:layout_height="wrap_content"
+            android:clickable="true">
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:textSize="40dp"
-                android:text="失败！\n重新开始"
+                android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:gravity="center"
-                android:textColor="@color/black"
-                android:layout_height="wrap_content" />
-            </com.xl.custom.SquareLayout>
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_names"
+                    android:layout_width="match_parent"
+                    android:gravity="center"
+                    android:paddingLeft="32dp"
+                    android:paddingRight="32dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/restart_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="重新开始"
+                    android:textColor="@color/black"
+                    android:textSize="40dp" />
+            </LinearLayout>
+        </com.xl.custom.SquareLayout>
     </RelativeLayout>
 
 </LinearLayout>
