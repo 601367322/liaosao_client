@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib-animation-list-core/lib-animation-list-core.iml" filepath="$PROJECT_DIR$/lib-animation-list-core/lib-animation-list-core.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib-animation-list-manipulation/lib-animation-list-manipulation.iml" filepath="$PROJECT_DIR$/lib-animation-list-manipulation/lib-animation-list-manipulation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lib-autofittextview/lib-autofittextview.iml" filepath="$PROJECT_DIR$/lib-autofittextview/lib-autofittextview.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib-float-btn/lib-float-btn.iml" filepath="$PROJECT_DIR$/lib-float-btn/lib-float-btn.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib-imageloader/lib-imageloader.iml" filepath="$PROJECT_DIR$/lib-imageloader/lib-imageloader.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib-materialdesign/lib-materialdesign.iml" filepath="$PROJECT_DIR$/lib-materialdesign/lib-materialdesign.iml" />

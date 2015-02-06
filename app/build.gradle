@@ -59,7 +59,7 @@ dependencies {
     compile 'com.github.siyamed:android-shape-imageview:+@aar'//多边形图片
     compile 'com.umeng.analytics:analytics:latest.integration'//友盟
     compile 'de.greenrobot:eventbus:+'//eventbus
-    compile 'me.grantland:autofittextview:0.2.+'//自适应字体大小
+//    compile 'me.grantland:autofittextview:0.2.+'//自适应字体大小
 //    compile 'com.nhaarman.listviewanimations:lib-core:3.1.0@aar'//listview动画
 //    compile 'com.nhaarman.listviewanimations:lib-manipulation:3.1.0@aar'//listview动画
 //    compile 'com.github.navasmdc:MaterialDesign:1.+@aar'//MeterialDesign
@@ -71,6 +71,7 @@ dependencies {
     compile project(':lib-umeng')//umeng更新
     compile project(':lib-materialdesign')//MeterialDesign
     compile project(':lib-imageloader')//universal-image-loader
+    compile project(':lib-autofittextview')//自适应字体大小
     //compile project(':lib-mpchart')
 }
 
