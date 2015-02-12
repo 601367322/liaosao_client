@@ -56,7 +56,7 @@ dependencies {
     compile 'com.loopj.android:android-async-http:+'//网络加载
     compile 'pl.droidsonroids.gif:android-gif-drawable:+'//GIF
     compile 'com.github.johnpersano:supertoasts:+@aar'//SuperToast
-    compile 'com.github.siyamed:android-shape-imageview:+@aar'//多边形图片
+//    compile 'com.github.siyamed:android-shape-imageview:+@aar'//多边形图片
     compile 'com.umeng.analytics:analytics:latest.integration'//友盟
     compile 'de.greenrobot:eventbus:+'//eventbus
 //    compile 'me.grantland:autofittextview:0.2.+'//自适应字体大小
@@ -72,6 +72,7 @@ dependencies {
     compile project(':lib-materialdesign')//MeterialDesign
     compile project(':lib-imageloader')//universal-image-loader
     compile project(':lib-autofittextview')//自适应字体大小
+    compile project(':lib_shapeimagelibrary')//多边形图片
     //compile project(':lib-mpchart')
 }
 
