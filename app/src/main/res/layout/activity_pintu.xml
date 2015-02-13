@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.xl.custom.MyPinTuImageView
+        android:id="@+id/img_p1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:siShape="@drawable/p1"
+        app:siSquare="true" />
+
+    <com.xl.custom.MyPinTuImageView
+        android:id="@+id/img_p2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:siShape="@drawable/p2"
+        app:siSquare="true" />
+
+    <com.xl.custom.MyPinTuImageView
+        android:id="@+id/img_p3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:siShape="@drawable/p3"
+        app:siSquare="true" />
+
+    <com.xl.custom.MyPinTuImageView
+        android:id="@+id/img_p4"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:siShape="@drawable/p4"
+        app:siSquare="true" />
+
+    <com.xl.custom.MyPinTuImageView
+        android:id="@+id/img_p5"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:siShape="@drawable/p5"
+        app:siSquare="true" />
+
+   <com.xl.custom.MyPinTuImageView
+        android:id="@+id/img_p6"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:siShape="@drawable/p6"
+        app:siSquare="true" />
+
+    <com.xl.custom.MyPinTuImageView
+        android:id="@+id/img_p7"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:siShape="@drawable/p7"
+        app:siSquare="true" />
+
+    <com.xl.custom.MyPinTuImageView
+        android:id="@+id/img_p8"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:siShape="@drawable/p8"
+        app:siSquare="true" />
+
+    <com.xl.custom.MyPinTuImageView
+        android:id="@+id/img_p9"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:siShape="@drawable/p9"
+        app:siSquare="true" />
+
+    <com.xl.custom.MyPinTuImageView
+        android:id="@+id/img_p10"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:siShape="@drawable/p10"
+        app:siSquare="true" />
+
+    <com.xl.custom.MyPinTuImageView
+        android:id="@+id/img_p11"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:siShape="@drawable/p11"
+        app:siSquare="true" />
+
+    <com.xl.custom.MyPinTuImageView
+        android:id="@+id/img_p12"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:siShape="@drawable/p12"
+        app:siSquare="true" />
+
+    <com.xl.custom.MyPinTuImageView
+        android:id="@+id/img_p13"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:siShape="@drawable/p13"
+        app:siSquare="true" />
+
+    <com.xl.custom.MyPinTuImageView
+        android:id="@+id/img_p14"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:siShape="@drawable/p14"
+        app:siSquare="true" />
+
+    <com.xl.custom.MyPinTuImageView
+        android:id="@+id/img_p15"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:siShape="@drawable/p15"
+        app:siSquare="true" />
+
+    <com.xl.custom.MyPinTuImageView
+        android:id="@+id/img_p16"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:siShape="@drawable/p16"
+        app:siSquare="true" />
+
+    <com.xl.custom.MyPinTuImageView
+        android:id="@+id/img_p17"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:siShape="@drawable/p17"
+        app:siSquare="true" />
+
+    <com.xl.custom.MyPinTuImageView
+        android:id="@+id/img_p18"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:siShape="@drawable/p18"
+        app:siSquare="true" />
+
+    <com.xl.custom.MyPinTuImageView
+        android:id="@+id/img_p19"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:siShape="@drawable/p19"
+        app:siSquare="true" />
+
+    <com.xl.custom.MyPinTuImageView
+        android:id="@+id/img_p20"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:siShape="@drawable/p20"
+        app:siSquare="true" />
+
+    <com.xl.custom.MyPinTuImageView
+        android:id="@+id/img_p21"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:siShape="@drawable/p21"
+        app:siSquare="true" />
+
+    <com.xl.custom.MyPinTuImageView
+        android:id="@+id/img_p22"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:siShape="@drawable/p22"
+        app:siSquare="true" />
+
+    <com.xl.custom.MyPinTuImageView
+        android:id="@+id/img_p23"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:siShape="@drawable/p23"
+        app:siSquare="true" />
+
+    <com.xl.custom.MyPinTuImageView
+        android:id="@+id/img_p24"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:siShape="@drawable/p24"
+        app:siSquare="true" />
+
+    <com.xl.custom.MyPinTuImageView
+        android:id="@+id/img_p25"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:siShape="@drawable/p25"
+        app:siSquare="true" />
+
+    <com.xl.custom.MyPinTuImageView
+        android:id="@+id/img_p26"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:siShape="@drawable/p26"
+        app:siSquare="true" />
+
+    <com.xl.custom.MyPinTuImageView
+        android:id="@+id/img_p27"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:siShape="@drawable/p27"
+        app:siSquare="true" />
+
+    <com.xl.custom.MyPinTuImageView
+        android:id="@+id/img_p28"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:siShape="@drawable/p28"
+        app:siSquare="true" />
+
+    <com.xl.custom.MyPinTuImageView
+        android:id="@+id/img_p29"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:siShape="@drawable/p29"
+        app:siSquare="true" />
+
+    <com.xl.custom.MyPinTuImageView
+        android:id="@+id/img_p30"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:siShape="@drawable/p30"
+        app:siSquare="true" />
+
+    <com.xl.custom.MyPinTuImageView
+        android:id="@+id/img_p31"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:siShape="@drawable/p31"
+        app:siSquare="true" />
+
+    <com.xl.custom.MyPinTuImageView
+        android:id="@+id/img_p32"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:siShape="@drawable/p32"
+        app:siSquare="true" />
+
+    <com.xl.custom.MyPinTuImageView
+        android:id="@+id/img_p33"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:siShape="@drawable/p33"
+        app:siSquare="true" />
+
+    <com.xl.custom.MyPinTuImageView
+        android:id="@+id/img_p34"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:siShape="@drawable/p34"
+        app:siSquare="true" />
+
+    <com.xl.custom.MyPinTuImageView
+        android:id="@+id/img_p35"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:siShape="@drawable/p35"
+        app:siSquare="true" />
+
+    <com.xl.custom.MyPinTuImageView
+        android:id="@+id/img_p36"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:siShape="@drawable/p36"
+        app:siSquare="true" />
+
+</RelativeLayout>
