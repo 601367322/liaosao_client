@@ -141,6 +141,9 @@ public class Handler {
         try {
             Intent i = new Intent(BroadCastUtil.STARTCHAT);
             i.putExtra(StaticUtil.OTHERDEVICEID, jo.getString(StaticUtil.OTHERDEVICEID));
+            if(jo.has(StaticUtil.SEX)) {
+                i.putExtra(StaticUtil.SEX, jo.getInt(StaticUtil.SEX));
+            }
             context.sendBroadcast(i);
         } catch (JSONException e) {
             e.printStackTrace();

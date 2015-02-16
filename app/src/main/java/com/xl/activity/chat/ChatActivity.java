@@ -94,6 +94,8 @@ public class ChatActivity extends BaseBackActivity implements
     ListView listview;
     @Extra
     String deviceId = null;
+    @Extra
+    int sex = 0;
     @ViewById
     MyAnimationView ball_view;
     @ViewById
@@ -133,6 +135,8 @@ public class ChatActivity extends BaseBackActivity implements
         EventBus.getDefault().register(this);
 
         showScreenAd();
+
+        getSupportActionBar().setSubtitle("对方性别："+getResources().getStringArray(R.array.sex_title)[sex]);
     }
 
 
@@ -250,7 +254,7 @@ public class ChatActivity extends BaseBackActivity implements
 
     void sendText(final String context_str, int msgType) {
         RequestParams rp = ac.getRequestParams();
-        final MessageBean mb = new MessageBean(ac.deviceId, deviceId, context_str, msgType);
+        final MessageBean mb = new MessageBean(ac.deviceId, deviceId, context_str, msgType,ac.cs.getSex());
         rp.put("content", new GsonBuilder()
                 .excludeFieldsWithoutExposeAnnotation().create().toJson(mb).toString());
         rp.put("toId", deviceId);
@@ -772,7 +776,7 @@ public class ChatActivity extends BaseBackActivity implements
             rp.put("file", new File(filename));
             rp.put("toId", deviceId);
             rp.put("msgType", type);
-            final MessageBean mb = new MessageBean(ac.deviceId, deviceId, filename, "", "", type, (int) recodeTime);
+            final MessageBean mb = new MessageBean(ac.deviceId, deviceId, filename, "", "", type, (int) recodeTime,ac.cs.getSex());
             ac.httpClient.post(URLS.UPLOADVOICEFILE, rp, new JsonHttpResponseHandler() {
 
                 @Override

@@ -1,3 +1,4 @@
+/*
 package com.xl.game;
 
 import android.graphics.Bitmap;
@@ -18,9 +19,11 @@ import org.androidannotations.annotations.ViewById;
 import java.util.ArrayList;
 import java.util.List;
 
+*/
 /**
  * Created by sbb on 2015/2/12.
- */
+ *//*
+
 @EActivity(R.layout.activity_pintu)
 public class PinTuActivity extends BaseBackActivity {
 
@@ -51,12 +54,14 @@ public class PinTuActivity extends BaseBackActivity {
 
             @Override
             public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-               /* <com.xl.custom.MyPinTuImageView
+               */
+/* <com.xl.custom.MyPinTuImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/girl"
                 app:siShape="@drawable/p1"
-                app:siSquare="true" />*/
+                app:siSquare="true" />*//*
+
 
                 for (int i = 0; i < num; i++) {
                     list.get(i).setImageBitmap(loadedImage);
@@ -129,3 +134,4 @@ public class PinTuActivity extends BaseBackActivity {
                 picToCrop.getHeight() - marginTop - marginBottom);
     }
 }
+*/

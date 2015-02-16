@@ -1,5 +1,7 @@
 package com.xl.fragment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.view.Gravity;
 import android.view.View;
 import android.view.animation.Animation;
@@ -8,9 +10,11 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.loopj.android.http.RequestParams;
 import com.xl.activity.R;
 import com.xl.activity.base.BaseFragment;
 import com.xl.activity.chat.ChatActivity_;
+import com.xl.activity.share.CommonShared;
 import com.xl.game.GameActivity_;
 import com.xl.util.BroadCastUtil;
 import com.xl.util.GifDrawableCache;
@@ -57,11 +61,38 @@ public class MainFragment extends BaseFragment {
     @Click
     void connect() {
 
+        if(ac.cs.getHadSex()== CommonShared.OFF){
+            AlertDialog dialog=new AlertDialog.Builder(getActivity()).setTitle("设置性别").setPositiveButton("男",new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    ac.cs.setSex(2);
+                    ac.cs.setHadSex(CommonShared.ON);
+                    doConnect();
+                }
+            }).setNegativeButton("女",new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    ac.cs.setSex(1);
+                    ac.cs.setHadSex(CommonShared.ON);
+                    doConnect();
+                }
+            }).create();
+            dialog.setCancelable(false);
+            dialog.setCanceledOnTouchOutside(false);
+            dialog.show();
+        }else{
+            doConnect();
+        }
+    }
+
+    public void doConnect(){
         if(connect.getTag()==null) {
             connect.setTag("1");
 
             loadmoreTime();
-            ac.httpClient.post(URLS.JOINQUEUE, ac.getRequestParams(), new JsonHttpResponseHandler() {
+            RequestParams params = ac.getRequestParams();
+            params.put("sex", ac.cs.getSex());
+            ac.httpClient.post(URLS.JOINQUEUE,params , new JsonHttpResponseHandler() {
 
                 @Override
                 public void onFailure() {
@@ -80,7 +111,11 @@ public class MainFragment extends BaseFragment {
                         switch (status) {
                             case ResultCode.SUCCESS:
                                 String deviceId = jo.getString(StaticUtil.OTHERDEVICEID);
-                                ChatActivity_.intent(getActivity()).deviceId(deviceId).start();
+                                ChatActivity_.IntentBuilder_ builder_ = ChatActivity_.intent(getActivity()).deviceId(deviceId);
+                                if(jo.has(StaticUtil.SEX)){
+                                    builder_.sex(jo.getInt(StaticUtil.SEX));
+                                }
+                                builder_.start();
                                 cancle();
                                 break;
                             case ResultCode.LOADING:

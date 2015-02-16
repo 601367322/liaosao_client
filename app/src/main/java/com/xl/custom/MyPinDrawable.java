@@ -1,3 +1,4 @@
+/*
 package com.xl.custom;
 
 import android.content.Context;
@@ -8,9 +9,11 @@ import android.graphics.drawable.Drawable;
 
 import com.xl.activity.R;
 
+*/
 /**
  * Created by sbb on 2015/2/12.
- */
+ *//*
+
 public class MyPinDrawable {
 
     Drawable p1,p2,p3,p4,p5,p6,p7,p8,p9;
@@ -50,3 +53,4 @@ public class MyPinDrawable {
         }
     }
 }
+*/

@@ -2,6 +2,7 @@ package com.xl.activity.setting;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.SwitchPreference;
@@ -22,14 +23,15 @@ import com.xl.application.AppClass;
  */
 public class SettingActivity extends PreferenceActivity implements Preference.OnPreferenceChangeListener {
 
-    SwitchPreference sound,vibration;
+    SwitchPreference sound, vibration;
+    ListPreference sex;
 
     AppClass ac;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ac= (AppClass) getApplicationContext();
+        ac = (AppClass) getApplicationContext();
     }
 
     @Override
@@ -72,27 +74,34 @@ public class SettingActivity extends PreferenceActivity implements Preference.On
 
         addPreferencesFromResource(R.xml.preferen_setting);
 
-        sound= (SwitchPreference) findPreference("sound");
-        vibration= (SwitchPreference) findPreference("vibration");
+        sound = (SwitchPreference) findPreference("sound");
+        vibration = (SwitchPreference) findPreference("vibration");
+        sex = (ListPreference) findPreference("sex");
 
         sound.setOnPreferenceChangeListener(this);
         vibration.setOnPreferenceChangeListener(this);
+        sex.setOnPreferenceChangeListener(this);
+
+        onPreferenceChange(sex,ac.cs.getSex());
     }
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        if(sound==preference){
-            if(((boolean)newValue)){
+        if (sound == preference) {
+            if (((boolean) newValue)) {
                 ac.cs.setSound(CommonShared.ON);
-            }else{
+            } else {
                 ac.cs.setSound(CommonShared.OFF);
             }
-        }else if(vibration==preference){
-            if(((boolean)newValue)){
+        } else if (vibration == preference) {
+            if (((boolean) newValue)) {
                 ac.cs.setVibration(CommonShared.ON);
-            }else{
+            } else {
                 ac.cs.setVibration(CommonShared.OFF);
             }
+        } else if (sex == preference) {
+            sex.setSummary(getResources().getStringArray(R.array.sex_title)[Integer.valueOf(newValue.toString())]);
+            ac.cs.setSex(Integer.valueOf(newValue.toString()));
         }
         return true;
     }

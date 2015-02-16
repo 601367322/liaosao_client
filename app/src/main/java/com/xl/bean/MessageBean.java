@@ -8,34 +8,36 @@ import com.xl.util.Utils;
 import java.io.Serializable;
 import java.util.Date;
 
-@DatabaseTable(tableName="MessageBean")
-public class MessageBean implements Serializable{
+@DatabaseTable(tableName = "MessageBean")
+public class MessageBean implements Serializable {
 
-	@DatabaseField(id=true)
-	private Integer id;
+    @DatabaseField(id = true)
+    private Integer id;
     @Expose
-	@DatabaseField(index=true)
-	private String msgId;
+    @DatabaseField(index = true)
+    private String msgId;
     @Expose
-	@DatabaseField(index=true)
-	private String userId;
+    @DatabaseField(index = true)
+    private String userId;
     @Expose
-	@DatabaseField(index=true)
-	private String toId;
+    @DatabaseField(index = true)
+    private String toId;
     @Expose
-	@DatabaseField(index=true)
-	private String fromId;
+    @DatabaseField(index = true)
+    private String fromId;
     @Expose
-	@DatabaseField
-	private String content;
-	@DatabaseField
-	private String time;
-	@DatabaseField
-	private String nickName;
-	@DatabaseField
-	private String userLogo;
-	@DatabaseField
-	private Integer state;//0 未读  1 已读
+    @DatabaseField
+    private String content;
+    @Expose
+    private int sex = -1;
+    @DatabaseField
+    private String time;
+    @DatabaseField
+    private String nickName;
+    @DatabaseField
+    private String userLogo;
+    @DatabaseField
+    private Integer state;//0 未读  1 已读
     @Expose
     @DatabaseField
     private int msgType;
@@ -44,7 +46,7 @@ public class MessageBean implements Serializable{
 
     public ImageSize imageSize;
 
-    public static class ImageSize{
+    public static class ImageSize {
         int width;
         int height;
 
@@ -71,15 +73,15 @@ public class MessageBean implements Serializable{
     }
 
 
-    public static final int TEXT=0;
-    public static final int VOICE=1;
-    public static final int IMAGE=2;
-    public static final int FACE=3;
+    public static final int TEXT = 0;
+    public static final int VOICE = 1;
+    public static final int IMAGE = 2;
+    public static final int FACE = 3;
 
-    public static final int LOADING_NODOWNLOAD=0;
+    public static final int LOADING_NODOWNLOAD = 0;
     public static final int LOADING_DOWNLOADING = 2;
-    public static final int LOADING_DOWNLOADED=1;
-    public static final int LOADING_DOWNLOADFAIL=-1;
+    public static final int LOADING_DOWNLOADED = 1;
+    public static final int LOADING_DOWNLOADFAIL = -1;
 
     @Expose
     @DatabaseField
@@ -87,41 +89,25 @@ public class MessageBean implements Serializable{
 
     private boolean isPlaying; //正在播放
 
-	public MessageBean() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+    public MessageBean() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
-    public MessageBean(String fromId, String toId, String content,int msgType) {
+    public MessageBean(String fromId, String toId, String content, int msgType, int sex) {
         this.fromId = fromId;
         this.toId = toId;
-        this.msgType=msgType;
+        this.msgType = msgType;
         this.content = content;
+        this.sex=sex;
         setLoading(LOADING_DOWNLOADING);
     }
 
     public MessageBean(String userId, String toId,
-			String content, String nickName, String userLogo,int msgType) {
-		super();
-        this.msgType=msgType;
-		this.msgId = new Date().getTime()+"";
-		this.userId = userId;
-		this.toId = toId;
-		this.fromId = userId;
-		this.content = content;
-		this.time = Utils.dateFormat.format(new Date());
-		this.nickName = nickName;
-		this.userLogo = userLogo;
-		this.state = 1;
-        setLoading(LOADING_DOWNLOADING);
-	}
-
-    public MessageBean(String userId, String toId,
-                       String content, String nickName, String userLogo,int msgType,int voiceTime) {
+                       String content, String nickName, String userLogo, int msgType) {
         super();
-        this.voiceTime=voiceTime;
-        this.msgType=msgType;
-        this.msgId = new Date().getTime()+"";
+        this.msgType = msgType;
+        this.msgId = new Date().getTime() + "";
         this.userId = userId;
         this.toId = toId;
         this.fromId = userId;
@@ -133,60 +119,103 @@ public class MessageBean implements Serializable{
         setLoading(LOADING_DOWNLOADING);
     }
 
-	public String getMsgId() {
-		return msgId;
-	}
-	public void setMsgId(String msgId) {
-		this.msgId = msgId;
-	}
-	public String getUserId() {
-		return userId;
-	}
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-	public String getToId() {
-		return toId;
-	}
-	public void setToId(String toId) {
-		this.toId = toId;
-	}
-	public String getFromId() {
-		return fromId;
-	}
-	public void setFromId(String fromId) {
-		this.fromId = fromId;
-	}
-	public String getContent() {
-		return content;
-	}
-	public void setContent(String content) {
-		this.content = content;
-	}
-	public String getTime() {
-		return time;
-	}
-	public void setTime(String time) {
-		this.time = time;
-	}
-	public String getNickName() {
-		return nickName;
-	}
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
-	}
-	public String getUserLogo() {
-		return userLogo;
-	}
-	public void setUserLogo(String userLogo) {
-		this.userLogo = userLogo;
-	}
-	public int getState() {
-		return state;
-	}
-	public void setState(int state) {
-		this.state = state;
-	}
+    public MessageBean(String userId, String toId,
+                       String content, String nickName, String userLogo, int msgType, int voiceTime, int sex) {
+        super();
+        this.voiceTime = voiceTime;
+        this.msgType = msgType;
+        this.msgId = new Date().getTime() + "";
+        this.userId = userId;
+        this.toId = toId;
+        this.fromId = userId;
+        this.content = content;
+        this.time = Utils.dateFormat.format(new Date());
+        this.nickName = nickName;
+        this.userLogo = userLogo;
+        this.state = 1;
+        this.sex=sex;
+        setLoading(LOADING_DOWNLOADING);
+    }
+
+    public int getSex() {
+        return sex;
+    }
+
+    public void setSex(int sex) {
+        this.sex = sex;
+    }
+
+    public String getMsgId() {
+        return msgId;
+    }
+
+    public void setMsgId(String msgId) {
+        this.msgId = msgId;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getToId() {
+        return toId;
+    }
+
+    public void setToId(String toId) {
+        this.toId = toId;
+    }
+
+    public String getFromId() {
+        return fromId;
+    }
+
+    public void setFromId(String fromId) {
+        this.fromId = fromId;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
+    public String getUserLogo() {
+        return userLogo;
+    }
+
+    public void setUserLogo(String userLogo) {
+        this.userLogo = userLogo;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
 
     public int getVoiceTime() {
         return voiceTime;
