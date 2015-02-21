@@ -162,8 +162,10 @@ public class MainFragment extends BaseFragment {
     public void hideToGame(){
         if(connect.getTag()!=null){
             to_game.setVisibility(View.VISIBLE);
-            Animation shake = AnimationUtils.loadAnimation(getActivity(), R.anim.shake);
-            to_game.startAnimation(shake);
+            if(getActivity()!=null) {
+                Animation shake = AnimationUtils.loadAnimation(getActivity(), R.anim.shake);
+                to_game.startAnimation(shake);
+            }
         }else{
             to_game.setVisibility(View.GONE);
             to_game.clearAnimation();
