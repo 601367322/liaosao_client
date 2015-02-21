@@ -36,7 +36,6 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
@@ -77,7 +76,6 @@ import org.json.JSONObject;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import de.greenrobot.event.EventBus;
@@ -825,7 +823,7 @@ public class ChatActivity extends BaseBackActivity implements
         }
     }
 
-    ArrayList<HashMap<String, Object>> lstImageItem = null;
+    ArrayList<Integer> lstImageItem = null;
 
     @Click(R.id.face_btn)
     void faceBtnClick() {
@@ -836,15 +834,9 @@ public class ChatActivity extends BaseBackActivity implements
                 face_grid.setVisibility(View.VISIBLE);
                 lstImageItem = new ArrayList<>();
                 for (int i = 1; i <= 25; i++) {
-                    HashMap<String, Object> map = new HashMap<>();
-                    map.put("face_img", getResources().getIdentifier("face_" + i, "drawable", getPackageName()));
-                    lstImageItem.add(map);
+                    lstImageItem.add(getResources().getIdentifier("face_" + i, "drawable", getPackageName()));
                 }
-                SimpleAdapter saImageItems = new SimpleAdapter(ChatActivity.this,
-                        lstImageItem,
-                        R.layout.face_item,
-                        new String[]{"face_img"},
-                        new int[]{R.id.face_img});
+                FaceAdapter saImageItems = new FaceAdapter(ChatActivity.this,lstImageItem);
                 final SwingBottomInAnimationAdapter t1 = new SwingBottomInAnimationAdapter(saImageItems);
                 t1.setAbsListView(face_grid);
                 t1.getViewAnimator().setInitialDelayMillis(0);
