@@ -22,6 +22,7 @@ import com.xl.util.JsonHttpResponseHandler;
 import com.xl.util.ResultCode;
 import com.xl.util.StaticUtil;
 import com.xl.util.URLS;
+import com.xl.util.Utils;
 
 import net.imageloader.tools.br.imakdg;
 import net.imageloader.tools.br.imandg;
@@ -61,7 +62,9 @@ public class MainFragment extends BaseFragment {
 
     @Click
     void connect() {
-
+        if(Utils.isFastDoubleClick()){
+            return;
+        }
         if (ac.cs.getHadSex() == CommonShared.OFF) {
             AlertDialog dialog = new AlertDialog.Builder(getActivity()).setTitle(getString(R.string.yoursex)).setPositiveButton("男", new DialogInterface.OnClickListener() {
                 @Override
