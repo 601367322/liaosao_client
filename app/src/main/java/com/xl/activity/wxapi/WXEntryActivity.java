@@ -1,3 +1,4 @@
+/*
 package com.xl.activity.wxapi;
 
 
@@ -55,3 +56,4 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
     }
 
 }
+*/

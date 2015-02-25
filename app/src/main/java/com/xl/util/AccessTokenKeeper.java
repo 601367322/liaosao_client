@@ -12,7 +12,8 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+ *//*
+
 
 package com.xl.util;
 
@@ -22,12 +23,14 @@ import android.content.SharedPreferences.Editor;
 
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 
+*/
 /**
  * 该类定义了微博授权时所需要的参数。
  * 
  * @author SINA
  * @since 2013-10-07
- */
+ *//*
+
 public class AccessTokenKeeper {
     private static final String PREFERENCES_NAME = "com_weibo_sdk_android";
 
@@ -35,12 +38,14 @@ public class AccessTokenKeeper {
     private static final String KEY_ACCESS_TOKEN  = "access_token";
     private static final String KEY_EXPIRES_IN    = "expires_in";
     
-    /**
+    */
+/**
      * 保存 Token 对象到 SharedPreferences。
      * 
      * @param context 应用程序上下文环境
      * @param token   Token 对象
-     */
+     *//*
+
     public static void writeAccessToken(Context context, Oauth2AccessToken token) {
         if (null == context || null == token) {
             return;
@@ -54,13 +59,15 @@ public class AccessTokenKeeper {
         editor.commit();
     }
 
-    /**
+    */
+/**
      * 从 SharedPreferences 读取 Token 信息。
      * 
      * @param context 应用程序上下文环境
      * 
      * @return 返回 Token 对象
-     */
+     *//*
+
     public static Oauth2AccessToken readAccessToken(Context context) {
         if (null == context) {
             return null;
@@ -74,11 +81,13 @@ public class AccessTokenKeeper {
         return token;
     }
 
-    /**
+    */
+/**
      * 清空 SharedPreferences 中 Token信息。
      * 
      * @param context 应用程序上下文环境
-     */
+     *//*
+
     public static void clear(Context context) {
         if (null == context) {
             return;
@@ -90,3 +99,4 @@ public class AccessTokenKeeper {
         editor.commit();
     }
 }
+*/

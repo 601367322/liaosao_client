@@ -1,3 +1,4 @@
+/*
 package com.xl.activity;
 
 import android.content.Intent;
@@ -27,9 +28,11 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 import org.json.JSONObject;
 
+*/
 /**
  * Created by Administrator on 2014/9/21.
- */
+ *//*
+
 @EActivity(R.layout.welcome)
 public class Welcome extends BaseActivity {
     @ViewById
@@ -121,9 +124,11 @@ public class Welcome extends BaseActivity {
         }
     }
 
-    /**
+    */
+/**
      * 让控件点击时，颜色变暗
-     */
+     *//*
+
     public static final View.OnTouchListener VIEW_TOUCH_LIGHT = new View.OnTouchListener() {
 
         public final float[] BT_SELECTED = new float[]{1, 0, 0, 0, 50, 0, 1,
@@ -204,4 +209,4 @@ public class Welcome extends BaseActivity {
     }
 
 
-}
+}*/

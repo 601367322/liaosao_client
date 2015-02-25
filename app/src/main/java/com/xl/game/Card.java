@@ -13,8 +13,8 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 import android.widget.FrameLayout;
 
-import com.sina.weibo.sdk.utils.LogUtil;
 import com.xl.activity.R;
+import com.xl.util.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -190,7 +190,7 @@ public class Card extends FrameLayout {
             lable.setText(names[num]);
 
             if (num >= 16) {
-                LogUtil.i("Card", op + "");
+                LogUtil.d("Card", op + "");
             }
             myShapeDrawable.getPaint().setColor(getResources().getColor(colors[num]));
             lable.setBackgroundDrawable(myShapeDrawable);
