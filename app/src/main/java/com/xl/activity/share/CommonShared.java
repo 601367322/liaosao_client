@@ -7,7 +7,12 @@ public class CommonShared {
     private SharedDataUtil.SharedDataEditor editor;
     private final String SOUND = "sound";
     private final String VIBRATION = "vibration";
+    private final String DISTANCE = "distance";
     private final String SEX = "sex";
+    public final String LAT = "lat";
+    public final String LNG = "lng";
+    private final String LOCATION = "location";// 定位的城市
+    private final String AREA = "area";//区域
 
     public static final int ON = 1;
     public static final int OFF = 0;
@@ -33,6 +38,15 @@ public class CommonShared {
         editor.commit();
     }
 
+    public int getDistance() {
+        return sp.getInt(DISTANCE, ON);
+    }
+
+    public void setDistance(int s) {
+        editor.putInt(DISTANCE, s);
+        editor.commit();
+    }
+
     public int getVibration() {
         return sp.getInt(VIBRATION, ON);
     }
@@ -53,5 +67,41 @@ public class CommonShared {
 
     public int getHadSex() {
         return sp.getInt(HADSETSEX, OFF);
+    }
+
+    public String getLat() {
+        return sp.getString(LAT, "");
+    }
+
+    public void setLat(String str) {
+        editor.putString(LAT, str);
+        editor.commit();
+    }
+
+    public String getLng() {
+        return sp.getString(LNG, "");
+    }
+
+    public void setLng(String str) {
+        editor.putString(LNG, str);
+        editor.commit();
+    }
+
+    public void setLocation(String str) {
+        editor.putString(LOCATION, str);
+        editor.commit();
+    }
+
+    public String getLocation() {
+        return sp.getString(LOCATION, "二次元世界");
+    }
+
+    public void setArea(String str) {
+        editor.putString(AREA, str);
+        editor.commit();
+    }
+
+    public String getArea() {
+        return getLocation() + sp.getString(AREA, getLocation() + "");
     }
 }

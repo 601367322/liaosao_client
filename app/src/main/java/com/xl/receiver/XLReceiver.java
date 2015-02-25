@@ -22,6 +22,9 @@ public class XLReceiver extends BroadcastReceiver {
             if(intent.hasExtra(StaticUtil.SEX)){
                 builder_.sex(intent.getIntExtra(StaticUtil.SEX,-1));
             }
+            if(intent.hasExtra(StaticUtil.LAT)){
+                builder_.lat(intent.getStringExtra(StaticUtil.LAT)).lng(intent.getStringExtra(StaticUtil.LNG));
+            }
 			builder_.start();
 		}
 	}

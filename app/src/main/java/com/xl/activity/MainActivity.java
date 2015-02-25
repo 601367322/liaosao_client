@@ -11,6 +11,8 @@ import com.xl.activity.setting.HelpActivity_;
 import com.xl.activity.setting.SettingActivity;
 import com.xl.fragment.MainFragment_;
 import com.xl.fragment.NavigationDrawerFragment;
+import com.xl.location.GDLocation;
+import com.xl.location.ILocationImpl;
 
 import net.imageloader.tools.imafdg;
 
@@ -22,7 +24,7 @@ import org.androidannotations.annotations.OptionsMenuItem;
 @EActivity(R.layout.activity_main)
 @OptionsMenu(R.menu.main)
 public class MainActivity extends BaseActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks, ILocationImpl {
 
 //    @FragmentById(R.id.navigation_drawer)
 //    public NavigationDrawerFragment mNavigationDrawerFragment;
@@ -35,15 +37,18 @@ public class MainActivity extends BaseActivity
     @OptionsMenuItem(R.id.menu_item_share)
     MenuItem shareItem;
 
+    GDLocation location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         imafdg.getInstance(this).init("f8e79d512282c364",
-        "1b6279c5f1aa4dde", false);
+                "1b6279c5f1aa4dde", false);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 //        AdManager.getInstance(this).init("f8e79d512282c364", "1b6279c5f1aa4dde", false);
+
+        location = new GDLocation(this, this, true);
     }
 
     protected void init() {
@@ -64,24 +69,24 @@ public class MainActivity extends BaseActivity
     }
 
     @OptionsItem(R.id.menu_item_share)
-    void share(){
-        startActivity(Intent.createChooser(getDefaultIntent(),getString(R.string.app_name)));
+    void share() {
+        startActivity(Intent.createChooser(getDefaultIntent(), getString(R.string.app_name)));
     }
 
     @OptionsItem(R.id.commit)
-    void commit(){
+    void commit() {
         FeedbackAgent agent = new FeedbackAgent(this);
         agent.startFeedbackActivity();
     }
 
     @OptionsItem(R.id.setting)
-    void setting(){
+    void setting() {
         Intent intent = new Intent(this, SettingActivity.class);
         startActivity(intent);
     }
 
     @OptionsItem(R.id.help)
-            void help(){
+    void help() {
         HelpActivity_.intent(this).start();
     }
 
@@ -110,7 +115,7 @@ public class MainActivity extends BaseActivity
         }*/
         intent.setType("text/plain");
         intent.putExtra(Intent.EXTRA_SUBJECT, "寂寞了吗？来一发吧。");
-        intent.putExtra(Intent.EXTRA_TEXT, "我在"+getString(R.string.app_name)+"，要不要一起啊~ http://t.cn/RZTbceg");
+        intent.putExtra(Intent.EXTRA_TEXT, "我在" + getString(R.string.app_name) + "，要不要一起啊~ http://t.cn/RZTbceg");
         intent.putExtra(Intent.EXTRA_TITLE, getString(R.string.app_name));
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         return intent;
@@ -125,5 +130,15 @@ public class MainActivity extends BaseActivity
     protected void onDestroy() {
         super.onDestroy();
         ac.stopService();
+    }
+
+    @Override
+    public void onLocationSuccess() {
+        toast(ac.cs.getLocation()+"-"+ac.cs.getArea());
+    }
+
+    @Override
+    public void onLocationFail() {
+        toast("定位失败");
     }
 }

@@ -94,6 +94,9 @@ public class ChatActivity extends BaseBackActivity implements
     String deviceId = null;
     @Extra
     int sex = 0;
+    @Extra
+    String lat, lng;
+
     @ViewById
     MyAnimationView ball_view;
     @ViewById
@@ -112,14 +115,6 @@ public class ChatActivity extends BaseBackActivity implements
 
     protected void init() {
 
-//        ac.startService();
-
-//        if (ac.deviceId.equals("A00000443A4BE6")) {
-//            deviceId = "000000000000000";
-//        }
-
-//        setSwipeBackEnable(false);
-
         content_et.setOnEditorActionListener(this);
 
         adapter = new ChatAdapters(this, new ArrayList<String>());
@@ -134,7 +129,15 @@ public class ChatActivity extends BaseBackActivity implements
 
         showScreenAd();
 
-        getSupportActionBar().setSubtitle("对方性别："+getResources().getStringArray(R.array.sex_title)[sex]);
+        String distance = null;
+        if (lat != null && !ac.cs.getLat().equals("")) {
+            distance = Utils.getDistance(Utils.getDistance(Double.valueOf(lng), Double.valueOf(lat), Double.valueOf(ac.cs.getLng()), Double.valueOf(ac.cs.getLat())));
+        }
+        String subTitle = "性别：" + getResources().getStringArray(R.array.sex_title)[sex];
+        if (distance != null) {
+            subTitle += "　距离：" + distance;
+        }
+        getSupportActionBar().setSubtitle(subTitle);
     }
 
 
@@ -252,7 +255,7 @@ public class ChatActivity extends BaseBackActivity implements
 
     void sendText(final String context_str, int msgType) {
         RequestParams rp = ac.getRequestParams();
-        final MessageBean mb = new MessageBean(ac.deviceId, deviceId, context_str, msgType,ac.cs.getSex());
+        final MessageBean mb = new MessageBean(ac.deviceId, deviceId, context_str, msgType, ac.cs.getSex());
         rp.put("content", new GsonBuilder()
                 .excludeFieldsWithoutExposeAnnotation().create().toJson(mb).toString());
         rp.put("toId", deviceId);
@@ -774,7 +777,7 @@ public class ChatActivity extends BaseBackActivity implements
             rp.put("file", new File(filename));
             rp.put("toId", deviceId);
             rp.put("msgType", type);
-            final MessageBean mb = new MessageBean(ac.deviceId, deviceId, filename, "", "", type, (int) recodeTime,ac.cs.getSex());
+            final MessageBean mb = new MessageBean(ac.deviceId, deviceId, filename, "", "", type, (int) recodeTime, ac.cs.getSex());
             ac.httpClient.post(URLS.UPLOADVOICEFILE, rp, new JsonHttpResponseHandler() {
 
                 @Override
@@ -836,7 +839,7 @@ public class ChatActivity extends BaseBackActivity implements
                 for (int i = 1; i <= 25; i++) {
                     lstImageItem.add(getResources().getIdentifier("face_" + i, "drawable", getPackageName()));
                 }
-                FaceAdapter saImageItems = new FaceAdapter(ChatActivity.this,lstImageItem);
+                FaceAdapter saImageItems = new FaceAdapter(ChatActivity.this, lstImageItem);
                 final SwingBottomInAnimationAdapter t1 = new SwingBottomInAnimationAdapter(saImageItems);
                 t1.setAbsListView(face_grid);
                 t1.getViewAnimator().setInitialDelayMillis(0);
@@ -879,6 +882,7 @@ public class ChatActivity extends BaseBackActivity implements
                             lstImageItem.clear();
                             SwingBottomInAnimationAdapter adapter1 = (SwingBottomInAnimationAdapter) face_grid.getAdapter();
                             adapter1.notifyDataSetChanged();
+                            adapter.notifyDataSetChanged();
                         }
                     });
                 }

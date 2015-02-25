@@ -144,6 +144,10 @@ public class Handler {
             if(jo.has(StaticUtil.SEX)) {
                 i.putExtra(StaticUtil.SEX, jo.getInt(StaticUtil.SEX));
             }
+            if(jo.has(StaticUtil.LAT)){
+                i.putExtra(StaticUtil.LAT,jo.getString(StaticUtil.LAT));
+                i.putExtra(StaticUtil.LNG,jo.getString(StaticUtil.LNG));
+            }
             context.sendBroadcast(i);
         } catch (JSONException e) {
             e.printStackTrace();

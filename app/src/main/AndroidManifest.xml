@@ -4,15 +4,17 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <!--<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />-->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
 
     <supports-screens
         android:anyDensity="true"
@@ -119,11 +121,11 @@
                 <action android:name="com.xl.broadcast.startchat" />
             </intent-filter>
         </receiver>
-        <receiver android:name="com.xl.receiver.BootCompletedAlarmReceiver_" >
+        <!--<receiver android:name="com.xl.receiver.BootCompletedAlarmReceiver_" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
-        </receiver>
+        </receiver>-->
         <!--<activity
             android:name="com.tencent.tauth.AuthActivity"
             android:noHistory="true"
@@ -173,6 +175,14 @@
             </intent-filter>
         </receiver>
 
+        <!--高德地图-->
+        <!--<meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="ae24a52637ad277fec4e4f3d2563c256" />-->
+        <!--debug-->
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="7832c924043c5b617b903e2d9f5caa4a" />
 
     </application>
 

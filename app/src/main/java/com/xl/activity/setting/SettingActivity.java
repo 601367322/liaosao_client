@@ -23,7 +23,7 @@ import com.xl.application.AppClass;
  */
 public class SettingActivity extends PreferenceActivity implements Preference.OnPreferenceChangeListener {
 
-    SwitchPreference sound, vibration;
+    SwitchPreference sound, vibration, distance;
     ListPreference sex;
 
     AppClass ac;
@@ -77,12 +77,14 @@ public class SettingActivity extends PreferenceActivity implements Preference.On
         sound = (SwitchPreference) findPreference("sound");
         vibration = (SwitchPreference) findPreference("vibration");
         sex = (ListPreference) findPreference("sex");
+        distance = (SwitchPreference) findPreference("distance");
 
         sound.setOnPreferenceChangeListener(this);
         vibration.setOnPreferenceChangeListener(this);
         sex.setOnPreferenceChangeListener(this);
+        distance.setOnPreferenceChangeListener(this);
 
-        onPreferenceChange(sex,ac.cs.getSex());
+        onPreferenceChange(sex, ac.cs.getSex());
     }
 
     @Override
@@ -102,6 +104,12 @@ public class SettingActivity extends PreferenceActivity implements Preference.On
         } else if (sex == preference) {
             sex.setSummary(getResources().getStringArray(R.array.sex_title)[Integer.valueOf(newValue.toString())]);
             ac.cs.setSex(Integer.valueOf(newValue.toString()));
+        } else if (distance == preference) {
+            if (((boolean) newValue)) {
+                ac.cs.setDistance(CommonShared.ON);
+            } else {
+                ac.cs.setDistance(CommonShared.OFF);
+            }
         }
         return true;
     }

@@ -4,10 +4,10 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.xl.activity.R;
 import com.xl.activity.base.BaseAdapterListView;
+import com.xl.custom.MyImageView;
 import com.xl.util.GifDrawableCache;
 
 import java.util.List;
@@ -35,14 +35,14 @@ public class FaceAdapter extends BaseAdapterListView<Integer> {
             holder= (ViewHolder) convertView.getTag();
         }
         Integer id = getItem(position);
-        holder.face_img.setImageDrawable(GifDrawableCache.getInstance().getDrawable(Long.valueOf(id),context));
+        holder.face_img.setImageGifDrawable(GifDrawableCache.getInstance().getDrawable(Long.valueOf(id), context));
         return convertView;
     }
 
     class ViewHolder {
 
         @InjectView(R.id.face_img)
-        ImageView face_img;
+        MyImageView face_img;
 
         public ViewHolder(View view) {
             ButterKnife.inject(this, view);

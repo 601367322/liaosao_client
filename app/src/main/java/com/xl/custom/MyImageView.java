@@ -31,17 +31,21 @@ public class MyImageView extends ImageView {
     }
 
     private void init(AttributeSet attrs, int defStyle) {
-        handler.postDelayed(refere,1000);
+        handler.postDelayed(refere, 1000);
     }
 
     Handler handler = new Handler(Looper.getMainLooper());
 
-    Runnable refere=new Runnable() {
+    Runnable refere = new Runnable() {
         @Override
         public void run() {
             invalidate();
-            if(start)
-            handler.postDelayed(this,150);
+            if (start) {
+                if(drawable!=null){
+                    drawable.start();
+                }
+                handler.postDelayed(this, 150);
+            }
         }
     };
 
@@ -57,7 +61,7 @@ public class MyImageView extends ImageView {
         this.drawable = drawable;
     }
 
-    boolean start =false;
+    boolean start = false;
 
     @Override
     protected void onAttachedToWindow() {
@@ -67,11 +71,11 @@ public class MyImageView extends ImageView {
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        start=false;
+        start = false;
     }
 
     public void setImageGifDrawable(GifDrawable drawable) {
         super.setImageDrawable(drawable);
-        this.drawable= (GifDrawable) drawable;
+        this.drawable = drawable;
     }
 }

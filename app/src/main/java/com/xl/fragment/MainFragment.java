@@ -58,18 +58,19 @@ public class MainFragment extends BaseFragment {
 
         mAdContainer.addView(adView);
     }
+
     @Click
     void connect() {
 
-        if(ac.cs.getHadSex()== CommonShared.OFF){
-            AlertDialog dialog=new AlertDialog.Builder(getActivity()).setTitle("设置性别").setPositiveButton("男",new DialogInterface.OnClickListener() {
+        if (ac.cs.getHadSex() == CommonShared.OFF) {
+            AlertDialog dialog = new AlertDialog.Builder(getActivity()).setTitle(getString(R.string.yoursex)).setPositiveButton("男", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     ac.cs.setSex(2);
                     ac.cs.setHadSex(CommonShared.ON);
                     doConnect();
                 }
-            }).setNegativeButton("女",new DialogInterface.OnClickListener() {
+            }).setNegativeButton("女", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     ac.cs.setSex(1);
@@ -80,19 +81,23 @@ public class MainFragment extends BaseFragment {
             dialog.setCancelable(false);
             dialog.setCanceledOnTouchOutside(false);
             dialog.show();
-        }else{
+        } else {
             doConnect();
         }
     }
 
-    public void doConnect(){
-        if(connect.getTag()==null) {
+    public void doConnect() {
+        if (connect.getTag() == null) {
             connect.setTag("1");
 
             loadmoreTime();
             RequestParams params = ac.getRequestParams();
-            params.put("sex", ac.cs.getSex());
-            ac.httpClient.post(URLS.JOINQUEUE,params , new JsonHttpResponseHandler() {
+            params.put(StaticUtil.SEX, ac.cs.getSex());
+            if (!ac.cs.getLat().equals("") && ac.cs.getDistance() == CommonShared.ON) {
+                params.put(StaticUtil.LAT, ac.cs.getLat());
+                params.put(StaticUtil.LNG, ac.cs.getLng());
+            }
+            ac.httpClient.post(URLS.JOINQUEUE, params, new JsonHttpResponseHandler() {
 
                 @Override
                 public void onFailure() {
@@ -112,8 +117,11 @@ public class MainFragment extends BaseFragment {
                             case ResultCode.SUCCESS:
                                 String deviceId = jo.getString(StaticUtil.OTHERDEVICEID);
                                 ChatActivity_.IntentBuilder_ builder_ = ChatActivity_.intent(getActivity()).deviceId(deviceId);
-                                if(jo.has(StaticUtil.SEX)){
+                                if (jo.has(StaticUtil.SEX)) {
                                     builder_.sex(jo.getInt(StaticUtil.SEX));
+                                }
+                                if (jo.has(StaticUtil.LAT)) {
+                                    builder_.lat(jo.getString(StaticUtil.LAT)).lng(jo.getString(StaticUtil.LNG));
                                 }
                                 builder_.start();
                                 cancle();
@@ -126,7 +134,7 @@ public class MainFragment extends BaseFragment {
                     }
                 }
             });
-        }else {
+        } else {
             ac.httpClient.post(URLS.EXITQUEUE, ac.getRequestParams(), new JsonHttpResponseHandler() {
             });
             cancle();
@@ -134,11 +142,11 @@ public class MainFragment extends BaseFragment {
     }
 
     @Receiver(actions = BroadCastUtil.STARTCHAT)
-    void startCaht(){
+    void startCaht() {
         cancle();
     }
 
-    void cancle(){
+    void cancle() {
         connect.setTag(null);
         connect.setIcon(R.drawable.touch_my_face);
         hideToGame();
@@ -150,23 +158,23 @@ public class MainFragment extends BaseFragment {
     }
 
     @Click
-    void to_game(){
+    void to_game() {
         GameActivity_.intent(this).start();
     }
 
     @UiThread(delay = 1500)
-    public void loadmoreTime(){
+    public void loadmoreTime() {
         hideToGame();
     }
 
-    public void hideToGame(){
-        if(connect.getTag()!=null){
+    public void hideToGame() {
+        if (connect.getTag() != null) {
             to_game.setVisibility(View.VISIBLE);
-            if(getActivity()!=null) {
+            if (getActivity() != null) {
                 Animation shake = AnimationUtils.loadAnimation(getActivity(), R.anim.shake);
                 to_game.startAnimation(shake);
             }
-        }else{
+        } else {
             to_game.setVisibility(View.GONE);
             to_game.clearAnimation();
         }

@@ -225,4 +225,47 @@ public class Utils {
         lastClickTime = time;
         return false;
     }
+
+    public static long locationTime;
+
+    public static boolean isFastLocation() {
+        long time = System.currentTimeMillis();
+        long timeD = time - locationTime;
+        if (0 < timeD && timeD < 15000) {
+            return true;
+        }
+        return false;
+    }
+
+    public static String getDistance(double lng1, double lat1, double lng2,
+                                     double lat2) {
+        // System.out.println(lng1+"--------"+lat1+"--------"+lng2+"--------"+lat2);
+        double a = 2 * 6378.137;
+        double b = Math.PI / 360;
+        double c = Math.PI / 180;
+        double s = a
+                * Math.asin(Math.sqrt(Math.pow(Math.sin(b * (lat1 - lat2)), 2)
+                + Math.cos(c * lat1) * Math.cos(lat2 * c)
+                * Math.pow(Math.sin(b * (lng1 - lng2)), 2)));
+        if (s * 1000 < 1) {
+            s = 0.00;
+        }
+        return RoundOf(String.valueOf(s));
+    }
+
+    public static String RoundOf(String str) {
+        return String
+                .valueOf((double) Math.round(Double.valueOf(str) * 100) / 100);
+    }
+
+    public static String getDistance(String distance) {
+        try {
+            return RoundOf(String.valueOf(Double.valueOf(distance) / 1000))
+                    + "km";
+        } catch (NumberFormatException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return "";
+    }
 }

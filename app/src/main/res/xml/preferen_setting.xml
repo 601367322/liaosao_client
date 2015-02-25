@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <PreferenceCategory android:title="设置性别">
+    <PreferenceCategory android:title="个人设置">
         <ListPreference
-            android:dialogTitle="选择性别"
+            android:defaultValue="-1"
+            android:dialogTitle="选择你的性别"
             android:entries="@array/sex_title"
             android:entryValues="@array/sex_value"
             android:key="sex"
-            android:defaultValue="-1"
             android:title="选择性别" />
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="distance"
+            android:summaryOff="隐藏"
+            android:summaryOn="显示"
+            android:title="显示位置信息" />
     </PreferenceCategory>
     <PreferenceCategory android:title="通知提醒">
         <SwitchPreference
