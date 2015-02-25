@@ -176,13 +176,13 @@
         </receiver>
 
         <!--高德地图-->
-        <!--<meta-data
-            android:name="com.amap.api.v2.apikey"
-            android:value="ae24a52637ad277fec4e4f3d2563c256" />-->
-        <!--debug-->
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="7832c924043c5b617b903e2d9f5caa4a" />
+            android:value="ae24a52637ad277fec4e4f3d2563c256" />
+        <!--debug-->
+        <!--<meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="7832c924043c5b617b903e2d9f5caa4a" />-->
 
     </application>
 

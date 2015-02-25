@@ -134,11 +134,11 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void onLocationSuccess() {
-        toast(ac.cs.getLocation()+"-"+ac.cs.getArea());
+        //toast(ac.cs.getLocation()+"-"+ac.cs.getArea());
     }
 
     @Override
     public void onLocationFail() {
-        toast("定位失败");
+        //toast("定位失败");
     }
 }
