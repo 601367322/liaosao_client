@@ -131,7 +131,7 @@ public class ChatActivity extends BaseBackActivity implements
 
         String distance = null;
         if (lat != null && !ac.cs.getLat().equals("")) {
-            distance = Utils.getDistance(Utils.getDistance(Double.valueOf(lng), Double.valueOf(lat), Double.valueOf(ac.cs.getLng()), Double.valueOf(ac.cs.getLat())));
+            distance = Utils.getDistance(Double.valueOf(lng), Double.valueOf(lat), Double.valueOf(ac.cs.getLng()), Double.valueOf(ac.cs.getLat()))+"km";
         }
         String subTitle = "性别：" + getResources().getStringArray(R.array.sex_title)[sex];
         if (distance != null) {
