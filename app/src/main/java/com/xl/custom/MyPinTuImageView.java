@@ -2,13 +2,15 @@ package com.xl.custom;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
+import android.widget.ImageView;
 
-import com.github.siyamed.shapeimageview.mask.PorterShapeImageView;
+import com.xl.util.LogUtil;
 
 /**
  * Created by sbb on 2015/2/12.
  */
-public class MyPinTuImageView extends PorterShapeImageView {
+public class MyPinTuImageView extends ImageView {
 
     public MyPinTuImageView(Context context) {
         super(context);
@@ -22,26 +24,29 @@ public class MyPinTuImageView extends PorterShapeImageView {
         super(context, attrs, defStyle);
     }
 
-  /*  @Override
+    float x, y;
+
+    @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
-
-
+                x = event.getX();
+                y = event.getY();
                 break;
             case MotionEvent.ACTION_MOVE:
-                Bitmap bitmap = ((BitmapDrawable) getDrawable()).getBitmap();
-                int temp = bitmap.getPixel((int) event.getX(), (int) event.getY());
-                int transValue = Color.alpha(temp);
-                int redValue = Color.red(temp);
-                int blueValue = Color.blue(temp);
-                int greenValue = Color.green(temp);
+                float ex = event.getX(), ey = event.getY();
+                int left = (int) (getX() + (ex - x));
+                int top = (int) (getY() + (ey - y));
 
-                LogUtil.d(transValue+"\t"+redValue+"\t"+blueValue+"\t"+greenValue);
+                LogUtil.d(left+"\t"+top+"\t"+getRight()+"\t"+getBottom());
+//                setLeft(left);
+//                setTop(top);
+                setX(left);
+                setY(top);
                 break;
             case MotionEvent.ACTION_UP:
                 break;
         }
         return true;
-    }*/
+    }
 }
