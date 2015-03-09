@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.xl.activity.R;
 import com.xl.activity.base.BaseBackActivity;
@@ -168,6 +169,11 @@ public class PinTuActivity extends BaseBackActivity implements MyPinTuImageView.
         public listener(boolean isMain, int index) {
             this.isMain = isMain;
             this.index = index;
+        }
+
+        @Override
+        public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+            toast("相册中并没有图片！！");
         }
 
         @Override
