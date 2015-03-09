@@ -12,35 +12,53 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.xl.activity.R;
 import com.xl.activity.base.BaseFragment;
-import com.xl.util.Utils;
+import com.xl.game.GameActivity_;
+import com.xl.game.PinTuActivity_;
 
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
-
-import java.io.IOException;
-
-import pl.droidsonroids.gif.GifDrawable;
 
 
 @EFragment(R.layout.fragment_navigation_drawer)
 public class NavigationDrawerFragment extends BaseFragment {
 
+
     @ViewById
-    ImageView loading_img;
+    ListView left_drawer;
 
     @Override
     public void init() {
-        try {
-            GifDrawable drawable = new GifDrawable(getResources(),R.drawable.more);
-            Utils.setFullScreenImage(loading_img,drawable,getResources().getDimensionPixelSize(R.dimen.more_gif));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        initListView();
+    }
 
+    private void initListView() {
+
+        String[] mPlanetTitles = {"不知道什么游戏1", "不知道什么游戏2"};
+
+        left_drawer.setAdapter(new ArrayAdapter<String>(getActivity(),
+                android.R.layout.simple_list_item_1, mPlanetTitles));
+        left_drawer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                switch (position){
+                    case 0:
+                        PinTuActivity_.intent(NavigationDrawerFragment.this).start();
+                        break;
+                    case 1:
+                        GameActivity_.intent(NavigationDrawerFragment.this).start();
+                        break;
+                }
+                closeDrawer();
+            }
+        });
     }
 
     /**
@@ -101,6 +119,14 @@ public class NavigationDrawerFragment extends BaseFragment {
 
     public boolean isDrawerOpen() {
         return mDrawerLayout != null && mDrawerLayout.isDrawerOpen(mFragmentContainerView);
+    }
+
+    public void openDrawer() {
+        mDrawerLayout.openDrawer(mFragmentContainerView);
+    }
+
+    public void closeDrawer() {
+        mDrawerLayout.closeDrawer(mFragmentContainerView);
     }
 
     /**

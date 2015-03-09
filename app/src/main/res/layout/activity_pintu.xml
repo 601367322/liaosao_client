@@ -1,8 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ff9800">
+    android:background="@color/activity_bg">
 
+    <FrameLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </FrameLayout>
+
+    <ImageView
+        android:id="@+id/origin_img"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+    <com.xl.custom.SquareLayout
+        android:id="@+id/hide_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ccffffff"
+        android:visibility="gone"
+        android:clickable="true"
+        android:gravity="center">
+
+
+        <TextView
+            android:id="@+id/times"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingLeft="32dp"
+            android:paddingRight="32dp"
+            android:text="3"
+            android:textColor="@color/black"
+            android:textSize="64sp" />
+
+
+    </com.xl.custom.SquareLayout>
+
+    <com.xl.custom.SquareLayout
+        android:id="@+id/hide_restart_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ccffffff"
+        android:clickable="true"
+        android:visibility="gone"
+        android:gravity="center">
+
+
+        <TextView
+            android:id="@+id/text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingLeft="32dp"
+            android:paddingRight="32dp"
+            android:text="完成啦~~"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/black"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/restart_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text1"
+            android:gravity="center"
+            android:text="再来一遍"
+            android:textColor="@color/black"
+            android:textSize="40dp" />
+
+    </com.xl.custom.SquareLayout>
 </FrameLayout>

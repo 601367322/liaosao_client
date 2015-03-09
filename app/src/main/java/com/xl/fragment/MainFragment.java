@@ -1,21 +1,15 @@
 package com.xl.fragment;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.view.Gravity;
-import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.loopj.android.http.RequestParams;
+import com.xl.activity.MainActivity;
 import com.xl.activity.R;
 import com.xl.activity.base.BaseFragment;
 import com.xl.activity.chat.ChatActivity_;
-import com.xl.activity.share.CommonShared;
-import com.xl.game.GameActivity_;
 import com.xl.util.BroadCastUtil;
 import com.xl.util.GifDrawableCache;
 import com.xl.util.JsonHttpResponseHandler;
@@ -43,8 +37,6 @@ public class MainFragment extends BaseFragment {
     @ViewById
     RelativeLayout mAdContainer;
 
-    @ViewById
-    View to_game;
 
     @Override
     public void init() {
@@ -65,7 +57,7 @@ public class MainFragment extends BaseFragment {
         if(Utils.isFastDoubleClick()){
             return;
         }
-        if (ac.cs.getHadSex() == CommonShared.OFF) {
+       /* if (ac.cs.getHadSex() == CommonShared.OFF) {
             AlertDialog dialog = new AlertDialog.Builder(getActivity()).setTitle(getString(R.string.yoursex)).setPositiveButton("男", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -84,9 +76,9 @@ public class MainFragment extends BaseFragment {
             dialog.setCancelable(false);
             dialog.setCanceledOnTouchOutside(false);
             dialog.show();
-        } else {
+        } else {*/
             doConnect();
-        }
+//        }
     }
 
     public void doConnect() {
@@ -95,11 +87,11 @@ public class MainFragment extends BaseFragment {
 
             loadmoreTime();
             RequestParams params = ac.getRequestParams();
-            params.put(StaticUtil.SEX, ac.cs.getSex());
-            if (!ac.cs.getLat().equals("") && ac.cs.getDistance() == CommonShared.ON) {
-                params.put(StaticUtil.LAT, ac.cs.getLat());
-                params.put(StaticUtil.LNG, ac.cs.getLng());
-            }
+//            params.put(StaticUtil.SEX, ac.cs.getSex());
+//            if (!ac.cs.getLat().equals("") && ac.cs.getDistance() == CommonShared.ON) {
+//                params.put(StaticUtil.LAT, ac.cs.getLat());
+//                params.put(StaticUtil.LNG, ac.cs.getLng());
+//            }
             ac.httpClient.post(URLS.JOINQUEUE, params, new JsonHttpResponseHandler() {
 
                 @Override
@@ -160,10 +152,6 @@ public class MainFragment extends BaseFragment {
         super.onDestroy();
     }
 
-    @Click
-    void to_game() {
-        GameActivity_.intent(this).start();
-    }
 
     @UiThread(delay = 1500)
     public void loadmoreTime() {
@@ -172,14 +160,9 @@ public class MainFragment extends BaseFragment {
 
     public void hideToGame() {
         if (connect.getTag() != null) {
-            to_game.setVisibility(View.VISIBLE);
-            if (getActivity() != null) {
-                Animation shake = AnimationUtils.loadAnimation(getActivity(), R.anim.shake);
-                to_game.startAnimation(shake);
-            }
+            ((MainActivity)getActivity()).mNavigationDrawerFragment.openDrawer();
         } else {
-            to_game.setVisibility(View.GONE);
-            to_game.clearAnimation();
+            ((MainActivity)getActivity()).mNavigationDrawerFragment.closeDrawer();
         }
     }
 }

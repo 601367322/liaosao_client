@@ -33,11 +33,11 @@
             android:name="com.xl.activity.MainActivity_"
             android:screenOrientation="portrait"
             android:label="@string/app_name" >
-           <!--<intent-filter>
+           <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
         </activity>
         <!--<activity
             android:name="com.xl.activity.Welcome_"
@@ -87,11 +87,11 @@
         <activity
             android:name="com.xl.game.PinTuActivity_"
             android:screenOrientation="portrait">
-            <intent-filter>
+            <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>-->
         </activity>
 
 

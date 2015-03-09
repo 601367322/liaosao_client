@@ -129,7 +129,7 @@ public class ChatActivity extends BaseBackActivity implements
 
         showScreenAd();
 
-        String distance = null;
+       /* String distance = null;
         if (lat != null && !ac.cs.getLat().equals("")) {
             distance = Utils.getDistance(Double.valueOf(lng), Double.valueOf(lat), Double.valueOf(ac.cs.getLng()), Double.valueOf(ac.cs.getLat()))+"km";
         }
@@ -137,7 +137,7 @@ public class ChatActivity extends BaseBackActivity implements
         if (distance != null) {
             subTitle += "　距离：" + distance;
         }
-        getSupportActionBar().setSubtitle(subTitle);
+        getSupportActionBar().setSubtitle(subTitle);*/
     }
 
 
@@ -623,7 +623,7 @@ public class ChatActivity extends BaseBackActivity implements
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
+        EventBus.getDefault().unregister(this);
         NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         manager.cancel(0);
     }

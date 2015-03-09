@@ -17,14 +17,4 @@
         app:fab_icon="@drawable/touch_my_face"
         app:fab_size="large" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:id="@+id/to_game"
-        android:visibility="gone"
-        android:layout_below="@id/connect"
-        android:layout_centerHorizontal="true"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:text="等待时间有点长\n点这里、点这里。"
-        android:layout_height="wrap_content" />
 </RelativeLayout>

@@ -2,6 +2,7 @@ package com.xl.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
 
 import com.umeng.fb.FeedbackAgent;
@@ -11,12 +12,11 @@ import com.xl.activity.setting.HelpActivity_;
 import com.xl.activity.setting.SettingActivity;
 import com.xl.fragment.MainFragment_;
 import com.xl.fragment.NavigationDrawerFragment;
-import com.xl.location.GDLocation;
-import com.xl.location.ILocationImpl;
 
 import net.imageloader.tools.imafdg;
 
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.FragmentById;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.OptionsMenuItem;
@@ -24,10 +24,10 @@ import org.androidannotations.annotations.OptionsMenuItem;
 @EActivity(R.layout.activity_main)
 @OptionsMenu(R.menu.main)
 public class MainActivity extends BaseActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks, ILocationImpl {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
-//    @FragmentById(R.id.navigation_drawer)
-//    public NavigationDrawerFragment mNavigationDrawerFragment;
+    @FragmentById(R.id.navigation_drawer)
+    public NavigationDrawerFragment mNavigationDrawerFragment;
 
 //    @Override
 //    protected boolean canSwipe() {
@@ -37,7 +37,7 @@ public class MainActivity extends BaseActivity
     @OptionsMenuItem(R.id.menu_item_share)
     MenuItem shareItem;
 
-    GDLocation location;
+//    GDLocation location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +48,7 @@ public class MainActivity extends BaseActivity
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 //        AdManager.getInstance(this).init("f8e79d512282c364", "1b6279c5f1aa4dde", false);
 
-        location = new GDLocation(this, this, true);
+//        location = new GDLocation(this, this, true);
     }
 
     protected void init() {
@@ -56,9 +56,9 @@ public class MainActivity extends BaseActivity
 
         ac.startService();
 
-//        mNavigationDrawerFragment.setUp(
-//                R.id.navigation_drawer,
-//                (DrawerLayout) findViewById(R.id.drawer_layout));
+        mNavigationDrawerFragment.setUp(
+                R.id.navigation_drawer,
+                (DrawerLayout) findViewById(R.id.drawer_layout));
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.container, new MainFragment_())
@@ -67,6 +67,8 @@ public class MainActivity extends BaseActivity
         UmengUpdateAgent.update(this);
         UmengUpdateAgent.setUpdateListener(null);
     }
+
+
 
     @OptionsItem(R.id.menu_item_share)
     void share() {
@@ -91,28 +93,7 @@ public class MainActivity extends BaseActivity
     }
 
     private Intent getDefaultIntent() {
-        /*String img = "ic_launcher.png";
-        File f = new File(StaticFactory.APKCardPath);
-        if (!f.exists()) {
-            f.mkdirs();
-        }
-        f = new File(f, img.hashCode() + "");
-        try {
-            InputStream i = getAssets().open(img);
-            OutputStream os = new FileOutputStream(f);
-            Utils.CopyStream(i, os);
-            os.close();
-            i.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-        }*/
         Intent intent = new Intent(Intent.ACTION_SEND);
-        /*if (f.exists()) {
-            intent.setType("image*//*");
-            Uri uri = Uri.fromFile(f);
-            intent.putExtra(Intent.EXTRA_STREAM, uri);
-        }*/
         intent.setType("text/plain");
         intent.putExtra(Intent.EXTRA_SUBJECT, "寂寞了吗？来一发吧。");
         intent.putExtra(Intent.EXTRA_TEXT, "我在" + getString(R.string.app_name) + "，要不要一起啊~ http://t.cn/RZTbceg");
@@ -132,13 +113,4 @@ public class MainActivity extends BaseActivity
         ac.stopService();
     }
 
-    @Override
-    public void onLocationSuccess() {
-        //toast(ac.cs.getLocation()+"-"+ac.cs.getArea());
-    }
-
-    @Override
-    public void onLocationFail() {
-        //toast("定位失败");
-    }
 }

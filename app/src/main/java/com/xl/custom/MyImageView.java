@@ -41,7 +41,7 @@ public class MyImageView extends ImageView {
         public void run() {
             invalidate();
             if (start) {
-                if(drawable!=null){
+                if (drawable != null) {
                     drawable.start();
                 }
                 handler.postDelayed(this, 150);

@@ -29,37 +29,41 @@ public abstract class BaseBackActivity extends BaseActivity {
 
     @UiThread(delay = 25 * 1000)
     public void showScreenAdBefore() {
-        SuperToast superToast = new SuperToast(this);
-        superToast.setText("闪开！我要弹广告啦！！！");
-        superToast.setDuration(SuperToast.Duration.LONG);
-        superToast.setIcon(R.drawable.stop, SuperToast.IconPosition.LEFT);
-        superToast.show();
+        if(!isFinishing()) {
+            SuperToast superToast = new SuperToast(this);
+            superToast.setText("闪开！我要弹广告啦！！！");
+            superToast.setDuration(SuperToast.Duration.LONG);
+            superToast.setIcon(R.drawable.stop, SuperToast.IconPosition.LEFT);
+            superToast.show();
+        }
     }
 
     @UiThread(delay = 30 * 1000)
     public void showScreenAdNow() {
-        imbzdg.isaypl(BaseBackActivity.this).iscxpl(
-                BaseBackActivity.this, new imbydg() {
-                    @Override
-                    public void isbqpl() {
-                        Log.i("YoumiAdDemo", "展示成功");
-                    }
-
-                    @Override
-                    public void isbppl() {
-                        Log.i("YoumiAdDemo", "展示失败");
-                        if (failNums < 3) {
-                            failNums++;
-                            showScreenAdFail();
+        if(!isFinishing()) {
+            imbzdg.isaypl(BaseBackActivity.this).iscxpl(
+                    BaseBackActivity.this, new imbydg() {
+                        @Override
+                        public void isbqpl() {
+                            Log.i("YoumiAdDemo", "展示成功");
                         }
-                    }
 
-                    @Override
-                    public void isbrpl() {
-                        Log.i("YoumiAdDemo", "展示关闭");
-                    }
+                        @Override
+                        public void isbppl() {
+                            Log.i("YoumiAdDemo", "展示失败");
+                            if (failNums < 3) {
+                                failNums++;
+                                showScreenAdFail();
+                            }
+                        }
 
-                });
+                        @Override
+                        public void isbrpl() {
+                            Log.i("YoumiAdDemo", "展示关闭");
+                        }
+
+                    });
+        }
     }
 
     @UiThread
