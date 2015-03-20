@@ -138,6 +138,9 @@ public class ChatActivity extends BaseBackActivity implements
             subTitle += "　距离：" + distance;
         }
         getSupportActionBar().setSubtitle(subTitle);*/
+
+        String subTitle = "性别：" + getResources().getStringArray(R.array.sex_title)[sex];
+        getSupportActionBar().setSubtitle(subTitle);
     }
 
 

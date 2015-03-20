@@ -13,7 +13,8 @@ import com.xl.util.GifDrawableCache;
 import java.util.List;
 
 import butterknife.ButterKnife;
-import butterknife.InjectView;
+import butterknife.FindView;
+
 
 /**
  * Created by Administrator on 2015/2/21.
@@ -41,11 +42,11 @@ public class FaceAdapter extends BaseAdapterListView<Integer> {
 
     class ViewHolder {
 
-        @InjectView(R.id.face_img)
+        @FindView(R.id.face_img)
         MyImageView face_img;
 
         public ViewHolder(View view) {
-            ButterKnife.inject(this, view);
+            ButterKnife.bind(this, view);
         }
     }
 }

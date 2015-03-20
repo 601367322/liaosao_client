@@ -2,6 +2,7 @@ package com.xl.activity.setting;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.SwitchPreference;
@@ -23,7 +24,7 @@ import com.xl.application.AppClass;
 public class SettingActivity extends PreferenceActivity implements Preference.OnPreferenceChangeListener {
 
     SwitchPreference sound, vibration;//, distance;
-//    ListPreference sex;
+    ListPreference sex;
 
     AppClass ac;
 
@@ -75,15 +76,15 @@ public class SettingActivity extends PreferenceActivity implements Preference.On
 
         sound = (SwitchPreference) findPreference("sound");
         vibration = (SwitchPreference) findPreference("vibration");
-//        sex = (ListPreference) findPreference("sex");
+        sex = (ListPreference) findPreference("sex");
 //        distance = (SwitchPreference) findPreference("distance");
 
         sound.setOnPreferenceChangeListener(this);
         vibration.setOnPreferenceChangeListener(this);
-//        sex.setOnPreferenceChangeListener(this);
+        sex.setOnPreferenceChangeListener(this);
 //        distance.setOnPreferenceChangeListener(this);
 
-//        onPreferenceChange(sex, ac.cs.getSex());
+        onPreferenceChange(sex, ac.cs.getSex());
     }
 
     @Override
@@ -101,10 +102,11 @@ public class SettingActivity extends PreferenceActivity implements Preference.On
                 ac.cs.setVibration(CommonShared.OFF);
             }
         }
-//        else if (sex == preference) {
-//            sex.setSummary(getResources().getStringArray(R.array.sex_title)[Integer.valueOf(newValue.toString())]);
-//            ac.cs.setSex(Integer.valueOf(newValue.toString()));
-//        } else if (distance == preference) {
+        else if (sex == preference) {
+            sex.setSummary(getResources().getStringArray(R.array.sex_title)[Integer.valueOf(newValue.toString())]);
+            ac.cs.setSex(Integer.valueOf(newValue.toString()));
+        }
+//        else if (distance == preference) {
 //            if (((boolean) newValue)) {
 //                ac.cs.setDistance(CommonShared.ON);
 //            } else {

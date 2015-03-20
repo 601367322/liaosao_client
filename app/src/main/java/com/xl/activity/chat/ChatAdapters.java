@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,9 +36,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
-import butterknife.InjectView;
+import butterknife.FindView;
 import butterknife.OnClick;
-import butterknife.Optional;
 import de.greenrobot.event.EventBus;
 import pl.droidsonroids.gif.GifDrawable;
 
@@ -215,39 +215,39 @@ public class ChatAdapters extends BaseAdapterListView<MessageBean> {
 
     class ViewHolder {
 
-        @Optional
-        @InjectView(R.id.content)
+        @Nullable
+        @FindView(R.id.content)
         TextView content;
 
-        @Optional
-        @InjectView(R.id.voice_img)
+        @Nullable
+        @FindView(R.id.voice_img)
         MyImageView voice_img;
 
-        @Optional
-        @InjectView(R.id.voice)
+        @Nullable
+        @FindView(R.id.voice)
         View voice;
 
-        @Optional
-        @InjectView(R.id.progress)
+        @Nullable
+        @FindView(R.id.progress)
         View progress;
 
-        @Optional
-        @InjectView(R.id.img)
+        @Nullable
+        @FindView(R.id.img)
         PorterShapeImageView img;
 
-        @Optional
-        @InjectView(R.id.face)
+        @Nullable
+        @FindView(R.id.face)
         MyImageView face;
 
-        @Optional
-        @InjectView(R.id.error)
+        @Nullable
+        @FindView(R.id.error)
         View error;
 
         public ViewHolder(View view) {
-            ButterKnife.inject(this, view);
+            ButterKnife.bind(this, view);
         }
 
-        @Optional
+        @Nullable
         @OnClick(R.id.voice)
         void voiceClick(View view) {
             MessageBean mb = (MessageBean) view.getTag();
@@ -256,7 +256,7 @@ public class ChatAdapters extends BaseAdapterListView<MessageBean> {
             }
         }
 
-        @Optional
+        @Nullable
         @OnClick(R.id.error)
         void errorClick(View view) {
             MessageBean mb = (MessageBean) view.getTag();
