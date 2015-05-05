@@ -6,7 +6,7 @@
 /lint.xml
 *.DS_Store
 .idea
-*.iml
+app.iml
 out
 /apk
 /build

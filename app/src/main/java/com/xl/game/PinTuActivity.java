@@ -179,79 +179,83 @@ public class PinTuActivity extends BaseBackActivity implements MyPinTuImageView.
         @Override
         public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
 
+            try {
+                int width = loadedImage.getWidth();
+                int height = loadedImage.getHeight();
 
-            int width = loadedImage.getWidth();
-            int height = loadedImage.getHeight();
+                if (isMain) {
+                    int max = width <= height ? width : height;
 
-            if (isMain) {
-                int max = width <= height ? width : height;
+                    int y = (int) ((float) (height - max) / 2f);
+                    int x = (int) ((float) (width - max) / 2f);
 
-                int y = (int) ((float) (height - max) / 2f);
-                int x = (int) ((float) (width - max) / 2f);
+                    float scale = maxWidth / (float) max;
+                    Matrix matrix = new Matrix();
+                    matrix.setScale(scale, scale);
 
-                float scale = maxWidth / (float) max;
-                Matrix matrix = new Matrix();
-                matrix.setScale(scale, scale);
+                    Bitmap newBitmap = Bitmap.createBitmap(loadedImage, x, y, max, max, matrix, false);
 
-                Bitmap newBitmap = Bitmap.createBitmap(loadedImage, x, y, max, max, matrix, false);
+                    mainBitmap = newBitmap;
 
-                mainBitmap = newBitmap;
+                    origin_img.setImageBitmap(mainBitmap);
 
-                origin_img.setImageBitmap(mainBitmap);
+                    for (int i = 1; i <= allNum; i++) {
+                        ImageLoader.getInstance().loadImage("drawable://" + getResources().getIdentifier("p" + i, "drawable", getPackageName()), options_no_default, new listener(false, i));
+                    }
+                } else {
+                    int left = (int) (xy[index - 1][0] / 656f * maxWidth), top = (int) (xy[index - 1][1] / 654f * maxWidth);
 
-                for (int i = 1; i <= allNum; i++) {
-                    ImageLoader.getInstance().loadImage("drawable://" + getResources().getIdentifier("p" + i, "drawable", getPackageName()), options_no_default, new listener(false, i));
+                    float scaleW = maxWidth / 656f;
+                    float scaleH = maxWidth / 654f;
+
+                    Matrix matrix = new Matrix();
+                    matrix.setScale(scaleW, scaleH);
+
+                    //拼图
+                    Bitmap newBitmap = Bitmap.createBitmap(loadedImage, 0, 0, loadedImage.getWidth(), loadedImage.getHeight(), matrix, false);
+
+                    //拼图大小背景
+                    Bitmap background = Bitmap.createBitmap(newBitmap.getWidth(), newBitmap.getHeight(), Bitmap.Config.ARGB_8888);
+
+                    Canvas canvas = new Canvas(background);
+
+                    Bitmap tempMainBitmap;
+                    canvas.drawBitmap(tempMainBitmap = Bitmap.createBitmap(mainBitmap, left, top, newBitmap.getWidth(), newBitmap.getHeight()), 0, 0, null);
+                    tempMainBitmap.recycle();
+
+                    Paint paint = new Paint();
+                    paint.setFilterBitmap(false);
+                    paint.setXfermode(PORTER_DUFF_XFERMODE);
+                    paint.setColor(0xFF000000);
+                    canvas.drawBitmap(newBitmap, 0, 0, paint);
+
+                    loadedImage.recycle();
+                    newBitmap.recycle();
+
+
+                    MyPinTuImageView imageView = new MyPinTuImageView(PinTuActivity.this);
+                    FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+                    imageView.setLayoutParams(layoutParams);
+                    imageView.setImageBitmap(background);
+                    imageView.setTouchListener(PinTuActivity.this);
+                    imageView.setTag(new float[]{left, top, index});
+                    content.addView(imageView);
+                    bitmapList.add(imageView);
+                    imageView.setX(left);
+                    imageView.setY(top);
+
+                    centerXY[index - 1] = new float[]{left + background.getWidth() / 2, top + background.getHeight() / 2};
+
+                    if (bitmapList.size() == allNum) {
+                        hide_ll.setVisibility(View.VISIBLE);
+                        handler.postDelayed(runnable, 1000);
+                    }
                 }
-            } else {
-                int left = (int) (xy[index - 1][0] / 656f * maxWidth), top = (int) (xy[index - 1][1] / 654f * maxWidth);
-
-                float scaleW = maxWidth / 656f;
-                float scaleH = maxWidth / 654f;
-
-                Matrix matrix = new Matrix();
-                matrix.setScale(scaleW, scaleH);
-
-                //拼图
-                Bitmap newBitmap = Bitmap.createBitmap(loadedImage, 0, 0, loadedImage.getWidth(), loadedImage.getHeight(), matrix, false);
-
-                //拼图大小背景
-                Bitmap background = Bitmap.createBitmap(newBitmap.getWidth(), newBitmap.getHeight(), Bitmap.Config.ARGB_8888);
-
-                Canvas canvas = new Canvas(background);
-
-                Bitmap tempMainBitmap;
-                canvas.drawBitmap(tempMainBitmap = Bitmap.createBitmap(mainBitmap, left, top, newBitmap.getWidth(), newBitmap.getHeight()), 0, 0, null);
-                tempMainBitmap.recycle();
-
-                Paint paint = new Paint();
-                paint.setFilterBitmap(false);
-                paint.setXfermode(PORTER_DUFF_XFERMODE);
-                paint.setColor(0xFF000000);
-                canvas.drawBitmap(newBitmap, 0, 0, paint);
-
-                loadedImage.recycle();
-                newBitmap.recycle();
-
-
-                MyPinTuImageView imageView = new MyPinTuImageView(PinTuActivity.this);
-                FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
-                imageView.setLayoutParams(layoutParams);
-                imageView.setImageBitmap(background);
-                imageView.setTouchListener(PinTuActivity.this);
-                imageView.setTag(new float[]{left, top, index});
-                content.addView(imageView);
-                bitmapList.add(imageView);
-                imageView.setX(left);
-                imageView.setY(top);
-
-                centerXY[index - 1] = new float[]{left + background.getWidth() / 2, top + background.getHeight() / 2};
-
-                if (bitmapList.size() == allNum) {
-                    hide_ll.setVisibility(View.VISIBLE);
-                    handler.postDelayed(runnable, 1000);
-                }
+            } catch (Throwable e) {
+                e.printStackTrace();
+                toast("什么鬼？");
+                finish();
             }
-
         }
     }
 

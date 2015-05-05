@@ -2,6 +2,7 @@ package com.xl.fragment;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.Gravity;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
@@ -57,10 +58,10 @@ public class MainFragment extends BaseFragment {
 
     @Click
     void connect() {
-        if(Utils.isFastDoubleClick()){
+        if (Utils.isFastDoubleClick()) {
             return;
         }
-       if (ac.cs.getHadSex() == CommonShared.OFF) {
+        if (ac.cs.getHadSex() == CommonShared.OFF) {
             AlertDialog dialog = new AlertDialog.Builder(getActivity()).setTitle(getString(R.string.yoursex)).setPositiveButton("男", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -162,10 +163,20 @@ public class MainFragment extends BaseFragment {
     }
 
     public void hideToGame() {
-        if (connect.getTag() != null) {
-            ((MainActivity)getActivity()).mNavigationDrawerFragment.openDrawer();
-        } else {
-            ((MainActivity)getActivity()).mNavigationDrawerFragment.closeDrawer();
+        if (getActivity() != null) {
+            if (((MainActivity) getActivity()).mNavigationDrawerFragment != null) {
+                if (connect.getTag() != null) {
+                    ((MainActivity) getActivity()).mNavigationDrawerFragment.openDrawer();
+                } else {
+                    ((MainActivity) getActivity()).mNavigationDrawerFragment.closeDrawer();
+                }
+            }
         }
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }
