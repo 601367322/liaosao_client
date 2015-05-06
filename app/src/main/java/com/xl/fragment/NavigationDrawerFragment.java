@@ -8,57 +8,52 @@ import android.preference.PreferenceManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 import com.xl.activity.R;
 import com.xl.activity.base.BaseFragment;
-import com.xl.game.GameActivity_;
-import com.xl.game.PinTuActivity_;
 
 import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.ViewById;
 
 
 @EFragment(R.layout.fragment_navigation_drawer)
 public class NavigationDrawerFragment extends BaseFragment {
 
 
-    @ViewById
-    ListView left_drawer;
+//    @ViewById
+//    ListView left_drawer;
 
     @Override
     public void init() {
         initListView();
+        getFragmentManager().beginTransaction().replace(R.id.nav_content,new MenuPreferenceFragment_()).commitAllowingStateLoss();
     }
 
     private void initListView() {
 
-        String[] mPlanetTitles = {"不知道什么游戏1", "不知道什么游戏2"};
-
-        left_drawer.setAdapter(new ArrayAdapter<String>(getActivity(),
-                android.R.layout.simple_list_item_1, mPlanetTitles));
-        left_drawer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                switch (position){
-                    case 0:
-                        PinTuActivity_.intent(NavigationDrawerFragment.this).start();
-                        break;
-                    case 1:
-                        GameActivity_.intent(NavigationDrawerFragment.this).start();
-                        break;
-                }
-                closeDrawer();
-            }
-        });
+//        String[] mPlanetTitles = {"不知道什么游戏1", "不知道什么游戏2"};
+//
+//        left_drawer.setAdapter(new ArrayAdapter<String>(getActivity(),
+//                android.R.layout.simple_list_item_1, mPlanetTitles));
+//        left_drawer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view,
+//                                    int position, long id) {
+//                switch (position){
+//                    case 0:
+//                        PinTuActivity_.intent(NavigationDrawerFragment.this).start();
+//                        break;
+//                    case 1:
+//                        GameActivity_.intent(NavigationDrawerFragment.this).start();
+//                        break;
+//                }
+//                closeDrawer();
+//            }
+//        });
     }
 
     /**
@@ -254,7 +249,7 @@ public class NavigationDrawerFragment extends BaseFragment {
     }
 
     private ActionBar getActionBar() {
-        return ((ActionBarActivity) getActivity()).getSupportActionBar();
+        return ((AppCompatActivity) getActivity()).getSupportActionBar();
     }
 
     /**

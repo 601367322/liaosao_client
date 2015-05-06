@@ -106,10 +106,11 @@
     <orderEntry type="library" exported="" name="youmisdk_new" level="project" />
     <orderEntry type="library" exported="" name="android-async-http-1.4.7-SNAPSHOT" level="project" />
     <orderEntry type="library" exported="" name="ormlite-core-4.48" level="project" />
-    <orderEntry type="library" exported="" name="analytics-5.4.2" level="project" />
     <orderEntry type="library" exported="" name="Android_Location_V1.3.1" level="project" />
+    <orderEntry type="library" exported="" name="analytics-5.5.2" level="project" />
     <orderEntry type="library" exported="" name="cardview-v7-22.1.1" level="project" />
     <orderEntry type="module" module-name="lib-autofittextview" exported="" />
+    <orderEntry type="module" module-name="lib-preferencefragment" exported="" />
     <orderEntry type="module" module-name="lib-float-btn" exported="" />
     <orderEntry type="module" module-name="lib-imageloader" exported="" />
     <orderEntry type="module" module-name="lib-animation-list-manipulation" exported="" />

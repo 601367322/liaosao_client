@@ -39,20 +39,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--<activity
-            android:name="com.xl.activity.Welcome_"
-            android:label="@string/app_name" >
-
-        </activity>-->
         <activity
             android:name="com.xl.activity.chat.ChatActivity_"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize">
-            <!--<intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
         </activity>
 
         <activity
@@ -62,11 +52,6 @@
         <activity
             android:name="com.xl.activity.setting.SettingActivity"
             android:screenOrientation="portrait">
-            <!--<intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
         </activity>
 
         <activity
@@ -76,31 +61,16 @@
         </activity>
 
         <activity
+            android:name=".chat.ChatListActivity_"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name="com.xl.game.GameActivity_"
             android:screenOrientation="portrait">
-            <!--<intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
         </activity>
         <activity
             android:name="com.xl.game.PinTuActivity_"
             android:screenOrientation="portrait">
-            <!--<intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
         </activity>
-
-
-        <!--<activity
-            android:name="com.xl.activity.wxapi.WXEntryActivity"
-            android:exported="true"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Animation.Translucent"></activity>-->
 
         <service
             android:name="com.xl.service.PushService_"
@@ -121,26 +91,6 @@
                 <action android:name="com.xl.broadcast.startchat" />
             </intent-filter>
         </receiver>
-        <!--<receiver android:name="com.xl.receiver.BootCompletedAlarmReceiver_" >
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>-->
-        <!--<activity
-            android:name="com.tencent.tauth.AuthActivity"
-            android:noHistory="true"
-            android:launchMode="singleTask" >
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="tencent1103269048" />
-            </intent-filter>
-        </activity>
-        <activity android:name="com.tencent.connect.common.AssistActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            />-->
 
         <!-- 友盟 -->
         <meta-data android:value="54af4845fd98c5569900016a" android:name="UMENG_APPKEY"></meta-data>

@@ -1,7 +1,7 @@
 package com.xl.activity.base;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
@@ -14,7 +14,7 @@ import org.androidannotations.annotations.App;
 import org.androidannotations.annotations.EActivity;
 
 @EActivity
-public abstract class BaseActivity extends ActionBarActivity{
+public abstract class BaseActivity extends AppCompatActivity{
     @App
     protected AppClass ac;
 

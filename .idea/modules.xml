@@ -11,9 +11,9 @@
       <module fileurl="file://$PROJECT_DIR$/lib-imageloader/lib-imageloader.iml" filepath="$PROJECT_DIR$/lib-imageloader/lib-imageloader.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib-materialdesign/lib-materialdesign.iml" filepath="$PROJECT_DIR$/lib-materialdesign/lib-materialdesign.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib-photoview/lib-photoview.iml" filepath="$PROJECT_DIR$/lib-photoview/lib-photoview.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lib-preferencefragment/lib-preferencefragment.iml" filepath="$PROJECT_DIR$/lib-preferencefragment/lib-preferencefragment.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib-umeng/lib-umeng.iml" filepath="$PROJECT_DIR$/lib-umeng/lib-umeng.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib_shapeimagelibrary/lib_shapeimagelibrary.iml" filepath="$PROJECT_DIR$/lib_shapeimagelibrary/lib_shapeimagelibrary.iml" />
     </modules>
   </component>
 </project>
-

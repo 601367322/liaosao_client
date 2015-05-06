@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="要什么聊天记录">
+        <PreferenceScreen android:title="聊天记录"
+            android:summary="闭嘴">
+            <intent
+                android:action="android.intent.action.MAIN"
+                android:targetClass="com.xl.activity.setting.SettingActivity"
+                android:targetPackage="com.xl.activity"></intent>
+        </PreferenceScreen>
+
+    </PreferenceCategory>
+    <PreferenceCategory android:title="玩什么破游戏">
+        <PreferenceScreen android:title="不知道什么游戏(一)"
+            android:summary="竟然没人拼完过 弱鸡">
+            <intent
+                android:action="android.intent.action.MAIN"
+                android:targetClass="com.xl.game.PinTuActivity_"
+                android:targetPackage="com.xl.activity"></intent>
+        </PreferenceScreen>
+        <PreferenceScreen android:title="不知道什么游戏(二)"
+            android:summary="竟然没人玩到最高 弱鸡">
+            <intent
+                android:action="android.intent.action.MAIN"
+                android:targetClass="com.xl.game.GameActivity_"
+                android:targetPackage="com.xl.activity"></intent>
+        </PreferenceScreen>a
+    </PreferenceCategory>
+</PreferenceScreen>

@@ -22,8 +22,6 @@
         android:targetSdkVersion="21" />
 
     <application android:allowBackup="true" >
-        <activity android:name="com.nhaarman.listviewanimations.itemmanipulation.swipedismiss.SwipeTouchListenerTestActivity" />
-        <activity android:name="com.nhaarman.listviewanimations.itemmanipulation.dragdrop.DynamicListViewTestActivity" />
     </application>
 
 </manifest>

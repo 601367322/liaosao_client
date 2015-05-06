@@ -15,9 +15,6 @@
 
     <application android:allowBackup="true" >
         <uses-library android:name="android.test.runner" />
-
-        <activity android:name="com.nhaarman.listviewanimations.itemmanipulation.swipedismiss.SwipeTouchListenerTestActivity" />
-        <activity android:name="com.nhaarman.listviewanimations.itemmanipulation.dragdrop.DynamicListViewTestActivity" />
     </application>
 
 </manifest>
