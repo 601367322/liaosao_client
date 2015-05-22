@@ -279,6 +279,7 @@ public class ChatActivity extends BaseBackActivity implements
                                     sendBroadcast(intent);
                                 }
                             }
+                            com.xl.service.Handler.addChatListBean(getApplicationContext(), mb, mb.getToId());
                             break;
                         case ResultCode.FAIL:
                             mb.setLoading(MessageBean.LOADING_DOWNLOADFAIL);
@@ -805,6 +806,7 @@ public class ChatActivity extends BaseBackActivity implements
                                         sendBroadcast(intent);
                                     }
                                 }
+                                com.xl.service.Handler.addChatListBean(getApplicationContext(), mb, mb.getToId());
                                 break;
                             case ResultCode.FAIL:
                                 mb.setLoading(MessageBean.LOADING_DOWNLOADFAIL);

@@ -6,7 +6,7 @@
             android:summary="闭嘴">
             <intent
                 android:action="android.intent.action.MAIN"
-                android:targetClass="com.xl.activity.setting.SettingActivity"
+                android:targetClass="com.xl.activity.chat.ChatListActivity_"
                 android:targetPackage="com.xl.activity"></intent>
         </PreferenceScreen>
 

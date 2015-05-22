@@ -12,10 +12,15 @@ import android.support.v4.app.NotificationCompat;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.j256.ormlite.android.apptools.OpenHelperManager;
+import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
+import com.j256.ormlite.dao.Dao;
 import com.xl.activity.R;
 import com.xl.activity.share.CommonShared;
 import com.xl.application.AppClass_;
+import com.xl.bean.ChatListBean;
 import com.xl.bean.MessageBean;
+import com.xl.db.DBHelper;
 import com.xl.util.BroadCastUtil;
 import com.xl.util.LogUtil;
 import com.xl.util.StaticUtil;
@@ -26,6 +31,8 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.sql.SQLException;
+import java.util.List;
 
 public class Handler {
 
@@ -33,6 +40,7 @@ public class Handler {
     private Socket socket;
     private AppClass_ ac;
     private NotificationManager manager;
+    private Dao<ChatListBean, Integer> chatListDao;
 
     public Handler(Context context, Socket socket) {
         super();
@@ -41,6 +49,12 @@ public class Handler {
         ac = (AppClass_) context.getApplicationContext();
         manager = (NotificationManager) context
                 .getSystemService(Context.NOTIFICATION_SERVICE);
+        try {
+            OrmLiteSqliteOpenHelper helper = OpenHelperManager.getHelper(context, DBHelper.class);
+            chatListDao = helper.getDao(ChatListBean.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void startConnect() {
@@ -83,29 +97,18 @@ public class Handler {
         MessageBean mb = new Gson().fromJson(jo.toString(), new TypeToken<MessageBean>() {
         }.getType());
 
-        switch (mb.getMsgType()){
-            case MessageBean.TEXT:
-                builder.setContentText(mb.getContent());
-                break;
-            case MessageBean.FACE:
-                builder.setContentText("[表情]");
-                break;
-            case MessageBean.IMAGE:
-                builder.setContentText("[图片]");
-                break;
-            case MessageBean.VOICE:
-                builder.setContentText("[语音]");
-                break;
-        }
+        builder.setContentText(getMsgContentType(mb));
 
-        if(ac.cs.getSound()== CommonShared.ON && ac.cs.getVibration()==CommonShared.ON){
+        addChatListBean(context, mb, mb.getFromId());
+
+        if (ac.cs.getSound() == CommonShared.ON && ac.cs.getVibration() == CommonShared.ON) {
             builder.setDefaults(Notification.DEFAULT_ALL);
-        }else if(ac.cs.getSound()== CommonShared.ON && ac.cs.getVibration()==CommonShared.OFF){
+        } else if (ac.cs.getSound() == CommonShared.ON && ac.cs.getVibration() == CommonShared.OFF) {
             builder.setDefaults(Notification.DEFAULT_SOUND);
-        }else if(ac.cs.getSound()== CommonShared.OFF && ac.cs.getVibration()==CommonShared.ON){
+        } else if (ac.cs.getSound() == CommonShared.OFF && ac.cs.getVibration() == CommonShared.ON) {
             builder.setDefaults(Notification.DEFAULT_VIBRATE);
         }
-        if(mb.getMsgType()==MessageBean.TEXT) {
+        if (mb.getMsgType() == MessageBean.TEXT) {
             builder.setContentText(mb.getContent());
         }
         PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
@@ -125,7 +128,7 @@ public class Handler {
         context.sendBroadcast(intent);
     }
 
-    public void orderCloseChat(JSONObject jo){
+    public void orderCloseChat(JSONObject jo) {
         try {
             Intent intent = new Intent(BroadCastUtil.CLOSECHAT);
             intent.putExtra(StaticUtil.DEVICEID, jo.getString(StaticUtil.DEVICEID));
@@ -141,12 +144,12 @@ public class Handler {
         try {
             Intent i = new Intent(BroadCastUtil.STARTCHAT);
             i.putExtra(StaticUtil.OTHERDEVICEID, jo.getString(StaticUtil.OTHERDEVICEID));
-            if(jo.has(StaticUtil.SEX)) {
+            if (jo.has(StaticUtil.SEX)) {
                 i.putExtra(StaticUtil.SEX, jo.getInt(StaticUtil.SEX));
             }
-            if(jo.has(StaticUtil.LAT)){
-                i.putExtra(StaticUtil.LAT,jo.getString(StaticUtil.LAT));
-                i.putExtra(StaticUtil.LNG,jo.getString(StaticUtil.LNG));
+            if (jo.has(StaticUtil.LAT)) {
+                i.putExtra(StaticUtil.LAT, jo.getString(StaticUtil.LAT));
+                i.putExtra(StaticUtil.LNG, jo.getString(StaticUtil.LNG));
             }
             context.sendBroadcast(i);
         } catch (JSONException e) {
@@ -163,6 +166,48 @@ public class Handler {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void addChatListBean(Context context,MessageBean mb, String deviceId) {
+        ChatListBean chatListBean = null;
+        try {
+            OrmLiteSqliteOpenHelper helper = OpenHelperManager.getHelper(context, DBHelper.class);
+            Dao<ChatListBean,Integer> chatListDao = helper.getDao(ChatListBean.class);
+
+            List<ChatListBean> list = chatListDao.queryForEq("deviceId", deviceId);
+            if (list.size() > 0) {
+                chatListBean = list.get(0);
+            }
+            if (chatListBean == null) {
+                chatListBean = new ChatListBean();
+            }
+
+            chatListBean.setContent(getMsgContentType(mb));
+            chatListBean.setDeviceId(deviceId);
+
+            chatListDao.createOrUpdate(chatListBean);//更新聊天记录列表
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static String getMsgContentType(MessageBean mb) {
+        String contentText = "";
+        switch (mb.getMsgType()) {
+            case MessageBean.TEXT:
+                contentText = mb.getContent();
+                break;
+            case MessageBean.FACE:
+                contentText = "[表情]";
+                break;
+            case MessageBean.IMAGE:
+                contentText = "[图片]";
+                break;
+            case MessageBean.VOICE:
+                contentText = "[语音]";
+                break;
+        }
+        return contentText;
     }
 
 }

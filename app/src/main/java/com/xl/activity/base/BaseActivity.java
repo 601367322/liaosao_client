@@ -5,16 +5,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import com.j256.ormlite.android.apptools.OpenHelperManager;
+import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.umeng.analytics.MobclickAgent;
 import com.xl.application.AM;
 import com.xl.application.AppClass;
+import com.xl.db.DBHelper;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.App;
 import org.androidannotations.annotations.EActivity;
 
 @EActivity
-public abstract class BaseActivity extends AppCompatActivity{
+public abstract class BaseActivity extends AppCompatActivity {
     @App
     protected AppClass ac;
 
@@ -28,8 +31,9 @@ public abstract class BaseActivity extends AppCompatActivity{
     protected abstract void init();
 
     Toast toast;
-    public void toast(String str){
-        toast=Toast.makeText(this, str, Toast.LENGTH_SHORT);
+
+    public void toast(String str) {
+        toast = Toast.makeText(this, str, Toast.LENGTH_SHORT);
         toast.show();
     }
 
@@ -55,9 +59,20 @@ public abstract class BaseActivity extends AppCompatActivity{
     public void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
+
+        if(getActionBarTitle()!=-1)getSupportActionBar().setTitle(getActionBarTitle());
     }
+
     public void onPause() {
         super.onPause();
         MobclickAgent.onPause(this);
+    }
+
+    public OrmLiteSqliteOpenHelper getHelper() {
+        return OpenHelperManager.getHelper(this, DBHelper.class);
+    }
+
+    public int getActionBarTitle(){
+        return -1;
     }
 }

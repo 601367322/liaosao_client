@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
-import android.telephony.TelephonyManager;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.loopj.android.http.AsyncHttpClient;
@@ -21,6 +20,7 @@ import com.xl.db.DBHelper;
 import com.xl.service.IPushService;
 import com.xl.service.PushService;
 import com.xl.service.PushService_;
+import com.xl.util.DeviceUuidFactory;
 
 import org.androidannotations.annotations.EApplication;
 
@@ -36,8 +36,7 @@ public class AppClass extends Application {
 
 	public void onCreate() {
 		if((deviceId=getBean().getDeviceId()).equals("")){
-			TelephonyManager tm = (TelephonyManager) getBaseContext().getSystemService(Context.TELEPHONY_SERVICE);
-			getBean().setDeviceId((deviceId=tm.getDeviceId())).commit(this);
+			getBean().setDeviceId((deviceId = new DeviceUuidFactory(this).getDeviceUuid().toString())).commit(this);
 		}
 
 		httpClient=new AsyncHttpClient();

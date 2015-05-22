@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.xl.custom.swipe.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/refresh"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ListView
+        android:id="@+id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:cacheColorHint="@color/trans"
+        android:divider="@null"
+        android:dividerHeight="0dp"
+        android:listSelector="@color/trans"
+        android:orientation="vertical">
+
+    </ListView>
+</com.xl.custom.swipe.SwipeRefreshLayout>
