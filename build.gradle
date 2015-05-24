@@ -24,12 +24,12 @@ allprojects {
 }
 
 ext {
-    compileSdkVersion = 21
-    buildToolsVersion = "21.1.1"
+    compileSdkVersion = 22
+    buildToolsVersion = "22.0.1"
     checkReleaseBuilds = false
     abortOnError = false
-    targetSdkVersion =21
-    minSdkVersion=15
+    targetSdkVersion =22
+    minSdkVersion=14
     versionCode=10
     versionName = "1.6.1"
 }
