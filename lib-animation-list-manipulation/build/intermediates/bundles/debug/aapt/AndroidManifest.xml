@@ -18,8 +18,8 @@
     package="com.nhaarman.listviewanimations.itemmanipulation" >
 
     <uses-sdk
-        android:minSdkVersion="15"
-        android:targetSdkVersion="21" />
+        android:minSdkVersion="14"
+        android:targetSdkVersion="22" />
 
     <application android:allowBackup="true" >
     </application>

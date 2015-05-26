@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="C:\Users\sbb\AndroidStudioProjects\LiaoSao\lib-autofittextview\src\main\res"><file path="C:\Users\sbb\AndroidStudioProjects\LiaoSao\lib-autofittextview\src\main\res\values\attrs.xml" qualifiers=""><declare-styleable name="AutofitTextView">
+<merger version="3"><dataSet config="main"><source path="D:\project\liaosao_client\lib-autofittextview\src\main\res"><file path="D:\project\liaosao_client\lib-autofittextview\src\main\res\values\attrs.xml" qualifiers=""><declare-styleable name="AutofitTextView">
         <!-- Minimum size of the text. -->
         <attr format="dimension" name="minTextSize"/>
         <!-- Amount of precision used to calculate the correct text size to fit within its
@@ -7,4 +7,4 @@
         <attr format="float" name="precision"/>
         <!-- Defines whether to automatically resize text to fit to the view's bounds. -->
         <attr format="boolean" name="sizeToFit"/>
-    </declare-styleable></file></source><source path="C:\Users\sbb\AndroidStudioProjects\LiaoSao\lib-autofittextview\build\generated\res\rs\debug"/><source path="C:\Users\sbb\AndroidStudioProjects\LiaoSao\lib-autofittextview\build\generated\res\generated\debug"/></dataSet><dataSet config="debug"><source path="C:\Users\sbb\AndroidStudioProjects\LiaoSao\lib-autofittextview\src\debug\res"/></dataSet><mergedItems><configuration qualifiers=""><declare-styleable name="AutofitTextView"><attr format="dimension" name="minTextSize"/><attr format="float" name="precision"/><attr format="boolean" name="sizeToFit"/></declare-styleable></configuration></mergedItems></merger>
+    </declare-styleable></file></source><source path="D:\project\liaosao_client\lib-autofittextview\build\generated\res\rs\debug"/><source path="D:\project\liaosao_client\lib-autofittextview\build\generated\res\generated\debug"/></dataSet><dataSet config="debug"><source path="D:\project\liaosao_client\lib-autofittextview\src\debug\res"/></dataSet><mergedItems><configuration qualifiers=""><declare-styleable name="AutofitTextView"><attr format="dimension" name="minTextSize"/><attr format="float" name="precision"/><attr format="boolean" name="sizeToFit"/></declare-styleable></configuration></mergedItems></merger>
