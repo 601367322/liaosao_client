@@ -41,7 +41,6 @@ import android.widget.TextView.OnEditorActionListener;
 
 import com.gauss.recorder.MicRealTimeListenerSpeex;
 import com.gauss.recorder.SpeexRecorder;
-import com.github.johnpersano.supertoasts.SuperToast;
 import com.google.gson.GsonBuilder;
 import com.loopj.android.http.RequestParams;
 import com.nhaarman.listviewanimations.appearance.simple.SwingBottomInAnimationAdapter;
@@ -57,6 +56,7 @@ import com.xl.util.LogUtil;
 import com.xl.util.ResultCode;
 import com.xl.util.StaticFactory;
 import com.xl.util.StaticUtil;
+import com.xl.util.ToastUtil;
 import com.xl.util.URLS;
 import com.xl.util.Utils;
 
@@ -562,11 +562,7 @@ public class ChatActivity extends BaseBackActivity implements
                             o.delete();
                         }
 
-                        SuperToast superToast = new SuperToast(ChatActivity.this);
-                        superToast.setDuration(SuperToast.Duration.LONG);
-                        superToast.setText(getString(R.string.your_JJ_so_short));
-                        superToast.setIcon(R.drawable.weisuo, SuperToast.IconPosition.LEFT);
-                        superToast.show();
+                        ToastUtil.toast(ChatActivity.this,getString(R.string.your_JJ_so_short),R.drawable.weisuo);
                     } else {
                         sendFile(1);
                     }
@@ -701,11 +697,7 @@ public class ChatActivity extends BaseBackActivity implements
                                     intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
                                     startActivityForResult(intent, Camera);
                                 } else {
-                                    SuperToast toast = new SuperToast(ChatActivity.this);
-                                    toast.setDuration(SuperToast.Duration.SHORT);
-                                    toast.setIcon(R.drawable.kiding, SuperToast.IconPosition.LEFT);
-                                    toast.setText("请检查是否安装存储卡!");
-                                    toast.show();
+                                    ToastUtil.toast(ChatActivity.this,getString(R.string.please_check_sdcard),R.drawable.kiding);
                                 }
                                 break;
                             case 1:
@@ -720,11 +712,7 @@ public class ChatActivity extends BaseBackActivity implements
                                     intent.setAction(Intent.ACTION_GET_CONTENT);
                                     startActivityForResult(intent, Album);
                                 } else {
-                                    SuperToast toast = new SuperToast(ChatActivity.this);
-                                    toast.setDuration(SuperToast.Duration.SHORT);
-                                    toast.setIcon(R.drawable.kiding, SuperToast.IconPosition.LEFT);
-                                    toast.setText("请检查是否安装存储卡!");
-                                    toast.show();
+                                    ToastUtil.toast(ChatActivity.this, getString(R.string.please_check_sdcard), R.drawable.kiding);
                                 }
                                 break;
                         }
@@ -901,11 +889,7 @@ public class ChatActivity extends BaseBackActivity implements
 
     @Receiver(actions = BroadCastUtil.DISCONNECT)
     void disconnect() {
-        SuperToast toast = new SuperToast(this);
-        toast.setIcon(R.drawable.wunai, SuperToast.IconPosition.LEFT);
-        toast.setText(getString(R.string.guaiwolo));
-        toast.setDuration(SuperToast.Duration.LONG);
-        toast.show();
+        ToastUtil.toast(ChatActivity.this,getString(R.string.guaiwolo),R.drawable.wunai);
         finish();
     }
 

@@ -2,8 +2,8 @@ package com.xl.activity.base;
 
 import android.util.Log;
 
-import com.github.johnpersano.supertoasts.SuperToast;
 import com.xl.activity.R;
+import com.xl.util.ToastUtil;
 
 import net.imageloader.tools.st.imbydg;
 import net.imageloader.tools.st.imbzdg;
@@ -30,11 +30,7 @@ public abstract class BaseBackActivity extends BaseActivity {
     @UiThread(delay = 25 * 1000)
     public void showScreenAdBefore() {
         if(!isFinishing()) {
-            SuperToast superToast = new SuperToast(this);
-            superToast.setText("闪开！我要弹广告啦！！！");
-            superToast.setDuration(SuperToast.Duration.LONG);
-            superToast.setIcon(R.drawable.stop, SuperToast.IconPosition.LEFT);
-            superToast.show();
+            ToastUtil.toast(this,getString(R.string.go_away_ad),R.drawable.stop);
         }
     }
 
@@ -68,11 +64,7 @@ public abstract class BaseBackActivity extends BaseActivity {
 
     @UiThread
     public void showScreenAdFail() {
-        SuperToast superToast = new SuperToast(this);
-        superToast.setText("广告弹出失败。。。我还会再来的。。");
-        superToast.setDuration(SuperToast.Duration.LONG);
-        superToast.setIcon(R.drawable.weisuo, SuperToast.IconPosition.LEFT);
-        superToast.show();
+        ToastUtil.toast(this,getString(R.string.i_will_come_back),R.drawable.weisuo);
         showScreenAd();
     }
 }

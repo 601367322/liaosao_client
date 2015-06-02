@@ -37,4 +37,9 @@
     <string name="yoursex">你的性别</string>
     <string name="boring_pintu">无聊的拼图</string>
     <string name="chat_list_title">聊了个天</string>
+    <string name="go_away_ad">闪开！我要弹广告啦！！！</string>
+    <string name="i_will_come_back">广告弹出失败。。。我还会再来的。。</string>
+    <string name="please_check_sdcard">请检查是否安装存储卡!</string>
+    <string name="jatengying">まるで加藤鹰手速よ！\n够了！</string>
+    <string name="aleardy_neweast">もう最新バージョンました！\n已经是最新版了！</string>
 </resources>

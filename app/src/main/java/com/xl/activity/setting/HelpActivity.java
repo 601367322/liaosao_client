@@ -7,12 +7,12 @@ import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 
-import com.github.johnpersano.supertoasts.SuperToast;
 import com.umeng.update.UmengUpdateAgent;
 import com.umeng.update.UmengUpdateListener;
 import com.umeng.update.UpdateResponse;
 import com.xl.activity.R;
 import com.xl.activity.base.BaseBackActivity;
+import com.xl.util.ToastUtil;
 import com.xl.util.Utils;
 
 import org.androidannotations.annotations.EActivity;
@@ -42,15 +42,10 @@ public class HelpActivity extends BaseBackActivity{
         getSupportActionBar().setTitle(getString(R.string.help_and_shuoming));
     }
 
-    SuperToast enoughToast,updateToast;
     @OptionsItem(R.id.update)
     void update(){
         if(Utils.isFastDoubleClick()){
-            enoughToast = new SuperToast(HelpActivity.this);
-            enoughToast.setDuration(SuperToast.Duration.LONG);
-            enoughToast.setText("まるで加藤鹰手速よ！\n够了！");
-            enoughToast.setIcon(R.drawable.kiding, SuperToast.IconPosition.LEFT);
-            enoughToast.show();
+            ToastUtil.toast(this, getString(R.string.jatengying), R.drawable.kiding);
             return;
         }
 
@@ -73,11 +68,7 @@ public class HelpActivity extends BaseBackActivity{
                     updateMenu.setActionView(null);
                 }
                 if (updateResponse != null && !updateResponse.hasUpdate) {
-                    updateToast = new SuperToast(HelpActivity.this);
-                    updateToast.setDuration(SuperToast.Duration.LONG);
-                    updateToast.setText("もう最新バージョンました！\n已经是最新版了！");
-                    updateToast.setIcon(R.drawable.last_version, SuperToast.IconPosition.LEFT);
-                    updateToast.show();
+                    ToastUtil.toast(HelpActivity.this, getString(R.string.aleardy_neweast), R.drawable.kiding);
                 }
             }
         });
