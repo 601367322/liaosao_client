@@ -9,7 +9,7 @@ import com.umeng.fb.FeedbackAgent;
 import com.umeng.update.UmengUpdateAgent;
 import com.xl.activity.base.BaseActivity;
 import com.xl.activity.setting.HelpActivity_;
-import com.xl.activity.setting.SettingActivity;
+import com.xl.activity.setting.SettingActivity_;
 import com.xl.fragment.MainFragment_;
 import com.xl.fragment.NavigationDrawerFragment;
 
@@ -83,8 +83,7 @@ public class MainActivity extends BaseActivity
 
     @OptionsItem(R.id.setting)
     void setting() {
-        Intent intent = new Intent(this, SettingActivity.class);
-        startActivity(intent);
+        SettingActivity_.intent(this).start();
     }
 
     @OptionsItem(R.id.help)
