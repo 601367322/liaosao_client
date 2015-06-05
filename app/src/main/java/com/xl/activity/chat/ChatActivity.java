@@ -127,10 +127,10 @@ public class ChatActivity extends BaseBackActivity implements
         content_et.setOnEditorActionListener(this);
 
         adapter = new ChatAdapters(this, new ArrayList<String>());
-        SwingBottomInAnimationAdapter t = new SwingBottomInAnimationAdapter(adapter);
-        t.setmGridViewPossiblyMeasuring(false);
-        t.setAbsListView(listview);
-        listview.setAdapter(t);
+//        SwingBottomInAnimationAdapter t = new SwingBottomInAnimationAdapter(adapter);
+//        t.setmGridViewPossiblyMeasuring(false);
+//        t.setAbsListView(listview);
+        listview.setAdapter(adapter);
 
         send_btn.setEnabled(false);
 

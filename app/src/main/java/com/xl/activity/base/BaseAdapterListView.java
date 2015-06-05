@@ -45,7 +45,7 @@ public abstract class BaseAdapterListView<E> extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
     public void addFirst(E object) {

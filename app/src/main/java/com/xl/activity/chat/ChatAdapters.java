@@ -74,7 +74,7 @@ public class ChatAdapters extends BaseAdapterListView<MessageBean> {
 
     @Override
     public int getViewTypeCount() {
-        return 20;
+        return 13;
     }
 
     @Override
@@ -116,7 +116,8 @@ public class ChatAdapters extends BaseAdapterListView<MessageBean> {
         switch (getItemViewType(position)) {
             case 0:
             case 10:
-                holder.content.setText(mb.getContent().toString());
+                if (holder.content != null)
+                    holder.content.setText(mb.getContent().toString());
                 break;
             case 1:
             case 11:
@@ -163,13 +164,13 @@ public class ChatAdapters extends BaseAdapterListView<MessageBean> {
                 break;
             case 2:
                 setImageSize(mb, holder.img);
-                ImageLoader.getInstance().displayImage(URLS.DOWNLOADFILE + ac.deviceId + "/" + mb.getContent() + URLS.LAST, holder.img,options_default, new imgListener(mb));
+                ImageLoader.getInstance().displayImage(URLS.DOWNLOADFILE + ac.deviceId + "/" + mb.getContent() + URLS.LAST, holder.img, options_default, new imgListener(mb));
                 holder.img.setTag(URLS.DOWNLOADFILE + ac.deviceId + "/" + mb.getContent() + URLS.LAST);
                 holder.img.setOnClickListener(clickListener);
                 break;
             case 12:
-                setImageSize(mb,holder.img);
-                ImageLoader.getInstance().displayImage("file://" + mb.getContent(), holder.img,options_default, new imgListener(mb));
+                setImageSize(mb, holder.img);
+                ImageLoader.getInstance().displayImage("file://" + mb.getContent(), holder.img, options_default, new imgListener(mb));
                 holder.img.setTag("file://" + mb.getContent());
                 holder.img.setOnClickListener(clickListener);
                 break;
@@ -202,11 +203,11 @@ public class ChatAdapters extends BaseAdapterListView<MessageBean> {
         return view;
     }
 
-    void setImageSize(MessageBean mb,ImageView view){
+    void setImageSize(MessageBean mb, ImageView view) {
         RelativeLayout.LayoutParams layoutParams2 = (RelativeLayout.LayoutParams) view.getLayoutParams();
-        if(mb.imageSize==null) {
+        if (mb.imageSize == null) {
             layoutParams2.width = (int) ((float) context.getResources().getDisplayMetrics().widthPixels / 3f);
-        }else{
+        } else {
             layoutParams2.width = mb.imageSize.getWidth();
             layoutParams2.height = mb.imageSize.getHeight();
         }
@@ -382,7 +383,7 @@ public class ChatAdapters extends BaseAdapterListView<MessageBean> {
 
         @Override
         public void onLoadingStarted(String imageUri, View view) {
-            if (mb != null&&mb.getToId().equals(ac.deviceId)) {
+            if (mb != null && mb.getToId().equals(ac.deviceId)) {
                 mb.setLoading(MessageBean.LOADING_DOWNLOADING);
                 notifyDataSetChanged();
             }
@@ -390,7 +391,7 @@ public class ChatAdapters extends BaseAdapterListView<MessageBean> {
 
         @Override
         public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-            if (mb != null&&mb.getToId().equals(ac.deviceId)) {
+            if (mb != null && mb.getToId().equals(ac.deviceId)) {
                 mb.setLoading(MessageBean.LOADING_DOWNLOADFAIL);
                 downloading.remove(mb);
                 notifyDataSetChanged();
@@ -399,7 +400,7 @@ public class ChatAdapters extends BaseAdapterListView<MessageBean> {
 
         @Override
         public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-            if(mb.imageSize==null) {
+            if (mb.imageSize == null) {
                 int screen_width = (int) ((float) context.getResources().getDisplayMetrics().widthPixels / 3f);
                 int img_width = loadedImage.getWidth();
                 int max_widht = img_width > screen_width ? screen_width : img_width;
