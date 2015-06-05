@@ -36,7 +36,6 @@ public class PushService extends Service {
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		LogUtil.d("onStartCommand");
-		LogUtil.d(ac.getBean().getNumber() + "");
 		if (intent != null) {
 			if (intent.getAction().equals(ACTION_STOP) == true) {
 				stop();

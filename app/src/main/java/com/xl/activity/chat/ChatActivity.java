@@ -5,7 +5,6 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
-import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -21,6 +20,7 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
+import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.view.KeyEvent;
 import android.view.View;
@@ -49,6 +49,9 @@ import com.xl.activity.R;
 import com.xl.activity.base.BaseBackActivity;
 import com.xl.bean.MessageBean;
 import com.xl.custom.MyAnimationView;
+import com.xl.custom.swipe.SwipeRefreshLayout;
+import com.xl.db.ChatDao;
+import com.xl.db.ChatlistDao;
 import com.xl.util.BroadCastUtil;
 import com.xl.util.EventID;
 import com.xl.util.JsonHttpResponseHandler;
@@ -76,13 +79,15 @@ import org.json.JSONObject;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import de.greenrobot.event.EventBus;
+import de.greenrobot.event.Subscribe;
 
 @EActivity(R.layout.chat_activity)
 public class ChatActivity extends BaseBackActivity implements
-        OnEditorActionListener, SensorEventListener {
+        OnEditorActionListener, SensorEventListener, SwipeRefreshLayout.OnRefreshListener {
 
     @ViewById
     EditText content_et;
@@ -96,6 +101,8 @@ public class ChatActivity extends BaseBackActivity implements
     int sex = 0;
     @Extra
     String lat, lng;
+    @ViewById
+    SwipeRefreshLayout swipe;
 
     @ViewById
     MyAnimationView ball_view;
@@ -112,6 +119,8 @@ public class ChatActivity extends BaseBackActivity implements
 
     AtomicBoolean changeing1 = new AtomicBoolean(false);
     AtomicBoolean changeing2 = new AtomicBoolean(false);
+
+    int lastId = -1; //已显示聊天记录
 
     protected void init() {
 
@@ -141,9 +150,40 @@ public class ChatActivity extends BaseBackActivity implements
 
         String subTitle = "性别：" + getResources().getStringArray(R.array.sex_title)[sex];
         getSupportActionBar().setSubtitle(subTitle);
+
+        swipe.setOnRefreshListener(this);
+
+        refresh();
     }
 
+    @UiThread
+    public void refresh() {
+        swipe.setRefreshing(true);
+    }
 
+    @Override
+    public void onRefresh() {
+        getHistoryData(lastId == -1 ? true : false);
+    }
+
+    @Background
+    public void getHistoryData(boolean toLast) {
+        List<MessageBean> list = ChatDao.getInstance(getApplicationContext()).getHistoryMsg(ac.deviceId, deviceId, lastId);
+        if (list != null) {
+            for (int i = 0; i < list.size(); i++) {
+                adapter.addFirst(list.get(i));
+                if (i == list.size() - 1) {
+                    lastId = list.get(i).getId();
+                }
+            }
+            notifyData();
+            if(toLast) {
+                scrollToLast();
+            }
+        }
+    }
+
+    @Subscribe
     public void onEvent(final MessageBean mb) {
         if (!mb.getToId().equals(ac.deviceId)) {
             new AlertDialog.Builder(ChatActivity.this).setIcon(R.drawable.beiju).setTitle(getString(R.string.beijua)).setMessage(getString(R.string.resend_message)).setPositiveButton(getString(R.string.resend_btn), new DialogInterface.OnClickListener() {
@@ -279,7 +319,6 @@ public class ChatActivity extends BaseBackActivity implements
                                     sendBroadcast(intent);
                                 }
                             }
-                            com.xl.service.Handler.addChatListBean(getApplicationContext(), mb, mb.getToId());
                             break;
                         case ResultCode.FAIL:
                             mb.setLoading(MessageBean.LOADING_DOWNLOADFAIL);
@@ -288,6 +327,8 @@ public class ChatActivity extends BaseBackActivity implements
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
+                } finally {
+                    ChatDao.getInstance(getApplicationContext()).updateMessage(mb);
                 }
             }
 
@@ -295,6 +336,9 @@ public class ChatActivity extends BaseBackActivity implements
             public void onStart() {
                 adapter.getList().add(mb);
                 adapter.notifyDataSetChanged();
+
+                ChatlistDao.getInstance(getApplicationContext()).addChatListBean(mb, mb.getToId());
+                ChatDao.getInstance(getApplicationContext()).addMessage(ac.deviceId, mb);
 
                 final float x = send_btn.getX();
                 send_btn.animate().translationX(send_btn.getWidth()).setInterpolator(new AccelerateInterpolator()).setListener(new AnimatorListenerAdapter() {
@@ -333,6 +377,7 @@ public class ChatActivity extends BaseBackActivity implements
     @UiThread(delay = 500)
     void notifyData() {
         adapter.notifyDataSetChanged();
+        swipe.setRefreshing(false);
     }
 
     private static long lastClickTime;
@@ -562,7 +607,7 @@ public class ChatActivity extends BaseBackActivity implements
                             o.delete();
                         }
 
-                        ToastUtil.toast(ChatActivity.this,getString(R.string.your_JJ_so_short),R.drawable.weisuo);
+                        ToastUtil.toast(ChatActivity.this, getString(R.string.your_JJ_so_short), R.drawable.weisuo);
                     } else {
                         sendFile(1);
                     }
@@ -697,7 +742,7 @@ public class ChatActivity extends BaseBackActivity implements
                                     intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
                                     startActivityForResult(intent, Camera);
                                 } else {
-                                    ToastUtil.toast(ChatActivity.this,getString(R.string.please_check_sdcard),R.drawable.kiding);
+                                    ToastUtil.toast(ChatActivity.this, getString(R.string.please_check_sdcard), R.drawable.kiding);
                                 }
                                 break;
                             case 1:
@@ -776,6 +821,10 @@ public class ChatActivity extends BaseBackActivity implements
                 public void onStart() {
                     adapter.getList().add(mb);
                     adapter.notifyDataSetChanged();
+
+                    ChatlistDao.getInstance(getApplicationContext()).addChatListBean(mb, mb.getToId());
+                    ChatDao.getInstance(getApplicationContext()).addMessage(ac.deviceId, mb);
+
                     scrollToLast();
                 }
 
@@ -794,7 +843,6 @@ public class ChatActivity extends BaseBackActivity implements
                                         sendBroadcast(intent);
                                     }
                                 }
-                                com.xl.service.Handler.addChatListBean(getApplicationContext(), mb, mb.getToId());
                                 break;
                             case ResultCode.FAIL:
                                 mb.setLoading(MessageBean.LOADING_DOWNLOADFAIL);
@@ -805,6 +853,8 @@ public class ChatActivity extends BaseBackActivity implements
                         e.printStackTrace();
                         mb.setLoading(MessageBean.LOADING_DOWNLOADFAIL);
                         notifyData();
+                    } finally {
+                        ChatDao.getInstance(getApplicationContext()).updateMessage(mb);
                     }
                 }
 
@@ -889,7 +939,7 @@ public class ChatActivity extends BaseBackActivity implements
 
     @Receiver(actions = BroadCastUtil.DISCONNECT)
     void disconnect() {
-        ToastUtil.toast(ChatActivity.this,getString(R.string.guaiwolo),R.drawable.wunai);
+        ToastUtil.toast(ChatActivity.this, getString(R.string.guaiwolo), R.drawable.wunai);
         finish();
     }
 

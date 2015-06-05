@@ -28,6 +28,8 @@ public class ChatListActivity extends BaseBackActivity implements SwipeRefreshLa
     @ViewById
     ListView listview;
 
+    ChatListAdapters adapter;
+
     @ViewById
     SwipeRefreshLayout refresh;
 
@@ -49,8 +51,11 @@ public class ChatListActivity extends BaseBackActivity implements SwipeRefreshLa
     }
 
     @ItemClick
-    public void listview() {
-        toast("123123");
+    public void listview(int position) {
+        if(adapter!=null){
+            ChatListBean bean = adapter.getItem(position);
+            ChatActivity_.intent(this).deviceId(bean.getDeviceId()).start();
+        }
     }
 
     @Override
@@ -59,7 +64,7 @@ public class ChatListActivity extends BaseBackActivity implements SwipeRefreshLa
             @Override
             public void run() {
                 List<ChatListBean> list = chatListDao.queryForAll();
-                SwingBottomInAnimationAdapter t = new SwingBottomInAnimationAdapter(new ChatListAdapters(list, ChatListActivity.this));
+                SwingBottomInAnimationAdapter t = new SwingBottomInAnimationAdapter(adapter = new ChatListAdapters(list, ChatListActivity.this));
                 t.setmGridViewPossiblyMeasuring(false);
                 t.setAbsListView(listview);
                 complete(t);
@@ -68,7 +73,7 @@ public class ChatListActivity extends BaseBackActivity implements SwipeRefreshLa
     }
 
     @UiThread
-    public void complete(BaseAdapter adapter){
+    public void complete(BaseAdapter adapter) {
         listview.setAdapter(adapter);
         refresh.setRefreshing(false);
     }

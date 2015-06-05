@@ -4,8 +4,10 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 
+import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import com.xl.bean.ChatListBean;
@@ -58,7 +60,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.dropTable(connectionSource, MessageBean.class, true);
             TableUtils.dropTable(connectionSource, ChatListBean.class, true);
 
-            onCreate(sqLiteDatabase,connectionSource);
+            onCreate(sqLiteDatabase, connectionSource);
         } catch (Exception e) {
             LogUtil.e(TAG, e.toString());
             e.printStackTrace();
@@ -84,5 +86,17 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
             e.printStackTrace();
         }
         return new SharedBean();
+    }
+
+    public static <D extends RuntimeExceptionDao<T, ?>, T> D getDao_(Context context, Class<T> clazz) {
+        return OpenHelperManager.getHelper(context, DBHelper.class).getRuntimeExceptionDao(clazz);
+    }
+
+    public static RuntimeExceptionDao getChatListDao(Context context) {
+        return getDao_(context, ChatListBean.class);
+    }
+
+    public static RuntimeExceptionDao getChatDao(Context context) {
+        return getDao_(context, MessageBean.class);
     }
 }

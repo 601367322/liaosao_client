@@ -66,6 +66,7 @@ public class MainActivity extends BaseActivity
 
         UmengUpdateAgent.update(this);
         UmengUpdateAgent.setUpdateListener(null);
+
     }
 
 

@@ -11,7 +11,7 @@ import java.io.Serializable;
 @DatabaseTable(tableName = "ChatListBean")
 public class ChatListBean implements Serializable {
 
-    @DatabaseField(id = true)
+    @DatabaseField(generatedId = true)
     private Integer id;
 
     @DatabaseField(unique = true)

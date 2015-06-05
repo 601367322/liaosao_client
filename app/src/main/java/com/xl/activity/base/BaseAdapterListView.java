@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2014/12/22.
  */
-public abstract class BaseAdapterListView<E> extends BaseAdapter{
+public abstract class BaseAdapterListView<E> extends BaseAdapter {
 
     public List<E> list;
     public Context context;
@@ -32,10 +32,10 @@ public abstract class BaseAdapterListView<E> extends BaseAdapter{
         return list;
     }
 
-    public BaseAdapterListView(List<E> list, Context context){
-        this.list=list;
-        this.context=context;
-        ac=(AppClass)context.getApplicationContext();
+    public BaseAdapterListView(List<E> list, Context context) {
+        this.list = list;
+        this.context = context;
+        ac = (AppClass) context.getApplicationContext();
     }
 
     @Override
@@ -46,6 +46,10 @@ public abstract class BaseAdapterListView<E> extends BaseAdapter{
     @Override
     public long getItemId(int position) {
         return 0;
+    }
+
+    public void addFirst(E object) {
+        this.list.add(0, object);
     }
 
 }

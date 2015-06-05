@@ -11,7 +11,7 @@ import java.util.Date;
 @DatabaseTable(tableName = "MessageBean")
 public class MessageBean implements Serializable {
 
-    @DatabaseField(id = true)
+    @DatabaseField(generatedId = true)
     private Integer id;
     @Expose
     @DatabaseField(index = true)
@@ -99,7 +99,7 @@ public class MessageBean implements Serializable {
         this.toId = toId;
         this.msgType = msgType;
         this.content = content;
-        this.sex=sex;
+        this.sex = sex;
         setLoading(LOADING_DOWNLOADING);
     }
 
@@ -133,8 +133,16 @@ public class MessageBean implements Serializable {
         this.nickName = nickName;
         this.userLogo = userLogo;
         this.state = 1;
-        this.sex=sex;
+        this.sex = sex;
         setLoading(LOADING_DOWNLOADING);
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public int getSex() {

@@ -20,6 +20,8 @@ import com.xl.activity.share.CommonShared;
 import com.xl.application.AppClass_;
 import com.xl.bean.ChatListBean;
 import com.xl.bean.MessageBean;
+import com.xl.db.ChatDao;
+import com.xl.db.ChatlistDao;
 import com.xl.db.DBHelper;
 import com.xl.util.BroadCastUtil;
 import com.xl.util.LogUtil;
@@ -31,8 +33,6 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.Socket;
-import java.sql.SQLException;
-import java.util.List;
 
 public class Handler {
 
@@ -99,7 +99,8 @@ public class Handler {
 
         builder.setContentText(getMsgContentType(mb));
 
-        addChatListBean(context, mb, mb.getFromId());
+        ChatlistDao.getInstance(context).addChatListBean(mb, mb.getFromId());
+        ChatDao.getInstance(context).addMessage(ac.deviceId, mb);
 
         if (ac.cs.getSound() == CommonShared.ON && ac.cs.getVibration() == CommonShared.ON) {
             builder.setDefaults(Notification.DEFAULT_ALL);
@@ -164,29 +165,6 @@ public class Handler {
             s.getOutputStream().write(str.getBytes());
             LogUtil.d(str);
         } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void addChatListBean(Context context,MessageBean mb, String deviceId) {
-        ChatListBean chatListBean = null;
-        try {
-            OrmLiteSqliteOpenHelper helper = OpenHelperManager.getHelper(context, DBHelper.class);
-            Dao<ChatListBean,Integer> chatListDao = helper.getDao(ChatListBean.class);
-
-            List<ChatListBean> list = chatListDao.queryForEq("deviceId", deviceId);
-            if (list.size() > 0) {
-                chatListBean = list.get(0);
-            }
-            if (chatListBean == null) {
-                chatListBean = new ChatListBean();
-            }
-
-            chatListBean.setContent(getMsgContentType(mb));
-            chatListBean.setDeviceId(deviceId);
-
-            chatListDao.createOrUpdate(chatListBean);//更新聊天记录列表
-        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
