@@ -33,8 +33,18 @@ public class ChatListAdapters extends BaseAdapterListView<ChatListBean> {
         }else{
             holder= (ViewHolder) convertView.getTag();
         }
-        holder.num.setText(String.valueOf(getItem(position).getId()));
-        holder.text.setText(getItem(position).getContent());
+        ChatListBean bean = getItem(position);
+        holder.num.setText(String.valueOf(bean.getId()));
+        holder.text.setText(bean.getContent());
+        if(bean.getNum()>99){
+            holder.messageCount.setVisibility(View.VISIBLE);
+            holder.messageCount.setText("99+");
+        }else if(bean.getNum()>0){
+            holder.messageCount.setVisibility(View.VISIBLE);
+            holder.messageCount.setText(bean.getNum()+"");
+        }else {
+            holder.messageCount.setVisibility(View.GONE);
+        }
         return convertView;
     }
 
@@ -44,6 +54,8 @@ public class ChatListAdapters extends BaseAdapterListView<ChatListBean> {
         TextView num;
         @FindView(R.id.text)
         TextView text;
+        @FindView(R.id.messagecount)
+        TextView messageCount;
 
         public ViewHolder(View view) {
             ButterKnife.bind(this, view);

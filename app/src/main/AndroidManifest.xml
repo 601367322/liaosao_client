@@ -46,6 +46,12 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:windowSoftInputMode="stateHidden|adjustResize">
         </activity>
+        <!--<activity
+            android:name="com.xl.activity.chat.old.ChatActivity_"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+        </activity>-->
 
         <activity
             android:name="com.xl.activity.setting.HelpActivity_"
@@ -84,7 +90,6 @@
         <service
             android:name="com.xl.service.PushService_"
             android:enabled="true"
-            android:process=":push"
             android:exported="false" >
             <intent-filter>
                 <action android:name="com.xl.keepalive.START" />
@@ -119,6 +124,14 @@
 
         <!--有米-->
         <activity
+            android:name="net.youmi.android.AdBrowser"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
+        </activity>
+        <service
+            android:name="net.youmi.android.AdService" >
+        </service>
+        <!--<activity
             android:name="net.imageloader.tools.imaadg"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
@@ -132,7 +145,7 @@
                 <action android:name="android.intent.action.PACKAGE_ADDED" />
                 <data android:scheme="package" />
             </intent-filter>
-        </receiver>
+        </receiver>-->
 
         <!--高德地图-->
         <meta-data

@@ -1,0 +1,14 @@
+/gen
+/bin
+/proguard
+/.classpath
+/.settings
+/lint.xml
+*.DS_Store
+.idea
+*.iml
+out
+/apk
+/build
+/.gradle
+local.properties

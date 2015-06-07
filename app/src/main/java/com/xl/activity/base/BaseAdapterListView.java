@@ -52,4 +52,13 @@ public abstract class BaseAdapterListView<E> extends BaseAdapter {
         this.list.add(0, object);
     }
 
+    public void clear(){
+        list.clear();
+        notifyDataSetChanged();
+    }
+
+    public void remove(int position){
+        list.remove(position);
+        notifyDataSetChanged();
+    }
 }

@@ -15,6 +15,7 @@
         <item name="colorPrimary">@color/holo_blue_light</item>
         <item name="colorAccent">@color/holo_blue_light</item>
         <item name="android:windowContentOverlay">@null</item>
+        <item name="actionMenuTextAppearance">@style/MyABmenuTextAppearance</item>
     </style>
 
     <style name="MyActionBarStyle" parent="@style/Widget.AppCompat.ActionBar.Solid">
@@ -24,5 +25,11 @@
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+
+    <!-- menu -->
+    <style name="MyABmenuTextAppearance" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Menu">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">normal</item>
     </style>
 </resources>

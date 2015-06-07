@@ -3,8 +3,6 @@ package com.xl.fragment;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.view.Gravity;
-import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
@@ -22,8 +20,8 @@ import com.xl.util.StaticUtil;
 import com.xl.util.URLS;
 import com.xl.util.Utils;
 
-import net.imageloader.tools.br.imakdg;
-import net.imageloader.tools.br.imandg;
+import net.youmi.android.banner.AdSize;
+import net.youmi.android.banner.AdView;
 
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
@@ -44,15 +42,22 @@ public class MainFragment extends BaseFragment {
 
     @Override
     public void init() {
-        // 实例化LayoutParams(重要)
-        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT,
-                FrameLayout.LayoutParams.WRAP_CONTENT);
-        // 设置广告条的悬浮位置
-        layoutParams.gravity = Gravity.BOTTOM | Gravity.RIGHT; // 这里示例为右下角
-        // 实例化广告条
-        imandg adView = new imandg(getActivity(), imakdg.FIT_SCREEN);
-        // 调用Activity的addContentView函数
+            /*// 实例化LayoutParams(重要)
+            FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT,
+                    FrameLayout.LayoutParams.WRAP_CONTENT);
+            // 设置广告条的悬浮位置
+            layoutParams.gravity = Gravity.BOTTOM | Gravity.RIGHT; // 这里示例为右下角
+            // 实例化广告条
+            imandg adView = new imandg(getActivity(), imakdg.FIT_SCREEN);
+            // 调用Activity的addContentView函数
 
+            mAdContainer.addView(adView);*/
+
+
+        // 实例化广告条
+        AdView adView = new AdView(getActivity(), AdSize.FIT_SCREEN);
+
+        // 将广告条加入到布局中
         mAdContainer.addView(adView);
     }
 
@@ -88,8 +93,10 @@ public class MainFragment extends BaseFragment {
     public void doConnect() {
         if (connect.getTag() == null) {
             connect.setTag("1");
-
-            loadmoreTime();
+            if(ac.cs.getShowDrawer()==CommonShared.OFF) {
+                ac.cs.setShowDrawer(CommonShared.ON);
+                loadmoreTime();
+            }
             RequestParams params = ac.getRequestParams();
             params.put(StaticUtil.SEX, ac.cs.getSex());
 //            if (!ac.cs.getLat().equals("") && ac.cs.getDistance() == CommonShared.ON) {
@@ -122,6 +129,7 @@ public class MainFragment extends BaseFragment {
                                 if (jo.has(StaticUtil.LAT)) {
                                     builder_.lat(jo.getString(StaticUtil.LAT)).lng(jo.getString(StaticUtil.LNG));
                                 }
+                                builder_.flags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                                 builder_.start();
                                 cancle();
                                 break;

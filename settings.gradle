@@ -1,1 +1,1 @@
-include ':app', ':lib-umeng', ':lib-materialdesign', ':lib-imageloader', 'lib-animation-list-core', 'lib-animation-list-manipulation', 'lib-float-btn', 'lib-photoview', 'lib-autofittextview', 'lib_shapeimagelibrary', 'lib-preferencefragment','lib-preferencefragment'
+include ':app', ':lib-umeng',  ':lib-imageloader', ':lib-gif', 'lib-animation-list-core', 'lib-animation-list-manipulation', 'lib-float-btn', 'lib-photoview', 'lib-autofittextview', 'lib_shapeimagelibrary', 'lib-preferencefragment','lib-preferencefragment'

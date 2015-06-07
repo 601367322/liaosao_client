@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/activity_bg"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/activity_bg"
+              android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -11,28 +11,24 @@
         android:layout_weight="1">
 
         <com.xl.custom.swipe.SwipeRefreshLayout
-            android:layout_width="match_parent"
             android:id="@+id/swipe"
+            android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ListView
+            <android.support.v7.widget.RecyclerView
                 android:id="@+id/listview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:cacheColorHint="#00000000"
                 android:clipToPadding="false"
-                android:divider="@null"
-                android:listSelector="#00000000"
                 android:paddingBottom="10dp"
-                android:paddingTop="10dp"
-                android:transcriptMode="alwaysScroll"></ListView>
+                android:paddingTop="10dp"></android.support.v7.widget.RecyclerView>
 
         </com.xl.custom.swipe.SwipeRefreshLayout>
 
         <com.xl.custom.MyAnimationView
             android:id="@+id/ball_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"/>
 
 
         <GridView
@@ -72,7 +68,7 @@
                     android:layout_height="40dp"
                     android:background="@null"
                     android:scaleType="centerInside"
-                    android:src="@drawable/ic_content_add" />
+                    android:src="@drawable/ic_content_add"/>
 
                 <ImageButton
                     android:id="@+id/voice_btn"
@@ -80,7 +76,7 @@
                     android:layout_height="40dp"
                     android:background="@null"
                     android:scaleType="centerInside"
-                    android:src="@drawable/mic_selector" />
+                    android:src="@drawable/mic_selector"/>
 
                 <ImageButton
                     android:id="@+id/image_btn"
@@ -88,7 +84,7 @@
                     android:layout_height="40dp"
                     android:background="@null"
                     android:scaleType="centerInside"
-                    android:src="@drawable/ic_image_camera_alt" />
+                    android:src="@drawable/ic_image_camera_alt"/>
 
                 <ImageButton
                     android:id="@+id/face_btn"
@@ -96,7 +92,7 @@
                     android:layout_height="40dp"
                     android:background="@null"
                     android:scaleType="centerInside"
-                    android:src="@drawable/ic_image_tag_faces" />
+                    android:src="@drawable/ic_image_tag_faces"/>
             </LinearLayout>
 
             <EditText
@@ -109,7 +105,7 @@
                 android:maxLength="150"
                 android:minHeight="40dp"
                 android:singleLine="true"
-                android:textSize="16sp" />
+                android:textSize="16sp"/>
 
             <FrameLayout
                 android:layout_width="50dp"
@@ -122,7 +118,7 @@
                     android:alpha="0.5"
                     android:background="@null"
                     android:scaleType="centerInside"
-                    android:src="@drawable/ic_content_send" />
+                    android:src="@drawable/ic_content_send"/>
             </FrameLayout>
         </LinearLayout>
 
@@ -137,7 +133,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="16dp"
-                android:src="@drawable/jinguanzhang" />
+                android:src="@drawable/jinguanzhang"/>
 
             <TextView
                 android:id="@+id/text1"
@@ -148,7 +144,7 @@
                 android:gravity="center"
                 android:text="open your ass\n说话,录音呢！"
                 android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:textSize="16sp"/>
 
             <TextView
                 android:id="@+id/time_txt"
@@ -163,7 +159,7 @@
                 android:padding="@dimen/activity_horizontal_margin"
                 android:text="0''"
                 android:textColor="@color/white"
-                android:textSize="16sp" />
+                android:textSize="16sp"/>
 
             <TextView
                 android:id="@+id/cancle_btn"
@@ -176,7 +172,7 @@
                 android:gravity="center"
                 android:text="@string/chat_cancle_txt"
                 android:textColor="@color/white"
-                android:textSize="16sp" />
+                android:textSize="16sp"/>
 
             <TextView
                 android:id="@+id/send_voice_btn"
@@ -191,14 +187,14 @@
                 android:padding="16dp"
                 android:text="@string/chat_send_txt"
                 android:textColor="@color/white"
-                android:textSize="16sp" />
+                android:textSize="16sp"/>
 
             <View
                 android:id="@+id/voice_anim_view"
                 android:layout_width="@dimen/voice_btn_width"
                 android:layout_height="@dimen/voice_btn_width"
                 android:background="@drawable/btn_fab_default"
-                android:visibility="gone" />
+                android:visibility="gone"/>
         </RelativeLayout>
     </RelativeLayout>
 </LinearLayout>

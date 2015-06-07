@@ -2,7 +2,7 @@ package com.xl.custom;
 
 import android.content.Context;
 import android.os.Handler;
-import android.os.Looper;
+import android.os.Message;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
@@ -31,26 +31,33 @@ public class MyImageView extends ImageView {
     }
 
     private void init(AttributeSet attrs, int defStyle) {
-        handler.postDelayed(refere, 1000);
+        handler.sendEmptyMessageDelayed(1, 1000l);
     }
 
-    Handler handler = new Handler(Looper.getMainLooper());
-
-    Runnable refere = new Runnable() {
+    Handler handler = new Handler() {
         @Override
-        public void run() {
-            invalidate();
-            if (start) {
-                if (drawable != null) {
-                    drawable.start();
-                }
-                handler.postDelayed(this, 150);
+        public void dispatchMessage(Message msg) {
+            switch (msg.what) {
+                case 1:
+                    if (start) {
+                        invalidate();
+                        if (drawable != null && !drawable.isPlaying()) {
+                            drawable.start();
+                        }
+                        handler.sendEmptyMessageDelayed(1, 100l);
+                    }
+                    break;
             }
+            super.dispatchMessage(msg);
         }
     };
 
     public void setStart(boolean start) {
         this.start = start;
+        handler.removeMessages(1);
+        if (start) {
+            handler.sendEmptyMessage(1);
+        }
     }
 
     public GifDrawable getGifDrawable() {

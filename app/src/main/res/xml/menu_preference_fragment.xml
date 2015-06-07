@@ -3,6 +3,7 @@
 
     <PreferenceCategory android:title="要什么聊天记录">
         <PreferenceScreen android:title="聊天记录"
+                          android:key="msgCount"
             android:summary="闭嘴">
             <intent
                 android:action="android.intent.action.MAIN"

@@ -13,6 +13,8 @@ public class CommonShared {
     public final String LNG = "lng";
     private final String LOCATION = "location";// 定位的城市
     private final String AREA = "area";//区域
+    private final String SHOWDRAWER = "showdrawer";
+    private final String MESSAGECOUNT = "messagecount";//未读消息数
 
     public static final int ON = 1;
     public static final int OFF = 0;
@@ -103,5 +105,23 @@ public class CommonShared {
 
     public String getArea() {
         return getLocation() + sp.getString(AREA, getLocation() + "");
+    }
+
+    public void setShowDrawer(int on) {
+        editor.putInt(SHOWDRAWER, on);
+        editor.commit();
+    }
+
+    public int getShowDrawer() {
+        return sp.getInt(SHOWDRAWER, OFF);
+    }
+
+    public void setMessageCount(int on) {
+        editor.putInt(MESSAGECOUNT, on);
+        editor.commit();
+    }
+
+    public int getMessageCount() {
+        return sp.getInt(MESSAGECOUNT, 0);
     }
 }

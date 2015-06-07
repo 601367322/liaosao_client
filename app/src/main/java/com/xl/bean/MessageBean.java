@@ -37,7 +37,7 @@ public class MessageBean implements Serializable {
     @DatabaseField
     private String userLogo;
     @DatabaseField
-    private Integer state;//0 未读  1 已读
+    private int state;//0 未读  1 已读
     @Expose
     @DatabaseField
     private int msgType;

@@ -16,4 +16,8 @@ public class StaticUtil {
     public static final String SEX = "sex";
     public static final String LNG = "lng";
     public static final String LAT = "lat";
+
+    public static final String BEAN = "bean";
+
+    public static final String FILE = "file://";
 }

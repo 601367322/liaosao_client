@@ -16,10 +16,12 @@ import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
 import com.xl.activity.R;
+import com.xl.activity.chat.ChatActivity_;
 import com.xl.activity.share.CommonShared;
 import com.xl.application.AppClass_;
 import com.xl.bean.ChatListBean;
 import com.xl.bean.MessageBean;
+import com.xl.db.BlackDao;
 import com.xl.db.ChatDao;
 import com.xl.db.ChatlistDao;
 import com.xl.db.DBHelper;
@@ -90,16 +92,30 @@ public class Handler {
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public void orderSendMessage(JSONObject jo) {
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
-                .setSmallIcon(R.drawable.ic_stat_icon).setContentTitle("您有一条新消息")
-                .setOnlyAlertOnce(false).setNumber(1).setAutoCancel(true)
-                .setDefaults(Notification.DEFAULT_ALL);
+
         MessageBean mb = new Gson().fromJson(jo.toString(), new TypeToken<MessageBean>() {
         }.getType());
 
+        if(BlackDao.getInstance(context).isExists(mb.getFromId())!=null){
+            return;
+        }
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
+                .setSmallIcon(R.drawable.ic_stat_icon).setContentTitle(context.getString(R.string.u_have_a_new_message))
+                .setTicker(context.getString(R.string.u_have_a_new_message))
+                .setOnlyAlertOnce(false).setAutoCancel(true)
+                .setDefaults(Notification.DEFAULT_ALL);
+
         builder.setContentText(getMsgContentType(mb));
 
-        ChatlistDao.getInstance(context).addChatListBean(mb, mb.getFromId());
+        switch (mb.getMsgType()) {
+            case MessageBean.IMAGE:
+            case MessageBean.VOICE:
+                mb.setLoading(MessageBean.LOADING_NODOWNLOAD);
+                break;
+        }
+
+        ChatlistDao.getInstance(context).addChatListBean(mb, mb.getFromId(), mb.getSex());
         ChatDao.getInstance(context).addMessage(ac.deviceId, mb);
 
         if (ac.cs.getSound() == CommonShared.ON && ac.cs.getVibration() == CommonShared.ON) {
@@ -112,8 +128,9 @@ public class Handler {
         if (mb.getMsgType() == MessageBean.TEXT) {
             builder.setContentText(mb.getContent());
         }
+
         PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
-                new Intent(), PendingIntent.FLAG_UPDATE_CURRENT);
+                ChatActivity_.intent(context).sex(mb.getSex()).deviceId(mb.getFromId()).flags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK).get(), PendingIntent.FLAG_UPDATE_CURRENT);
         builder.setContentIntent(contentIntent);
         Notification notification = null;
         if (SdkVersionHelper.getSdkInt() >= Build.VERSION_CODES.JELLY_BEAN) {
@@ -121,11 +138,11 @@ public class Handler {
         } else {
             notification = builder.getNotification();
         }
-        manager.notify(0, notification);
+        manager.notify(mb.getFromId().hashCode(), notification);
 
 
         Intent intent = new Intent(BroadCastUtil.NEWMESSAGE);
-        intent.putExtra("bean", mb);
+        intent.putExtra(StaticUtil.BEAN, mb);
         context.sendBroadcast(intent);
     }
 

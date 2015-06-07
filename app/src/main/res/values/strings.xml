@@ -42,4 +42,9 @@
     <string name="please_check_sdcard">请检查是否安装存储卡!</string>
     <string name="jatengying">まるで加藤鹰手速よ！\n够了！</string>
     <string name="aleardy_neweast">もう最新バージョンました！\n已经是最新版了！</string>
+    <string name="u_have_a_new_message">您有一条新消息</string>
+    <string name="are_you_sure_clear_all">确定要清空所有记录吗？清空了就再也找不回来了。</string>
+    <string name="are_you_sure_clear_this">确定要清空这条记录吗？清空了就再也找不回来了。</string>
+    <string name="pingbi">屏蔽</string>
+    <string name="yipingbi">已屏蔽</string>
 </resources>

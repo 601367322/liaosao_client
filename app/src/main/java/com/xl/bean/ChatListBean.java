@@ -20,13 +20,19 @@ public class ChatListBean implements Serializable {
     @DatabaseField
     private String content;
 
+    @DatabaseField
+    private Integer sex;
+
+    private int num;
+
     public ChatListBean() {
         super();
     }
 
-    public ChatListBean(Integer id, String deviceId, String content) {
+    public ChatListBean(Integer id, String deviceId, String content,Integer sex) {
         this.id = id;
         this.deviceId = deviceId;
+        this.sex = sex;
         this.content = content;
     }
 
@@ -52,5 +58,21 @@ public class ChatListBean implements Serializable {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public int getSex() {
+        return sex;
+    }
+
+    public void setSex(int sex) {
+        this.sex = sex;
+    }
+
+    public int getNum() {
+        return num;
+    }
+
+    public void setNum(int num) {
+        this.num = num;
     }
 }

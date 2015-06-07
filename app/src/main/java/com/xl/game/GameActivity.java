@@ -7,8 +7,9 @@ import android.widget.TextView;
 import com.xl.activity.R;
 import com.xl.activity.base.BaseBackActivity;
 
-import net.imageloader.tools.br.imakdg;
-import net.imageloader.tools.br.imandg;
+
+import net.youmi.android.banner.AdSize;
+import net.youmi.android.banner.AdView;
 
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
@@ -49,9 +50,9 @@ public class GameActivity extends BaseBackActivity{
         // 设置广告条的悬浮位置
         layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM,RelativeLayout.TRUE);
         // 实例化广告条
-        imandg adView = new imandg(this, imakdg.FIT_SCREEN);
-        // 调用Activity的addContentView函数
+        AdView adView = new AdView(this, AdSize.FIT_SCREEN);
 
+        // 将广告条加入到布局中
         content.addView(adView,layoutParams);
 
         showScreenAd();

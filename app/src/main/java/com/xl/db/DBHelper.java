@@ -10,6 +10,7 @@ import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
+import com.xl.bean.BlackUser;
 import com.xl.bean.ChatListBean;
 import com.xl.bean.MessageBean;
 import com.xl.bean.SharedBean;
@@ -46,6 +47,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, SharedBean.class);
             TableUtils.createTable(connectionSource, MessageBean.class);
             TableUtils.createTable(connectionSource, ChatListBean.class);
+            TableUtils.createTable(connectionSource, BlackUser.class);
         } catch (Exception e) {
             LogUtil.e(TAG, e.toString());
             e.printStackTrace();
@@ -59,7 +61,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.dropTable(connectionSource, SharedBean.class, true);
             TableUtils.dropTable(connectionSource, MessageBean.class, true);
             TableUtils.dropTable(connectionSource, ChatListBean.class, true);
-
+            TableUtils.dropTable(connectionSource, BlackUser.class, true);
             onCreate(sqLiteDatabase, connectionSource);
         } catch (Exception e) {
             LogUtil.e(TAG, e.toString());
@@ -98,5 +100,14 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
 
     public static RuntimeExceptionDao getChatDao(Context context) {
         return getDao_(context, MessageBean.class);
+    }
+
+    public static void clearTable(Context context, Class clazz) {
+        try {
+            ConnectionSource source = OpenHelperManager.getHelper(context, DBHelper.class).getConnectionSource();
+            TableUtils.clearTable(source, clazz);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

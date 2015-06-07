@@ -21,20 +21,22 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewPropertyAnimator;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.view.inputmethod.EditorInfo;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
@@ -47,9 +49,11 @@ import com.nhaarman.listviewanimations.appearance.simple.SwingBottomInAnimationA
 import com.umeng.analytics.MobclickAgent;
 import com.xl.activity.R;
 import com.xl.activity.base.BaseBackActivity;
+import com.xl.bean.BlackUser;
 import com.xl.bean.MessageBean;
 import com.xl.custom.MyAnimationView;
 import com.xl.custom.swipe.SwipeRefreshLayout;
+import com.xl.db.BlackDao;
 import com.xl.db.ChatDao;
 import com.xl.db.ChatlistDao;
 import com.xl.util.BroadCastUtil;
@@ -63,13 +67,19 @@ import com.xl.util.ToastUtil;
 import com.xl.util.URLS;
 import com.xl.util.Utils;
 
+import net.youmi.android.spot.SpotManager;
+
 import org.androidannotations.annotations.AfterTextChange;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.OnActivityResult;
+import org.androidannotations.annotations.OptionsItem;
+import org.androidannotations.annotations.OptionsMenu;
+import org.androidannotations.annotations.OptionsMenuItem;
 import org.androidannotations.annotations.Receiver;
+import org.androidannotations.annotations.SystemService;
 import org.androidannotations.annotations.Touch;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
@@ -85,6 +95,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import de.greenrobot.event.EventBus;
 import de.greenrobot.event.Subscribe;
 
+@OptionsMenu(R.menu.chat_menu)
 @EActivity(R.layout.chat_activity)
 public class ChatActivity extends BaseBackActivity implements
         OnEditorActionListener, SensorEventListener, SwipeRefreshLayout.OnRefreshListener {
@@ -94,7 +105,7 @@ public class ChatActivity extends BaseBackActivity implements
     @ViewById
     ImageButton send_btn;
     @ViewById
-    ListView listview;
+    RecyclerView listview;
     @Extra
     String deviceId = null;
     @Extra
@@ -111,6 +122,10 @@ public class ChatActivity extends BaseBackActivity implements
     @ViewById
     TextView time_txt, send_voice_btn, cancle_btn;
     public static final int Album = 2, Camera = 1;
+    @SystemService
+    NotificationManager notifManager;
+    @OptionsMenuItem(R.id.pingbi)
+    MenuItem menuItem;
 
     @ViewById
     GridView face_grid;
@@ -122,14 +137,29 @@ public class ChatActivity extends BaseBackActivity implements
 
     int lastId = -1; //已显示聊天记录
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if (BlackDao.getInstance(this).isExists(deviceId) != null) {
+            menuItem.setTitle(getString(R.string.yipingbi));
+        } else {
+            menuItem.setTitle(getString(R.string.pingbi));
+        }
+        return super.onCreateOptionsMenu(menu);
+    }
+
     protected void init() {
+
+        notifManager.cancel(deviceId.hashCode());
 
         content_et.setOnEditorActionListener(this);
 
-        adapter = new ChatAdapters(this, new ArrayList<String>());
+        adapter = new ChatAdapters(this, new ArrayList<MessageBean>());
 //        SwingBottomInAnimationAdapter t = new SwingBottomInAnimationAdapter(adapter);
 //        t.setmGridViewPossiblyMeasuring(false);
 //        t.setAbsListView(listview);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        listview.setLayoutManager(layoutManager);
         listview.setAdapter(adapter);
 
         send_btn.setEnabled(false);
@@ -156,6 +186,18 @@ public class ChatActivity extends BaseBackActivity implements
         refresh();
     }
 
+    @OptionsItem(R.id.pingbi)
+    public void pingbi() {
+        BlackUser bean = BlackDao.getInstance(getApplicationContext()).isExists(deviceId);
+        if(bean!=null){
+            BlackDao.getInstance(getApplicationContext()).delete(bean);
+            menuItem.setTitle(getString(R.string.pingbi));
+        }else{
+            BlackDao.getInstance(getApplicationContext()).add(deviceId);
+            menuItem.setTitle(getString(R.string.yipingbi));
+        }
+    }
+
     @UiThread
     public void refresh() {
         swipe.setRefreshing(true);
@@ -177,8 +219,10 @@ public class ChatActivity extends BaseBackActivity implements
                 }
             }
             notifyData();
-            if(toLast) {
+            if (toLast) {
                 scrollToLast();
+            } else {
+                scrollToPosition(list.size());
             }
         }
     }
@@ -190,6 +234,7 @@ public class ChatActivity extends BaseBackActivity implements
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     adapter.getList().remove(mb);
+                    ChatDao.getInstance(getApplicationContext()).deleteMessage(mb);
                     switch (mb.getMsgType()) {
                         case 0:
                         case 3:
@@ -197,6 +242,7 @@ public class ChatActivity extends BaseBackActivity implements
                             break;
                         case 1:
                         case 2:
+                            recodeTime = mb.getVoiceTime();
                             filename = mb.getContent();
                             sendFile(mb.getMsgType());
                             break;
@@ -216,17 +262,22 @@ public class ChatActivity extends BaseBackActivity implements
 
     @Receiver(actions = BroadCastUtil.NEWMESSAGE)
     public void newMessage(Intent intent) {
-        MessageBean mb = (MessageBean) intent.getExtras().getSerializable("bean");
-        adapter.getList().add(mb);
-        adapter.notifyDataSetChanged();
-
+        MessageBean mb = (MessageBean) intent.getExtras().getSerializable(StaticUtil.BEAN);
+        if (mb.getFromId().equals(deviceId)) {
+            mb.setState(1);
+            ChatDao.getInstance(getApplicationContext()).updateMessage(mb);
+            notifManager.cancel(deviceId.hashCode());
+            adapter.getList().add(mb);
+            adapter.notifyDataSetChanged();
+            scrollToLast();
+        }
     }
 
     @Receiver(actions = BroadCastUtil.CLOSECHAT)
     public void closeChat(Intent intent) {
         String other = intent.getStringExtra(StaticUtil.DEVICEID);
         if (deviceId.equals(other)) {
-            if (add_btn.getRotation() > 0) {
+            /*if (add_btn.getRotation() > 0) {
                 closeMore(null);
             }
             content_et.setText("");
@@ -235,7 +286,8 @@ public class ChatActivity extends BaseBackActivity implements
             send_btn.setEnabled(false);
             send_btn.setAlpha(0.5f);
             add_btn.setEnabled(false);
-            closeInput();
+            closeInput();*/
+            ToastUtil.toast(this, "他/她/它退出了聊天，不过你依然可以骚扰他/她/它……", R.drawable.be_alone);
         }
     }
 
@@ -301,8 +353,7 @@ public class ChatActivity extends BaseBackActivity implements
         final MessageBean mb = new MessageBean(ac.deviceId, deviceId, context_str, msgType, ac.cs.getSex());
         rp.put("content", new GsonBuilder()
                 .excludeFieldsWithoutExposeAnnotation().create().toJson(mb).toString());
-        rp.put("toId", deviceId);
-        rp.put("fromId", ac.deviceId);
+        rp.put("sex", ac.cs.getSex());
         ac.httpClient.post(URLS.SENDMESSAGE, rp, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(JSONObject jo) {
@@ -337,7 +388,7 @@ public class ChatActivity extends BaseBackActivity implements
                 adapter.getList().add(mb);
                 adapter.notifyDataSetChanged();
 
-                ChatlistDao.getInstance(getApplicationContext()).addChatListBean(mb, mb.getToId());
+                ChatlistDao.getInstance(getApplicationContext()).addChatListBean(mb, deviceId, sex);
                 ChatDao.getInstance(getApplicationContext()).addMessage(ac.deviceId, mb);
 
                 final float x = send_btn.getX();
@@ -369,12 +420,13 @@ public class ChatActivity extends BaseBackActivity implements
             @Override
             public void onFailure() {
                 mb.setLoading(MessageBean.LOADING_DOWNLOADFAIL);
+                ChatDao.getInstance(getApplicationContext()).updateMessage(mb);
                 notifyData();
             }
         });
     }
 
-    @UiThread(delay = 500)
+    @UiThread
     void notifyData() {
         adapter.notifyDataSetChanged();
         swipe.setRefreshing(false);
@@ -394,6 +446,10 @@ public class ChatActivity extends BaseBackActivity implements
 
     @Override
     public void onBackPressed() {
+        // 如果有需要，可以点击后退关闭插播广告。
+        if (SpotManager.getInstance(this).disMiss()) {
+            return;
+        }
         if (!closeGridView())
             showFinshDialog();
     }
@@ -434,6 +490,7 @@ public class ChatActivity extends BaseBackActivity implements
 
     @Click(R.id.voice_btn)
     void voiceBtnClick() {
+        adapter.stopArm(null);
         closeInput();
         closeMore(new AnimatorListenerAdapter() {
             @Override
@@ -643,7 +700,7 @@ public class ChatActivity extends BaseBackActivity implements
     @Override
     public void onPause() {
         super.onPause();
-        adapter.stopArm();
+        adapter.stopArm(null);
         mSensorManager.unregisterListener(this);
     }
 
@@ -669,8 +726,12 @@ public class ChatActivity extends BaseBackActivity implements
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        manager.cancel(0);
+        notifManager.cancel(deviceId.hashCode());
+
+        //更新聊天列表
+        Intent intent = new Intent(BroadCastUtil.REFRESHCHATLIST);
+        intent.putExtra(StaticUtil.DEVICEID, deviceId);
+        sendBroadcast(intent);
     }
 
     @Override
@@ -814,6 +875,8 @@ public class ChatActivity extends BaseBackActivity implements
             rp.put("file", new File(filename));
             rp.put("toId", deviceId);
             rp.put("msgType", type);
+            rp.put("voiceTime", (int) recodeTime);
+            rp.put("sex", ac.cs.getSex());
             final MessageBean mb = new MessageBean(ac.deviceId, deviceId, filename, "", "", type, (int) recodeTime, ac.cs.getSex());
             ac.httpClient.post(URLS.UPLOADVOICEFILE, rp, new JsonHttpResponseHandler() {
 
@@ -822,7 +885,7 @@ public class ChatActivity extends BaseBackActivity implements
                     adapter.getList().add(mb);
                     adapter.notifyDataSetChanged();
 
-                    ChatlistDao.getInstance(getApplicationContext()).addChatListBean(mb, mb.getToId());
+                    ChatlistDao.getInstance(getApplicationContext()).addChatListBean(mb, deviceId, sex);
                     ChatDao.getInstance(getApplicationContext()).addMessage(ac.deviceId, mb);
 
                     scrollToLast();
@@ -861,6 +924,7 @@ public class ChatActivity extends BaseBackActivity implements
                 @Override
                 public void onFailure() {
                     mb.setLoading(MessageBean.LOADING_DOWNLOADFAIL);
+                    ChatDao.getInstance(getApplicationContext()).updateMessage(mb);
                     notifyData();
                 }
             });
@@ -947,13 +1011,19 @@ public class ChatActivity extends BaseBackActivity implements
     boolean listview() {
         closeInput();
         closeGridView();
-        listview.setTranscriptMode(AbsListView.TRANSCRIPT_MODE_NORMAL);
         return false;
     }
 
     @UiThread
     void scrollToLast() {
-        listview.setSelection(adapter.getCount() - 1);
-        listview.setTranscriptMode(AbsListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
+        if (adapter.getItemCount() > 0) {
+            listview.smoothScrollToPosition(adapter.getItemCount() - 1);
+        }
+    }
+
+    @UiThread
+    void scrollToPosition(int from) {
+        listview.scrollToPosition(from);
+        listview.smoothScrollToPosition(0);
     }
 }

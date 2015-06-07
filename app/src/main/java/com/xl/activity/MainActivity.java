@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
 
+import com.umeng.analytics.MobclickAgent;
 import com.umeng.fb.FeedbackAgent;
 import com.umeng.update.UmengUpdateAgent;
 import com.xl.activity.base.BaseActivity;
@@ -13,7 +14,8 @@ import com.xl.activity.setting.SettingActivity_;
 import com.xl.fragment.MainFragment_;
 import com.xl.fragment.NavigationDrawerFragment;
 
-import net.imageloader.tools.imafdg;
+import net.youmi.android.AdManager;
+import net.youmi.android.spot.SpotManager;
 
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.FragmentById;
@@ -42,11 +44,17 @@ public class MainActivity extends BaseActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        imafdg.getInstance(this).init("f8e79d512282c364",
+//        imafdg.getInstance(this).init("f8e79d512282c364",
+//                "1b6279c5f1aa4dde", false);
+
+        AdManager.getInstance(getApplicationContext()).init("f8e79d512282c364",
                 "1b6279c5f1aa4dde", false);
 
+        SpotManager.getInstance(getApplicationContext()).loadSpotAds();
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-//        AdManager.getInstance(this).init("f8e79d512282c364", "1b6279c5f1aa4dde", false);
+
+        MobclickAgent.updateOnlineConfig(this);
 
 //        location = new GDLocation(this, this, true);
     }
