@@ -178,6 +178,10 @@ public class ChatActivity extends BaseBackActivity implements
         }
         getSupportActionBar().setSubtitle(subTitle);*/
 
+        if (sex < 0) {
+            sex = 0;
+        }
+
         String subTitle = "性别：" + getResources().getStringArray(R.array.sex_title)[sex];
         getSupportActionBar().setSubtitle(subTitle);
 
@@ -189,10 +193,10 @@ public class ChatActivity extends BaseBackActivity implements
     @OptionsItem(R.id.pingbi)
     public void pingbi() {
         BlackUser bean = BlackDao.getInstance(getApplicationContext()).isExists(deviceId);
-        if(bean!=null){
+        if (bean != null) {
             BlackDao.getInstance(getApplicationContext()).delete(bean);
             menuItem.setTitle(getString(R.string.pingbi));
-        }else{
+        } else {
             BlackDao.getInstance(getApplicationContext()).add(deviceId);
             menuItem.setTitle(getString(R.string.yipingbi));
         }

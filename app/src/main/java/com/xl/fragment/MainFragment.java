@@ -7,6 +7,7 @@ import android.widget.RelativeLayout;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.loopj.android.http.RequestParams;
+import com.umeng.analytics.MobclickAgent;
 import com.xl.activity.MainActivity;
 import com.xl.activity.R;
 import com.xl.activity.base.BaseFragment;
@@ -42,23 +43,13 @@ public class MainFragment extends BaseFragment {
 
     @Override
     public void init() {
-            /*// 实例化LayoutParams(重要)
-            FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT,
-                    FrameLayout.LayoutParams.WRAP_CONTENT);
-            // 设置广告条的悬浮位置
-            layoutParams.gravity = Gravity.BOTTOM | Gravity.RIGHT; // 这里示例为右下角
+        if (MobclickAgent.getConfigParams(getActivity(), "ad_show").equals("on")) {
             // 实例化广告条
-            imandg adView = new imandg(getActivity(), imakdg.FIT_SCREEN);
-            // 调用Activity的addContentView函数
+            AdView adView = new AdView(getActivity(), AdSize.FIT_SCREEN);
 
-            mAdContainer.addView(adView);*/
-
-
-        // 实例化广告条
-        AdView adView = new AdView(getActivity(), AdSize.FIT_SCREEN);
-
-        // 将广告条加入到布局中
-        mAdContainer.addView(adView);
+            // 将广告条加入到布局中
+            mAdContainer.addView(adView);
+        }
     }
 
     @Click
