@@ -8,13 +8,11 @@ import com.umeng.analytics.MobclickAgent;
 import com.xl.activity.R;
 import com.xl.activity.base.BaseBackActivity;
 
-
-import net.youmi.android.banner.AdSize;
-import net.youmi.android.banner.AdView;
-
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
+
+import a.b.c.DynamicSdkManager;
 
 @EActivity(R.layout.activity_game)
 public class GameActivity extends BaseBackActivity {
@@ -50,11 +48,10 @@ public class GameActivity extends BaseBackActivity {
                     RelativeLayout.LayoutParams.WRAP_CONTENT);
             // 设置广告条的悬浮位置
             layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
-            // 实例化广告条
-            AdView adView = new AdView(this, AdSize.FIT_SCREEN);
-
-            // 将广告条加入到布局中
-            content.addView(adView, layoutParams);
+            View banner = DynamicSdkManager.getInstance(ac).getBanner(this);
+            if(banner!=null){
+                content.addView(banner,layoutParams);
+            }
         }
         showScreenAd();
     }
@@ -65,4 +62,13 @@ public class GameActivity extends BaseBackActivity {
         hide_ll.setVisibility(View.GONE);
     }
 
+
+    @Override
+    public void onBackPressed() {
+        // 如果有需要，可以点击后退关闭插播广告。
+        if (!DynamicSdkManager.getInstance(getApplicationContext()).disMiss(this)) {
+            // 弹出退出窗口，可以使用自定义退屏弹出和回退动画,参照demo,若不使用动画，传入-1
+            super.onBackPressed();
+        }
+    }
 }

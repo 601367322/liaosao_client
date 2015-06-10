@@ -3,6 +3,7 @@ package com.xl.fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
+import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
@@ -21,15 +22,14 @@ import com.xl.util.StaticUtil;
 import com.xl.util.URLS;
 import com.xl.util.Utils;
 
-import net.youmi.android.banner.AdSize;
-import net.youmi.android.banner.AdView;
-
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.Receiver;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 import org.json.JSONObject;
+
+import a.b.c.DynamicSdkManager;
 
 @EFragment(R.layout.fragment_main)
 public class MainFragment extends BaseFragment {
@@ -44,11 +44,10 @@ public class MainFragment extends BaseFragment {
     @Override
     public void init() {
         if (MobclickAgent.getConfigParams(getActivity(), "ad_show").equals("on")) {
-            // 实例化广告条
-            AdView adView = new AdView(getActivity(), AdSize.FIT_SCREEN);
-
-            // 将广告条加入到布局中
-            mAdContainer.addView(adView);
+            View banner = DynamicSdkManager.getInstance(ac).getBanner(getActivity());
+            if(banner!=null){
+                mAdContainer.addView(banner);
+            }
         }
     }
 
@@ -126,6 +125,9 @@ public class MainFragment extends BaseFragment {
                                 break;
                             case ResultCode.LOADING:
 //                            toast("排队中,请等待");
+                                break;
+                            case ResultCode.FAIL:
+                                ac.startService();
                                 break;
                         }
                     } catch (Exception e) {

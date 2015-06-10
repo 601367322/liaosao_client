@@ -67,8 +67,6 @@ import com.xl.util.ToastUtil;
 import com.xl.util.URLS;
 import com.xl.util.Utils;
 
-import net.youmi.android.spot.SpotManager;
-
 import org.androidannotations.annotations.AfterTextChange;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Click;
@@ -92,6 +90,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import a.b.c.DynamicSdkManager;
 import de.greenrobot.event.EventBus;
 import de.greenrobot.event.Subscribe;
 
@@ -451,7 +450,8 @@ public class ChatActivity extends BaseBackActivity implements
     @Override
     public void onBackPressed() {
         // 如果有需要，可以点击后退关闭插播广告。
-        if (SpotManager.getInstance(this).disMiss()) {
+        if (DynamicSdkManager.getInstance(getApplicationContext()).disMiss(this)) {
+            // 弹出退出窗口，可以使用自定义退屏弹出和回退动画,参照demo,若不使用动画，传入-1
             return;
         }
         if (!closeGridView())
