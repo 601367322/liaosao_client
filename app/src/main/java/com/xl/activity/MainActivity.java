@@ -14,14 +14,14 @@ import com.xl.activity.setting.SettingActivity_;
 import com.xl.fragment.MainFragment_;
 import com.xl.fragment.NavigationDrawerFragment;
 
-import net.youmi.android.AdManager;
-import net.youmi.android.spot.SpotManager;
-
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.FragmentById;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.OptionsMenuItem;
+
+import a.b.c.CommonManager;
+import a.b.c.DynamicSdkManager;
 
 @EActivity(R.layout.activity_main)
 @OptionsMenu(R.menu.main)
@@ -44,13 +44,13 @@ public class MainActivity extends BaseActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        imafdg.getInstance(this).init("f8e79d512282c364",
-//                "1b6279c5f1aa4dde", false);
 
-        AdManager.getInstance(getApplicationContext()).init("f8e79d512282c364",
+        // 设置开发者信息(appid, appsecret, 是否开启测试模式)
+        CommonManager.getInstance(getApplicationContext()).init("f8e79d512282c364",
                 "1b6279c5f1aa4dde", false);
 
-        SpotManager.getInstance(getApplicationContext()).loadSpotAds();
+// 根据 AndroidManifest.xml 文件中的设置进行插屏及其他无积分类型广告的预加载
+        DynamicSdkManager.getInstance(getApplicationContext()).initNormalAd();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
@@ -76,7 +76,6 @@ public class MainActivity extends BaseActivity
         UmengUpdateAgent.setUpdateListener(null);
 
     }
-
 
 
     @OptionsItem(R.id.menu_item_share)

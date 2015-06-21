@@ -14,7 +14,6 @@ import com.loopj.android.http.RequestParams;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.squareup.leakcanary.LeakCanary;
 import com.xl.activity.share.CommonShared;
 import com.xl.bean.SharedBean.Bean;
 import com.xl.db.DBHelper;
@@ -24,6 +23,8 @@ import com.xl.service.PushService_;
 import com.xl.util.DeviceUuidFactory;
 
 import org.androidannotations.annotations.EApplication;
+
+import a.b.c.DynamicSdkManager;
 
 @EApplication
 public class AppClass extends Application {
@@ -36,7 +37,14 @@ public class AppClass extends Application {
             .cacheInMemory(true).cacheOnDisk(true).build();
 
 	public void onCreate() {
-		LeakCanary.install(this);
+//		LeakCanary.install(this);
+
+		try {
+			DynamicSdkManager.onCreate(this);
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+
 
 		if((deviceId=getBean().getDeviceId()).equals("")){
 			getBean().setDeviceId((deviceId = new DeviceUuidFactory(this).getDeviceUuid().toString())).commit(this);
@@ -54,7 +62,9 @@ public class AppClass extends Application {
         ImageLoader.getInstance().init(config);
 
         cs=new CommonShared(this);
-	};
+
+		super.onCreate();
+	}
 
 	public RequestParams getRequestParams(){
 		RequestParams rp=new RequestParams();

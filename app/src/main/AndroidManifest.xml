@@ -16,6 +16,9 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
 
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+
     <supports-screens
         android:anyDensity="true"
         android:largeScreens="true"
@@ -124,28 +127,31 @@
 
         <!--有米-->
         <activity
-            android:name="net.youmi.android.AdBrowser"
+            android:name="a.b.c.ActivityA"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
-            android:theme="@android:style/Theme.Light.NoTitleBar" >
+            android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
         <service
-            android:name="net.youmi.android.AdService" >
+            android:name="a.b.c.ServiceA"
+            android:exported="false" >
         </service>
-        <!--<activity
-            android:name="net.imageloader.tools.imaadg"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
-            android:theme="@android:style/Theme.Light.NoTitleBar" >
-        </activity>
-        <service
-            android:name="net.imageloader.tools.imajdg" >
-        </service>
-        <receiver
-            android:name="net.imageloader.tools.imahdg" >
-            <intent-filter>
-                <action android:name="android.intent.action.PACKAGE_ADDED" />
-                <data android:scheme="package" />
-            </intent-filter>
-        </receiver>-->
+        <!-- 加入退屏广告设置-->
+        <meta-data
+            android:name="loadExitSpot"
+            android:value="true" />
+
+        <!-- 加入视频广告设置-->
+        <meta-data
+            android:name="loadVideoAd"
+            android:value="true" />
+
+        <meta-data
+            android:name="orientation"
+            android:value="0" />
+
+        <meta-data
+            android:name="animType"
+            android:value="2" />
 
         <!--高德地图-->
         <meta-data

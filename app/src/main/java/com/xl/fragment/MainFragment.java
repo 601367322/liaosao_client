@@ -1,12 +1,14 @@
 package com.xl.fragment;
 
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
+import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.loopj.android.http.RequestParams;
+import com.umeng.analytics.MobclickAgent;
 import com.xl.activity.MainActivity;
 import com.xl.activity.R;
 import com.xl.activity.base.BaseFragment;
@@ -20,15 +22,14 @@ import com.xl.util.StaticUtil;
 import com.xl.util.URLS;
 import com.xl.util.Utils;
 
-import net.youmi.android.banner.AdSize;
-import net.youmi.android.banner.AdView;
-
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.Receiver;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 import org.json.JSONObject;
+
+import a.b.c.DynamicSdkManager;
 
 @EFragment(R.layout.fragment_main)
 public class MainFragment extends BaseFragment {
@@ -42,23 +43,12 @@ public class MainFragment extends BaseFragment {
 
     @Override
     public void init() {
-            /*// 实例化LayoutParams(重要)
-            FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT,
-                    FrameLayout.LayoutParams.WRAP_CONTENT);
-            // 设置广告条的悬浮位置
-            layoutParams.gravity = Gravity.BOTTOM | Gravity.RIGHT; // 这里示例为右下角
-            // 实例化广告条
-            imandg adView = new imandg(getActivity(), imakdg.FIT_SCREEN);
-            // 调用Activity的addContentView函数
-
-            mAdContainer.addView(adView);*/
-
-
-        // 实例化广告条
-        AdView adView = new AdView(getActivity(), AdSize.FIT_SCREEN);
-
-        // 将广告条加入到布局中
-        mAdContainer.addView(adView);
+        if (MobclickAgent.getConfigParams(getActivity(), "ad_show").equals("on")) {
+            View banner = DynamicSdkManager.getInstance(ac).getBanner(getActivity());
+            if(banner!=null){
+                mAdContainer.addView(banner);
+            }
+        }
     }
 
     @Click
@@ -135,6 +125,9 @@ public class MainFragment extends BaseFragment {
                                 break;
                             case ResultCode.LOADING:
 //                            toast("排队中,请等待");
+                                break;
+                            case ResultCode.FAIL:
+                                ac.startService();
                                 break;
                         }
                     } catch (Exception e) {
