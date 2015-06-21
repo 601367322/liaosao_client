@@ -112,8 +112,10 @@ public class ChatListActivity extends BaseBackActivity implements SwipeRefreshLa
             }
             if (!has) {
                 ChatListBean temp = ChatlistDao.getInstance(getApplicationContext()).queryBeanForDeviceId(deviceId);
-                adapter.addFirst(temp);
-                adapter.notifyDataSetChanged();
+                if(temp!=null) {
+                    adapter.addFirst(temp);
+                    adapter.notifyDataSetChanged();
+                }
             }
         }
     }

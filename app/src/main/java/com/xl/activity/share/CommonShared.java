@@ -15,6 +15,7 @@ public class CommonShared {
     private final String AREA = "area";//区域
     private final String SHOWDRAWER = "showdrawer";
     private final String MESSAGECOUNT = "messagecount";//未读消息数
+    private final String FBI = "fbi";
 
     public static final int ON = 1;
     public static final int OFF = 0;
@@ -116,12 +117,12 @@ public class CommonShared {
         return sp.getInt(SHOWDRAWER, OFF);
     }
 
-    public void setMessageCount(int on) {
-        editor.putInt(MESSAGECOUNT, on);
+    public void setFBI(int on) {
+        editor.putInt(FBI, on);
         editor.commit();
     }
 
-    public int getMessageCount() {
-        return sp.getInt(MESSAGECOUNT, 0);
+    public int getFBI() {
+        return sp.getInt(FBI, ON);
     }
 }

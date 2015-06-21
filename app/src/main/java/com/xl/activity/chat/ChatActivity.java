@@ -49,6 +49,7 @@ import com.nhaarman.listviewanimations.appearance.simple.SwingBottomInAnimationA
 import com.umeng.analytics.MobclickAgent;
 import com.xl.activity.R;
 import com.xl.activity.base.BaseBackActivity;
+import com.xl.activity.share.CommonShared;
 import com.xl.bean.BlackUser;
 import com.xl.bean.MessageBean;
 import com.xl.custom.MyAnimationView;
@@ -113,7 +114,8 @@ public class ChatActivity extends BaseBackActivity implements
     String lat, lng;
     @ViewById
     SwipeRefreshLayout swipe;
-
+    @ViewById
+    View fbi;
     @ViewById
     MyAnimationView ball_view;
     @ViewById
@@ -187,6 +189,25 @@ public class ChatActivity extends BaseBackActivity implements
         swipe.setOnRefreshListener(this);
 
         refresh();
+
+        if(ac.cs.getFBI() == CommonShared.ON){
+            fbi.setVisibility(View.VISIBLE);
+        }else{
+            fbi.setVisibility(View.GONE);
+        }
+    }
+
+    @Click
+    public void fbi_btn() {
+        ac.cs.setFBI(CommonShared.OFF);
+        ValueAnimator animator = ObjectAnimator.ofFloat(fbi, "alpha", 1.0f, 0.0f).setDuration(200);
+        animator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                fbi.setVisibility(View.GONE);
+            }
+        });
+        animator.start();
     }
 
     @OptionsItem(R.id.pingbi)

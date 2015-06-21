@@ -34,16 +34,18 @@ public class ChatListAdapters extends BaseAdapterListView<ChatListBean> {
             holder= (ViewHolder) convertView.getTag();
         }
         ChatListBean bean = getItem(position);
-        holder.num.setText(String.valueOf(bean.getId()));
-        holder.text.setText(bean.getContent());
-        if(bean.getNum()>99){
-            holder.messageCount.setVisibility(View.VISIBLE);
-            holder.messageCount.setText("99+");
-        }else if(bean.getNum()>0){
-            holder.messageCount.setVisibility(View.VISIBLE);
-            holder.messageCount.setText(bean.getNum()+"");
-        }else {
-            holder.messageCount.setVisibility(View.GONE);
+        if(bean != null) {
+            holder.num.setText(String.valueOf(bean.getId()));
+            holder.text.setText(bean.getContent());
+            if (bean.getNum() > 99) {
+                holder.messageCount.setVisibility(View.VISIBLE);
+                holder.messageCount.setText("99+");
+            } else if (bean.getNum() > 0) {
+                holder.messageCount.setVisibility(View.VISIBLE);
+                holder.messageCount.setText(bean.getNum() + "");
+            } else {
+                holder.messageCount.setVisibility(View.GONE);
+            }
         }
         return convertView;
     }

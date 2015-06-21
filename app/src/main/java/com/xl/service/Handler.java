@@ -29,7 +29,6 @@ import com.xl.util.BroadCastUtil;
 import com.xl.util.LogUtil;
 import com.xl.util.StaticUtil;
 
-import org.androidannotations.api.SdkVersionHelper;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -133,7 +132,8 @@ public class Handler {
                 ChatActivity_.intent(context).sex(mb.getSex()).deviceId(mb.getFromId()).flags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK).get(), PendingIntent.FLAG_UPDATE_CURRENT);
         builder.setContentIntent(contentIntent);
         Notification notification = null;
-        if (SdkVersionHelper.getSdkInt() >= Build.VERSION_CODES.JELLY_BEAN) {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             notification = builder.build();
         } else {
             notification = builder.getNotification();
