@@ -19,7 +19,7 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 
 public class Utils {
-	public static final SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+    public static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
     public static int px2dip(Context context, float pxValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
@@ -31,11 +31,11 @@ public class Utils {
         return (int) (dpValue * scale + 0.5f);
     }
 
-    public static void setFullScreenImage(ImageView imageView,Drawable drawable,int width){
-        int height = (int) ((float) width/drawable.getMinimumWidth() * drawable.getMinimumHeight());
+    public static void setFullScreenImage(ImageView imageView, Drawable drawable, int width) {
+        int height = (int) ((float) width / drawable.getMinimumWidth() * drawable.getMinimumHeight());
         ViewGroup.LayoutParams layoutParams = imageView.getLayoutParams();
-        layoutParams.height=height;
-        layoutParams.width=width;
+        layoutParams.height = height;
+        layoutParams.width = width;
         imageView.setImageDrawable(drawable);
     }
 
@@ -267,5 +267,27 @@ public class Utils {
             e.printStackTrace();
         }
         return "";
+    }
+
+
+    // 缩放图片
+    public static Bitmap zoomImg(Bitmap bm, int maxHeight, int maxWidth) {
+        // 获得图片的宽高
+        int width = bm.getWidth();
+        int height = bm.getHeight();
+
+        float scale = 0f;
+        if (width > height) {
+            scale = (float)maxWidth / (float)width;
+        }else{
+            scale = (float)maxHeight / (float)height;
+        }
+
+        // 取得想要缩放的matrix参数
+        Matrix matrix = new Matrix();
+        matrix.postScale(scale, scale);
+        // 得到新的图片
+        Bitmap newbm = Bitmap.createBitmap(bm, 0, 0, width, height, matrix, true);
+        return newbm;
     }
 }

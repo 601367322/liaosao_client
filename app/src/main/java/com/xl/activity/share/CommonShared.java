@@ -16,6 +16,7 @@ public class CommonShared {
     private final String SHOWDRAWER = "showdrawer";
     private final String MESSAGECOUNT = "messagecount";//未读消息数
     private final String FBI = "fbi";
+    private final String ISVIP = "isvip";
 
     public static final int ON = 1;
     public static final int OFF = 0;
@@ -124,5 +125,14 @@ public class CommonShared {
 
     public int getFBI() {
         return sp.getInt(FBI, ON);
+    }
+
+    public void setISVIP(int on) {
+        editor.putInt(ISVIP, on);
+        editor.commit();
+    }
+
+    public int getISVIP() {
+        return sp.getInt(ISVIP, OFF);
     }
 }

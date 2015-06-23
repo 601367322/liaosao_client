@@ -76,6 +76,12 @@
         </activity>
 
         <activity
+            android:name=".pay.PayActivity_"
+            android:label="@string/be_vip"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"/>
+
+        <activity
             android:name=".chat.ChatListActivity_"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"/>

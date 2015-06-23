@@ -5,10 +5,10 @@
         <PreferenceScreen android:title="聊天记录"
                           android:key="msgCount"
             android:summary="闭嘴">
-            <intent
+            <!--<intent
                 android:action="android.intent.action.MAIN"
                 android:targetClass="com.xl.activity.chat.ChatListActivity_"
-                android:targetPackage="com.xl.activity"></intent>
+                android:targetPackage="com.xl.activity"></intent>-->
         </PreferenceScreen>
 
     </PreferenceCategory>

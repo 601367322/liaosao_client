@@ -14,11 +14,13 @@ public class URLS {
 
     public static final String SENDMESSAGE = URL + "b/sendmessage" + LAST;
     public static final String JOINQUEUE = URL + "b/joinqueue" + LAST;
+    public static final String JOINQUEUEVIP = URL + "b/joinqueuevip" + LAST;
     public static final String EXITQUEUE = URL + "b/exitqueue" + LAST;
     public static final String CLOSECHAT = URL + "b/closechat" + LAST;
     public static final String UPLOADVOICEFILE = URL + "b/uploadfile" + LAST;
     public static final String DOWNLOADFILE = URL + "b/download/";
     public static final String GETUNLINEMESSAGE = URL + "b/getallmessage" + LAST;
+    public static final String ISVIP = URL + "b/isvip" + LAST;
 
     public static final String LOGIN = URL + "a/login" + LAST;
 }

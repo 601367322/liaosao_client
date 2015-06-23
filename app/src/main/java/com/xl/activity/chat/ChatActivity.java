@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.BitmapFactory;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -36,6 +37,7 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -117,6 +119,8 @@ public class ChatActivity extends BaseBackActivity implements
     @ViewById
     View fbi;
     @ViewById
+    ImageView fbiimg;
+    @ViewById
     MyAnimationView ball_view;
     @ViewById
     View chat_ll1, chat_ll2, voice_anim_view, chat_more_ll, add_btn, image_btn, face_btn;
@@ -190,11 +194,32 @@ public class ChatActivity extends BaseBackActivity implements
 
         refresh();
 
-        if(ac.cs.getFBI() == CommonShared.ON){
+        if (ac.cs.getFBI() == CommonShared.ON) {
+            fbiimg.setImageBitmap(Utils.zoomImg(BitmapFactory.decodeResource(getResources(), R.drawable.fbiwaring), getResources().getDisplayMetrics().widthPixels, getResources().getDisplayMetrics().heightPixels));
             fbi.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             fbi.setVisibility(View.GONE);
         }
+
+        checkVip();
+    }
+
+    public void checkVip() {
+        ac.httpClient.post(URLS.ISVIP, new RequestParams(StaticUtil.DEVICEID, deviceId), new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(JSONObject jo) {
+                int status = jo.optInt(ResultCode.STATUS);
+                switch (status) {
+                    case ResultCode.SUCCESS:
+                        if (jo.has(StaticUtil.CONTENT) && jo.opt(StaticUtil.CONTENT) != null) {
+                            String subTitle = getSupportActionBar().getSubtitle().toString();
+                            subTitle += "\t　对方是会员";
+                            getSupportActionBar().setSubtitle(subTitle);
+                        }
+                        break;
+                }
+            }
+        });
     }
 
     @Click
@@ -235,6 +260,9 @@ public class ChatActivity extends BaseBackActivity implements
     @Background
     public void getHistoryData(boolean toLast) {
         List<MessageBean> list = ChatDao.getInstance(getApplicationContext()).getHistoryMsg(ac.deviceId, deviceId, lastId);
+        if (ac.cs.getISVIP() == CommonShared.OFF) {
+            list = new ArrayList<>();
+        }
         if (list != null) {
             for (int i = 0; i < list.size(); i++) {
                 adapter.addFirst(list.get(i));

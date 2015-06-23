@@ -14,6 +14,7 @@ public class StaticUtil {
     public static final String FROMID = "fromId";
     public static final String CONTENT = "content";
     public static final String SEX = "sex";
+    public static final String WANTSEX = "wantSex";
     public static final String LNG = "lng";
     public static final String LAT = "lat";
 

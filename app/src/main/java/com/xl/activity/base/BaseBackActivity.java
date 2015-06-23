@@ -6,6 +6,7 @@ import android.os.Message;
 
 import com.umeng.analytics.MobclickAgent;
 import com.xl.activity.R;
+import com.xl.activity.share.CommonShared;
 import com.xl.util.ToastUtil;
 
 import org.androidannotations.annotations.EActivity;
@@ -31,8 +32,10 @@ public abstract class BaseBackActivity extends BaseActivity {
 
     public void showScreenAd() {
         if (MobclickAgent.getConfigParams(this, "ad_show").equals("on")) {
-            adHandler.sendEmptyMessageDelayed(1, 25 * 1000);
-            adHandler.sendEmptyMessageDelayed(2, 30 * 1000);
+            if(ac.cs.getISVIP() == CommonShared.OFF) {
+                adHandler.sendEmptyMessageDelayed(1, 25 * 1000);
+                adHandler.sendEmptyMessageDelayed(2, 30 * 1000);
+            }
         }
     }
 

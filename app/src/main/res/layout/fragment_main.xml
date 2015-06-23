@@ -6,15 +6,26 @@
     android:layout_height="match_parent"
     android:background="@color/activity_bg"
     tools:context="com.xl.activity.MainActivity">
-
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:orientation="horizontal"
+    android:layout_centerInParent="true"
+    android:layout_height="wrap_content">
     <com.getbase.floatingactionbutton.FloatingActionButton
         android:id="@+id/connect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
         app:fab_colorNormal="@color/white"
         app:fab_colorPressed="@color/white_pressed"
         app:fab_icon="@drawable/touch_my_face"
         app:fab_size="large" />
-
+    <com.getbase.floatingactionbutton.FloatingActionButton
+        android:id="@+id/connect_vip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:fab_colorNormal="@color/white"
+        app:fab_colorPressed="@color/white_pressed"
+        app:fab_icon="@drawable/vipface"
+        app:fab_size="large" />
+</LinearLayout>
 </RelativeLayout>
