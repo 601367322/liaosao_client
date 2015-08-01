@@ -19,6 +19,8 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.BounceInterpolator;
 import android.view.animation.DecelerateInterpolator;
 
+import com.xl.util.LogUtil;
+
 import java.util.ArrayList;
 
 /**
@@ -31,8 +33,9 @@ public class MyAnimationView extends View implements ValueAnimator.AnimatorUpdat
 
     public void setmHeight(int mHeight) {
         this.mHeight = mHeight;
-        if(mHeight>0&&getHeight()>0) {
-            final ShapeHolder ball = addBall((float) (Math.random() * (getWidth()-BALL_SIZE)), (float) getHeight());
+        LogUtil.d(mHeight+"");
+        if (mHeight > 0 && getHeight() > 0) {
+            final ShapeHolder ball = addBall((float) (Math.random() * (getWidth() - BALL_SIZE)), (float) getHeight());
             createAnimation(ball);
         }
     }
@@ -60,10 +63,10 @@ public class MyAnimationView extends View implements ValueAnimator.AnimatorUpdat
     }
 
     private void createAnimation(final ShapeHolder ball) {
-        float f = (mHeight/700f);
-        int tempHeight=(int)(getHeight()*f);
+        float f = (mHeight / 700f);
+        int tempHeight = (int) (getHeight() * f);
         ObjectAnimator yStart = ObjectAnimator.ofFloat(ball, "y",
-                ball.getY(), getHeight()-tempHeight).setDuration(400);
+                ball.getY(), getHeight() - tempHeight).setDuration(400);
         yStart.setInterpolator(new DecelerateInterpolator());
         yStart.addListener(new AnimatorListenerAdapter() {
             @Override
@@ -98,8 +101,8 @@ public class MyAnimationView extends View implements ValueAnimator.AnimatorUpdat
     @Override
     protected void onDraw(Canvas canvas) {
         try {
-            for(int i = 0 ;i<balls.size();i++){
-                if(i<balls.size()){
+            for (int i = 0; i < balls.size(); i++) {
+                if (i < balls.size()) {
                     ShapeHolder ball = balls.get(i);
                     canvas.translate(ball.getX(), ball.getY());
                     ball.getShape().draw(canvas);

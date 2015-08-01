@@ -12,8 +12,8 @@ import com.xl.bean.ChatListBean;
 
 import java.util.List;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.FindView;
 
 /**
  * Created by sbb on 2015/5/6.
@@ -52,11 +52,11 @@ public class ChatListAdapters extends BaseAdapterListView<ChatListBean> {
 
     class ViewHolder {
 
-        @FindView(R.id.num)
+        @Bind(R.id.num)
         TextView num;
-        @FindView(R.id.text)
+        @Bind(R.id.text)
         TextView text;
-        @FindView(R.id.messagecount)
+        @Bind(R.id.messagecount)
         TextView messageCount;
 
         public ViewHolder(View view) {

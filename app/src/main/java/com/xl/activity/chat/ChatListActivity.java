@@ -8,6 +8,7 @@ import android.widget.ListView;
 
 import com.xl.activity.R;
 import com.xl.activity.base.BaseBackActivity;
+import com.xl.application.AppClass;
 import com.xl.bean.ChatListBean;
 import com.xl.bean.MessageBean;
 import com.xl.custom.swipe.SwipeRefreshLayout;
@@ -61,7 +62,7 @@ public class ChatListActivity extends BaseBackActivity implements SwipeRefreshLa
     public void listview(int position) {
         if (adapter != null) {
             ChatListBean bean = adapter.getItem(position);
-            ChatActivity_.intent(this).deviceId(bean.getDeviceId()).flags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK).sex(bean.getSex()).start();
+            ChatActivity_.intent(this).deviceId(bean.getDeviceId()).flags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK).start();
         }
     }
 
@@ -96,6 +97,10 @@ public class ChatListActivity extends BaseBackActivity implements SwipeRefreshLa
             deviceId = intent.getStringExtra(StaticUtil.DEVICEID);
         }
 
+        if (deviceId.equals(AppClass.MANAGER)) {
+            return;
+        }
+
         if (adapter != null) {
             List<ChatListBean> list = adapter.getList();
             boolean has = false;
@@ -112,7 +117,7 @@ public class ChatListActivity extends BaseBackActivity implements SwipeRefreshLa
             }
             if (!has) {
                 ChatListBean temp = ChatlistDao.getInstance(getApplicationContext()).queryBeanForDeviceId(deviceId);
-                if(temp!=null) {
+                if (temp != null) {
                     adapter.addFirst(temp);
                     adapter.notifyDataSetChanged();
                 }

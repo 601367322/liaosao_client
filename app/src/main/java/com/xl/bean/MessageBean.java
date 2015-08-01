@@ -77,6 +77,7 @@ public class MessageBean implements Serializable {
     public static final int VOICE = 1;
     public static final int IMAGE = 2;
     public static final int FACE = 3;
+    public static final int RADIO = 4;
 
     public static final int LOADING_NODOWNLOAD = 0;
     public static final int LOADING_DOWNLOADING = 2;

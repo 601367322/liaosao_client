@@ -21,4 +21,11 @@ public class BaseDao<T, ID> {
         dao = DBHelper.getDao_(context, entityClass);
     }
 
+    public void delete(T bean){
+        dao.delete(bean);
+    }
+
+    public void create(T bean){
+        dao.create(bean);
+    }
 }

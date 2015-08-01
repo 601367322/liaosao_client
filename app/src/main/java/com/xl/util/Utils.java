@@ -1,14 +1,21 @@
 package com.xl.util;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
 import android.os.Environment;
+import android.support.v7.app.AlertDialog;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import com.google.gson.Gson;
+import com.xl.activity.R;
+import com.xl.activity.pay.PayActivity_;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -278,9 +285,9 @@ public class Utils {
 
         float scale = 0f;
         if (width > height) {
-            scale = (float)maxWidth / (float)width;
-        }else{
-            scale = (float)maxHeight / (float)height;
+            scale = (float) maxWidth / (float) width;
+        } else {
+            scale = (float) maxHeight / (float) height;
         }
 
         // 取得想要缩放的matrix参数
@@ -290,4 +297,77 @@ public class Utils {
         Bitmap newbm = Bitmap.createBitmap(bm, 0, 0, width, height, matrix, true);
         return newbm;
     }
+
+    public static ProgressDialog progress(Context context, String str) {
+        if (context != null && str != null)
+            return ProgressDialog.show(context, null, str, false, true);
+        else
+            return null;
+    }
+
+    public static <T> T jsonToBean(String json, Class<T> clazz) {
+        return new Gson().fromJson(json, clazz);
+    }
+
+    /**
+     * 弹出提示框
+     *
+     * @param context                上下文
+     * @param icon                   图标
+     * @param title                  标题
+     * @param message                内容
+     * @param positiveBtnStr         确认
+     * @param negativeBtnStr         取消
+     * @param positiveListener       确认监听
+     * @param negativeListener       取消监听
+     * @param cancelable             是否可以按返回键取消
+     * @param canceledOnTouchOutside 是否可以触摸取消
+     * @return
+     */
+    public static AlertDialog showDialog(Context context, Integer icon, Integer title, Integer message, Integer positiveBtnStr, Integer negativeBtnStr, Integer neutralBtnStr, DialogInterface.OnClickListener positiveListener, DialogInterface.OnClickListener negativeListener, DialogInterface.OnClickListener neutralListener, Boolean cancelable, Boolean canceledOnTouchOutside) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        if (icon != null) {
+            builder.setIcon(icon);
+        }
+        if (title != null) {
+            builder.setTitle(title);
+        }
+        if (message != null) {
+            builder.setMessage(message);
+        }
+        if (positiveBtnStr != null) {
+            builder.setPositiveButton(positiveBtnStr, positiveListener);
+        }
+        if (negativeBtnStr != null) {
+            builder.setNegativeButton(negativeBtnStr, negativeListener);
+        }
+        if (neutralBtnStr != null) {
+            builder.setNeutralButton(neutralBtnStr, neutralListener);
+        }
+        AlertDialog dialog = builder.create();
+        if (cancelable != null) {
+            builder.setCancelable(cancelable);
+            dialog.setCancelable(cancelable);
+        }
+        if (canceledOnTouchOutside != null) {
+            dialog.setCanceledOnTouchOutside(canceledOnTouchOutside);
+        }
+        dialog.show();
+        return dialog;
+    }
+
+    public static void showVipDialog(final Context context){
+        showDialog(context, R.drawable.pool_gay, R.string.poolgay, R.string.no_vip_message, R.string.become_vip, R.string.become_diaosi, null, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                PayActivity_.intent(context).start();
+            }
+        }, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        },null,true,true);
+    }
+
 }

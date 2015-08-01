@@ -14,4 +14,6 @@ public class BroadCastUtil {
 	public static final String REFRESHCHATLIST = "com.xl.broadcast.refreshchatlist";
 
 	public static final String REFRESHNEWMESSAGECOUNT ="com.xl.broadcast.newmessagecount";
+
+	public static final String OPENLEFTMENU ="com.xl.broadcast.openleftmenu";
 }

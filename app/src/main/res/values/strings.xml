@@ -13,6 +13,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="kiding">逗B</string>
+    <string name="poolgay">穷B</string>
     <string name="are_you_fuck_sure_do_not_chat">你他喵确定不聊了吗？</string>
     <string name="papa_do_not_chat">是</string>
     <string name="not_sure">不</string>
@@ -48,4 +49,25 @@
     <string name="pingbi">屏蔽</string>
     <string name="yipingbi">已屏蔽</string>
     <string name="be_vip">成为会员</string>
+    <string name="can_not_reset">注意！选择后将无法修改！</string>
+    <string name="synchronization">正在同步用户数据，请稍后...</string>
+    <string name="boy">男</string>
+    <string name="girl">女</string>
+    <string name="close">关闭</string>
+    <string name="fuck_alien">服务器被外星人绑架了</string>
+    <string name="ohno">Oh!No!</string>
+    <string name="what_the_fuck">what the f**k</string>
+    <string name="error_net">网络连接失败</string>
+    <string name="retry">重试</string>
+    <string name="saving">正在保存</string>
+    <string name="saving_error">保存失败</string>
+    <string name="saving_success">保存成功</string>
+    <string name="no_vip_message">你并不是会员，哈哈哈哈哈哈！！！</string>
+    <string name="become_vip">成为会员</string>
+    <string name="become_diaosi">继续做屌丝</string>
+    <string name="radio">录像</string>
+    <string name="no_save_radio">退出后视频不会保存哦~</string>
+    <string name="exit">退出</string>
+    <string name="radio_renzheng">视频认证</string>
+    <string name="u_have_n_message">您有N条未读消息</string>
 </resources>

@@ -2,15 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/LiaoSao.iml" filepath="$PROJECT_DIR$/LiaoSao.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/liaosao_client.iml" filepath="$PROJECT_DIR$/liaosao_client.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib-animation-list-core/lib-animation-list-core.iml" filepath="$PROJECT_DIR$/lib-animation-list-core/lib-animation-list-core.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib-animation-list-manipulation/lib-animation-list-manipulation.iml" filepath="$PROJECT_DIR$/lib-animation-list-manipulation/lib-animation-list-manipulation.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib-autofittextview/lib-autofittextview.iml" filepath="$PROJECT_DIR$/lib-autofittextview/lib-autofittextview.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib-float-btn/lib-float-btn.iml" filepath="$PROJECT_DIR$/lib-float-btn/lib-float-btn.iml" />
-      <module fileurl="file://$PROJECT_DIR$/lib-gif/lib-gif.iml" filepath="$PROJECT_DIR$/lib-gif/lib-gif.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib-gif/lib-gif.iml" filepath="$PROJECT_DIR$/lib-gif/lib-gif.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib-imageloader/lib-imageloader.iml" filepath="$PROJECT_DIR$/lib-imageloader/lib-imageloader.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib-photoview/lib-photoview.iml" filepath="$PROJECT_DIR$/lib-photoview/lib-photoview.iml" />

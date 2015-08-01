@@ -18,6 +18,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.media.AudioManager;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
@@ -25,6 +26,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -43,22 +45,29 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
-import com.gauss.recorder.MicRealTimeListenerSpeex;
-import com.gauss.recorder.SpeexRecorder;
+import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.RequestParams;
 import com.nhaarman.listviewanimations.appearance.simple.SwingBottomInAnimationAdapter;
 import com.umeng.analytics.MobclickAgent;
 import com.xl.activity.R;
 import com.xl.activity.base.BaseBackActivity;
 import com.xl.activity.share.CommonShared;
+import com.xl.application.AppClass;
 import com.xl.bean.BlackUser;
 import com.xl.bean.MessageBean;
-import com.xl.custom.MyAnimationView;
+import com.xl.bean.UserBean_6;
+import com.xl.bean.UserTable_6;
 import com.xl.custom.swipe.SwipeRefreshLayout;
 import com.xl.db.BlackDao;
 import com.xl.db.ChatDao;
 import com.xl.db.ChatlistDao;
+import com.xl.db.UserTableDao;
+import com.xl.radio.AmrEncodSender;
+import com.xl.radio.AmrEngine;
+import com.xl.radio.MicRealTimeListener;
+import com.xl.recorder.FFmpegRecorderActivity_;
 import com.xl.util.BroadCastUtil;
 import com.xl.util.EventID;
 import com.xl.util.JsonHttpResponseHandler;
@@ -110,37 +119,49 @@ public class ChatActivity extends BaseBackActivity implements
     RecyclerView listview;
     @Extra
     String deviceId = null;
-    @Extra
-    int sex = 0;
-    @Extra
-    String lat, lng;
     @ViewById
     SwipeRefreshLayout swipe;
     @ViewById
     View fbi;
     @ViewById
     ImageView fbiimg;
-    @ViewById
-    MyAnimationView ball_view;
+    //    @ViewById
+//    MyAnimationView ball_view;
     @ViewById
     View chat_ll1, chat_ll2, voice_anim_view, chat_more_ll, add_btn, image_btn, face_btn;
     @ViewById
     TextView time_txt, send_voice_btn, cancle_btn;
-    public static final int Album = 2, Camera = 1;
+    public static final int Album = 2, Camera = 1, RADIO = 3;
     @SystemService
     NotificationManager notifManager;
     @OptionsMenuItem(R.id.pingbi)
     MenuItem menuItem;
+    @OptionsMenuItem(R.id.juli)
+    MenuItem juli;
+    @OptionsMenuItem(R.id.renzheng)
+    MenuItem renzheng;
 
     @ViewById
     GridView face_grid;
 
     ChatAdapters adapter;
 
+    UserTableDao userTableDao;
+    UserBean_6 userBean;
+
     AtomicBoolean changeing1 = new AtomicBoolean(false);
     AtomicBoolean changeing2 = new AtomicBoolean(false);
 
     int lastId = -1; //已显示聊天记录
+
+    UserTable_6 ut;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        userTableDao = UserTableDao.getInstance(this);
+        userBean = userTableDao.getUserTableByDeviceId(ac.deviceId).getBean();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -148,6 +169,11 @@ public class ChatActivity extends BaseBackActivity implements
             menuItem.setTitle(getString(R.string.yipingbi));
         } else {
             menuItem.setTitle(getString(R.string.pingbi));
+        }
+        if (ac.deviceId.equals(AppClass.MANAGER)) {
+            renzheng.setVisible(true);
+        } else {
+            renzheng.setVisible(false);
         }
         return super.onCreateOptionsMenu(menu);
     }
@@ -183,12 +209,6 @@ public class ChatActivity extends BaseBackActivity implements
         }
         getSupportActionBar().setSubtitle(subTitle);*/
 
-        if (sex < 0) {
-            sex = 0;
-        }
-
-        String subTitle = "性别：" + getResources().getStringArray(R.array.sex_title)[sex];
-        getSupportActionBar().setSubtitle(subTitle);
 
         swipe.setOnRefreshListener(this);
 
@@ -205,21 +225,39 @@ public class ChatActivity extends BaseBackActivity implements
     }
 
     public void checkVip() {
-        ac.httpClient.post(URLS.ISVIP, new RequestParams(StaticUtil.DEVICEID, deviceId), new JsonHttpResponseHandler() {
+        ac.httpClient.post(URLS.GETUSERINFO, new RequestParams(StaticUtil.DEVICEID, deviceId), new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(JSONObject jo) {
                 int status = jo.optInt(ResultCode.STATUS);
                 switch (status) {
                     case ResultCode.SUCCESS:
-                        if (jo.has(StaticUtil.CONTENT) && jo.opt(StaticUtil.CONTENT) != null) {
-                            String subTitle = getSupportActionBar().getSubtitle().toString();
-                            subTitle += "\t　对方是会员";
-                            getSupportActionBar().setSubtitle(subTitle);
+                        ut = new Gson().fromJson(jo.optString(StaticUtil.CONTENT), new TypeToken<UserTable_6>() {
+                        }.getType());
+
+                        String title = "";
+                        if (ut.getBean().isGirl()) {
+                            title += "女神认证";
+                        } else {
+                            title += ut.getBean().getSex() == 1 ? "女" : "男";
+                        }
+                        if (ut.getBean().isVip()) {
+                            title += "\t　会员";
+                        }
+                        getSupportActionBar().setTitle(title);
+                        if (ac.cs.getISVIP() == CommonShared.ON) {
+                            if (!TextUtils.isEmpty(ac.cs.getLat()) && !TextUtils.isEmpty(ut.getBean().getLat())) {
+                                setJuLi(Utils.getDistance(Utils.getDistance(Double.valueOf(ac.cs.getLng()), Double.valueOf(ac.cs.getLat()), Double.valueOf(ut.getBean().getLng()), Double.valueOf(ut.getBean().getLat()))));
+                            }
                         }
                         break;
                 }
             }
         });
+    }
+
+    @UiThread(delay = 200)
+    public void setJuLi(String str) {
+        juli.setTitle(str);
     }
 
     @Click
@@ -233,6 +271,15 @@ public class ChatActivity extends BaseBackActivity implements
             }
         });
         animator.start();
+    }
+
+    @OptionsItem(R.id.juli)
+    public void juli() {
+        if (ac.cs.getISVIP() == CommonShared.OFF) {
+            Utils.showVipDialog(this);
+        } else {
+            checkVip();
+        }
     }
 
     @OptionsItem(R.id.pingbi)
@@ -288,12 +335,13 @@ public class ChatActivity extends BaseBackActivity implements
                     adapter.getList().remove(mb);
                     ChatDao.getInstance(getApplicationContext()).deleteMessage(mb);
                     switch (mb.getMsgType()) {
-                        case 0:
-                        case 3:
+                        case MessageBean.TEXT:
+                        case MessageBean.FACE:
                             sendText(mb.getContent(), mb.getMsgType());
                             break;
-                        case 1:
-                        case 2:
+                        case MessageBean.RADIO:
+                        case MessageBean.VOICE:
+                        case MessageBean.IMAGE:
                             recodeTime = mb.getVoiceTime();
                             filename = mb.getContent();
                             sendFile(mb.getMsgType());
@@ -340,6 +388,7 @@ public class ChatActivity extends BaseBackActivity implements
             add_btn.setEnabled(false);
             closeInput();*/
             ToastUtil.toast(this, "他/她/它退出了聊天，不过你依然可以骚扰他/她/它……", R.drawable.be_alone);
+            content_et.setHint("对方退出了聊天");
         }
     }
 
@@ -402,10 +451,10 @@ public class ChatActivity extends BaseBackActivity implements
 
     void sendText(final String context_str, int msgType) {
         RequestParams rp = ac.getRequestParams();
-        final MessageBean mb = new MessageBean(ac.deviceId, deviceId, context_str, msgType, ac.cs.getSex());
+        final MessageBean mb = new MessageBean(ac.deviceId, deviceId, context_str, msgType, userBean.getSex());
         rp.put("content", new GsonBuilder()
                 .excludeFieldsWithoutExposeAnnotation().create().toJson(mb).toString());
-        rp.put("sex", ac.cs.getSex());
+        rp.put("sex", userBean.getSex());
         ac.httpClient.post(URLS.SENDMESSAGE, rp, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(JSONObject jo) {
@@ -440,7 +489,7 @@ public class ChatActivity extends BaseBackActivity implements
                 adapter.getList().add(mb);
                 adapter.notifyDataSetChanged();
 
-                ChatlistDao.getInstance(getApplicationContext()).addChatListBean(mb, deviceId, sex);
+                ChatlistDao.getInstance(getApplicationContext()).addChatListBean(mb, deviceId);
                 ChatDao.getInstance(getApplicationContext()).addMessage(ac.deviceId, mb);
 
                 final float x = send_btn.getX();
@@ -533,7 +582,7 @@ public class ChatActivity extends BaseBackActivity implements
         }).show();
     }
 
-    SpeexRecorder recorderInstance;
+    AmrEncodSender recorderInstance;
     String filename;
     Thread recordThread;//动画线程
     float recodeTime = 0.0f; // 录音的时间
@@ -556,7 +605,7 @@ public class ChatActivity extends BaseBackActivity implements
                         whxyBouncer.addListener(new AnimatorListenerAdapter() {
                             @Override
                             public void onAnimationEnd(Animator animation) {
-                                if (recorderInstance == null || !recorderInstance.isRecording()) {
+                                if (recorderInstance == null || !AmrEngine.getSingleEngine().isRecordRunning()) {
 
                                     File file = new File(StaticFactory.APKCardPathChat);
                                     if (!file.exists()) {
@@ -566,7 +615,7 @@ public class ChatActivity extends BaseBackActivity implements
                                             .valueOf(new Date().getTime()) + ".spx")
                                             .hashCode());
 
-                                    recorderInstance = new SpeexRecorder(filename, new MicRealTimeListenerSpeex() {
+                                    recorderInstance = new AmrEncodSender(filename, new MicRealTimeListener() {
 
                                         @Override
                                         public void getMicRealTimeSize(int size) {
@@ -575,7 +624,7 @@ public class ChatActivity extends BaseBackActivity implements
                                     });
                                     Thread th = new Thread(recorderInstance);
                                     th.start();
-                                    recorderInstance.setRecording(true);
+                                    AmrEngine.getSingleEngine().startRecording();
                                     updateTimeText();
                                     mythread();
                                 }
@@ -634,7 +683,7 @@ public class ChatActivity extends BaseBackActivity implements
         voice_anim_view.setVisibility(View.VISIBLE);
         voice_anim_view.setX(btn.getX());
         voice_anim_view.setY(btn.getY());
-        recorderInstance.setRecording(false);
+        AmrEngine.getSingleEngine().stopRecording();
         float width = (getResources().getDisplayMetrics().widthPixels / getResources().getDimensionPixelSize(R.dimen.voice_btn_width)) * 2.5f;
         voice_anim_view.animate().scaleY(width).scaleX(width).setDuration(500).setListener(new AnimatorListenerAdapter() {
             @Override
@@ -659,9 +708,9 @@ public class ChatActivity extends BaseBackActivity implements
 
         public void run() {
             recodeTime = 0.0f;
-            while (recorderInstance != null && recorderInstance.isRecording()) {
+            while (recorderInstance != null && AmrEngine.getSingleEngine().isRecordRunning()) {
                 if (recodeTime >= MAX_TIME && MAX_TIME != 0) {
-                    recorderInstance.setRecording(false);
+                    AmrEngine.getSingleEngine().stopRecording();
                     handle.post(new Runnable() {
                         @Override
                         public void run() {
@@ -672,7 +721,7 @@ public class ChatActivity extends BaseBackActivity implements
                     try {
                         Thread.sleep(200);
                         recodeTime += 0.2;
-                        if (recorderInstance != null && recorderInstance.isRecording()) {
+                        if (recorderInstance != null && AmrEngine.getSingleEngine().isRecordRunning()) {
                             // voiceValue = mr.getAmplitude();
                             imgHandle.sendEmptyMessage(1);
                         }
@@ -686,7 +735,7 @@ public class ChatActivity extends BaseBackActivity implements
 
     // 录音Dialog图片随声音大小切换
     void setDialogImage() {
-        ball_view.setmHeight(voiceValue);
+//        ball_view.setmHeight(voiceValue);
     }
 
     int allTime = 0;
@@ -695,7 +744,7 @@ public class ChatActivity extends BaseBackActivity implements
         handle.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (recorderInstance.isRecording() && allTime < MAX_TIME) {
+                if (AmrEngine.getSingleEngine().isRecordRunning() && allTime < MAX_TIME) {
                     time_txt.setText(String.valueOf(++allTime) + "''");
                     updateTimeText();
                 }
@@ -745,7 +794,7 @@ public class ChatActivity extends BaseBackActivity implements
         voice_anim_view.setScaleX(1f);
         voice_anim_view.setScaleY(1f);
         voiceValue = 0;//还原录音大小
-        ball_view.setmHeight(voiceValue);//还原球动画
+//        ball_view.setmHeight(voiceValue);//还原球动画
         allTime = 0;//还原录音时间
         time_txt.setText(allTime + "''");
     }
@@ -810,7 +859,7 @@ public class ChatActivity extends BaseBackActivity implements
     }
 
     void closeMore(AnimatorListenerAdapter listener) {
-        final ValueAnimator animator = ObjectAnimator.ofInt(40, 160);
+        final ValueAnimator animator = ObjectAnimator.ofInt(40, 200);
         animator.setDuration(200);
         final LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) chat_more_ll.getLayoutParams();
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -830,6 +879,29 @@ public class ChatActivity extends BaseBackActivity implements
             }
             animator.start();
             add_btn.animate().rotation(0f).setDuration(200).start();
+        }
+    }
+
+    @Click
+    void radio_btn() {
+        closeMore(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                FFmpegRecorderActivity_.intent(ChatActivity.this).startForResult(RADIO);
+            }
+        });
+
+    }
+
+    @OnActivityResult(value = ChatActivity.RADIO)
+    public void onRadioCallBack(int result, Intent data) {
+        if (result == RESULT_OK) {
+            filename = data.getStringExtra("filename");
+            File fi = new File(filename);
+            if (fi != null && fi.exists()) {
+                sendFile(MessageBean.RADIO);
+            }
+            fi = null;
         }
     }
 
@@ -918,10 +990,12 @@ public class ChatActivity extends BaseBackActivity implements
 
     @UiThread
     void sendFile(int type) {
-        if (type == 1) {
+        if (type == MessageBean.VOICE) {
             MobclickAgent.onEvent(ChatActivity.this, EventID.SEND_VOICE);
-        } else if (type == 2) {
+        } else if (type == MessageBean.IMAGE) {
             MobclickAgent.onEvent(ChatActivity.this, EventID.SEND_IMG);
+        } else if (type == MessageBean.RADIO) {
+            MobclickAgent.onEvent(ChatActivity.this, EventID.SEND_RADIO);
         }
         try {
             RequestParams rp = ac.getRequestParams();
@@ -929,8 +1003,8 @@ public class ChatActivity extends BaseBackActivity implements
             rp.put("toId", deviceId);
             rp.put("msgType", type);
             rp.put("voiceTime", (int) recodeTime);
-            rp.put("sex", ac.cs.getSex());
-            final MessageBean mb = new MessageBean(ac.deviceId, deviceId, filename, "", "", type, (int) recodeTime, ac.cs.getSex());
+            rp.put("sex", userBean.getSex());
+            final MessageBean mb = new MessageBean(ac.deviceId, deviceId, filename, "", "", type, (int) recodeTime, userBean.getSex());
             ac.httpClient.post(URLS.UPLOADVOICEFILE, rp, new JsonHttpResponseHandler() {
 
                 @Override
@@ -938,7 +1012,7 @@ public class ChatActivity extends BaseBackActivity implements
                     adapter.getList().add(mb);
                     adapter.notifyDataSetChanged();
 
-                    ChatlistDao.getInstance(getApplicationContext()).addChatListBean(mb, deviceId, sex);
+                    ChatlistDao.getInstance(getApplicationContext()).addChatListBean(mb, deviceId);
                     ChatDao.getInstance(getApplicationContext()).addMessage(ac.deviceId, mb);
 
                     scrollToLast();
@@ -1078,5 +1152,20 @@ public class ChatActivity extends BaseBackActivity implements
     void scrollToPosition(int from) {
         listview.scrollToPosition(from);
         listview.smoothScrollToPosition(0);
+    }
+
+    @OptionsItem
+    public void renzheng() {
+        RequestParams params = ac.getRequestParams();
+        params.put("deviceId", deviceId);
+        params.put("month", 3);
+        params.put("girl", "true");
+        ac.httpClient.post(URLS.SETVIP, params, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(JSONObject jo) {
+                super.onSuccess(jo);
+                ToastUtil.toast(ChatActivity.this, jo.toString());
+            }
+        });
     }
 }

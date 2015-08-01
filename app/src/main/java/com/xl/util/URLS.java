@@ -5,8 +5,8 @@ public class URLS {
     public static final String IP = "123.56.114.98";
 	public static final String URL = "http://"+IP+"/";
 
-//        public static final String IP="172.16.24.209";
-//    public static final String IP = "192.168.0.107";
+    //        public static final String IP="172.16.24.209";
+//    public static final String IP = "192.168.0.100";
 //    public static final String URL = "http://" + IP + ":8080/XL_Product_service/";
 
     public static final int PORT = 8181;
@@ -21,6 +21,9 @@ public class URLS {
     public static final String DOWNLOADFILE = URL + "b/download/";
     public static final String GETUNLINEMESSAGE = URL + "b/getallmessage" + LAST;
     public static final String ISVIP = URL + "b/isvip" + LAST;
+    public static final String SETUSERDETAIL = URL + "b/setuserdetail" + LAST;
 
-    public static final String LOGIN = URL + "a/login" + LAST;
+    public static final String GETUSERINFO = URL + "a/getuserinfo" + LAST;
+
+    public static final String SETVIP = URL + "b/setvip" + LAST;
 }

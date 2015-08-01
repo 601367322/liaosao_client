@@ -8,4 +8,5 @@ public class EventID {
     public static final String SEND_FACE="send_face";
     public static final String SEND_TEXT="send_text";
     public static final String SEND_VOICE="send_voice";
+    public static final String SEND_RADIO="send_radio";
 }

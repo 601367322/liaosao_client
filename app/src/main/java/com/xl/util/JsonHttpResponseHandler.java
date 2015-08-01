@@ -1,28 +1,53 @@
 package com.xl.util;
 
+import android.app.ProgressDialog;
+import android.content.Context;
+
 import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class JsonHttpResponseHandler extends
-		com.loopj.android.http.JsonHttpResponseHandler {
+        com.loopj.android.http.JsonHttpResponseHandler {
 
-	@Override
-	public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-		// TODO Auto-generated method stub
-		onSuccess(response);
-	}
+    private ProgressDialog dialog = null;
 
-	public void onSuccess(JSONObject jo) {
+    @Override
+    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+        // TODO Auto-generated method stub
+        onSuccess(response);
+    }
 
-	}
-	
-	@Override
-	public void onFailure(int statusCode, Header[] headers,
-			String responseString, Throwable throwable) {
-		// TODO Auto-generated method stub
-		onFailure();
-	}
+    public JsonHttpResponseHandler() {
+        super();
+    }
+
+    public JsonHttpResponseHandler(Context context, String progress) {
+        super();
+        dialog = Utils.progress(context, progress);
+    }
+
+    public JsonHttpResponseHandler(Context context, String progress,boolean cancleable) {
+        super();
+        dialog = Utils.progress(context, progress);
+        dialog.setCancelable(cancleable);
+        dialog.setCanceledOnTouchOutside(cancleable);
+    }
+
+    public void onSuccess(JSONObject jo) {
+//        int status = jo.optInt(ResultCode.STATUS);
+//        switch (status) {
+//            case ResultCode.SUCCESS:
+//                break;
+//        }
+    }
+
+    @Override
+    public void onFailure(int statusCode, Header[] headers,
+                          String responseString, Throwable throwable) {
+        // TODO Auto-generated method stub
+        onFailure();
+    }
 
     @Override
     public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
@@ -34,8 +59,15 @@ public class JsonHttpResponseHandler extends
         onFailure();
     }
 
-    public void onFailure(){
-		
-	}
-	
+    public void onFailure() {
+
+    }
+
+    @Override
+    public void onFinish() {
+        super.onFinish();
+        if (dialog != null && dialog.isShowing()) {
+            dialog.dismiss();
+        }
+    }
 }

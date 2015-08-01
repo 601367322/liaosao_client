@@ -5,23 +5,25 @@ import android.content.Context;
 public class CommonShared {
     private SharedDataUtil sp;
     private SharedDataUtil.SharedDataEditor editor;
-    private final String SOUND = "sound";
-    private final String VIBRATION = "vibration";
-    private final String DISTANCE = "distance";
-    private final String SEX = "sex";
+    private final String SOUND = "sound"; //开启声音
+    private final String VIBRATION = "vibration";//开启震动
+    private final String DISTANCE = "distance";//开启定位
     public final String LAT = "lat";
     public final String LNG = "lng";
-    private final String LOCATION = "location";// 定位的城市
-    private final String AREA = "area";//区域
-    private final String SHOWDRAWER = "showdrawer";
+    private final String CITY = "city";// 定位的城市
+    private final String PROVINCE = "province";
+    private final String SHOWDRAWER = "showdrawer";//是否自动弹出左侧菜单
     private final String MESSAGECOUNT = "messagecount";//未读消息数
-    private final String FBI = "fbi";
-    private final String ISVIP = "isvip";
+    private final String FBI = "fbi";//是否第一次显示安全警告
+    private final String ISVIP = "isvip";//是否是会员
+
+    private final String ISMANAGER = "ismanager";
+
+    private String IsFirstStartApp = "isfirststartapp";
 
     public static final int ON = 1;
     public static final int OFF = 0;
 
-    private final String HADSETSEX = "had_set_sex";
 
     public CommonShared(Context context) {
         sp = SharedDataUtil.getInstance(context);
@@ -55,23 +57,6 @@ public class CommonShared {
         return sp.getInt(VIBRATION, ON);
     }
 
-    public void setSex(int s) {
-        editor.putInt(SEX, s);
-        editor.commit();
-    }
-
-    public int getSex() {
-        return sp.getInt(SEX, 0);
-    }
-
-    public void setHadSex(int s) {
-        editor.putInt(HADSETSEX, s);
-        editor.commit();
-    }
-
-    public int getHadSex() {
-        return sp.getInt(HADSETSEX, OFF);
-    }
 
     public String getLat() {
         return sp.getString(LAT, "");
@@ -91,22 +76,22 @@ public class CommonShared {
         editor.commit();
     }
 
-    public void setLocation(String str) {
-        editor.putString(LOCATION, str);
+    public void setCITY(String str) {
+        editor.putString(CITY, str);
         editor.commit();
     }
 
-    public String getLocation() {
-        return sp.getString(LOCATION, "二次元世界");
+    public String getCITY() {
+        return sp.getString(CITY, "");
     }
 
-    public void setArea(String str) {
-        editor.putString(AREA, str);
+    public void setPROVINCE(String str) {
+        editor.putString(PROVINCE, str);
         editor.commit();
     }
 
-    public String getArea() {
-        return getLocation() + sp.getString(AREA, getLocation() + "");
+    public String getPROVINCE() {
+        return sp.getString(PROVINCE, "");
     }
 
     public void setShowDrawer(int on) {
@@ -133,6 +118,28 @@ public class CommonShared {
     }
 
     public int getISVIP() {
+        if (getISMANAGER() == ON) {
+            return ON;
+        }
         return sp.getInt(ISVIP, OFF);
+    }
+
+
+    public int getIsFirstStartApp() {
+        return sp.getInt(IsFirstStartApp, ON);
+    }
+
+    public void setIsFirstStartApp(int on) {
+        editor.putInt(IsFirstStartApp, on);
+        editor.commit();
+    }
+
+    public int getISMANAGER() {
+        return sp.getInt(ISMANAGER, OFF);
+    }
+
+    public void setISMANAGER(int on) {
+        editor.putInt(ISMANAGER, on);
+        editor.commit();
     }
 }

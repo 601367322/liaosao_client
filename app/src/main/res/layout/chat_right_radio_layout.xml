@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:id="@+id/radio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_margin="8dp"
+        android:background="@drawable/chat_right_bg"
+        android:gravity="right|center_vertical"
+        android:minHeight="35dp"
+        android:minWidth="60dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:src="@drawable/icn_play_big"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <ProgressBar
+        android:layout_alignTop="@id/radio"
+        android:layout_toLeftOf="@id/radio"
+        android:id="@+id/progress"
+        android:visibility="gone"
+        android:layout_width="20dp"
+        android:layout_height="20dp"/>
+
+    <ImageView
+        android:id="@+id/error"
+        android:layout_width="20dp"
+        android:layout_centerVertical="true"
+        android:layout_height="20dp"
+        android:src="@drawable/chat_error_icon"
+        android:layout_toLeftOf="@id/radio"
+        android:visibility="gone"/>
+</RelativeLayout>

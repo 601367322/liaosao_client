@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/black"
+                android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:id="@+id/recorder_surface_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/recorder_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#222222"
+        android:paddingBottom="20dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:paddingTop="20dp">
+
+        <com.xl.recorder.MasterLayout
+            android:id="@+id/reset_btn"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:visibility="gone"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:clickable="true">
+        </com.xl.recorder.MasterLayout>
+
+        <com.xl.recorder.MasterLayout
+            android:id="@+id/play_btn"
+            android:layout_width="80dp"
+            android:visibility="gone"
+            android:layout_height="80dp"
+            android:layout_centerInParent="true"
+            android:clickable="true">
+        </com.xl.recorder.MasterLayout>
+
+        <com.xl.recorder.MasterLayout
+            android:id="@+id/start_btn"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:clickable="true">
+        </com.xl.recorder.MasterLayout>
+        <View
+            android:id="@+id/right_view"
+            android:layout_width="80dp"
+            android:layout_alignParentRight="true"
+            android:layout_height="80dp"/>
+    </RelativeLayout>
+
+
+</RelativeLayout>

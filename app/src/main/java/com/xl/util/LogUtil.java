@@ -1,9 +1,9 @@
 package com.xl.util;
 
+import android.util.Log;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import android.util.Log;
 
 public class LogUtil {
 	private static final boolean DEBUG = true;
@@ -27,7 +27,7 @@ public class LogUtil {
 
 	public static void d(String msg) {
 		if (DEBUG) {
-			Log.d(_FILE_(), "[" + getLineMethod() + "]" + msg);
+			Log.d("LogUtil\t"+_FILE_(), "[" + getLineMethod() + "]" + msg);
 		}
 	}
 

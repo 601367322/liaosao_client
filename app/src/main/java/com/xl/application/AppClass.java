@@ -28,30 +28,31 @@ import a.b.c.DynamicSdkManager;
 
 @EApplication
 public class AppClass extends Application {
-	
-	public AsyncHttpClient httpClient;
-	public String deviceId;
+
+    public AsyncHttpClient httpClient;
+    public String deviceId;
     public CommonShared cs;
+
+    public static final String MANAGER = "manager";
 
     public static final DisplayImageOptions options_no_default = new DisplayImageOptions.Builder()
             .cacheInMemory(true).cacheOnDisk(true).build();
 
-	public void onCreate() {
+    public void onCreate() {
 //		LeakCanary.install(this);
 
-		try {
-			DynamicSdkManager.onCreate(this);
-		} catch (Throwable e) {
-			e.printStackTrace();
-		}
+        try {
+            DynamicSdkManager.onCreate(this);
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
 
+        cs = new CommonShared(this);
 
-		if((deviceId=getBean().getDeviceId()).equals("")){
-			getBean().setDeviceId((deviceId = new DeviceUuidFactory(this).getDeviceUuid().toString())).commit(this);
-		}
+        initDeviceid();
 
-		httpClient=new AsyncHttpClient();
-		httpClient.setCookieStore(new PersistentCookieStore(this));
+        httpClient = new AsyncHttpClient();
+        httpClient.setCookieStore(new PersistentCookieStore(this));
         httpClient.setURLEncodingEnabled(false);
 
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
@@ -61,59 +62,70 @@ public class AppClass extends Application {
 //        L.writeDebugLogs(false);
         ImageLoader.getInstance().init(config);
 
-        cs=new CommonShared(this);
+        super.onCreate();
+    }
 
-		super.onCreate();
-	}
+    public void initDeviceid(){
+        if (cs.getISMANAGER() == CommonShared.ON) {
+            deviceId = MANAGER;
+        }else {
+            if ((deviceId = getBean().getDeviceId()).equals("")) {
+                getBean().setDeviceId((deviceId = new DeviceUuidFactory(this).getDeviceUuid().toString())).commit(this);
+            }
+        }
+    }
 
-	public RequestParams getRequestParams(){
-		RequestParams rp=new RequestParams();
-		rp.put("deviceId", deviceId);
-		return rp;
-	}
-	
-	public Bean getBean(){
-		return OpenHelperManager.getHelper(this, DBHelper.class).getShared().getBean();
-	}
-	
-	 /** 向Service发送Message的Messenger对象 */  
+    public RequestParams getRequestParams() {
+        RequestParams rp = new RequestParams();
+        rp.put("deviceId", deviceId);
+        return rp;
+    }
+
+    public Bean getBean() {
+        return OpenHelperManager.getHelper(this, DBHelper.class).getShared().getBean();
+    }
+
+    /**
+     * 向Service发送Message的Messenger对象
+     */
     IPushService mService = null;
-  
-    private ServiceConnection mConnection = new ServiceConnection() {  
-        public void onServiceConnected(ComponentName className, IBinder service) {  
-            mService = IPushService.Stub.asInterface(service);  
-        }  
+
+    private ServiceConnection mConnection = new ServiceConnection() {
+        public void onServiceConnected(ComponentName className, IBinder service) {
+            mService = IPushService.Stub.asInterface(service);
+        }
+
         /**异常时才会调用**/
-        public void onServiceDisconnected(ComponentName className) {  
-            mService = null;  
-        }  
-    };  
-    
-    public void startService(){
-    	Intent i = new Intent(this,PushService_.class);
-    	i.setAction(PushService.ACTION_START);
-    	startService(i);
-    	bindService(i, mConnection,  
-                Context.BIND_AUTO_CREATE);  
+        public void onServiceDisconnected(ComponentName className) {
+            mService = null;
+        }
+    };
+
+    public void startService() {
+        Intent i = new Intent(this, PushService_.class);
+        i.setAction(PushService.ACTION_START);
+        startService(i);
+        bindService(i, mConnection,
+                Context.BIND_AUTO_CREATE);
     }
-    
-    public void stopService(){
-    	if(mService!=null)
-    		unbindService(mConnection);
-    	mService=null;
-		PushService.actionStop(this);
+
+    public void stopService() {
+        if (mService != null)
+            unbindService(mConnection);
+        mService = null;
+        PushService.actionStop(this);
     }
-    
-    public boolean isOnline(){
-    	try {
-			if(mService==null){
-				return false;
-			}
-			return mService.isConnected();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-    	return false;
+
+    public boolean isOnline() {
+        try {
+            if (mService == null) {
+                return false;
+            }
+            return mService.isConnected();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
-    
+
 }

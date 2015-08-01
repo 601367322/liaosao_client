@@ -84,10 +84,10 @@ public class GDLocation implements AMapLocationListener {
             ac.cs.setLat(df.format(aLocation.getLatitude()));
         if (!df.format(aLocation.getLongitude()).equals("0"))
             ac.cs.setLng(df.format(aLocation.getLongitude()));
-        if (aLocation.getDistrict() != null)
-            ac.cs.setArea(aLocation.getDistrict());
+        if (aLocation.getProvince() != null)
+            ac.cs.setCITY(aLocation.getProvince());
         if (aLocation.getCity() != null)
-            ac.cs.setLocation(aLocation.getCity());
+            ac.cs.setPROVINCE(aLocation.getCity());
         Utils.locationTime = System.currentTimeMillis();
         if (locationListener != null)
             locationListener.onLocationSuccess();

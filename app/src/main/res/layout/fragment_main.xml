@@ -1,31 +1,78 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/mAdContainer"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mAdContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/activity_bg"
     tools:context="com.xl.activity.MainActivity">
-<LinearLayout
-    android:layout_width="wrap_content"
-    android:orientation="horizontal"
-    android:layout_centerInParent="true"
-    android:layout_height="wrap_content">
-    <com.getbase.floatingactionbutton.FloatingActionButton
-        android:id="@+id/connect"
+
+    <LinearLayout
+        android:id="@+id/content_ll"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:fab_colorNormal="@color/white"
-        app:fab_colorPressed="@color/white_pressed"
-        app:fab_icon="@drawable/touch_my_face"
-        app:fab_size="large" />
-    <com.getbase.floatingactionbutton.FloatingActionButton
-        android:id="@+id/connect_vip"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:fab_colorNormal="@color/white"
-        app:fab_colorPressed="@color/white_pressed"
-        app:fab_icon="@drawable/vipface"
-        app:fab_size="large" />
-</LinearLayout>
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/connect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fab_colorNormal="@color/white"
+                app:fab_colorPressed="@color/white_pressed"
+                app:fab_icon="@drawable/touch_my_face"
+                app:fab_size="large"/>
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/connect_vip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fab_colorNormal="@color/white"
+                app:fab_colorPressed="@color/white_pressed"
+                app:fab_icon="@drawable/vipface"
+                app:fab_size="large"/>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/girl_god"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fab_colorNormal="@color/white"
+                app:fab_colorPressed="@color/white_pressed"
+                app:fab_icon="@drawable/girl_god"
+                app:fab_size="large"/>
+
+            <TextView
+                android:id="@+id/managercount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/holo_red_msg_count_drawable"
+                android:gravity="center"
+                android:layout_alignRight="@id/girl_god"
+                android:layout_marginTop="5dp"
+                android:visibility="gone"
+                android:textColor="@color/white"
+                android:textSize="10sp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/manager"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"/>
 </RelativeLayout>

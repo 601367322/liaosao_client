@@ -2,6 +2,7 @@ package com.xl.db;
 
 import android.content.Context;
 
+import com.j256.ormlite.stmt.QueryBuilder;
 import com.xl.application.AppClass;
 import com.xl.bean.ChatListBean;
 import com.xl.bean.MessageBean;
@@ -32,7 +33,7 @@ public class ChatlistDao extends BaseDao<ChatListBean, Integer> {
         return instance;
     }
 
-    public void addChatListBean(MessageBean mb, String deviceId, Integer sex) {
+    public void addChatListBean(MessageBean mb, String deviceId) {
         ChatListBean chatListBean = null;
         try {
 
@@ -46,7 +47,6 @@ public class ChatlistDao extends BaseDao<ChatListBean, Integer> {
 
             chatListBean.setContent(Handler.getMsgContentType(mb));
             chatListBean.setDeviceId(deviceId);
-            chatListBean.setSex(sex);
 
             dao.createOrUpdate(chatListBean);//更新聊天记录列表
         } catch (Exception e) {
@@ -57,12 +57,15 @@ public class ChatlistDao extends BaseDao<ChatListBean, Integer> {
     public List<ChatListBean> queryForAll() {
         List<ChatListBean> list = new ArrayList<>();
         try {
-            list = dao.query(dao.queryBuilder().orderBy("id", false).prepare());
+            QueryBuilder builder = dao.queryBuilder();
+            builder.where().ne("deviceId", AppClass.MANAGER);
+            builder.orderBy("id", false);
+            list = dao.query(builder.prepare());
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        for(ChatListBean bean :list){
-            int count = ChatDao.getInstance(context).getUnCount(bean.getDeviceId(),ac.deviceId);
+        for (ChatListBean bean : list) {
+            int count = ChatDao.getInstance(context).getUnCount(bean.getDeviceId(), ac.deviceId);
             bean.setNum(count);
         }
         return list;
@@ -72,7 +75,7 @@ public class ChatlistDao extends BaseDao<ChatListBean, Integer> {
         List<ChatListBean> list = dao.queryForEq(StaticUtil.DEVICEID, deviceId);
         if (list.size() > 0) {
             ChatListBean bean = list.get(0);
-            int count = ChatDao.getInstance(context).getUnCount(bean.getDeviceId(),ac.deviceId);
+            int count = ChatDao.getInstance(context).getUnCount(bean.getDeviceId(), ac.deviceId);
             bean.setNum(count);
             return bean;
         }

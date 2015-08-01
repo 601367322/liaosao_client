@@ -13,12 +13,14 @@ import com.xl.activity.setting.HelpActivity_;
 import com.xl.activity.setting.SettingActivity_;
 import com.xl.fragment.MainFragment_;
 import com.xl.fragment.NavigationDrawerFragment;
+import com.xl.util.BroadCastUtil;
 
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.FragmentById;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.OptionsMenuItem;
+import org.androidannotations.annotations.Receiver;
 
 import a.b.c.CommonManager;
 import a.b.c.DynamicSdkManager;
@@ -118,6 +120,13 @@ public class MainActivity extends BaseActivity
     protected void onDestroy() {
         super.onDestroy();
         ac.stopService();
+    }
+
+    @Receiver(actions = BroadCastUtil.OPENLEFTMENU)
+    public void openleftmenu(){
+        if(mNavigationDrawerFragment!=null){
+            mNavigationDrawerFragment.openDrawer();
+        }
     }
 
 }

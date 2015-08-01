@@ -5,6 +5,7 @@ import android.content.Context;
 import com.j256.ormlite.stmt.DeleteBuilder;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.Where;
+import com.xl.application.AppClass;
 import com.xl.bean.MessageBean;
 import com.xl.util.LogUtil;
 
@@ -89,9 +90,15 @@ public class ChatDao extends BaseDao<MessageBean, Integer> {
     }
 
     public int getAllUnCount(String deviceId) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("toId", deviceId);
-        map.put("state", 0);
-        return dao.queryForFieldValues(map).size();
+        try {
+            QueryBuilder builder = dao.queryBuilder();
+            Where where = builder.where();
+
+            where.and(where.eq("toId", deviceId), where.eq("state", 0), where.ne("fromId", AppClass.MANAGER));
+            return dao.query(builder.prepare()).size();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 }

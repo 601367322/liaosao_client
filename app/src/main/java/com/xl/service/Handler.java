@@ -17,7 +17,9 @@ import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
 import com.xl.activity.R;
 import com.xl.activity.chat.ChatActivity_;
+import com.xl.activity.girl.GirlChatActivity_;
 import com.xl.activity.share.CommonShared;
+import com.xl.application.AppClass;
 import com.xl.application.AppClass_;
 import com.xl.bean.ChatListBean;
 import com.xl.bean.MessageBean;
@@ -62,7 +64,7 @@ public class Handler {
         try {
             JSONObject jo = new JSONObject();
             jo.put(StaticUtil.ORDER, StaticUtil.ORDER_CONNECT);
-            jo.put(StaticUtil.DEVICEID, ac.getBean().getDeviceId());
+            jo.put(StaticUtil.DEVICEID, ac.deviceId);
             sendMessage(jo.toString());
         } catch (Exception e) {
             e.printStackTrace();
@@ -95,7 +97,7 @@ public class Handler {
         MessageBean mb = new Gson().fromJson(jo.toString(), new TypeToken<MessageBean>() {
         }.getType());
 
-        if(BlackDao.getInstance(context).isExists(mb.getFromId())!=null){
+        if (BlackDao.getInstance(context).isExists(mb.getFromId()) != null) {
             return;
         }
 
@@ -110,11 +112,12 @@ public class Handler {
         switch (mb.getMsgType()) {
             case MessageBean.IMAGE:
             case MessageBean.VOICE:
+            case MessageBean.RADIO:
                 mb.setLoading(MessageBean.LOADING_NODOWNLOAD);
                 break;
         }
 
-        ChatlistDao.getInstance(context).addChatListBean(mb, mb.getFromId(), mb.getSex());
+        ChatlistDao.getInstance(context).addChatListBean(mb, mb.getFromId());
         ChatDao.getInstance(context).addMessage(ac.deviceId, mb);
 
         if (ac.cs.getSound() == CommonShared.ON && ac.cs.getVibration() == CommonShared.ON) {
@@ -127,9 +130,14 @@ public class Handler {
         if (mb.getMsgType() == MessageBean.TEXT) {
             builder.setContentText(mb.getContent());
         }
-
-        PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
-                ChatActivity_.intent(context).sex(mb.getSex()).deviceId(mb.getFromId()).flags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK).get(), PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent contentIntent;
+        if (mb.getFromId().equals(AppClass.MANAGER)) {
+            contentIntent = PendingIntent.getActivity(context, 0,
+                    GirlChatActivity_.intent(context).flags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK).get(), PendingIntent.FLAG_UPDATE_CURRENT);
+        } else {
+            contentIntent = PendingIntent.getActivity(context, 0,
+                    ChatActivity_.intent(context).deviceId(mb.getFromId()).flags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK).get(), PendingIntent.FLAG_UPDATE_CURRENT);
+        }
         builder.setContentIntent(contentIntent);
         Notification notification = null;
 
@@ -200,6 +208,9 @@ public class Handler {
                 break;
             case MessageBean.VOICE:
                 contentText = "[语音]";
+                break;
+            case MessageBean.RADIO:
+                contentText = "[视频]";
                 break;
         }
         return contentText;

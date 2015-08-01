@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="会员特权：\n1.可查看聊天记录。\n2.可定向匹配异性。\n3.可优先进行匹配。　\n4.在对方屏幕上显示您尊贵的会员象征。　\n5.免除广告困扰。　\n6.屌屌屌屌屌。"
+            android:text="会员特权：\n1.可查看聊天记录。\n2.可定向匹配异性。\n3.可优先进行匹配。　\n4.在对方屏幕上显示您尊贵的会员象征。　\n5.免除广告困扰。　\n6.可查看对方距离。\n7.可查看聊天视频。\n8.屌屌屌屌屌。"
             android:textColor="@color/holo_red_light"
             android:textSize="18sp"/>
 

@@ -1,3 +1,4 @@
+/*
 package com.xl.activity.chat.old;
 
 import android.content.Context;
@@ -36,8 +37,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.FindView;
 import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 import pl.droidsonroids.gif.GifDrawable;
@@ -218,31 +219,31 @@ public class ChatAdapters extends BaseAdapterListView<MessageBean> {
     class ViewHolder {
 
         @Nullable
-        @FindView(R.id.content)
+        @Bind(R.id.content)
         TextView content;
 
         @Nullable
-        @FindView(R.id.voice_img)
+        @Bind(R.id.voice_img)
         MyImageView voice_img;
 
         @Nullable
-        @FindView(R.id.voice)
+        @Bind(R.id.voice)
         View voice;
 
         @Nullable
-        @FindView(R.id.progress)
+        @Bind(R.id.progress)
         View progress;
 
         @Nullable
-        @FindView(R.id.img)
+        @Bind(R.id.img)
         PorterShapeImageView img;
 
         @Nullable
-        @FindView(R.id.face)
+        @Bind(R.id.face)
         MyImageView face;
 
         @Nullable
-        @FindView(R.id.error)
+        @Bind(R.id.error)
         View error;
 
         public ViewHolder(View view) {
@@ -439,3 +440,4 @@ public class ChatAdapters extends BaseAdapterListView<MessageBean> {
         }
     };
 }
+*/

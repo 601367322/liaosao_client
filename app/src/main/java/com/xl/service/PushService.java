@@ -1,6 +1,7 @@
 package com.xl.service;
 
 import android.app.AlarmManager;
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -10,10 +11,14 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.IBinder;
+import android.support.v4.app.NotificationCompat;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.xl.activity.R;
+import com.xl.activity.share.CommonShared;
 import com.xl.application.AppClass;
 import com.xl.bean.MessageBean;
 import com.xl.db.BlackDao;
@@ -53,9 +58,12 @@ public class PushService extends Service {
                 stopSelf();
             } else if (intent.getAction().equals(ACTION_START) == true)
                 start();
-            else if (intent.getAction().equals(ACTION_KEEPALIVE) == true)
+            else if (intent.getAction().equals(ACTION_KEEPALIVE) == true) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    startKeepAlives();
+                }
                 keepAlive();
-            else if (intent.getAction().equals(ACTION_RECONNECT) == true)
+            } else if (intent.getAction().equals(ACTION_RECONNECT) == true)
                 reconnectIfNecessary();
         }
         return super.onStartCommand(intent, flags, startId);
@@ -124,7 +132,7 @@ public class PushService extends Service {
     private void handleCrashedService() {
         if (wasStarted() == true) {
             /*
-			 * We probably didn't get a chance to clean up gracefully, so do it
+             * We probably didn't get a chance to clean up gracefully, so do it
 			 * now.
 			 */
             hideNotification();
@@ -138,7 +146,7 @@ public class PushService extends Service {
     @Override
     public void onDestroy() {
         log("Service destroyed (started=" + mStarted + ")");
-
+        hideNotification();
         if (mStarted == true)
             stop();
 
@@ -192,13 +200,42 @@ public class PushService extends Service {
                         for (int i = 0; i < ja.length(); i++) {
                             MessageBean mb = gson.fromJson(ja.optJSONObject(i).optString("message"), new TypeToken<MessageBean>() {
                             }.getType());
-                            if(BlackDao.getInstance(getApplicationContext()).isExists(mb.getFromId())!=null){
+                            if (BlackDao.getInstance(getApplicationContext()).isExists(mb.getFromId()) != null) {
                                 continue;
                             }
-                            ChatlistDao.getInstance(getApplicationContext()).addChatListBean(mb, mb.getFromId(), mb.getSex());
+                            ChatlistDao.getInstance(getApplicationContext()).addChatListBean(mb, mb.getFromId());
                             ChatDao.getInstance(getApplicationContext()).addMessage(ac.deviceId, mb);
                         }
                         sendBroadcast(new Intent(BroadCastUtil.REFRESHNEWMESSAGECOUNT));
+
+                        if (ja.length() > 0) {
+                            NotificationCompat.Builder builder = new NotificationCompat.Builder(PushService.this)
+                                    .setSmallIcon(R.drawable.ic_stat_icon).setContentTitle(PushService.this.getString(R.string.u_have_a_new_message))
+                                    .setTicker(PushService.this.getString(R.string.u_have_n_message))
+                                    .setOnlyAlertOnce(false).setAutoCancel(true)
+                                    .setDefaults(Notification.DEFAULT_ALL);
+
+                            builder.setContentText("快去看看吧。");
+
+                            if (ac.cs.getSound() == CommonShared.ON && ac.cs.getVibration() == CommonShared.ON) {
+                                builder.setDefaults(Notification.DEFAULT_ALL);
+                            } else if (ac.cs.getSound() == CommonShared.ON && ac.cs.getVibration() == CommonShared.OFF) {
+                                builder.setDefaults(Notification.DEFAULT_SOUND);
+                            } else if (ac.cs.getSound() == CommonShared.OFF && ac.cs.getVibration() == CommonShared.ON) {
+                                builder.setDefaults(Notification.DEFAULT_VIBRATE);
+                            }
+
+                            PendingIntent contentIntent = PendingIntent.getBroadcast(PushService.this, 0, new Intent(BroadCastUtil.OPENLEFTMENU), PendingIntent.FLAG_UPDATE_CURRENT);
+                            builder.setContentIntent(contentIntent);
+                            Notification notification = null;
+
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                                notification = builder.build();
+                            } else {
+                                notification = builder.getNotification();
+                            }
+                            mNotifMan.notify(NOTIF_CONNECTED, notification);
+                        }
                         break;
                 }
             }
@@ -236,8 +273,13 @@ public class PushService extends Service {
         i.setAction(ACTION_KEEPALIVE);
         PendingIntent pi = PendingIntent.getService(this, 0, i, 0);
         AlarmManager alarmMgr = (AlarmManager) getSystemService(ALARM_SERVICE);
-        alarmMgr.setRepeating(AlarmManager.RTC, System.currentTimeMillis()
-                + KEEP_ALIVE_INTERVAL, KEEP_ALIVE_INTERVAL, pi);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            alarmMgr.setWindow(AlarmManager.RTC, System.currentTimeMillis()
+                    + KEEP_ALIVE_INTERVAL, KEEP_ALIVE_INTERVAL, pi);
+        } else {
+            alarmMgr.setRepeating(AlarmManager.RTC, System.currentTimeMillis()
+                    + KEEP_ALIVE_INTERVAL, KEEP_ALIVE_INTERVAL, pi);
+        }
     }
 
     private void stopKeepAlives() {

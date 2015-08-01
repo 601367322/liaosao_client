@@ -14,14 +14,17 @@ import com.xl.bean.BlackUser;
 import com.xl.bean.ChatListBean;
 import com.xl.bean.MessageBean;
 import com.xl.bean.SharedBean;
+import com.xl.bean.UserTable;
+import com.xl.bean.UserTable_6;
 import com.xl.util.LogUtil;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class DBHelper extends OrmLiteSqliteOpenHelper {
     private static final String TAG = "DBHelper";
     private static final String DATABASE_NAME = "XL.db";
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 6;
 
     private Dao<SharedBean, Integer> sharedDao;
 
@@ -48,6 +51,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, MessageBean.class);
             TableUtils.createTable(connectionSource, ChatListBean.class);
             TableUtils.createTable(connectionSource, BlackUser.class);
+            TableUtils.createTable(connectionSource, UserTable_6.class);
         } catch (Exception e) {
             LogUtil.e(TAG, e.toString());
             e.printStackTrace();
@@ -58,14 +62,43 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
     public void onUpgrade(SQLiteDatabase sqLiteDatabase,
                           ConnectionSource connectionSource, int oldVersion, int newVersion) {
         try {
-            TableUtils.dropTable(connectionSource, SharedBean.class, true);
-            TableUtils.dropTable(connectionSource, MessageBean.class, true);
-            TableUtils.dropTable(connectionSource, ChatListBean.class, true);
-            TableUtils.dropTable(connectionSource, BlackUser.class, true);
-            onCreate(sqLiteDatabase, connectionSource);
+            switch (oldVersion) {
+                case 4:
+                    updateDB_5();
+                case 5:
+                    updateDB_6(connectionSource);
+                    break;
+            }
         } catch (Exception e) {
             LogUtil.e(TAG, e.toString());
             e.printStackTrace();
+        }
+    }
+
+    public void updateDB_5() {
+        try {
+            TableUtils.createTable(connectionSource, UserTable.class);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateDB_6(ConnectionSource connectionSource) {
+        try {
+            TableUtils.createTable(connectionSource, UserTable_6.class);
+            RuntimeExceptionDao<UserTable, Integer> dao = getRuntimeExceptionDao(UserTable.class);
+            List<UserTable> list = dao.queryForAll();
+            RuntimeExceptionDao<UserTable_6, Integer> daoNew = getRuntimeExceptionDao(UserTable_6.class);
+            for (UserTable ut : list) {
+                UserTable_6 u6 = new UserTable_6();
+                u6.setId(ut.getId());
+                u6.setDetail(ut.getDetail());
+                u6.setDeviceId(ut.getDeviceId());
+                daoNew.create(u6);
+            }
+            TableUtils.dropTable(connectionSource, UserTable.class, true);
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 
@@ -109,5 +142,9 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static RuntimeExceptionDao getUserTableDao(Context context) {
+        return getDao_(context, UserTable_6.class);
     }
 }

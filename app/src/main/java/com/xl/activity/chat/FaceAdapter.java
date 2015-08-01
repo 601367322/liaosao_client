@@ -12,8 +12,8 @@ import com.xl.util.GifDrawableCache;
 
 import java.util.List;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.FindView;
 
 
 /**
@@ -42,7 +42,7 @@ public class FaceAdapter extends BaseAdapterListView<Integer> {
 
     class ViewHolder {
 
-        @FindView(R.id.face_img)
+        @Bind(R.id.face_img)
         MyImageView face_img;
 
         public ViewHolder(View view) {

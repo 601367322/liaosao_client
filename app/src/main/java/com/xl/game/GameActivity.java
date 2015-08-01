@@ -14,6 +14,7 @@ import org.androidannotations.annotations.ViewById;
 
 import a.b.c.DynamicSdkManager;
 
+
 @EActivity(R.layout.activity_game)
 public class GameActivity extends BaseBackActivity {
 
