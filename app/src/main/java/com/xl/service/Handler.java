@@ -170,13 +170,6 @@ public class Handler {
         try {
             Intent i = new Intent(BroadCastUtil.STARTCHAT);
             i.putExtra(StaticUtil.OTHERDEVICEID, jo.getString(StaticUtil.OTHERDEVICEID));
-            if (jo.has(StaticUtil.SEX)) {
-                i.putExtra(StaticUtil.SEX, jo.getInt(StaticUtil.SEX));
-            }
-            if (jo.has(StaticUtil.LAT)) {
-                i.putExtra(StaticUtil.LAT, jo.getString(StaticUtil.LAT));
-                i.putExtra(StaticUtil.LNG, jo.getString(StaticUtil.LNG));
-            }
             context.sendBroadcast(i);
         } catch (JSONException e) {
             e.printStackTrace();

@@ -30,9 +30,6 @@ public class UserBean_6 implements Serializable {
     }
 
     public Integer getSex() {
-        if (sex == null) {
-            return 2;
-        }
         return sex;
     }
 

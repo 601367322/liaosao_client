@@ -420,12 +420,13 @@ public class PushService extends Service {
                 stopKeepAlives();
 //				hideNotification();
 
-                Intent intent = new Intent(BroadCastUtil.DISCONNECT);
-                sendBroadcast(intent);
-
                 if (mAbort == true)
                     log("Connection aborted, shutting down.");
                 else {
+
+                    Intent intent = new Intent(BroadCastUtil.DISCONNECT);
+                    sendBroadcast(intent);
+
                     try {
                         s.close();
                     } catch (IOException e) {

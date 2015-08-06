@@ -29,7 +29,7 @@ public class PayActivity extends BaseBackActivity {
     }
 
     @Click
-    public void copy1(){
+    public void copy1() {
         ClipboardManager clipboard = (ClipboardManager)
                 getSystemService(Context.CLIPBOARD_SERVICE);
         ClipData clip = ClipData.newPlainText("帐号", "bjshenbingbing17@163.com");
@@ -38,11 +38,12 @@ public class PayActivity extends BaseBackActivity {
     }
 
     @Click
-    public void copy2(){
+    public void copy2() {
         ClipboardManager clipboard = (ClipboardManager)
                 getSystemService(Context.CLIPBOARD_SERVICE);
         ClipData clip = ClipData.newPlainText("支付码", MD5.GetMD5Code(ac.deviceId).substring(8, 24));
         clipboard.setPrimaryClip(clip);
-        ToastUtil.toast(this,"已复制");
+        ToastUtil.toast(this, "已复制");
     }
+
 }

@@ -79,7 +79,6 @@ public class MainActivity extends BaseActivity
 
     }
 
-
     @OptionsItem(R.id.menu_item_share)
     void share() {
         startActivity(Intent.createChooser(getDefaultIntent(), getString(R.string.app_name)));

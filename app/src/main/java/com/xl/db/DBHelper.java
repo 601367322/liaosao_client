@@ -24,7 +24,7 @@ import java.util.List;
 public class DBHelper extends OrmLiteSqliteOpenHelper {
     private static final String TAG = "DBHelper";
     private static final String DATABASE_NAME = "XL.db";
-    private static final int DATABASE_VERSION = 6;
+    private static final int DATABASE_VERSION = 7;
 
     private Dao<SharedBean, Integer> sharedDao;
 
@@ -67,6 +67,8 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
                     updateDB_5();
                 case 5:
                     updateDB_6(connectionSource);
+                case 6:
+                    updateDB_7(connectionSource);
                     break;
             }
         } catch (Exception e) {
@@ -99,6 +101,14 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.dropTable(connectionSource, UserTable.class, true);
         } catch (Exception ex) {
             ex.printStackTrace();
+        }
+    }
+
+    public void updateDB_7(ConnectionSource connectionSource){
+        try {
+            TableUtils.clearTable(connectionSource,UserTable_6.class);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

@@ -30,22 +30,30 @@ public class ChatListAdapters extends BaseAdapterListView<ChatListBean> {
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.chat_list_item, parent, false);
             holder = new ViewHolder(convertView);
-        }else{
-            holder= (ViewHolder) convertView.getTag();
+        } else {
+            holder = (ViewHolder) convertView.getTag();
         }
-        ChatListBean bean = getItem(position);
-        if(bean != null) {
-            holder.num.setText(String.valueOf(bean.getId()));
-            holder.text.setText(bean.getContent());
-            if (bean.getNum() > 99) {
-                holder.messageCount.setVisibility(View.VISIBLE);
-                holder.messageCount.setText("99+");
-            } else if (bean.getNum() > 0) {
-                holder.messageCount.setVisibility(View.VISIBLE);
-                holder.messageCount.setText(bean.getNum() + "");
-            } else {
-                holder.messageCount.setVisibility(View.GONE);
+        try {
+            ChatListBean bean = getItem(position);
+            if (bean != null) {
+                if (holder != null) {
+                    if (holder.num != null) {
+                        holder.num.setText(String.valueOf(bean.getId()));
+                    }
+                    holder.text.setText(bean.getContent());
+                    if (bean.getNum() > 99) {
+                        holder.messageCount.setVisibility(View.VISIBLE);
+                        holder.messageCount.setText("99+");
+                    } else if (bean.getNum() > 0) {
+                        holder.messageCount.setVisibility(View.VISIBLE);
+                        holder.messageCount.setText(bean.getNum() + "");
+                    } else {
+                        holder.messageCount.setVisibility(View.GONE);
+                    }
+                }
             }
+        } catch (Throwable e) {
+            e.printStackTrace();
         }
         return convertView;
     }

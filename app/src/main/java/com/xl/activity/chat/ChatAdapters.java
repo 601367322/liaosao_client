@@ -116,31 +116,61 @@ public class ChatAdapters extends RecyclerView.Adapter<ChatAdapters.ViewHolder> 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         LogUtil.d("onBindViewHolder");
-        MessageBean mb = list.get(position);
-        switch (getItemViewType(position)) {
-            case LEFT_TEXT:
-            case RIGHT_TEXT:
-                if (holder.content != null)
-                    holder.content.setText(mb.getContent().toString());
-                break;
-            case LEFT_VOICE:
-            case RIGHT_VOICE:
-                float scale = (float) mb.getVoiceTime() / 60f;
-                float width = 150f * scale;
-                RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) holder.voice.getLayoutParams();
-                layoutParams.width = Utils.dip2px(context, 60 + (int) width);
-                holder.voice.setLayoutParams(layoutParams);
-                holder.voice.setTag(mb);
-                try {
-                    switch (getItemViewType(position)) {
-                        case LEFT_VOICE:
-                            holder.voice_img.setImageResource(R.drawable.chat_left_animation_png);
-                            break;
-                        case RIGHT_VOICE:
-                            holder.voice_img.setImageResource(R.drawable.chat_right_animation_png);
-                            break;
+        try {
+            MessageBean mb = list.get(position);
+            switch (getItemViewType(position)) {
+                case LEFT_TEXT:
+                case RIGHT_TEXT:
+                    if (holder.content != null)
+                        holder.content.setText(mb.getContent().toString());
+                    break;
+                case LEFT_VOICE:
+                case RIGHT_VOICE:
+                    float scale = (float) mb.getVoiceTime() / 60f;
+                    float width = 150f * scale;
+                    RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) holder.voice.getLayoutParams();
+                    layoutParams.width = Utils.dip2px(context, 60 + (int) width);
+                    holder.voice.setLayoutParams(layoutParams);
+                    holder.voice.setTag(mb);
+                    try {
+                        switch (getItemViewType(position)) {
+                            case LEFT_VOICE:
+                                holder.voice_img.setImageResource(R.drawable.chat_left_animation_png);
+                                break;
+                            case RIGHT_VOICE:
+                                holder.voice_img.setImageResource(R.drawable.chat_right_animation_png);
+                                break;
+                        }
+                        if (mb.getLoading() == MessageBean.LOADING_NODOWNLOAD && getItemViewType(position) == LEFT_VOICE && !downloading.contains(mb)) {
+                            downloading.add(mb);
+                            File file = new File(StaticFactory.APKCardPathChat + mb.getFromId());
+                            if (!file.exists()) {
+                                file.mkdirs();
+                            }
+                            file = new File(file, mb.getContent());
+                            ac.httpClient.get(URLS.DOWNLOADFILE + ac.deviceId + "/" + mb.getContent() + URLS.LAST, new fileDownloader(file, mb));
+                        } else if (mb.getLoading() == MessageBean.LOADING_DOWNLOADFAIL) {
+
+                        } else {
+                            if (mb.isPlaying()) {
+                                switch (getItemViewType(position)) {
+                                    case LEFT_VOICE:
+                                        holder.voice_img.setImageDrawable(new GifDrawable(context.getResources(), R.drawable.chat_left_animation));
+                                        break;
+                                    case RIGHT_VOICE:
+                                        holder.voice_img.setImageDrawable(new GifDrawable(context.getResources(), R.drawable.chat_right_animation));
+                                        break;
+                                }
+                            }
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                    if (mb.getLoading() == MessageBean.LOADING_NODOWNLOAD && getItemViewType(position) == LEFT_VOICE && !downloading.contains(mb)) {
+                    break;
+                case LEFT_IMG:
+    //                setImageSize(mb, holder.img);
+
+                    if (mb.getLoading() == MessageBean.LOADING_NODOWNLOAD && getItemViewType(position) == LEFT_IMG && !downloading.contains(mb)) {
                         downloading.add(mb);
                         File file = new File(StaticFactory.APKCardPathChat + mb.getFromId());
                         if (!file.exists()) {
@@ -149,90 +179,68 @@ public class ChatAdapters extends RecyclerView.Adapter<ChatAdapters.ViewHolder> 
                         file = new File(file, mb.getContent());
                         ac.httpClient.get(URLS.DOWNLOADFILE + ac.deviceId + "/" + mb.getContent() + URLS.LAST, new fileDownloader(file, mb));
                     } else if (mb.getLoading() == MessageBean.LOADING_DOWNLOADFAIL) {
-
+                        holder.img.setImageResource(R.drawable.aio_image_default);
                     } else {
-                        if (mb.isPlaying()) {
-                            switch (getItemViewType(position)) {
-                                case LEFT_VOICE:
-                                    holder.voice_img.setImageDrawable(new GifDrawable(context.getResources(), R.drawable.chat_left_animation));
-                                    break;
-                                case RIGHT_VOICE:
-                                    holder.voice_img.setImageDrawable(new GifDrawable(context.getResources(), R.drawable.chat_right_animation));
-                                    break;
-                            }
-                        }
+                        ImageLoader.getInstance().displayImage(StaticUtil.FILE + mb.getContent(), holder.img, options_default, new imgListener(mb));
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                break;
-            case LEFT_IMG:
-//                setImageSize(mb, holder.img);
-
-                if (mb.getLoading() == MessageBean.LOADING_NODOWNLOAD && getItemViewType(position) == LEFT_IMG && !downloading.contains(mb)) {
-                    downloading.add(mb);
-                    File file = new File(StaticFactory.APKCardPathChat + mb.getFromId());
-                    if (!file.exists()) {
-                        file.mkdirs();
-                    }
-                    file = new File(file, mb.getContent());
-                    ac.httpClient.get(URLS.DOWNLOADFILE + ac.deviceId + "/" + mb.getContent() + URLS.LAST, new fileDownloader(file, mb));
-                } else if (mb.getLoading() == MessageBean.LOADING_DOWNLOADFAIL) {
-                    holder.img.setImageResource(R.drawable.aio_image_default);
-                } else {
+                    holder.img.setTag(StaticUtil.FILE + mb.getContent());
+                    holder.img.setOnClickListener(clickListener);
+                    break;
+                case RIGHT_IMG:
+    //                setImageSize(mb, holder.img);
                     ImageLoader.getInstance().displayImage(StaticUtil.FILE + mb.getContent(), holder.img, options_default, new imgListener(mb));
-                }
-                holder.img.setTag(StaticUtil.FILE + mb.getContent());
-                holder.img.setOnClickListener(clickListener);
-                break;
-            case RIGHT_IMG:
-//                setImageSize(mb, holder.img);
-                ImageLoader.getInstance().displayImage(StaticUtil.FILE + mb.getContent(), holder.img, options_default, new imgListener(mb));
-                holder.img.setTag(StaticUtil.FILE + mb.getContent());
-                holder.img.setOnClickListener(clickListener);
-                break;
-            case LEFT_FACE:
-            case RIGHT_FACE:
-                GifDrawable drawable = GifDrawableCache.getInstance().getDrawable((long) context.getResources().getIdentifier(mb.getContent(), "drawable", context.getPackageName()), context);
-                int img_width = drawable.getMinimumWidth();
-                int max_widht = Utils.dip2px(context, 80);
-                float scale1 = (float) img_width / (float) max_widht;
-                int new_height = (int) ((float) drawable.getMinimumHeight() / scale1);
-                RelativeLayout.LayoutParams layoutParams1 = (RelativeLayout.LayoutParams) holder.face.getLayoutParams();
-                layoutParams1.width = max_widht;
-                layoutParams1.height = new_height;
-                holder.face.setLayoutParams(layoutParams1);
-                holder.face.setImageGifDrawable(drawable);
-                holder.face.setStart(true);
-                break;
-            case RIGHT_RADIO:
-            case LEFT_RADIO:
-                if (mb.getLoading() == MessageBean.LOADING_NODOWNLOAD && getItemViewType(position) == LEFT_RADIO && !downloading.contains(mb)) {
-                    downloading.add(mb);
-                    File file = new File(StaticFactory.APKCardPathChat + mb.getFromId());
-                    if (!file.exists()) {
-                        file.mkdirs();
+                    holder.img.setTag(StaticUtil.FILE + mb.getContent());
+                    holder.img.setOnClickListener(clickListener);
+                    break;
+                case LEFT_FACE:
+                case RIGHT_FACE:
+                    GifDrawable drawable = GifDrawableCache.getInstance().getDrawable((long) context.getResources().getIdentifier(mb.getContent(), "drawable", context.getPackageName()), context);
+                    int img_width = drawable.getMinimumWidth();
+                    int max_widht = Utils.dip2px(context, 80);
+                    float scale1 = (float) img_width / (float) max_widht;
+                    int new_height = (int) ((float) drawable.getMinimumHeight() / scale1);
+                    RelativeLayout.LayoutParams layoutParams1 = (RelativeLayout.LayoutParams) holder.face.getLayoutParams();
+                    layoutParams1.width = max_widht;
+                    layoutParams1.height = new_height;
+                    holder.face.setLayoutParams(layoutParams1);
+                    holder.face.setImageGifDrawable(drawable);
+                    holder.face.setStart(true);
+                    break;
+                case RIGHT_RADIO:
+                case LEFT_RADIO:
+                    if (mb.getLoading() == MessageBean.LOADING_NODOWNLOAD && getItemViewType(position) == LEFT_RADIO && !downloading.contains(mb)) {
+                        downloading.add(mb);
+                        File file = new File(StaticFactory.APKCardPathChat + mb.getFromId());
+                        if (!file.exists()) {
+                            file.mkdirs();
+                        }
+                        file = new File(file, mb.getContent());
+                        ac.httpClient.get(URLS.DOWNLOADFILE + ac.deviceId + "/" + mb.getContent() + URLS.LAST, new fileDownloader(file, mb));
+                    } else if (mb.getLoading() == MessageBean.LOADING_DOWNLOADFAIL) {
+    //                    holder.img.setImageResource(R.drawable.aio_image_default);
+                    } else {
+    //                    ImageLoader.getInstance().displayImage(StaticUtil.FILE + mb.getContent(), holder.img, options_default, new imgListener(mb));
                     }
-                    file = new File(file, mb.getContent());
-                    ac.httpClient.get(URLS.DOWNLOADFILE + ac.deviceId + "/" + mb.getContent() + URLS.LAST, new fileDownloader(file, mb));
-                } else if (mb.getLoading() == MessageBean.LOADING_DOWNLOADFAIL) {
-//                    holder.img.setImageResource(R.drawable.aio_image_default);
+                    holder.radio.setTag(mb);
+                    break;
+            }
+            if (holder.progress != null) {
+                if (mb.getLoading() == MessageBean.LOADING_DOWNLOADING) {
+                    holder.progress.setVisibility(View.VISIBLE);
                 } else {
-//                    ImageLoader.getInstance().displayImage(StaticUtil.FILE + mb.getContent(), holder.img, options_default, new imgListener(mb));
+                    holder.progress.setVisibility(View.GONE);
                 }
-                holder.radio.setTag(mb);
-                break;
-        }
-        if (mb.getLoading() == MessageBean.LOADING_DOWNLOADING) {
-            holder.progress.setVisibility(View.VISIBLE);
-        } else {
-            holder.progress.setVisibility(View.GONE);
-        }
-        if (mb.getLoading() == MessageBean.LOADING_DOWNLOADFAIL) {
-            holder.error.setVisibility(View.VISIBLE);
-            holder.error.setTag(mb);
-        } else {
-            holder.error.setVisibility(View.GONE);
+            }
+            if (holder.error != null) {
+                if (mb.getLoading() == MessageBean.LOADING_DOWNLOADFAIL) {
+                    holder.error.setVisibility(View.VISIBLE);
+                    holder.error.setTag(mb);
+                } else {
+                    holder.error.setVisibility(View.GONE);
+                }
+            }
+        } catch (Throwable e) {
+            e.printStackTrace();
         }
     }
 

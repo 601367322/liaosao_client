@@ -238,7 +238,11 @@ public class ChatActivity extends BaseBackActivity implements
                         if (ut.getBean().isGirl()) {
                             title += "女神认证";
                         } else {
-                            title += ut.getBean().getSex() == 1 ? "女" : "男";
+                            if (ut.getBean() == null || ut.getBean().getSex() == null) {
+                                title += "未知性别";
+                            } else {
+                                title += ut.getBean().getSex() == 1 ? "女" : "男";
+                            }
                         }
                         if (ut.getBean().isVip()) {
                             title += "\t　会员";
@@ -1131,7 +1135,6 @@ public class ChatActivity extends BaseBackActivity implements
     @Receiver(actions = BroadCastUtil.DISCONNECT)
     void disconnect() {
         ToastUtil.toast(ChatActivity.this, getString(R.string.guaiwolo), R.drawable.wunai);
-        finish();
     }
 
     @Touch

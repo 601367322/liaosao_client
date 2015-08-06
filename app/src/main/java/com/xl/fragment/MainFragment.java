@@ -21,6 +21,7 @@ import com.xl.activity.R;
 import com.xl.activity.base.BaseFragment;
 import com.xl.activity.chat.ChatActivity_;
 import com.xl.activity.girl.GirlChatActivity_;
+import com.xl.activity.pay.PayActivity_;
 import com.xl.activity.share.CommonShared;
 import com.xl.application.AppClass;
 import com.xl.bean.UserTable_6;
@@ -132,7 +133,7 @@ public class MainFragment extends BaseFragment {
 
     public void initSource() {
         UserTable_6 ut = userTableDao.getUserTableByDeviceId(ac.deviceId);
-        if (ac.cs.getIsFirstStartApp() == CommonShared.ON || ut == null) {
+        if (ac.cs.getIsFirstStartApp() == CommonShared.ON || ut == null || ut.getBean() == null || ut.getBean().getSex() == null) {
 
             ac.httpClient.post(URLS.GETUSERINFO, ac.getRequestParams(), new JsonHttpResponseHandler(getActivity(), getString(R.string.synchronization), false) {
 
@@ -335,7 +336,7 @@ public class MainFragment extends BaseFragment {
     }
 
     public void doConnectVipDialog() {
-        if(getActivity()!=null) {
+        if (getActivity() != null) {
             AlertDialog dialog = new AlertDialog.Builder(getActivity()).setTitle("希望匹配到").setPositiveButton("男", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -407,13 +408,13 @@ public class MainFragment extends BaseFragment {
         cancle();
     }
 
-    @Receiver(actions = {BroadCastUtil.REFRESHNEWMESSAGECOUNT,BroadCastUtil.NEWMESSAGE})
+    @Receiver(actions = {BroadCastUtil.REFRESHNEWMESSAGECOUNT, BroadCastUtil.NEWMESSAGE})
     void refreshMessageCount() {
         setCount();
     }
 
     @UiThread
-    public void setCount(){
+    public void setCount() {
         int managerCount = chatDao.getUnCount(AppClass.MANAGER, ac.deviceId);
         if (managerCount > 0) {
             managercount.setVisibility(View.VISIBLE);
@@ -469,6 +470,11 @@ public class MainFragment extends BaseFragment {
     @Click(R.id.girl_god)
     public void girlGodClick() {
         GirlChatActivity_.intent(this).start();
+    }
+
+    @Click
+    public void pay() {
+        PayActivity_.intent(this).start();
     }
 
     @Click

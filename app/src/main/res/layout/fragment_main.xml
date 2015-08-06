@@ -14,8 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:orientation="vertical"
-        android:visibility="gone">
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -59,14 +58,24 @@
                 android:id="@+id/managercount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/holo_red_msg_count_drawable"
-                android:gravity="center"
                 android:layout_alignRight="@id/girl_god"
                 android:layout_marginTop="5dp"
-                android:visibility="gone"
+                android:background="@drawable/holo_red_msg_count_drawable"
+                android:gravity="center"
                 android:textColor="@color/white"
-                android:textSize="10sp" />
+                android:textSize="10sp"
+                android:visibility="gone"/>
         </RelativeLayout>
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/pay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            app:fab_colorNormal="@color/white"
+            app:fab_colorPressed="@color/white_pressed"
+            app:fab_icon="@drawable/pay_float_btn"
+            app:fab_size="large"/>
     </LinearLayout>
 
     <View
@@ -75,4 +84,14 @@
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:padding="16dp"
+        android:text="提示：部分小米用户无法弹出提示框，为了不影响您的正常使用，请手动启用（安全中心-授权管理-应用权限管理-聊烧-显示悬浮窗)"
+        android:textColor="@color/primary_dark_material_light"
+        android:textSize="12sp"
+        android:visibility="gone"/>
 </RelativeLayout>

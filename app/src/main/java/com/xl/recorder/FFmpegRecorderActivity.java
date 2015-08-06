@@ -494,79 +494,79 @@ public class FFmpegRecorderActivity extends BaseBackActivity implements MasterLa
             finish();
             return;
         }
-        //获取摄像头的所有支持的分辨率
-        List<Size> resolutionList = Util.getResolutionList(mCamera);
-        if (resolutionList != null && resolutionList.size() > 0) {
-            Collections.sort(resolutionList, new Util.ResolutionComparator());
-            Size previewSize = null;
-            if (defaultScreenResolution == -1) {
-                boolean hasSize = false;
-                //如果摄像头支持640*480，那么强制设为640*480
-                for (int i = 0; i < resolutionList.size(); i++) {
-                    Size size = resolutionList.get(i);
-                    if (size != null && size.width == 640 && size.height == 480) {
-                        previewSize = size;
-                        hasSize = true;
-                        break;
+        try {//获取摄像头的所有支持的分辨率
+            List<Size> resolutionList = Util.getResolutionList(mCamera);
+            if (resolutionList != null && resolutionList.size() > 0) {
+                Collections.sort(resolutionList, new Util.ResolutionComparator());
+                Size previewSize = null;
+                if (defaultScreenResolution == -1) {
+                    boolean hasSize = false;
+                    //如果摄像头支持640*480，那么强制设为640*480
+                    for (int i = 0; i < resolutionList.size(); i++) {
+                        Size size = resolutionList.get(i);
+                        if (size != null && size.width == 640 && size.height == 480) {
+                            previewSize = size;
+                            hasSize = true;
+                            break;
+                        }
                     }
-                }
-                //如果不支持设为中间的那个
-                if (!hasSize) {
-                    int mediumResolution = resolutionList.size() / 2;
-                    if (mediumResolution >= resolutionList.size())
-                        mediumResolution = resolutionList.size() - 1;
-                    previewSize = resolutionList.get(mediumResolution);
-                }
-            } else {
-                if (defaultScreenResolution >= resolutionList.size())
-                    defaultScreenResolution = resolutionList.size() - 1;
-                previewSize = resolutionList.get(defaultScreenResolution);
-            }
-            //获取计算过的摄像头分辨率
-            if (previewSize != null) {
-                previewWidth = previewSize.width;
-                previewHeight = previewSize.height;
-                cameraParameters.setPreviewSize(previewWidth, previewHeight);
-                if (videoRecorder != null) {
-                    try {
-                        videoRecorder.setVideoSize(previewWidth, previewHeight);
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                    //如果不支持设为中间的那个
+                    if (!hasSize) {
+                        int mediumResolution = resolutionList.size() / 2;
+                        if (mediumResolution >= resolutionList.size())
+                            mediumResolution = resolutionList.size() - 1;
+                        previewSize = resolutionList.get(mediumResolution);
                     }
+                } else {
+                    if (defaultScreenResolution >= resolutionList.size())
+                        defaultScreenResolution = resolutionList.size() - 1;
+                    previewSize = resolutionList.get(defaultScreenResolution);
                 }
+                //获取计算过的摄像头分辨率
+                if (previewSize != null) {
+                    previewWidth = previewSize.width;
+                    previewHeight = previewSize.height;
+                    cameraParameters.setPreviewSize(previewWidth, previewHeight);
+                    if (videoRecorder != null) {
+                        try {
+                            videoRecorder.setVideoSize(previewWidth, previewHeight);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
 
+                }
             }
-        }
 
-        bufferByte = new byte[previewWidth * previewHeight * 3 / 2];
+            bufferByte = new byte[previewWidth * previewHeight * 3 / 2];
 
-        mCamera.addCallbackBuffer(bufferByte);
+            mCamera.addCallbackBuffer(bufferByte);
 
-        //设置预览帧率
-        cameraParameters.setPreviewFrameRate(frameRate);
+            //设置预览帧率
+            cameraParameters.setPreviewFrameRate(frameRate);
 
-        //系统版本为8一下的不支持这种对焦
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.FROYO) {
-            mCamera.setDisplayOrientation(Util.determineDisplayOrientation(FFmpegRecorderActivity.this, defaultCameraId));
-            List<String> focusModes = cameraParameters.getSupportedFocusModes();
-            if (focusModes != null) {
-                Log.i("video", Build.MODEL);
-                if (((Build.MODEL.startsWith("GT-I950"))
-                        || (Build.MODEL.endsWith("SCH-I959"))
-                        || (Build.MODEL.endsWith("MEIZU MX3"))) && focusModes.contains(Parameters.FOCUS_MODE_CONTINUOUS_PICTURE)) {
+            //系统版本为8一下的不支持这种对焦
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.FROYO) {
+                mCamera.setDisplayOrientation(Util.determineDisplayOrientation(FFmpegRecorderActivity.this, defaultCameraId));
+                List<String> focusModes = cameraParameters.getSupportedFocusModes();
+                if (focusModes != null) {
+                    Log.i("video", Build.MODEL);
+                    if (((Build.MODEL.startsWith("GT-I950"))
+                            || (Build.MODEL.endsWith("SCH-I959"))
+                            || (Build.MODEL.endsWith("MEIZU MX3"))) && focusModes.contains(Parameters.FOCUS_MODE_CONTINUOUS_PICTURE)) {
 
-                    cameraParameters.setFocusMode(Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
-                } else if (focusModes.contains(Parameters.FOCUS_MODE_CONTINUOUS_VIDEO)) {
-                    cameraParameters.setFocusMode(Parameters.FOCUS_MODE_CONTINUOUS_VIDEO);
-                } else
-                    cameraParameters.setFocusMode(Parameters.FOCUS_MODE_FIXED);
-            }
-        } else
-            mCamera.setDisplayOrientation(90);
-        try {
+                        cameraParameters.setFocusMode(Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
+                    } else if (focusModes.contains(Parameters.FOCUS_MODE_CONTINUOUS_VIDEO)) {
+                        cameraParameters.setFocusMode(Parameters.FOCUS_MODE_CONTINUOUS_VIDEO);
+                    } else
+                        cameraParameters.setFocusMode(Parameters.FOCUS_MODE_FIXED);
+                }
+            } else
+                mCamera.setDisplayOrientation(90);
+
             mCamera.setParameters(cameraParameters);
-        }catch (Throwable throwable){
-            ToastUtil.toast(this,"无法正确识别摄像头，可能无法正常拍摄。");
+        } catch (Throwable throwable) {
+            ToastUtil.toast(this, "无法正确识别摄像头，可能无法正常拍摄。");
         }
 
     }
@@ -587,7 +587,12 @@ public class FFmpegRecorderActivity extends BaseBackActivity implements MasterLa
             light_menu.setIcon(R.drawable.ic_icn_flashlight_on);
             cameraParameters.setFlashMode(Parameters.FLASH_MODE_TORCH);
         }
-        mCamera.setParameters(cameraParameters);
+        try {
+            mCamera.setParameters(cameraParameters);
+        } catch (Throwable e) {
+            e.printStackTrace();
+            ToastUtil.toast(this, "无法设置");
+        }
     }
 
     @OptionsItem(R.id.camera)
@@ -712,6 +717,12 @@ public class FFmpegRecorderActivity extends BaseBackActivity implements MasterLa
             public void onAnimationUpdate(ValueAnimator animation) {
                 totalRecodingTime = (int) animation.getCurrentPlayTime();
                 startBtn.cusview.setupprogress((Integer) animation.getAnimatedValue());
+            }
+        });
+        progress_animator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                saveRecording();
             }
         });
         progress_animator.start();
