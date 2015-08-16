@@ -5,17 +5,22 @@
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
     <style name="AppBaseTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!--
-            Theme customizations available in newer API levels can go in
-            res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
-        -->
         <item name="actionBarStyle">@style/MyActionBarStyle</item>
         <item name="colorPrimaryDark">@color/holo_blue_dark</item>
         <item name="colorPrimary">@color/holo_blue_light</item>
         <item name="colorAccent">@color/holo_blue_light</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="actionMenuTextAppearance">@style/MyABmenuTextAppearance</item>
+    </style>
+
+    <style name="AppBaseThemeNoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimaryDark">@color/holo_blue_dark</item>
+        <item name="colorPrimary">@color/holo_blue_light</item>
+        <item name="colorAccent">@color/holo_blue_light</item>
+        <item name="actionMenuTextAppearance">@style/MyABmenuTextAppearance</item>
+    </style>
+
+    <style name="AppBaseThemeNoActionBar5" parent="AppBaseThemeNoActionBar">
     </style>
 
     <style name="MyActionBarStyle" parent="@style/Widget.AppCompat.ActionBar.Solid">

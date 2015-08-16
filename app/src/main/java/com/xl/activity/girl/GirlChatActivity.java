@@ -75,7 +75,10 @@ public class GirlChatActivity extends BaseBackActivity implements
         super.onCreate(savedInstanceState);
         userTableDao = UserTableDao.getInstance(this);
         userBean = userTableDao.getUserTableByDeviceId(ac.deviceId).getBean();
+
     }
+
+
 
     protected void init() {
         notifManager.cancel(deviceId.hashCode());

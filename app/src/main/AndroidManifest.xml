@@ -47,6 +47,7 @@
             android:name="com.xl.activity.MainActivity_"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
+            android:theme="@style/AppBaseThemeNoActionBar5"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

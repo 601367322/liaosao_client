@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/message_history"
+        android:title="聊天记录" />
+
+    <item
+        android:id="@+id/girl_god"
+        android:title="女神认证(大叔绕行)" />
+
+    <item
+        android:id="@+id/game1"
+        android:title="无聊的游戏(一)" />
+
+    <item
+        android:id="@+id/game2"
+        android:title="无聊的游戏(二)" />
+</menu>

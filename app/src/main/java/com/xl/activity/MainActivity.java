@@ -1,9 +1,15 @@
 package com.xl.activity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.view.ViewParent;
+import android.widget.RelativeLayout;
 
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.fb.FeedbackAgent;
@@ -13,14 +19,12 @@ import com.xl.activity.setting.HelpActivity_;
 import com.xl.activity.setting.SettingActivity_;
 import com.xl.fragment.MainFragment_;
 import com.xl.fragment.NavigationDrawerFragment;
-import com.xl.util.BroadCastUtil;
 
 import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.FragmentById;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.OptionsMenuItem;
-import org.androidannotations.annotations.Receiver;
+import org.androidannotations.annotations.ViewById;
 
 import a.b.c.CommonManager;
 import a.b.c.DynamicSdkManager;
@@ -30,18 +34,17 @@ import a.b.c.DynamicSdkManager;
 public class MainActivity extends BaseActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
-    @FragmentById(R.id.navigation_drawer)
-    public NavigationDrawerFragment mNavigationDrawerFragment;
+    @ViewById(R.id.navigation_drawer)
+    public NavigationView mNavigationView;
 
-//    @Override
-//    protected boolean canSwipe() {
-//        return false;
-//    }
+    @ViewById
+    public DrawerLayout drawer_layout;
+
+    @ViewById
+    public Toolbar toolbar;
 
     @OptionsMenuItem(R.id.menu_item_share)
     MenuItem shareItem;
-
-//    GDLocation location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,24 +54,19 @@ public class MainActivity extends BaseActivity
         CommonManager.getInstance(getApplicationContext()).init("f8e79d512282c364",
                 "1b6279c5f1aa4dde", false);
 
-// 根据 AndroidManifest.xml 文件中的设置进行插屏及其他无积分类型广告的预加载
+        // 根据 AndroidManifest.xml 文件中的设置进行插屏及其他无积分类型广告的预加载
         DynamicSdkManager.getInstance(getApplicationContext()).initNormalAd();
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         MobclickAgent.updateOnlineConfig(this);
 
-//        location = new GDLocation(this, this, true);
+
     }
 
     protected void init() {
-//        setSwipeBackEnable(false);
 
         ac.startService();
 
-        mNavigationDrawerFragment.setUp(
-                R.id.navigation_drawer,
-                (DrawerLayout) findViewById(R.id.drawer_layout));
+        setSupportActionBar(toolbar);
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.container, new MainFragment_())
@@ -77,6 +75,35 @@ public class MainActivity extends BaseActivity
         UmengUpdateAgent.update(this);
         UmengUpdateAgent.setUpdateListener(null);
 
+        setupDrawerContent(mNavigationView);
+
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
+            ViewParent parent = drawer_layout.getParent();
+            if(parent!=null){
+                ((ViewGroup)parent).removeView(drawer_layout);
+
+                RelativeLayout layout = new RelativeLayout(this);
+                layout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                layout.setFitsSystemWindows(true);
+                layout.addView(drawer_layout);
+
+                ((ViewGroup)parent).addView(layout);
+            }
+        }
+    }
+
+    private void setupDrawerContent(NavigationView navigationView) {
+        navigationView.setNavigationItemSelectedListener(
+
+                new NavigationView.OnNavigationItemSelectedListener() {
+
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        menuItem.setChecked(true);
+                        drawer_layout.closeDrawers();
+                        return true;
+                    }
+                });
     }
 
     @OptionsItem(R.id.menu_item_share)
@@ -121,11 +148,11 @@ public class MainActivity extends BaseActivity
         ac.stopService();
     }
 
-    @Receiver(actions = BroadCastUtil.OPENLEFTMENU)
-    public void openleftmenu(){
-        if(mNavigationDrawerFragment!=null){
-            mNavigationDrawerFragment.openDrawer();
-        }
-    }
+//    @Receiver(actions = BroadCastUtil.OPENLEFTMENU)
+//    public void openleftmenu(){
+//        if(mNavigationDrawerFragment!=null){
+//            mNavigationDrawerFragment.openDrawer();
+//        }
+//    }
 
 }

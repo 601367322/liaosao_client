@@ -16,7 +16,6 @@ import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.RequestParams;
 import com.umeng.analytics.MobclickAgent;
 import com.xl.activity.BuildConfig;
-import com.xl.activity.MainActivity;
 import com.xl.activity.R;
 import com.xl.activity.base.BaseFragment;
 import com.xl.activity.chat.ChatActivity_;
@@ -450,15 +449,15 @@ public class MainFragment extends BaseFragment {
     }
 
     public void hideToGame() {
-        if (getActivity() != null) {
-            if (((MainActivity) getActivity()).mNavigationDrawerFragment != null) {
-                if (connect.getTag() != null || connectVip.getTag() != null) {
-                    ((MainActivity) getActivity()).mNavigationDrawerFragment.openDrawer();
-                } else {
-                    ((MainActivity) getActivity()).mNavigationDrawerFragment.closeDrawer();
-                }
-            }
-        }
+//        if (getActivity() != null) {
+//            if (((MainActivity) getActivity()).mNavigationDrawerFragment != null) {
+//                if (connect.getTag() != null || connectVip.getTag() != null) {
+//                    ((MainActivity) getActivity()).mNavigationDrawerFragment.openDrawer();
+//                } else {
+//                    ((MainActivity) getActivity()).mNavigationDrawerFragment.closeDrawer();
+//                }
+//            }
+//        }
 
     }
 
