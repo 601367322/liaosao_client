@@ -40,42 +40,6 @@
                 app:fab_size="large"/>
         </LinearLayout>
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal">
-
-            <com.getbase.floatingactionbutton.FloatingActionButton
-                android:id="@+id/girl_god"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:fab_colorNormal="@color/white"
-                app:fab_colorPressed="@color/white_pressed"
-                app:fab_icon="@drawable/girl_god"
-                app:fab_size="large"/>
-
-            <TextView
-                android:id="@+id/managercount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignRight="@id/girl_god"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/holo_red_msg_count_drawable"
-                android:gravity="center"
-                android:textColor="@color/white"
-                android:textSize="10sp"
-                android:visibility="gone"/>
-        </RelativeLayout>
-
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/pay"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            app:fab_colorNormal="@color/white"
-            app:fab_colorPressed="@color/white_pressed"
-            app:fab_icon="@drawable/pay_float_btn"
-            app:fab_size="large"/>
     </LinearLayout>
 
     <View

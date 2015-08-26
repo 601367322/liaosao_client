@@ -2,7 +2,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory android:title="要什么聊天记录">
-        <PreferenceScreen android:title="聊天记录"
+        <PreferenceScreen android:title="@string/message_history"
                           android:key="msgCount"
             android:summary="闭嘴">
             <!--<intent

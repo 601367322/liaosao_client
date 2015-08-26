@@ -27,6 +27,11 @@
         <item name="displayOptions">homeAsUp|showTitle</item>
     </style>
 
+    <!-- ToolBar -->
+    <style name="ToolBarStyle" parent="AppBaseTheme">
+        <item name="android:textColorPrimary">@color/white</item>
+    </style>
+
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->

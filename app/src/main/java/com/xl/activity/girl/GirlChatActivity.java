@@ -13,7 +13,6 @@ import com.umeng.analytics.MobclickAgent;
 import com.xl.activity.R;
 import com.xl.activity.base.BaseBackActivity;
 import com.xl.activity.chat.ChatAdapters;
-import com.xl.activity.share.CommonShared;
 import com.xl.application.AppClass;
 import com.xl.bean.MessageBean;
 import com.xl.bean.UserBean_6;
@@ -75,7 +74,6 @@ public class GirlChatActivity extends BaseBackActivity implements
         super.onCreate(savedInstanceState);
         userTableDao = UserTableDao.getInstance(this);
         userBean = userTableDao.getUserTableByDeviceId(ac.deviceId).getBean();
-
     }
 
 
@@ -110,9 +108,6 @@ public class GirlChatActivity extends BaseBackActivity implements
     @Background
     public void getHistoryData(boolean toLast) {
         List<MessageBean> list = ChatDao.getInstance(getApplicationContext()).getHistoryMsg(ac.deviceId, deviceId, lastId);
-        if (ac.cs.getISVIP() == CommonShared.OFF) {
-            list = new ArrayList<>();
-        }
         if (list != null) {
             for (int i = 0; i < list.size(); i++) {
                 adapter.addFirst(list.get(i));

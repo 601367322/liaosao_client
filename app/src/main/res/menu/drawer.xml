@@ -3,17 +3,39 @@
 
     <item
         android:id="@+id/message_history"
-        android:title="聊天记录" />
+        android:icon="@drawable/ic_action_communication_forum"
+        android:title="@string/message_history" />
 
     <item
         android:id="@+id/girl_god"
-        android:title="女神认证(大叔绕行)" />
-
+        android:icon="@drawable/ic_action_action_face_unlock"
+        android:title="@string/girl_god" />
+    <item
+        android:id="@+id/pay"
+        android:icon="@drawable/ic_action_maps_local_atm"
+        android:title="会员充值" />
     <item
         android:id="@+id/game1"
+        android:icon="@drawable/ic_action_action_extension"
         android:title="无聊的游戏(一)" />
 
     <item
         android:id="@+id/game2"
+        android:icon="@drawable/ic_action_navigation_apps"
         android:title="无聊的游戏(二)" />
+
+    <item
+        android:id="@+id/announcement"
+        android:icon="@drawable/ic_action_communication_chat"
+        android:title="意见反馈" />
+
+    <item
+        android:id="@+id/help"
+        android:icon="@drawable/ic_action_action_help_dark"
+        android:title="帮助说明" />
+
+    <item
+        android:id="@+id/setting"
+        android:icon="@drawable/ic_action_action_settings_dark"
+        android:title="设置" />
 </menu>

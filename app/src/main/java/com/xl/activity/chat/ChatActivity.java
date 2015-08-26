@@ -236,7 +236,7 @@ public class ChatActivity extends BaseBackActivity implements
 
                         String title = "";
                         if (ut.getBean().isGirl()) {
-                            title += "女神认证";
+                            title += getString(R.string.girl_god);
                         } else {
                             if (ut.getBean() == null || ut.getBean().getSex() == null) {
                                 title += "未知性别";

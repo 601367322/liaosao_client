@@ -10,20 +10,4 @@
         android:title="分享"
         app:showAsAction="always" />
 
-    <item
-        android:id="@+id/commit"
-        android:icon="@drawable/ic_action_action_announcement"
-        android:title="意见反馈"
-        app:showAsAction="always" />
-
-    <item
-        android:id="@+id/help"
-        android:icon="@drawable/ic_action_action_help"
-        android:title="@string/help_and_shuoming"
-        app:showAsAction="always" />
-    <item
-        android:id="@+id/setting"
-        android:icon="@drawable/ic_action_action_settings"
-        android:title="@string/action_settings"
-        app:showAsAction="always" />
 </menu>

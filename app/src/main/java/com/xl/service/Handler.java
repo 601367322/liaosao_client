@@ -139,6 +139,7 @@ public class Handler {
                     ChatActivity_.intent(context).deviceId(mb.getFromId()).flags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK).get(), PendingIntent.FLAG_UPDATE_CURRENT);
         }
         builder.setContentIntent(contentIntent);
+        builder.setPriority(Notification.PRIORITY_HIGH);
         Notification notification = null;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {

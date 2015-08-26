@@ -17,6 +17,7 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                app:theme="@style/ToolBarStyle"
                 android:background="@color/holo_blue_light"></android.support.v7.widget.Toolbar>
 
             <FrameLayout
