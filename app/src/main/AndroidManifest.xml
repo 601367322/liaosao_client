@@ -140,7 +140,7 @@
             android:value="54af4845fd98c5569900016a"></meta-data>
         <meta-data
             android:name="UMENG_CHANNEL"
-            android:value="LIAOSHAO"/>
+            android:value="${UMENG_CHANNEL_VALUE}"/>
 
         <service
             android:name="com.umeng.update.net.DownloadingService"

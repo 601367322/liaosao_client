@@ -16,6 +16,12 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
+
+
+        // dex突破65535的限制
+        multiDexEnabled true
+        // 默认是umeng的渠道
+        manifestPlaceholders = [UMENG_CHANNEL_VALUE: "umeng"]
     }
 
     signingConfigs {
