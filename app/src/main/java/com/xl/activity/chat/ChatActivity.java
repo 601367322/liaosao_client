@@ -455,10 +455,14 @@ public class ChatActivity extends BaseBackActivity implements
         sendText(context_str, 0);
     }
 
-    void sendText(final String context_str, int msgType) {
+    void sendText(String context_str, int msgType) {
+
+        if (MobclickAgent.getConfigParams(this, "key_filter").equals("on")) {
+            context_str = filter.replaceSensitiveWord(context_str, SensitivewordFilter.minMatchTYpe, "*");
+        }
 
         RequestParams rp = ac.getRequestParams();
-        final MessageBean mb = new MessageBean(ac.deviceId, deviceId,  filter.replaceSensitiveWord(context_str, SensitivewordFilter.minMatchTYpe, "*"), msgType, userBean.getSex());
+        final MessageBean mb = new MessageBean(ac.deviceId, deviceId,  context_str, msgType, userBean.getSex());
         rp.put("content", new GsonBuilder()
                 .excludeFieldsWithoutExposeAnnotation().create().toJson(mb).toString());
         rp.put("sex", userBean.getSex());
