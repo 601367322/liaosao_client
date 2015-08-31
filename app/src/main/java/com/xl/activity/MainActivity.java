@@ -33,7 +33,6 @@ import com.xl.bean.UserTable_6;
 import com.xl.db.ChatDao;
 import com.xl.db.UserTableDao;
 import com.xl.fragment.MainFragment_;
-import com.xl.fragment.NavigationDrawerFragment;
 import com.xl.game.GameActivity_;
 import com.xl.game.PinTuActivity_;
 import com.xl.util.BroadCastUtil;
@@ -58,8 +57,7 @@ import a.b.c.DynamicSdkManager;
 
 @EActivity(R.layout.activity_main)
 @OptionsMenu(R.menu.main)
-public class MainActivity extends BaseActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+public class MainActivity extends BaseActivity {
 
     @ViewById(R.id.navigation_drawer)
     public NavigationView mNavigationView;
@@ -197,11 +195,6 @@ public class MainActivity extends BaseActivity
         intent.putExtra(Intent.EXTRA_TITLE, getString(R.string.app_name));
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         return intent;
-    }
-
-    @Override
-    public void onNavigationDrawerItemSelected(int position) {
-
     }
 
     @Override
@@ -349,7 +342,7 @@ public class MainActivity extends BaseActivity
         } else if (ut.getBean().isVip()) {
             vip_text.setText("会员");
         } else {
-            vip_text.setText("屌丝");
+            vip_text.setText("普通");
         }
         if (ut.getBean() == null || ut.getBean().getSex() == null) {
             sex_text.setText("未知性别");
