@@ -11,7 +11,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.BitmapFactory;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -73,6 +72,7 @@ import com.xl.util.EventID;
 import com.xl.util.JsonHttpResponseHandler;
 import com.xl.util.LogUtil;
 import com.xl.util.ResultCode;
+import com.xl.util.SensitivewordFilter;
 import com.xl.util.StaticFactory;
 import com.xl.util.StaticUtil;
 import com.xl.util.ToastUtil;
@@ -121,8 +121,8 @@ public class ChatActivity extends BaseBackActivity implements
     String deviceId = null;
     @ViewById
     SwipeRefreshLayout swipe;
-    @ViewById
-    View fbi;
+//    @ViewById
+//    View fbi;
     @ViewById
     ImageView fbiimg;
     //    @ViewById
@@ -155,6 +155,8 @@ public class ChatActivity extends BaseBackActivity implements
     int lastId = -1; //已显示聊天记录
 
     UserTable_6 ut;
+
+    SensitivewordFilter filter = new SensitivewordFilter();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -214,12 +216,12 @@ public class ChatActivity extends BaseBackActivity implements
 
         refresh();
 
-        if (ac.cs.getFBI() == CommonShared.ON) {
-            fbiimg.setImageBitmap(Utils.zoomImg(BitmapFactory.decodeResource(getResources(), R.drawable.fbiwaring), getResources().getDisplayMetrics().widthPixels, getResources().getDisplayMetrics().heightPixels));
-            fbi.setVisibility(View.VISIBLE);
-        } else {
-            fbi.setVisibility(View.GONE);
-        }
+//        if (ac.cs.getFBI() == CommonShared.ON) {
+//            fbiimg.setImageBitmap(Utils.zoomImg(BitmapFactory.decodeResource(getResources(), R.drawable.fbiwaring), getResources().getDisplayMetrics().widthPixels, getResources().getDisplayMetrics().heightPixels));
+//            fbi.setVisibility(View.VISIBLE);
+//        } else {
+//            fbi.setVisibility(View.GONE);
+//        }
 
         checkVip();
     }
@@ -264,7 +266,7 @@ public class ChatActivity extends BaseBackActivity implements
         juli.setTitle(str);
     }
 
-    @Click
+    /*@Click
     public void fbi_btn() {
         ac.cs.setFBI(CommonShared.OFF);
         ValueAnimator animator = ObjectAnimator.ofFloat(fbi, "alpha", 1.0f, 0.0f).setDuration(200);
@@ -275,7 +277,7 @@ public class ChatActivity extends BaseBackActivity implements
             }
         });
         animator.start();
-    }
+    }*/
 
     @OptionsItem(R.id.juli)
     public void juli() {
@@ -454,8 +456,9 @@ public class ChatActivity extends BaseBackActivity implements
     }
 
     void sendText(final String context_str, int msgType) {
+
         RequestParams rp = ac.getRequestParams();
-        final MessageBean mb = new MessageBean(ac.deviceId, deviceId, context_str, msgType, userBean.getSex());
+        final MessageBean mb = new MessageBean(ac.deviceId, deviceId,  filter.replaceSensitiveWord(context_str, SensitivewordFilter.minMatchTYpe, "*"), msgType, userBean.getSex());
         rp.put("content", new GsonBuilder()
                 .excludeFieldsWithoutExposeAnnotation().create().toJson(mb).toString());
         rp.put("sex", userBean.getSex());

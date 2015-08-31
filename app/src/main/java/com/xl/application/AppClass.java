@@ -38,6 +38,8 @@ public class AppClass extends Application {
     public static final DisplayImageOptions options_no_default = new DisplayImageOptions.Builder()
             .cacheInMemory(true).cacheOnDisk(true).build();
 
+    public static Context context;
+
     public void onCreate() {
 //		LeakCanary.install(this);
 
@@ -63,6 +65,8 @@ public class AppClass extends Application {
         ImageLoader.getInstance().init(config);
 
         super.onCreate();
+
+        this.context = getApplicationContext();
     }
 
     public void initDeviceid(){

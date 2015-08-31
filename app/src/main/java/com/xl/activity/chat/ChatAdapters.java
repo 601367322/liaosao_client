@@ -27,7 +27,6 @@ import com.xl.bean.MessageBean;
 import com.xl.custom.MyImageView;
 import com.xl.db.ChatDao;
 import com.xl.util.GifDrawableCache;
-import com.xl.util.LogUtil;
 import com.xl.util.StaticFactory;
 import com.xl.util.StaticUtil;
 import com.xl.util.URLS;
@@ -75,7 +74,7 @@ public class ChatAdapters extends RecyclerView.Adapter<ChatAdapters.ViewHolder> 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int type) {
         View view = null;
-        LogUtil.d("onCreateViewHolder");
+//        LogUtil.d("onCreateViewHolder");
         switch (type) {
             case LEFT_TEXT:
                 view = LayoutInflater.from(context).inflate(R.layout.chat_left_text_layout, viewGroup, false);
@@ -115,7 +114,7 @@ public class ChatAdapters extends RecyclerView.Adapter<ChatAdapters.ViewHolder> 
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        LogUtil.d("onBindViewHolder");
+//        LogUtil.d("onBindViewHolder");
         try {
             MessageBean mb = list.get(position);
             switch (getItemViewType(position)) {
