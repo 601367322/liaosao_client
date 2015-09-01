@@ -30,7 +30,7 @@ ext {
     abortOnError = false
     targetSdkVersion =22
     minSdkVersion=14
-    versionCode=24
-    versionName = "2.3.1"
+    versionCode=25
+    versionName = "2.3.2"
 }
 
