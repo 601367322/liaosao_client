@@ -1,22 +1,7 @@
-buildscript {
-    repositories {
-        mavenCentral()
-        mavenLocal()
-    }
-
-    dependencies {
-        classpath 'com.android.tools.build:gradle:+'
-    }
-}
-
 apply plugin: 'android-library'
-apply plugin: 'maven'
-
-version = VERSION
-group = GROUP
 
 dependencies {
-    compile 'com.android.support:support-v4:+'
+    compile 'com.android.support:support-v4:22.1.1'
 }
 
 android {
@@ -38,15 +23,5 @@ android {
             res.srcDirs = ['res']
             assets.srcDirs = ['assets']
         }
-    }
-}
-
-uploadArchives {
-    repositories.mavenDeployer {
-        repository(url: "file:maven-repository/")
-
-        pom.groupId = GROUP
-        pom.artifactId = ARTIFACT_ID
-        pom.version = VERSION
     }
 }

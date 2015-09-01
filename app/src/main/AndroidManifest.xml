@@ -155,34 +155,6 @@
         <activity
             android:name="com.umeng.fb.ConversationActivity"/>
 
-        <!--有米-->
-        <activity
-             android:name="a.b.c.ActivityA"
-             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
-             android:theme="@android:style/Theme.NoTitleBar" >
-         </activity>
-         <service
-             android:name="a.b.c.ServiceA"
-             android:exported="false" >
-         </service>
-        <!-- 加入退屏广告设置-->
-        <meta-data
-            android:name="loadExitSpot"
-            android:value="true"/>
-
-        <!-- 加入视频广告设置-->
-        <meta-data
-            android:name="loadVideoAd"
-            android:value="true"/>
-
-        <meta-data
-            android:name="orientation"
-            android:value="0"/>
-
-        <meta-data
-            android:name="animType"
-            android:value="2"/>
-
         <!--高德地图-->
         <meta-data
             android:name="com.amap.api.v2.apikey"
