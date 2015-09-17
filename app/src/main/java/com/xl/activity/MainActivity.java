@@ -73,7 +73,7 @@ public class MainActivity extends BaseActivity {
 
     MenuItem girl_god,message_history;
 
-    TextView vip_text,sex_text;
+    TextView vip_text,sex_text,nickname_text;
 
     ChatDao chatDao;
     UserTableDao userTableDao;
@@ -287,7 +287,7 @@ public class MainActivity extends BaseActivity {
                                 ac.cs.setIsFirstStartApp(CommonShared.OFF);
                                 getSupportFragmentManager().beginTransaction()
                                         .replace(R.id.container, new MainFragment_())
-                                        .commit();
+                                        .commitAllowingStateLoss();
                             }
 
                             break;

@@ -1,11 +1,11 @@
 package com.xl.application;
 
-import android.app.Application;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
+import android.support.multidex.MultiDexApplication;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.loopj.android.http.AsyncHttpClient;
@@ -27,7 +27,7 @@ import org.androidannotations.annotations.EApplication;
 import a.b.c.DynamicSdkManager;
 
 @EApplication
-public class AppClass extends Application {
+public class AppClass extends MultiDexApplication {
 
     public AsyncHttpClient httpClient;
     public String deviceId;

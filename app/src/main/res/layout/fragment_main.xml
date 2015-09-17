@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    android:id="@+id/mAdContainer"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mAdContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/activity_bg"
@@ -28,7 +28,7 @@
                 app:fab_colorNormal="@color/white"
                 app:fab_colorPressed="@color/white_pressed"
                 app:fab_icon="@drawable/touch_my_face"
-                app:fab_size="large"/>
+                app:fab_size="large" />
 
             <com.getbase.floatingactionbutton.FloatingActionButton
                 android:id="@+id/connect_vip"
@@ -37,9 +37,23 @@
                 app:fab_colorNormal="@color/white"
                 app:fab_colorPressed="@color/white_pressed"
                 app:fab_icon="@drawable/vipface"
-                app:fab_size="large"/>
+                app:fab_size="large" />
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_height="wrap_content">
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/connect_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fab_colorNormal="@color/white"
+                app:fab_colorPressed="@color/white_pressed"
+                app:fab_icon="@drawable/group_face"
+                app:fab_size="large" />
+        </LinearLayout>
     </LinearLayout>
 
     <View
@@ -47,7 +61,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"/>
+        android:layout_alignParentRight="true" />
 
     <TextView
         android:layout_width="match_parent"
@@ -57,5 +71,5 @@
         android:text="提示：部分小米用户无法弹出提示框，为了不影响您的正常使用，请手动启用（安全中心-授权管理-应用权限管理-聊烧-显示悬浮窗)"
         android:textColor="@color/primary_dark_material_light"
         android:textSize="12sp"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 </RelativeLayout>

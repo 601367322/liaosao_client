@@ -2,6 +2,7 @@ package com.xl.bean;
 
 import java.io.Serializable;
 
+@Deprecated
 public class UserBean implements Serializable {
 
     public Integer sex;

@@ -37,6 +37,32 @@ android {
         }
     }
 
+    productFlavors {
+        // Define separate dev and prod product flavors.
+        dev {
+            // dev utilizes minSDKVersion = 21 to allow the Android gradle plugin
+            // to pre-dex each module and produce an APK that can be tested on
+            // Android Lollipop without time consuming dex merging processes.
+            minSdkVersion 21
+        }
+        prod {
+            // The actual minSdkVersion for the application.
+            minSdkVersion 15
+        }
+
+        xiaomi {}
+        _360 {}
+        baidu {}
+        wandoujia {}
+        yingyongbao {}
+        yingyonghui {}
+        liaosao {}
+    }
+
+    productFlavors.all {
+        flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -48,34 +74,18 @@ android {
 
             signingConfig signingConfigs.release
 
-//            applicationVariants.all { variant ->
-//                variant.outputs.each { output ->
-//                    def outputFile = output.outputFile
-//                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
-//                        // 输出apk名称为boohee_v1.0_2015-01-15_wandoujia.apk
-//                        def fileName = "liaosao_v${defaultConfig.versionName}_${releaseTime()}_${variant.productFlavors[0].name}.apk"
-//                        output.outputFile = new File(outputFile.parent, fileName)
-//                    }
-//                }
-//            }
+            applicationVariants.all { variant ->
+                variant.outputs.each { output ->
+                    def outputFile = output.outputFile
+                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                        // 输出apk名称为boohee_v1.0_2015-01-15_wandoujia.apk
+                        def fileName = "liaosao_v${defaultConfig.versionName}_${releaseTime()}_${variant.productFlavors[0].name}.apk"
+                        output.outputFile = new File(outputFile.parent, fileName)
+                    }
+                }
+            }
         }
     }
-
-//    android {
-//        productFlavors {
-//            xiaomi {}
-//            _360 {}
-//            baidu {}
-//            wandoujia {}
-//            yingyongbao{}
-//            yingyonghui{}
-//            liaosao{}
-//        }
-//
-//        productFlavors.all {
-//            flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
-//        }
-//    }
 
     sourceSets {
         main {
@@ -97,42 +107,31 @@ repositories {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.google.code.gson:gson:+'//json
-    compile 'com.android.support:support-v4:22.1.1'
-    compile 'com.android.support:appcompat-v7:22.1.1'
-    compile 'com.android.support:recyclerview-v7:22.1.1'
-    compile 'com.android.support:cardview-v7:22.1.1'
-    compile 'com.android.support:design:22.2.1'
+    compile "com.android.support:support-v4:$rootProject.ext.SupportVersion"
+    compile "com.android.support:appcompat-v7:$rootProject.ext.SupportVersion"
+    compile "com.android.support:recyclerview-v7:$rootProject.ext.SupportVersion"
+    compile "com.android.support:cardview-v7:$rootProject.ext.SupportVersion"
+    compile ('com.android.support:design:22.2.1'){
+        exclude module: 'support-v4'
+        exclude module: 'appcompat-v7'
+    }
+    compile 'com.android.support:multidex:1.0.1'
     apt "org.androidannotations:androidannotations:+"//注解
     compile "org.androidannotations:androidannotations-api:+"//注解
     compile "com.jakewharton:butterknife:7.0.0"//注解
-    //compile 'org.lucasr.twowayview:core:+@aar'
-    //compile 'org.lucasr.twowayview:layouts:+@aar'
-//    compile 'com.nostra13.universalimageloader:universal-image-loader:+'//图片加载
     compile 'com.loopj.android:android-async-http:+'//网络加载
-//    compile 'pl.droidsonroids.gif:android-gif-drawable:+'//GIF
     compile 'com.github.johnpersano:supertoasts:+@aar'//SuperToast
-//    compile 'com.github.siyamed:android-shape-imageview:+@aar'//多边形图片
     compile 'com.umeng.analytics:analytics:latest.integration'//友盟
     compile 'de.greenrobot:eventbus:+'//eventbus
-//    compile 'me.grantland:autofittextview:0.2.+'//自适应字体大小
-//    compile 'com.nhaarman.listviewanimations:lib-core:3.1.0@aar'//listview动画
-//    compile 'com.nhaarman.listviewanimations:lib-manipulation:3.1.0@aar'//listview动画
-//    compile 'com.github.navasmdc:MaterialDesign:1.+@aar'//MeterialDesign
-//    compile project(':lib-animation-list-core')//listview动画
     compile project(':lib-animation-list-manipulation')//listview动画
     compile project(':lib-float-btn')//floatBtn
-    //compile project(':lib-swipebacklayout')//滑动返回
     compile project(':lib-photoview')//photoview
     compile project(':lib-umeng')//umeng更新
-//    compile project(':lib-materialdesign')//MeterialDesign
     compile project(':lib-imageloader')//universal-image-loader
     compile project(':lib-autofittextview')//自适应字体大小
     compile project(':lib_shapeimagelibrary')//多边形图片
     compile project(':lib-preferencefragment')
     compile project(':lib-gif')
-
-//    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.3'
-//    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.3'
 }
 
 apt {

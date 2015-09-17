@@ -3,9 +3,10 @@ package com.xl.util;
 import android.app.ProgressDialog;
 import android.content.Context;
 
-import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import cz.msebera.android.httpclient.Header;
 
 public class JsonHttpResponseHandler extends
         com.loopj.android.http.JsonHttpResponseHandler {

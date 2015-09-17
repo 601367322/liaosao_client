@@ -46,6 +46,8 @@ public class MainFragment extends BaseFragment {
     @ViewById
     FloatingActionButton connectVip;
     @ViewById
+    FloatingActionButton connectGroup;
+    @ViewById
     View content_ll;
 
     @ViewById
@@ -117,7 +119,6 @@ public class MainFragment extends BaseFragment {
             }
         }
     }
-
 
 
     @Click({R.id.connect, R.id.connect_vip})
@@ -279,9 +280,6 @@ public class MainFragment extends BaseFragment {
     }
 
 
-
-
-
     void cancle() {
         if (connect != null) {
             connect.setTag(null);
@@ -360,5 +358,14 @@ public class MainFragment extends BaseFragment {
         return false;
     }
 
+    @Click(R.id.connect_group)
+    public void connectGroup(View view) {
+        ac.httpClient.post(URLS.CONNECT_GROUP,ac.getRequestParams(),new JsonHttpResponseHandler(getActivity(),"请稍候~"){
+            @Override
+            public void onSuccess(JSONObject jo) {
+                super.onSuccess(jo);
+            }
+        });
+    }
 
 }

@@ -10,6 +10,7 @@ import com.xl.util.Utils;
 /**
  * UserTable entity. @author MyEclipse Persistence Tools
  */
+@Deprecated
 @DatabaseTable(tableName = "UserTable")
 public class UserTable implements java.io.Serializable {
 

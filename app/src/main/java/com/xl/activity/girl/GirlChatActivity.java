@@ -12,7 +12,7 @@ import com.loopj.android.http.RequestParams;
 import com.umeng.analytics.MobclickAgent;
 import com.xl.activity.R;
 import com.xl.activity.base.BaseBackActivity;
-import com.xl.activity.chat.ChatAdapters;
+import com.xl.activity.chat.adapter.ChatAdapters;
 import com.xl.application.AppClass;
 import com.xl.bean.MessageBean;
 import com.xl.bean.UserBean_6;

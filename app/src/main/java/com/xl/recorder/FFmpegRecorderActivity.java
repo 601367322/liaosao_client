@@ -436,7 +436,6 @@ public class FFmpegRecorderActivity extends BaseBackActivity implements MasterLa
             if (mCamera != null) {
                 try {
                     stopPreview();
-                    mCamera.setPreviewDisplay(holder);
                 } catch (Exception exception) {
                     mCamera.release();
                     mCamera = null;
@@ -447,9 +446,13 @@ public class FFmpegRecorderActivity extends BaseBackActivity implements MasterLa
         public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
             if (isPreviewOn)
                 mCamera.stopPreview();
-            handleSurfaceChanged();
-            startPreview();
-            mCamera.autoFocus(null);
+            try {
+                mCamera.setPreviewDisplay(holder);
+                handleSurfaceChanged();
+                startPreview();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         @Override

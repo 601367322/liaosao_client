@@ -52,6 +52,7 @@ import com.nhaarman.listviewanimations.appearance.simple.SwingBottomInAnimationA
 import com.umeng.analytics.MobclickAgent;
 import com.xl.activity.R;
 import com.xl.activity.base.BaseBackActivity;
+import com.xl.activity.chat.adapter.ChatAdapters;
 import com.xl.activity.share.CommonShared;
 import com.xl.application.AppClass;
 import com.xl.bean.BlackUser;
@@ -121,12 +122,8 @@ public class ChatActivity extends BaseBackActivity implements
     String deviceId = null;
     @ViewById
     SwipeRefreshLayout swipe;
-//    @ViewById
-//    View fbi;
     @ViewById
     ImageView fbiimg;
-    //    @ViewById
-//    MyAnimationView ball_view;
     @ViewById
     View chat_ll1, chat_ll2, voice_anim_view, chat_more_ll, add_btn, image_btn, face_btn;
     @ViewById
@@ -140,7 +137,8 @@ public class ChatActivity extends BaseBackActivity implements
     MenuItem juli;
     @OptionsMenuItem(R.id.renzheng)
     MenuItem renzheng;
-
+    @Extra
+    boolean isGroup;
     @ViewById
     GridView face_grid;
 
@@ -177,6 +175,9 @@ public class ChatActivity extends BaseBackActivity implements
         } else {
             renzheng.setVisible(false);
         }
+        if(isGroup){
+            menu.clear();
+        }
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -187,9 +188,6 @@ public class ChatActivity extends BaseBackActivity implements
         content_et.setOnEditorActionListener(this);
 
         adapter = new ChatAdapters(this, new ArrayList<MessageBean>());
-//        SwingBottomInAnimationAdapter t = new SwingBottomInAnimationAdapter(adapter);
-//        t.setmGridViewPossiblyMeasuring(false);
-//        t.setAbsListView(listview);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         listview.setLayoutManager(layoutManager);
@@ -201,29 +199,15 @@ public class ChatActivity extends BaseBackActivity implements
 
         showScreenAd();
 
-       /* String distance = null;
-        if (lat != null && !ac.cs.getLat().equals("")) {
-            distance = Utils.getDistance(Double.valueOf(lng), Double.valueOf(lat), Double.valueOf(ac.cs.getLng()), Double.valueOf(ac.cs.getLat()))+"km";
-        }
-        String subTitle = "性别：" + getResources().getStringArray(R.array.sex_title)[sex];
-        if (distance != null) {
-            subTitle += "　距离：" + distance;
-        }
-        getSupportActionBar().setSubtitle(subTitle);*/
-
-
         swipe.setOnRefreshListener(this);
 
         refresh();
 
-//        if (ac.cs.getFBI() == CommonShared.ON) {
-//            fbiimg.setImageBitmap(Utils.zoomImg(BitmapFactory.decodeResource(getResources(), R.drawable.fbiwaring), getResources().getDisplayMetrics().widthPixels, getResources().getDisplayMetrics().heightPixels));
-//            fbi.setVisibility(View.VISIBLE);
-//        } else {
-//            fbi.setVisibility(View.GONE);
-//        }
-
         checkVip();
+
+        if(isGroup){
+            chat_more_ll.setVisibility(View.GONE);
+        }
     }
 
     public void checkVip() {
@@ -252,7 +236,7 @@ public class ChatActivity extends BaseBackActivity implements
                         getSupportActionBar().setTitle(title);
                         if (ac.cs.getISVIP() == CommonShared.ON) {
                             if (!TextUtils.isEmpty(ac.cs.getLat()) && !TextUtils.isEmpty(ut.getBean().getLat())) {
-                                setJuLi(Utils.getDistance(Utils.getDistance(Double.valueOf(ac.cs.getLng()), Double.valueOf(ac.cs.getLat()), Double.valueOf(ut.getBean().getLng()), Double.valueOf(ut.getBean().getLat()))));
+                                setJuLi(Utils.getDistance(Double.valueOf(ac.cs.getLng()), Double.valueOf(ac.cs.getLat()), Double.valueOf(ut.getBean().getLng()), Double.valueOf(ut.getBean().getLat()))+"km");
                             }
                         }
                         break;
@@ -265,19 +249,6 @@ public class ChatActivity extends BaseBackActivity implements
     public void setJuLi(String str) {
         juli.setTitle(str);
     }
-
-    /*@Click
-    public void fbi_btn() {
-        ac.cs.setFBI(CommonShared.OFF);
-        ValueAnimator animator = ObjectAnimator.ofFloat(fbi, "alpha", 1.0f, 0.0f).setDuration(200);
-        animator.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                fbi.setVisibility(View.GONE);
-            }
-        });
-        animator.start();
-    }*/
 
     @OptionsItem(R.id.juli)
     public void juli() {
@@ -383,16 +354,6 @@ public class ChatActivity extends BaseBackActivity implements
     public void closeChat(Intent intent) {
         String other = intent.getStringExtra(StaticUtil.DEVICEID);
         if (deviceId.equals(other)) {
-            /*if (add_btn.getRotation() > 0) {
-                closeMore(null);
-            }
-            content_et.setText("");
-            content_et.setHint("对方觉得你的脸不行，已退出聊天！");
-            content_et.setEnabled(false);
-            send_btn.setEnabled(false);
-            send_btn.setAlpha(0.5f);
-            add_btn.setEnabled(false);
-            closeInput();*/
             ToastUtil.toast(this, "他/她/它退出了聊天，不过你依然可以骚扰他/她/它……", R.drawable.be_alone);
             content_et.setHint("对方退出了聊天");
         }
@@ -603,7 +564,7 @@ public class ChatActivity extends BaseBackActivity implements
 
     @Click(R.id.voice_btn)
     void voiceBtnClick() {
-        adapter.stopArm(null);
+        PlayVoice.getInstance(adapter).stopArm(null);
         closeInput();
         closeMore(new AnimatorListenerAdapter() {
             @Override
@@ -813,7 +774,7 @@ public class ChatActivity extends BaseBackActivity implements
     @Override
     public void onPause() {
         super.onPause();
-        adapter.stopArm(null);
+        PlayVoice.getInstance(adapter).stopArm(null);
         mSensorManager.unregisterListener(this);
     }
 
@@ -852,10 +813,10 @@ public class ChatActivity extends BaseBackActivity implements
         float range = event.values[0];
         if (range >= mSensor.getMaximumRange() && audioManager.getMode() != audioManager.MODE_NORMAL) {
             audioManager.setMode(AudioManager.MODE_NORMAL);
-            adapter.replay();
+            PlayVoice.getInstance(adapter).replay();
         } else if (range < mSensor.getMaximumRange() && audioManager.getMode() != audioManager.MODE_IN_CALL) {
             audioManager.setMode(AudioManager.MODE_IN_CALL);
-            adapter.replay();
+            PlayVoice.getInstance(adapter).replay();
         }
     }
 
