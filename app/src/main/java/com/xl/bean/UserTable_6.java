@@ -34,6 +34,7 @@ public class UserTable_6 implements java.io.Serializable {
 
     public void setBean(UserBean_6 bean) {
         this.bean = bean;
+        detail = new Gson().toJson(bean);
     }
 
     public Integer getId() {

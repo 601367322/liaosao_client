@@ -1,27 +1,38 @@
 package com.xl.activity;
 
+import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.RequestParams;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.fb.FeedbackAgent;
 import com.umeng.update.UmengUpdateAgent;
 import com.xl.activity.base.BaseActivity;
+import com.xl.activity.chat.ChatActivity;
 import com.xl.activity.chat.ChatListActivity_;
 import com.xl.activity.girl.GirlChatActivity_;
 import com.xl.activity.pay.PayActivity_;
@@ -29,7 +40,9 @@ import com.xl.activity.setting.HelpActivity_;
 import com.xl.activity.setting.SettingActivity_;
 import com.xl.activity.share.CommonShared;
 import com.xl.application.AppClass;
+import com.xl.bean.UserBean_6;
 import com.xl.bean.UserTable_6;
+import com.xl.custom.ResizeLayout;
 import com.xl.db.ChatDao;
 import com.xl.db.UserTableDao;
 import com.xl.fragment.MainFragment_;
@@ -38,12 +51,15 @@ import com.xl.game.PinTuActivity_;
 import com.xl.util.BroadCastUtil;
 import com.xl.util.JsonHttpResponseHandler;
 import com.xl.util.ResultCode;
+import com.xl.util.StaticFactory;
 import com.xl.util.StaticUtil;
 import com.xl.util.ToastUtil;
 import com.xl.util.URLS;
 import com.xl.util.Utils;
 
+import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.OnActivityResult;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.OptionsMenuItem;
@@ -52,12 +68,15 @@ import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.util.Date;
+
 import a.b.c.CommonManager;
 import a.b.c.DynamicSdkManager;
 
 @EActivity(R.layout.activity_main)
 @OptionsMenu(R.menu.main)
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements ResizeLayout.OnResizeListener, View.OnClickListener {
 
     @ViewById(R.id.navigation_drawer)
     public NavigationView mNavigationView;
@@ -71,9 +90,14 @@ public class MainActivity extends BaseActivity {
     @OptionsMenuItem(R.id.menu_item_share)
     MenuItem shareItem;
 
-    MenuItem girl_god,message_history;
+    @ViewById
+    public ResizeLayout resize_layout;
 
-    TextView vip_text,sex_text,nickname_text;
+    MenuItem girl_god, message_history;
+
+    TextView vip_text, sex_text, nickname_text;
+    EditText nickname_edit;
+    ImageView logo;
 
     ChatDao chatDao;
     UserTableDao userTableDao;
@@ -113,21 +137,22 @@ public class MainActivity extends BaseActivity {
 
         if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
             ViewParent parent = drawer_layout.getParent();
-            if(parent!=null){
-                ((ViewGroup)parent).removeView(drawer_layout);
+            if (parent != null) {
+                ((ViewGroup) parent).removeView(drawer_layout);
 
                 RelativeLayout layout = new RelativeLayout(this);
                 layout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                 layout.setFitsSystemWindows(true);
                 layout.addView(drawer_layout);
 
-                ((ViewGroup)parent).addView(layout);
+                ((ViewGroup) parent).addView(layout);
             }
         }
 
         initSource();
-    }
 
+        resize_layout.setOnResizeListener(this);
+    }
 
 
     private void setupDrawerContent(NavigationView navigationView) {
@@ -137,6 +162,11 @@ public class MainActivity extends BaseActivity {
 
         vip_text = (TextView) drawer_layout.findViewById(R.id.vip_text);
         sex_text = (TextView) drawer_layout.findViewById(R.id.sex_text);
+        nickname_text = (TextView) drawer_layout.findViewById(R.id.nickname);
+        logo = (ImageView) drawer_layout.findViewById(R.id.logo);
+        nickname_edit = (EditText) drawer_layout.findViewById(R.id.nickname_edit);
+        nickname_text.setOnClickListener(this);
+        logo.setOnClickListener(this);
 
         navigationView.setNavigationItemSelectedListener(
 
@@ -205,7 +235,7 @@ public class MainActivity extends BaseActivity {
 
 
     @OptionsItem(android.R.id.home)
-    public void menu_cliek(){
+    public void menu_cliek() {
         drawer_layout.openDrawer(GravityCompat.START);
     }
 
@@ -222,13 +252,13 @@ public class MainActivity extends BaseActivity {
 
     @UiThread
     public void setCount() {
-        if(chatDao==null){
+        if (chatDao == null) {
             return;
         }
 
         int managerCount = chatDao.getUnCount(AppClass.MANAGER, ac.deviceId);
         if (managerCount > 0) {
-            girl_god.setTitle(getString(R.string.girl_god)+"("+managerCount+"条未读)");
+            girl_god.setTitle(getString(R.string.girl_god) + "(" + managerCount + "条未读)");
         } else {
             girl_god.setTitle(getString(R.string.girl_god));
         }
@@ -236,7 +266,7 @@ public class MainActivity extends BaseActivity {
         int count = chatDao.getAllUnCount(ac.deviceId);
 
         if (count > 0) {
-            message_history.setTitle(getString(R.string.message_history)+"("+count+"条未读)");
+            message_history.setTitle(getString(R.string.message_history) + "(" + count + "条未读)");
         } else {
             message_history.setTitle(getString(R.string.message_history));
         }
@@ -333,8 +363,8 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    public void setHead(UserTable_6 ut){
-        if(ut==null){
+    public void setHead(UserTable_6 ut) {
+        if (ut == null || ut.getBean() == null) {
             return;
         }
         if (ut.getBean().isGirl()) {
@@ -344,11 +374,15 @@ public class MainActivity extends BaseActivity {
         } else {
             vip_text.setText("普通");
         }
-        if (ut.getBean() == null || ut.getBean().getSex() == null) {
+        if (ut.getBean().getSex() == null) {
             sex_text.setText("未知性别");
         } else {
             sex_text.setText(ut.getBean().getSex() == 1 ? "女" : "男");
         }
+        nickname_text.setText(ut.getBean().nickname);
+        nickname_edit.setText(ut.getBean().nickname);
+
+        ImageLoader.getInstance().displayImage(ut.getBean().logo, logo, Utils.options_default_logo);
     }
 
     public void uploadSex(final int sex) {
@@ -400,4 +434,160 @@ public class MainActivity extends BaseActivity {
         });
     }
 
+    @Override
+    public void OnSoftPop(int height) {
+
+    }
+
+    @Override
+    public void OnSoftClose(int height) {
+        nickname_edit.setVisibility(View.GONE);
+        nickname_text.setVisibility(View.VISIBLE);
+        final UserTable_6 user = userTableDao.getUserTableByDeviceId(ac.deviceId);
+        final String str = nickname_edit.getText().toString();
+        if (!TextUtils.isEmpty(str)){
+            if(!str.equals(user.getBean().nickname)){
+                RequestParams params = ac.getRequestParams();
+                params.put("nickname", str);
+                ac.httpClient.post(URLS.SETUSERDETAIL,params,new JsonHttpResponseHandler(){
+
+                    @Override
+                    public void onStart() {
+                        super.onStart();
+                        nickname_text.setText(str);
+                    }
+
+                    @Override
+                    public void onSuccessCode(JSONObject jo) {
+                        super.onSuccessCode(jo);
+                        UserBean_6 bean = user.getBean();
+                        bean.nickname = str;
+                        user.setBean(bean);
+                        userTableDao.update(user);
+                    }
+
+                    @Override
+                    public void onFailCode() {
+                        super.onFailCode();
+                        nickname_text.setText(user.getBean().nickname);
+                    }
+                });
+            }
+        }
+    }
+
+    @Override
+    public void OnSoftChanegHeight(int height) {
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.nickname:
+                nickname_text.setVisibility(View.GONE);
+                nickname_edit.setVisibility(View.VISIBLE);
+                nickname_edit.setFocusable(true);
+                nickname_edit.requestFocus();
+                nickname_edit.setSelection(nickname_edit.getText().toString().length());
+                Utils.openSoftKeyboard(nickname_edit);
+                break;
+            case R.id.logo:
+                chosePic();
+                break;
+        }
+    }
+
+    String filename;
+
+    public void chosePic(){
+        new AlertDialog.Builder(this).setTitle(getString(R.string.dont_chose_fail)).setIcon(R.drawable.weisuo_yuan).setItems(new String[]{getString(R.string.Camera), getString(R.string.Album)}, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case 0:
+                        if (Utils.existSDcard()) {
+                            Intent intent = new Intent(); // 调用照相机
+                            String messagepath = StaticFactory.APKCardPathLOGO;
+                            File fa = new File(messagepath);
+                            if (!fa.exists()) {
+                                fa.mkdirs();
+                            }
+                            filename = messagepath + new Date().getTime();// 图片路径
+                            intent.putExtra(MediaStore.EXTRA_OUTPUT,
+                                    Uri.fromFile(new File(filename)));
+                            intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
+                            startActivityForResult(intent, ChatActivity.Camera);
+                        } else {
+                            ToastUtil.toast(MainActivity.this, getString(R.string.please_check_sdcard), R.drawable.kiding);
+                        }
+                        break;
+                    case 1:
+                        if (Utils.existSDcard()) {
+                            Intent intent = new Intent();
+                            String messagepath = StaticFactory.APKCardPathLOGO;
+                            File fa = new File(messagepath);
+                            if (!fa.exists()) {
+                                fa.mkdirs();
+                            }
+                            intent.setType("image/*");
+                            intent.setAction(Intent.ACTION_GET_CONTENT);
+                            startActivityForResult(intent, ChatActivity.Album);
+                        } else {
+                            ToastUtil.toast(MainActivity.this, getString(R.string.please_check_sdcard), R.drawable.kiding);
+                        }
+                        break;
+                }
+            }
+        }).create().show();
+    }
+
+    @OnActivityResult(value = ChatActivity.Camera)
+    @Background
+    void onCameraResult() {
+        if (filename != null) {
+            File fi = new File(filename);
+            if (fi != null && fi.exists()) {
+                Utils.downsize(filename, filename, this);
+            }
+            updateLogo();
+            fi = null;
+        }
+    }
+
+    @OnActivityResult(value = ChatActivity.Album)
+    @Background
+    void onAlbumResult(Intent intent) {
+        if (intent == null) {
+            return;
+        }
+        ContentResolver resolver = getContentResolver();
+        Uri imgUri = intent.getData();
+        try {
+            Cursor cursor = resolver.query(imgUri, null, null, null, null);
+            cursor.moveToFirst();
+            filename = cursor.getString(1);
+            Utils.downsize(
+                    filename,
+                    filename = StaticFactory.APKCardPath
+                            + new Date().getTime(), this);
+            updateLogo();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @UiThread
+    public void updateLogo(){
+        try {
+            RequestParams params = ac.getRequestParams();
+            params.put("file",new File(filename));
+
+            ac.httpClient.post(URLS.UPLOADUSERLOGO, params, new JsonHttpResponseHandler() {
+
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

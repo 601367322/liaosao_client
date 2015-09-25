@@ -6,6 +6,7 @@ public class StaticFactory {
     public static final String SDCardPath = Environment.getExternalStorageDirectory().getPath();//SD卡地址
     public static final String APKCardPath = Environment.getExternalStorageDirectory().getPath() + "/ls/";//SD卡地址
     public static final String APKCardPathChat = APKCardPath + "chat/";//
+    public static final String APKCardPathLOGO = APKCardPath + "logo/";//
     public static final String APKCardPathEmoticon = APKCardPath + "emoticon/";//
     public static final String APKCardPathDownload = APKCardPath + "download/";//
     public static final String APKCardPathCrash = APKCardPath + "crash/";//

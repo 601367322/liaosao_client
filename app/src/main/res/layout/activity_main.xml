@@ -8,7 +8,8 @@
     android:fitsSystemWindows="true"
     tools:context=".MainActivity">
 
-    <com.xl.custom.SizeChangeRelativeLayout
+    <com.xl.custom.ResizeLayout
+        android:id="@+id/resize_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -25,7 +26,7 @@
             android:layout_below="@id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-    </com.xl.custom.SizeChangeRelativeLayout>
+    </com.xl.custom.ResizeLayout>
     <!--<fragment
         android:id="@+id/navigation_drawer"
         android:name="com.xl.fragment.NavigationDrawerFragment_"

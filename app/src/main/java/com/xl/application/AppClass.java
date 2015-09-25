@@ -1,11 +1,11 @@
 package com.xl.application;
 
+import android.app.Application;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
-import android.support.multidex.MultiDexApplication;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.loopj.android.http.AsyncHttpClient;
@@ -14,6 +14,7 @@ import com.loopj.android.http.RequestParams;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.utils.L;
 import com.xl.activity.share.CommonShared;
 import com.xl.bean.SharedBean.Bean;
 import com.xl.db.DBHelper;
@@ -27,7 +28,7 @@ import org.androidannotations.annotations.EApplication;
 import a.b.c.DynamicSdkManager;
 
 @EApplication
-public class AppClass extends MultiDexApplication {
+public class AppClass extends Application {
 
     public AsyncHttpClient httpClient;
     public String deviceId;
@@ -60,8 +61,8 @@ public class AppClass extends MultiDexApplication {
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
                 getApplicationContext()).defaultDisplayImageOptions(
                 options_no_default).build();
-//        L.writeLogs(false);
-//        L.writeDebugLogs(false);
+        L.writeLogs(false);
+        L.writeDebugLogs(false);
         ImageLoader.getInstance().init(config);
 
         super.onCreate();

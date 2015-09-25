@@ -1,5 +1,6 @@
 package com.xl.util;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -11,9 +12,12 @@ import android.media.ExifInterface;
 import android.os.Environment;
 import android.support.v7.app.AlertDialog;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.google.gson.Gson;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.xl.activity.R;
 import com.xl.activity.pay.PayActivity_;
 
@@ -68,8 +72,8 @@ public class Utils {
                         null, o);
                 o.inJustDecodeBounds = false;
                 // Find the correct scale value. It should be the power of 2.
-                int maxWidth = context.getResources().getDisplayMetrics().widthPixels;
-                int maxHeight = context.getResources().getDisplayMetrics().heightPixels;
+                int maxWidth = 640;
+                int maxHeight = 960;
 
                 // decode with inSampleSize
                 BitmapFactory.Options temp = new BitmapFactory.Options();
@@ -98,8 +102,8 @@ public class Utils {
                         null, o);
                 o.inJustDecodeBounds = false;
                 // Find the correct scale value. It should be the power of 2.
-                int maxWidth = context.getResources().getDisplayMetrics().widthPixels;
-                int maxHeight = context.getResources().getDisplayMetrics().heightPixels;
+                int maxWidth = 640;
+                int maxHeight = 960;
 
                 // decode with inSampleSize
                 o.inSampleSize = computeSampleSize(o, -1, maxHeight * maxWidth);
@@ -370,4 +374,29 @@ public class Utils {
         },null,true,true);
     }
 
+    /**
+     * 开启软键盘
+     */
+    public static void openSoftKeyboard(EditText et) {
+        InputMethodManager inputManager = (InputMethodManager) et.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManager.showSoftInput(et, 0);
+    }
+
+    /**
+     * 关闭软键盘
+     */
+    public static void closeSoftKeyboard(Context context) {
+        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (inputMethodManager != null && ((Activity) context).getCurrentFocus() != null) {
+            inputMethodManager.hideSoftInputFromWindow(((Activity) context).getCurrentFocus()
+                    .getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+    }
+
+    public static DisplayImageOptions options_default_logo = new DisplayImageOptions.Builder()
+            .showImageOnLoading(R.drawable.default_logo)
+            .showImageForEmptyUri(R.drawable.default_logo)  // empty URI时显示的图片
+            .showImageOnFail(R.drawable.default_logo)       // 不是图片文件 显示图片
+            .cacheInMemory(true)           // default 不缓存至内存
+            .cacheOnDisk(true).build();
 }

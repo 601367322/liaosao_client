@@ -28,4 +28,6 @@ public class URLS {
     public static final String SETVIP = URL + "b/setvip" + LAST;
 
     public static final String CONNECT_GROUP = URL + "group/groupchat" + LAST;
+
+    public static final String UPLOADUSERLOGO = URL + "user/uploadlogo" + LAST;
 }

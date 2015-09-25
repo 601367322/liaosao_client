@@ -17,9 +17,6 @@ android {
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
 
-
-        // dex突破65535的限制
-        multiDexEnabled true
         // 默认是umeng的渠道
         manifestPlaceholders = [UMENG_CHANNEL_VALUE: "umeng"]
     }
@@ -37,7 +34,7 @@ android {
         }
     }
 
-    productFlavors {
+   /* productFlavors {
         // Define separate dev and prod product flavors.
         dev {
             // dev utilizes minSDKVersion = 21 to allow the Android gradle plugin
@@ -57,7 +54,7 @@ android {
         yingyongbao {}
         yingyonghui {}
         liaosao {}
-    }
+    }*/
 
     productFlavors.all {
         flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
@@ -74,7 +71,7 @@ android {
 
             signingConfig signingConfigs.release
 
-            applicationVariants.all { variant ->
+            /*applicationVariants.all { variant ->
                 variant.outputs.each { output ->
                     def outputFile = output.outputFile
                     if (outputFile != null && outputFile.name.endsWith('.apk')) {
@@ -83,7 +80,7 @@ android {
                         output.outputFile = new File(outputFile.parent, fileName)
                     }
                 }
-            }
+            }*/
         }
     }
 
@@ -115,11 +112,10 @@ dependencies {
         exclude module: 'support-v4'
         exclude module: 'appcompat-v7'
     }
-    compile 'com.android.support:multidex:1.0.1'
     apt "org.androidannotations:androidannotations:+"//注解
     compile "org.androidannotations:androidannotations-api:+"//注解
     compile "com.jakewharton:butterknife:7.0.0"//注解
-    compile 'com.loopj.android:android-async-http:+'//网络加载
+    compile 'com.loopj.android:android-async-http:1.4.9-SNAPSHOT'//网络加载
     compile 'com.github.johnpersano:supertoasts:+@aar'//SuperToast
     compile 'com.umeng.analytics:analytics:latest.integration'//友盟
     compile 'de.greenrobot:eventbus:+'//eventbus

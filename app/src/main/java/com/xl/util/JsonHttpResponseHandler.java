@@ -36,11 +36,23 @@ public class JsonHttpResponseHandler extends
     }
 
     public void onSuccess(JSONObject jo) {
-//        int status = jo.optInt(ResultCode.STATUS);
-//        switch (status) {
-//            case ResultCode.SUCCESS:
-//                break;
-//        }
+        int status = jo.optInt(ResultCode.STATUS);
+        switch (status) {
+            case ResultCode.SUCCESS:
+                onSuccessCode(jo);
+                break;
+            case ResultCode.FAIL:
+                onFailCode();
+                break;
+        }
+    }
+
+    public void onSuccessCode(JSONObject jo){
+
+    }
+
+    public void onFailCode(){
+
     }
 
     @Override
@@ -61,7 +73,7 @@ public class JsonHttpResponseHandler extends
     }
 
     public void onFailure() {
-
+        onFailCode();
     }
 
     @Override

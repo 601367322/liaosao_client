@@ -24,12 +24,17 @@ allprojects {
     }
 }
 
+task wrapper(type: Wrapper) {
+    gradleVersion = "2.6"
+}
+
+
 ext {
     compileSdkVersion = 23
     buildToolsVersion = "23.0.1"
     checkReleaseBuilds = false
     abortOnError = false
-    targetSdkVersion =23
+    targetSdkVersion =22
     minSdkVersion=15
     versionCode=25
     versionName = "2.3.2"
