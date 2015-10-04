@@ -13,8 +13,6 @@ import com.xl.util.URLS;
 import com.xl.util.Utils;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -28,8 +26,6 @@ public class VideoViewHolder extends FileBaseHolder {
     @Bind(R.id.radio)
     View radio;
 
-    private List<MessageBean> downloading = new ArrayList<>();
-
     public VideoViewHolder(View itemView) {
         super(itemView);
     }
@@ -38,8 +34,8 @@ public class VideoViewHolder extends FileBaseHolder {
     protected void bind(MessageBean bean) {
         super.bind(bean);
 
-        if (bean.getLoading() == MessageBean.LOADING_NODOWNLOAD && getMstType() == ChatAdapters.LEFT_RADIO && !downloading.contains(bean)) {
-            downloading.add(bean);
+        if (bean.getLoading() == MessageBean.LOADING_NODOWNLOAD && getMstType() == ChatAdapters.LEFT_RADIO && !adapter.downloading.contains(bean)) {
+            adapter.downloading.add(bean);
             File file = new File(StaticFactory.APKCardPathChat + bean.getFromId());
             if (!file.exists()) {
                 file.mkdirs();

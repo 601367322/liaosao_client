@@ -8,7 +8,9 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.google.gson.Gson;
 import com.loopj.android.http.RequestParams;
+import com.quan.lib_camera_video.MediaRecorderActivity;
 import com.umeng.analytics.MobclickAgent;
 import com.xl.activity.R;
 import com.xl.activity.base.BaseBackActivity;
@@ -20,7 +22,6 @@ import com.xl.custom.swipe.SwipeRefreshLayout;
 import com.xl.db.ChatDao;
 import com.xl.db.ChatlistDao;
 import com.xl.db.UserTableDao;
-import com.xl.recorder.FFmpegRecorderActivity_;
 import com.xl.util.BroadCastUtil;
 import com.xl.util.EventID;
 import com.xl.util.JsonHttpResponseHandler;
@@ -67,7 +68,7 @@ public class GirlChatActivity extends BaseBackActivity implements
 
     String deviceId = AppClass.MANAGER;
 
-    String filename;
+    String filename,thumb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +76,6 @@ public class GirlChatActivity extends BaseBackActivity implements
         userTableDao = UserTableDao.getInstance(this);
         userBean = userTableDao.getUserTableByDeviceId(ac.deviceId).getBean();
     }
-
 
 
     protected void init() {
@@ -135,6 +135,7 @@ public class GirlChatActivity extends BaseBackActivity implements
                     switch (mb.getMsgType()) {
                         case MessageBean.RADIO:
                         case MessageBean.VOICE:
+                        case MessageBean.RADIO_NEW:
                         case MessageBean.IMAGE:
                             filename = mb.getContent();
                             sendFile(mb.getMsgType());
@@ -200,10 +201,11 @@ public class GirlChatActivity extends BaseBackActivity implements
     @OnActivityResult(value = GirlChatActivity.RADIO)
     public void onRadioCallBack(int result, Intent data) {
         if (result == RESULT_OK) {
-            filename = data.getStringExtra("filename");
+            filename = data.getStringExtra("file");
+            thumb = data.getStringExtra("thumb");
             File fi = new File(filename);
             if (fi != null && fi.exists()) {
-                sendFile(MessageBean.RADIO);
+                sendFile(MessageBean.RADIO_NEW);
             }
             fi = null;
         }
@@ -215,17 +217,26 @@ public class GirlChatActivity extends BaseBackActivity implements
             MobclickAgent.onEvent(GirlChatActivity.this, EventID.SEND_VOICE);
         } else if (type == MessageBean.IMAGE) {
             MobclickAgent.onEvent(GirlChatActivity.this, EventID.SEND_IMG);
-        } else if (type == MessageBean.RADIO) {
+        } else if (type == MessageBean.RADIO || type == MessageBean.RADIO_NEW) {
             MobclickAgent.onEvent(GirlChatActivity.this, EventID.SEND_RADIO);
         }
         try {
+
+            String content = filename;
+
             RequestParams rp = ac.getRequestParams();
             rp.put("file", new File(filename));
+            if (type == MessageBean.RADIO_NEW) {
+                rp.put("thumb", new File(thumb));
+                content = new Gson().toJson(new MessageBean.RadioBean(thumb,filename));
+            }
             rp.put("toId", deviceId);
             rp.put("msgType", type);
             rp.put("voiceTime", 0);
             rp.put("sex", userBean.getSex());
-            final MessageBean mb = new MessageBean(ac.deviceId, deviceId, filename, "", "", type, 0, userBean.getSex());
+
+            final MessageBean mb = new MessageBean(ac.deviceId, deviceId, content, "", "", type, 0, userBean.getSex());
+
             ac.httpClient.post(URLS.UPLOADVOICEFILE, rp, new JsonHttpResponseHandler() {
 
                 @Override
@@ -295,7 +306,8 @@ public class GirlChatActivity extends BaseBackActivity implements
     }
 
     @Click
-    public void radio_btn(){
-        FFmpegRecorderActivity_.intent(this).startForResult(RADIO);
+    public void radio_btn() {
+        Intent i = new Intent(this, MediaRecorderActivity.class);
+        startActivityForResult(i, RADIO);
     }
 }

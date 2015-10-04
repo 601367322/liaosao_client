@@ -12,7 +12,7 @@ import java.io.Serializable;
 public class ChatListBean implements Serializable {
 
     @DatabaseField(generatedId = true)
-    private Integer id;
+    private Integer  id;
 
     @DatabaseField(unique = true)
     private String deviceId;
@@ -24,6 +24,8 @@ public class ChatListBean implements Serializable {
     private Integer sex;
 
     private int num;
+
+    private UserTable_6 friend;
 
     public ChatListBean() {
         super();
@@ -74,5 +76,13 @@ public class ChatListBean implements Serializable {
 
     public void setNum(int num) {
         this.num = num;
+    }
+
+    public UserTable_6 getFriend() {
+        return friend;
+    }
+
+    public void setFriend(UserTable_6 friend) {
+        this.friend = friend;
     }
 }

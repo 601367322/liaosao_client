@@ -23,8 +23,8 @@ import com.nostra13.universalimageloader.core.process.BitmapProcessor;
 import com.nostra13.universalimageloader.utils.L;
 
 /**
- * Presents process'n'display image task. Processes image {@linkplain android.graphics.Bitmap} and display it in {@link android.widget.ImageView} using
- * {@link com.nostra13.universalimageloader.core.DisplayBitmapTask}.
+ * Presents process'n'display image task. Processes image {@linkplain Bitmap} and display it in {@link ImageView} using
+ * {@link DisplayBitmapTask}.
  *
  * @author Sergey Tarasevich (nostra13[at]gmail[dot]com)
  * @since 1.8.0

@@ -22,7 +22,7 @@ import java.io.InputStream;
 import java.util.Locale;
 
 /**
- * Provides retrieving of {@link java.io.InputStream} of image by URI.<br />
+ * Provides retrieving of {@link InputStream} of image by URI.<br />
  * Implementations have to be thread-safe.
  *
  * @author Sergey Tarasevich (nostra13[at]gmail[dot]com)
@@ -30,13 +30,13 @@ import java.util.Locale;
  */
 public interface ImageDownloader {
 	/**
-	 * Retrieves {@link java.io.InputStream} of image by URI.
+	 * Retrieves {@link InputStream} of image by URI.
 	 *
 	 * @param imageUri Image URI
 	 * @param extra    Auxiliary object which was passed to {@link DisplayImageOptions.Builder#extraForDownloader(Object)
 	 *                 DisplayImageOptions.extraForDownloader(Object)}; can be null
-	 * @return {@link java.io.InputStream} of image
-	 * @throws java.io.IOException                   if some I/O error occurs during getting image stream
+	 * @return {@link InputStream} of image
+	 * @throws IOException                   if some I/O error occurs during getting image stream
 	 * @throws UnsupportedOperationException if image URI has unsupported scheme(protocol)
 	 */
 	InputStream getStream(String imageUri, Object extra) throws IOException;

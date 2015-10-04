@@ -44,18 +44,18 @@ import com.nostra13.universalimageloader.core.process.BitmapProcessor;
  * <li>decoding options (including bitmap decoding configuration)</li>
  * <li>delay before loading of image</li>
  * <li>whether consider EXIF parameters of image</li>
- * <li>auxiliary object which will be passed to {@link com.nostra13.universalimageloader.core.download.ImageDownloader#getStream(String, Object) ImageDownloader}</li>
+ * <li>auxiliary object which will be passed to {@link ImageDownloader#getStream(String, Object) ImageDownloader}</li>
  * <li>pre-processor for image Bitmap (before caching in memory)</li>
  * <li>post-processor for image Bitmap (after caching in memory, before displaying)</li>
- * <li>how decoded {@link android.graphics.Bitmap} will be displayed</li>
+ * <li>how decoded {@link Bitmap} will be displayed</li>
  * </ul>
  * <p/>
  * You can create instance:
  * <ul>
- * <li>with {@link com.nostra13.universalimageloader.core.DisplayImageOptions.Builder}:<br />
+ * <li>with {@link Builder}:<br />
  * <b>i.e.</b> :
- * <code>new {@link com.nostra13.universalimageloader.core.DisplayImageOptions}.{@link com.nostra13.universalimageloader.core.DisplayImageOptions.Builder#Builder() Builder()}.{@link com.nostra13.universalimageloader.core.DisplayImageOptions.Builder#cacheInMemory() cacheInMemory()}.
- * {@link com.nostra13.universalimageloader.core.DisplayImageOptions.Builder#showImageOnLoading(int) showImageOnLoading()}.{@link com.nostra13.universalimageloader.core.DisplayImageOptions.Builder#build() build()}</code><br />
+ * <code>new {@link DisplayImageOptions}.Builder().{@link Builder#cacheInMemory() cacheInMemory()}.
+ * {@link Builder#showImageOnLoading(int) showImageOnLoading()}.{@link Builder#build() build()}</code><br />
  * </li>
  * <li>or by static method: {@link #createSimple()}</li> <br />
  *
@@ -195,7 +195,7 @@ public final class DisplayImageOptions {
 	}
 
 	/**
-	 * Builder for {@link com.nostra13.universalimageloader.core.DisplayImageOptions}
+	 * Builder for {@link DisplayImageOptions}
 	 *
 	 * @author Sergey Tarasevich (nostra13[at]gmail[dot]com)
 	 */
@@ -219,11 +219,6 @@ public final class DisplayImageOptions {
 		private BitmapDisplayer displayer = DefaultConfigurationFactory.createBitmapDisplayer();
 		private Handler handler = null;
 		private boolean isSyncLoading = false;
-
-		public Builder() {
-			decodingOptions.inPurgeable = true;
-			decodingOptions.inInputShareable = true;
-		}
 
 		/**
 		 * Stub image will be displayed in {@link com.nostra13.universalimageloader.core.imageaware.ImageAware
@@ -252,7 +247,7 @@ public final class DisplayImageOptions {
 		/**
 		 * Incoming drawable will be displayed in {@link com.nostra13.universalimageloader.core.imageaware.ImageAware
 		 * image aware view} during image loading.
-		 * This option will be ignored if {@link com.nostra13.universalimageloader.core.DisplayImageOptions.Builder#showImageOnLoading(int)} is set.
+		 * This option will be ignored if {@link Builder#showImageOnLoading(int)} is set.
 		 */
 		public Builder showImageOnLoading(Drawable drawable) {
 			imageOnLoading = drawable;
@@ -275,7 +270,7 @@ public final class DisplayImageOptions {
 		 * Incoming drawable will be displayed in {@link com.nostra13.universalimageloader.core.imageaware.ImageAware
 		 * image aware view} if empty URI (null or empty
 		 * string) will be passed to <b>ImageLoader.displayImage(...)</b> method.
-		 * This option will be ignored if {@link com.nostra13.universalimageloader.core.DisplayImageOptions.Builder#showImageForEmptyUri(int)} is set.
+		 * This option will be ignored if {@link Builder#showImageForEmptyUri(int)} is set.
 		 */
 		public Builder showImageForEmptyUri(Drawable drawable) {
 			imageForEmptyUri = drawable;
@@ -298,7 +293,7 @@ public final class DisplayImageOptions {
 		 * Incoming drawable will be displayed in {@link com.nostra13.universalimageloader.core.imageaware.ImageAware
 		 * image aware view} if some error occurs during
 		 * requested image loading/decoding.
-		 * This option will be ignored if {@link com.nostra13.universalimageloader.core.DisplayImageOptions.Builder#showImageOnFail(int)} is set.
+		 * This option will be ignored if {@link Builder#showImageOnFail(int)} is set.
 		 */
 		public Builder showImageOnFail(Drawable drawable) {
 			imageOnFail = drawable;
@@ -369,15 +364,15 @@ public final class DisplayImageOptions {
 		}
 
 		/**
-		 * Sets {@linkplain com.nostra13.universalimageloader.core.assist.ImageScaleType scale type} for decoding image. This parameter is used while define scale
-		 * size for decoding image to Bitmap. Default value - {@link com.nostra13.universalimageloader.core.assist.ImageScaleType#IN_SAMPLE_POWER_OF_2}
+		 * Sets {@linkplain ImageScaleType scale type} for decoding image. This parameter is used while define scale
+		 * size for decoding image to Bitmap. Default value - {@link ImageScaleType#IN_SAMPLE_POWER_OF_2}
 		 */
 		public Builder imageScaleType(ImageScaleType imageScaleType) {
 			this.imageScaleType = imageScaleType;
 			return this;
 		}
 
-		/** Sets {@link android.graphics.Bitmap.Config bitmap config} for image decoding. Default value - {@link android.graphics.Bitmap.Config#ARGB_8888} */
+		/** Sets {@link Bitmap.Config bitmap config} for image decoding. Default value - {@link Bitmap.Config#ARGB_8888} */
 		public Builder bitmapConfig(Bitmap.Config bitmapConfig) {
 			if (bitmapConfig == null) throw new IllegalArgumentException("bitmapConfig can't be null");
 			decodingOptions.inPreferredConfig = bitmapConfig;
@@ -386,10 +381,10 @@ public final class DisplayImageOptions {
 
 		/**
 		 * Sets options for image decoding.<br />
-		 * <b>NOTE:</b> {@link android.graphics.BitmapFactory.Options#inSampleSize} of incoming options will <b>NOT</b> be considered. Library
-		 * calculate the most appropriate sample size itself according yo {@link #imageScaleType(com.nostra13.universalimageloader.core.assist.ImageScaleType)}
+		 * <b>NOTE:</b> {@link Options#inSampleSize} of incoming options will <b>NOT</b> be considered. Library
+		 * calculate the most appropriate sample size itself according yo {@link #imageScaleType(ImageScaleType)}
 		 * options.<br />
-		 * <b>NOTE:</b> This option overlaps {@link #bitmapConfig(android.graphics.Bitmap.Config) bitmapConfig()}
+		 * <b>NOTE:</b> This option overlaps {@link #bitmapConfig(Bitmap.Config) bitmapConfig()}
 		 * option.
 		 */
 		public Builder decodingOptions(Options decodingOptions) {
@@ -404,7 +399,7 @@ public final class DisplayImageOptions {
 			return this;
 		}
 
-		/** Sets auxiliary object which will be passed to {@link com.nostra13.universalimageloader.core.download.ImageDownloader#getStream(String, Object)} */
+		/** Sets auxiliary object which will be passed to {@link ImageDownloader#getStream(String, Object)} */
 		public Builder extraForDownloader(Object extra) {
 			this.extraForDownloader = extra;
 			return this;
@@ -437,7 +432,7 @@ public final class DisplayImageOptions {
 		}
 
 		/**
-		 * Sets custom {@link com.nostra13.universalimageloader.core.display.BitmapDisplayer displayer} for image loading task. Default value -
+		 * Sets custom {@link BitmapDisplayer displayer} for image loading task. Default value -
 		 * {@link DefaultConfigurationFactory#createBitmapDisplayer()}
 		 */
 		public Builder displayer(BitmapDisplayer displayer) {
@@ -452,7 +447,7 @@ public final class DisplayImageOptions {
 		}
 
 		/**
-		 * Sets custom {@linkplain android.os.Handler handler} for displaying images and firing {@linkplain com.nostra13.universalimageloader.core.listener.ImageLoadingListener
+		 * Sets custom {@linkplain Handler handler} for displaying images and firing {@linkplain ImageLoadingListener
 		 * listener} events.
 		 */
 		public Builder handler(Handler handler) {
@@ -484,7 +479,7 @@ public final class DisplayImageOptions {
 			return this;
 		}
 
-		/** Builds configured {@link com.nostra13.universalimageloader.core.DisplayImageOptions} object */
+		/** Builds configured {@link DisplayImageOptions} object */
 		public DisplayImageOptions build() {
 			return new DisplayImageOptions(this);
 		}
@@ -496,9 +491,9 @@ public final class DisplayImageOptions {
 	 * <li>View will <b>not</b> be reset before loading</li>
 	 * <li>Loaded image will <b>not</b> be cached in memory</li>
 	 * <li>Loaded image will <b>not</b> be cached on disk</li>
-	 * <li>{@link com.nostra13.universalimageloader.core.assist.ImageScaleType#IN_SAMPLE_POWER_OF_2} decoding type will be used</li>
-	 * <li>{@link android.graphics.Bitmap.Config#ARGB_8888} bitmap config will be used for image decoding</li>
-	 * <li>{@link com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer} will be used for image displaying</li>
+	 * <li>{@link ImageScaleType#IN_SAMPLE_POWER_OF_2} decoding type will be used</li>
+	 * <li>{@link Bitmap.Config#ARGB_8888} bitmap config will be used for image decoding</li>
+	 * <li>{@link SimpleBitmapDisplayer} will be used for image displaying</li>
 	 * </ul>
 	 * <p/>
 	 * These option are appropriate for simple single-use image (from drawables or from Internet) displaying.

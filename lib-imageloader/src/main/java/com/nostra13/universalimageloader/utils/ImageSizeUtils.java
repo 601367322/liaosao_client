@@ -47,7 +47,7 @@ public final class ImageSizeUtils {
 
 	/**
 	 * Defines target size for image aware view. Size is defined by target
-	 * {@link com.nostra13.universalimageloader.core.imageaware.ImageAware view} parameters, configuration
+	 * {@link ImageAware view} parameters, configuration
 	 * parameters or device display dimensions.<br />
 	 */
 	public static ImageSize defineTargetSizeForView(ImageAware imageAware, ImageSize maxImageSize) {
@@ -63,7 +63,7 @@ public final class ImageSizeUtils {
 	/**
 	 * Computes sample size for downscaling image size (<b>srcSize</b>) to view size (<b>targetSize</b>). This sample
 	 * size is used during
-	 * {@linkplain android.graphics.BitmapFactory#decodeStream(java.io.InputStream, android.graphics.Rect, android.graphics.BitmapFactory.Options)
+	 * {@linkplain BitmapFactory#decodeStream(java.io.InputStream, android.graphics.Rect, BitmapFactory.Options)
 	 * decoding image} to bitmap.<br />
 	 * <br />
 	 * <b>Examples:</b><br />
@@ -83,7 +83,7 @@ public final class ImageSizeUtils {
 	 *
 	 * @param srcSize       Original (image) size
 	 * @param targetSize    Target (view) size
-	 * @param viewScaleType {@linkplain com.nostra13.universalimageloader.core.assist.ViewScaleType Scale type} for placing image in view
+	 * @param viewScaleType {@linkplain ViewScaleType Scale type} for placing image in view
 	 * @param powerOf2Scale <i>true</i> - if sample size be a power of 2 (1, 2, 4, 8, ...)
 	 * @return Computed sample size
 	 */
@@ -180,7 +180,7 @@ public final class ImageSizeUtils {
 	 *
 	 * @param srcSize       Source (image) size
 	 * @param targetSize    Target (view) size
-	 * @param viewScaleType {@linkplain com.nostra13.universalimageloader.core.assist.ViewScaleType Scale type} for placing image in view
+	 * @param viewScaleType {@linkplain ViewScaleType Scale type} for placing image in view
 	 * @param stretch       Whether source size should be stretched if target size is larger than source size. If <b>false</b>
 	 *                      then result scale value can't be greater than 1.
 	 * @return Computed scale

@@ -22,7 +22,7 @@ import java.util.*;
 
 /**
  * Base memory cache. Implements common functionality for memory cache. Provides object references (
- * {@linkplain java.lang.ref.Reference not strong}) storing.
+ * {@linkplain Reference not strong}) storing.
  *
  * @author Sergey Tarasevich (nostra13[at]gmail[dot]com)
  * @since 1.0.0
@@ -66,6 +66,6 @@ public abstract class BaseMemoryCache implements MemoryCache {
 		softMap.clear();
 	}
 
-	/** Creates {@linkplain java.lang.ref.Reference not strong} reference of value */
+	/** Creates {@linkplain Reference not strong} reference of value */
 	protected abstract Reference<Bitmap> createReference(Bitmap value);
 }

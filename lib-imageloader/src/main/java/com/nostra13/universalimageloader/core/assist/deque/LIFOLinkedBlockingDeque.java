@@ -3,7 +3,7 @@ package com.nostra13.universalimageloader.core.assist.deque;
 import java.util.NoSuchElementException;
 
 /**
- * {@link com.nostra13.universalimageloader.core.assist.deque.LinkedBlockingDeque} using LIFO algorithm
+ * {@link LinkedBlockingDeque} using LIFO algorithm
  * 
  * @author Sergey Tarasevich (nostra13[at]gmail[dot]com)
  * @since 1.6.3
@@ -37,7 +37,7 @@ public class LIFOLinkedBlockingDeque<T> extends LinkedBlockingDeque<T> {
 	 * in that it throws an exception if this deque is empty.
 	 * 
 	 * @return the head of this deque
-	 * @throws java.util.NoSuchElementException
+	 * @throws NoSuchElementException
 	 *             if this deque is empty
 	 */
 	@Override

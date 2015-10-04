@@ -61,8 +61,8 @@ public final class MemoryCacheUtils {
 	/**
 	 * Searches all bitmaps in memory cache which are corresponded to incoming URI.<br />
 	 * <b>Note:</b> Memory cache can contain multiple sizes of the same image if only you didn't set
-	 * {@link com.nostra13.universalimageloader.core.ImageLoaderConfiguration.Builder#denyCacheImageMultipleSizesInMemory()
-	 * denyCacheImageMultipleSizesInMemory()} option in {@linkplain com.nostra13.universalimageloader.core.ImageLoaderConfiguration configuration}
+	 * {@link ImageLoaderConfiguration.Builder#denyCacheImageMultipleSizesInMemory()
+	 * denyCacheImageMultipleSizesInMemory()} option in {@linkplain ImageLoaderConfiguration configuration}
 	 */
 	public static List<Bitmap> findCachedBitmapsForImageUri(String imageUri, MemoryCache memoryCache) {
 		List<Bitmap> values = new ArrayList<Bitmap>();
@@ -77,8 +77,8 @@ public final class MemoryCacheUtils {
 	/**
 	 * Searches all keys in memory cache which are corresponded to incoming URI.<br />
 	 * <b>Note:</b> Memory cache can contain multiple sizes of the same image if only you didn't set
-	 * {@link com.nostra13.universalimageloader.core.ImageLoaderConfiguration.Builder#denyCacheImageMultipleSizesInMemory()
-	 * denyCacheImageMultipleSizesInMemory()} option in {@linkplain com.nostra13.universalimageloader.core.ImageLoaderConfiguration configuration}
+	 * {@link ImageLoaderConfiguration.Builder#denyCacheImageMultipleSizesInMemory()
+	 * denyCacheImageMultipleSizesInMemory()} option in {@linkplain ImageLoaderConfiguration configuration}
 	 */
 	public static List<String> findCacheKeysForImageUri(String imageUri, MemoryCache memoryCache) {
 		List<String> values = new ArrayList<String>();
@@ -93,8 +93,8 @@ public final class MemoryCacheUtils {
 	/**
 	 * Removes from memory cache all images for incoming URI.<br />
 	 * <b>Note:</b> Memory cache can contain multiple sizes of the same image if only you didn't set
-	 * {@link com.nostra13.universalimageloader.core.ImageLoaderConfiguration.Builder#denyCacheImageMultipleSizesInMemory()
-	 * denyCacheImageMultipleSizesInMemory()} option in {@linkplain com.nostra13.universalimageloader.core.ImageLoaderConfiguration configuration}
+	 * {@link ImageLoaderConfiguration.Builder#denyCacheImageMultipleSizesInMemory()
+	 * denyCacheImageMultipleSizesInMemory()} option in {@linkplain ImageLoaderConfiguration configuration}
 	 */
 	public static void removeFromCache(String imageUri, MemoryCache memoryCache) {
 		List<String> keysToRemove = new ArrayList<String>();

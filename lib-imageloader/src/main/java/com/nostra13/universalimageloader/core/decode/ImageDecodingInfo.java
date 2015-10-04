@@ -92,7 +92,7 @@ public class ImageDecodingInfo {
 		destOptions.inMutable = srcOptions.inMutable;
 	}
 
-	/** @return Original {@linkplain com.nostra13.universalimageloader.utils.MemoryCacheUtils#generateKey(String, com.nostra13.universalimageloader.core.assist.ImageSize) image key} (used in memory cache). */
+	/** @return Original {@linkplain com.nostra13.universalimageloader.utils.MemoryCacheUtils#generateKey(String, ImageSize) image key} (used in memory cache). */
 	public String getImageKey() {
 		return imageKey;
 	}
@@ -108,22 +108,22 @@ public class ImageDecodingInfo {
 	}
 
 	/**
-	 * @return Target size for image. Decoded bitmap should close to this size according to {@linkplain com.nostra13.universalimageloader.core.assist.ImageScaleType
-	 * image scale type} and {@linkplain com.nostra13.universalimageloader.core.assist.ViewScaleType view scale type}.
+	 * @return Target size for image. Decoded bitmap should close to this size according to {@linkplain ImageScaleType
+	 * image scale type} and {@linkplain ViewScaleType view scale type}.
 	 */
 	public ImageSize getTargetSize() {
 		return targetSize;
 	}
 
 	/**
-	 * @return {@linkplain com.nostra13.universalimageloader.core.assist.ImageScaleType Scale type for image sampling and scaling}. This parameter affects result size
+	 * @return {@linkplain ImageScaleType Scale type for image sampling and scaling}. This parameter affects result size
 	 * of decoded bitmap.
 	 */
 	public ImageScaleType getImageScaleType() {
 		return imageScaleType;
 	}
 
-	/** @return {@linkplain com.nostra13.universalimageloader.core.assist.ViewScaleType View scale type}. This parameter affects result size of decoded bitmap. */
+	/** @return {@linkplain ViewScaleType View scale type}. This parameter affects result size of decoded bitmap. */
 	public ViewScaleType getViewScaleType() {
 		return viewScaleType;
 	}

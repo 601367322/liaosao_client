@@ -46,7 +46,7 @@ public final class IoUtils {
 	 * @param os       Output stream
 	 * @param listener null-ok; Listener of copying progress and controller of copying interrupting
 	 * @return <b>true</b> - if stream copied successfully; <b>false</b> - if copying was interrupted by listener
-	 * @throws java.io.IOException
+	 * @throws IOException
 	 */
 	public static boolean copyStream(InputStream is, OutputStream os, CopyListener listener) throws IOException {
 		return copyStream(is, os, listener, DEFAULT_BUFFER_SIZE);
@@ -61,7 +61,7 @@ public final class IoUtils {
 	 * @param bufferSize Buffer size for copying, also represents a step for firing progress listener callback, i.e.
 	 *                   progress event will be fired after every copied <b>bufferSize</b> bytes
 	 * @return <b>true</b> - if stream copied successfully; <b>false</b> - if copying was interrupted by listener
-	 * @throws java.io.IOException
+	 * @throws IOException
 	 */
 	public static boolean copyStream(InputStream is, OutputStream os, CopyListener listener, int bufferSize)
 			throws IOException {

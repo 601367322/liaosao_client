@@ -20,7 +20,7 @@ import android.graphics.Bitmap;
 import java.io.IOException;
 
 /**
- * Provide decoding image to result {@link android.graphics.Bitmap}.
+ * Provide decoding image to result {@link Bitmap}.
  *
  * @author Sergey Tarasevich (nostra13[at]gmail[dot]com)
  * @see ImageDecodingInfo
@@ -29,11 +29,11 @@ import java.io.IOException;
 public interface ImageDecoder {
 
 	/**
-	 * Decodes image to {@link android.graphics.Bitmap} according target size and other parameters.
+	 * Decodes image to {@link Bitmap} according target size and other parameters.
 	 *
 	 * @param imageDecodingInfo
 	 * @return
-	 * @throws java.io.IOException
+	 * @throws IOException
 	 */
 	Bitmap decode(ImageDecodingInfo imageDecodingInfo) throws IOException;
 }

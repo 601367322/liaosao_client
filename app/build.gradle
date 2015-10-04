@@ -34,18 +34,7 @@ android {
         }
     }
 
-   /* productFlavors {
-        // Define separate dev and prod product flavors.
-        dev {
-            // dev utilizes minSDKVersion = 21 to allow the Android gradle plugin
-            // to pre-dex each module and produce an APK that can be tested on
-            // Android Lollipop without time consuming dex merging processes.
-            minSdkVersion 21
-        }
-        prod {
-            // The actual minSdkVersion for the application.
-            minSdkVersion 15
-        }
+   productFlavors {
 
         xiaomi {}
         _360 {}
@@ -54,7 +43,7 @@ android {
         yingyongbao {}
         yingyonghui {}
         liaosao {}
-    }*/
+    }
 
     productFlavors.all {
         flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
@@ -65,13 +54,13 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
-            zipAlignEnabled true
-            // 移除无用的resource文件
-            shrinkResources true
+            ndk {
+                abiFilters "armeabi-v7a", "armeabi"
+            }
 
             signingConfig signingConfigs.release
 
-            /*applicationVariants.all { variant ->
+            applicationVariants.all { variant ->
                 variant.outputs.each { output ->
                     def outputFile = output.outputFile
                     if (outputFile != null && outputFile.name.endsWith('.apk')) {
@@ -80,7 +69,7 @@ android {
                         output.outputFile = new File(outputFile.parent, fileName)
                     }
                 }
-            }*/
+            }
         }
     }
 
@@ -115,8 +104,8 @@ dependencies {
     apt "org.androidannotations:androidannotations:+"//注解
     compile "org.androidannotations:androidannotations-api:+"//注解
     compile "com.jakewharton:butterknife:7.0.0"//注解
-    compile 'com.loopj.android:android-async-http:1.4.9-SNAPSHOT'//网络加载
     compile 'com.github.johnpersano:supertoasts:+@aar'//SuperToast
+    compile 'com.loopj.android:android-async-http:+'
     compile 'com.umeng.analytics:analytics:latest.integration'//友盟
     compile 'de.greenrobot:eventbus:+'//eventbus
     compile project(':lib-animation-list-manipulation')//listview动画
@@ -128,6 +117,7 @@ dependencies {
     compile project(':lib_shapeimagelibrary')//多边形图片
     compile project(':lib-preferencefragment')
     compile project(':lib-gif')
+    compile project(':lib-camera-video')
 }
 
 apt {

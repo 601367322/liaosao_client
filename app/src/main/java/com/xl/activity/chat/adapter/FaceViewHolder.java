@@ -2,7 +2,7 @@ package com.xl.activity.chat.adapter;
 
 import android.support.annotation.Nullable;
 import android.view.View;
-import android.widget.RelativeLayout;
+import android.view.ViewGroup;
 
 import com.xl.activity.R;
 import com.xl.bean.MessageBean;
@@ -34,7 +34,7 @@ public class FaceViewHolder extends BaseHolder{
         int max_widht = Utils.dip2px(context, 80);
         float scale1 = (float) img_width / (float) max_widht;
         int new_height = (int) ((float) drawable.getMinimumHeight() / scale1);
-        RelativeLayout.LayoutParams layoutParams1 = (RelativeLayout.LayoutParams) face.getLayoutParams();
+        ViewGroup.LayoutParams layoutParams1 =  face.getLayoutParams();
         layoutParams1.width = max_widht;
         layoutParams1.height = new_height;
         face.setLayoutParams(layoutParams1);

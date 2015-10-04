@@ -4,11 +4,15 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.xl.activity.R;
 import com.xl.activity.base.BaseAdapterListView;
 import com.xl.bean.ChatListBean;
+import com.xl.bean.UserBean_6;
+import com.xl.util.Utils;
 
 import java.util.List;
 
@@ -37,9 +41,6 @@ public class ChatListAdapters extends BaseAdapterListView<ChatListBean> {
             ChatListBean bean = getItem(position);
             if (bean != null) {
                 if (holder != null) {
-                    if (holder.num != null) {
-                        holder.num.setText(String.valueOf(bean.getId()));
-                    }
                     holder.text.setText(bean.getContent());
                     if (bean.getNum() > 99) {
                         holder.messageCount.setVisibility(View.VISIBLE);
@@ -49,6 +50,14 @@ public class ChatListAdapters extends BaseAdapterListView<ChatListBean> {
                         holder.messageCount.setText(bean.getNum() + "");
                     } else {
                         holder.messageCount.setVisibility(View.GONE);
+                    }
+                    if (bean.getFriend() != null) {
+                        UserBean_6 ub = bean.getFriend().getBean();
+                        holder.nickname.setText(ub.nickname);
+                        ImageLoader.getInstance().displayImage(ub.logo, holder.userlogo, Utils.options_default_logo);
+                    }else{
+                        holder.nickname.setText("");
+                        holder.userlogo.setImageResource(R.drawable.default_logo);
                     }
                 }
             }
@@ -60,12 +69,14 @@ public class ChatListAdapters extends BaseAdapterListView<ChatListBean> {
 
     class ViewHolder {
 
-        @Bind(R.id.num)
-        TextView num;
         @Bind(R.id.text)
         TextView text;
         @Bind(R.id.messagecount)
         TextView messageCount;
+        @Bind(R.id.nickname)
+        TextView nickname;
+        @Bind(R.id.userlogo)
+        ImageView userlogo;
 
         public ViewHolder(View view) {
             ButterKnife.bind(this, view);

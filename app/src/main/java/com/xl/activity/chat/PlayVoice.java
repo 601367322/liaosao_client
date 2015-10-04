@@ -26,6 +26,7 @@ public class PlayVoice {
         if (instance == null) {
             instance = new PlayVoice(adapter);
         }
+        instance.adapter = adapter;
         return instance;
     }
 

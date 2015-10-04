@@ -32,7 +32,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Bitmaps (depends on cache size), weak references - for all other cached Bitmaps.
  *
  * @author Sergey Tarasevich (nostra13[at]gmail[dot]com)
- * @see com.nostra13.universalimageloader.cache.memory.BaseMemoryCache
+ * @see BaseMemoryCache
  * @since 1.0.0
  */
 public abstract class LimitedMemoryCache extends BaseMemoryCache {

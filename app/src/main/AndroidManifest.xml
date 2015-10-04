@@ -49,6 +49,7 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:theme="@style/AppBaseThemeNoActionBar5">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -60,6 +61,7 @@
             android:name="com.xl.activity.chat.ChatActivity_"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
+            android:label="@string/app_name"
             android:windowSoftInputMode="stateHidden|adjustResize"></activity>
         <activity
             android:name=".girl.GirlChatActivity_"
@@ -112,6 +114,7 @@
         <service
             android:name="com.xl.service.PushService_"
             android:enabled="true"
+            android:process=":push"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.xl.keepalive.START" />
@@ -147,13 +150,13 @@
         <activity android:name="com.umeng.fb.ConversationActivity" />
 
         <!--高德地图-->
-        <!--<meta-data
-            android:name="com.amap.api.v2.apikey"
-            android:value="ae24a52637ad277fec4e4f3d2563c256" />-->
-        <!--debug-->
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="7832c924043c5b617b903e2d9f5caa4a" />
+            android:value="ae24a52637ad277fec4e4f3d2563c256" />
+        <!--debug-->
+        <!--<meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="7832c924043c5b617b903e2d9f5caa4a" />-->
 
         <!--360广告-->
         <!--<service

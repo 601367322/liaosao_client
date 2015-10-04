@@ -14,14 +14,12 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
-import com.j256.ormlite.dao.Dao;
 import com.xl.activity.R;
 import com.xl.activity.chat.ChatActivity_;
 import com.xl.activity.girl.GirlChatActivity_;
 import com.xl.activity.share.CommonShared;
 import com.xl.application.AppClass;
 import com.xl.application.AppClass_;
-import com.xl.bean.ChatListBean;
 import com.xl.bean.MessageBean;
 import com.xl.db.BlackDao;
 import com.xl.db.ChatDao;
@@ -43,7 +41,6 @@ public class Handler {
     private Socket socket;
     private AppClass_ ac;
     private NotificationManager manager;
-    private Dao<ChatListBean, Integer> chatListDao;
 
     public Handler(Context context, Socket socket) {
         super();
@@ -54,7 +51,6 @@ public class Handler {
                 .getSystemService(Context.NOTIFICATION_SERVICE);
         try {
             OrmLiteSqliteOpenHelper helper = OpenHelperManager.getHelper(context, DBHelper.class);
-            chatListDao = helper.getDao(ChatListBean.class);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -104,6 +100,7 @@ public class Handler {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
                 .setSmallIcon(R.drawable.ic_stat_icon).setContentTitle(context.getString(R.string.u_have_a_new_message))
                 .setTicker(context.getString(R.string.u_have_a_new_message))
+                .setPriority(Notification.PRIORITY_HIGH)
                 .setOnlyAlertOnce(false).setAutoCancel(true)
                 .setDefaults(Notification.DEFAULT_ALL);
 
@@ -204,6 +201,7 @@ public class Handler {
                 contentText = "[语音]";
                 break;
             case MessageBean.RADIO:
+            case MessageBean.RADIO_NEW:
                 contentText = "[视频]";
                 break;
         }

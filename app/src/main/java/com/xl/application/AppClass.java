@@ -25,8 +25,6 @@ import com.xl.util.DeviceUuidFactory;
 
 import org.androidannotations.annotations.EApplication;
 
-import a.b.c.DynamicSdkManager;
-
 @EApplication
 public class AppClass extends Application {
 
@@ -42,13 +40,7 @@ public class AppClass extends Application {
     public static Context context;
 
     public void onCreate() {
-//		LeakCanary.install(this);
-
-        try {
-            DynamicSdkManager.onCreate(this);
-        } catch (Throwable e) {
-            e.printStackTrace();
-        }
+        super.onCreate();
 
         cs = new CommonShared(this);
 
@@ -64,8 +56,6 @@ public class AppClass extends Application {
         L.writeLogs(false);
         L.writeDebugLogs(false);
         ImageLoader.getInstance().init(config);
-
-        super.onCreate();
 
         this.context = getApplicationContext();
     }

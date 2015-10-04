@@ -25,8 +25,8 @@ import com.nostra13.universalimageloader.core.assist.ViewScaleType;
 /**
  * ImageAware which provides needed info for processing of original image but do nothing for displaying image. It's
  * used when user need just load and decode image and get it in {@linkplain
- * com.nostra13.universalimageloader.core.listener.ImageLoadingListener#onLoadingComplete(String, android.view.View,
- * android.graphics.Bitmap) callback}.
+ * com.nostra13.universalimageloader.core.listener.ImageLoadingListener#onLoadingComplete(String, View,
+ * Bitmap) callback}.
  *
  * @author Sergey Tarasevich (nostra13[at]gmail[dot]com)
  * @since 1.9.0

@@ -31,7 +31,7 @@ public final class DiskCacheUtils {
 	private DiskCacheUtils() {
 	}
 
-	/** Returns {@link java.io.File} of cached image or <b>null</b> if image was not cached in disk cache */
+	/** Returns {@link File} of cached image or <b>null</b> if image was not cached in disk cache */
 	public static File findInCache(String imageUri, DiskCache diskCache) {
 		File image = diskCache.get(imageUri);
 		return image != null && image.exists() ? image : null;

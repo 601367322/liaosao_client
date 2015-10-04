@@ -24,7 +24,7 @@ import java.util.Comparator;
 
 /**
  * Decorator for {@link MemoryCache}. Provides special feature for cache: some different keys are considered as
- * equals (using {@link java.util.Comparator comparator}). And when you try to put some value into cache by key so entries with
+ * equals (using {@link Comparator comparator}). And when you try to put some value into cache by key so entries with
  * "equals" keys will be removed from cache before.<br />
  * <b>NOTE:</b> Used for internal needs. Normally you don't need to use this class.
  *

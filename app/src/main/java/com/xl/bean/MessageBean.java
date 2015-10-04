@@ -1,6 +1,8 @@
 package com.xl.bean;
 
+import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
+import com.google.gson.reflect.TypeToken;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import com.xl.util.Utils;
@@ -72,12 +74,31 @@ public class MessageBean implements Serializable {
         }
     }
 
+    public RadioBean getRadioBean(){
+        return new Gson().fromJson(content,new TypeToken<RadioBean>(){}.getType());
+    }
+
+    public void setRadioBean(RadioBean bean){
+        this.content = new Gson().toJson(bean);
+    }
+
+    public static class RadioBean {
+
+        public String thumb;
+        public String file;
+
+        public RadioBean(String thumb, String file) {
+            this.thumb = thumb;
+            this.file = file;
+        }
+    }
 
     public static final int TEXT = 0;
     public static final int VOICE = 1;
     public static final int IMAGE = 2;
     public static final int FACE = 3;
     public static final int RADIO = 4;
+    public static final int RADIO_NEW = 5;
 
     public static final int LOADING_NODOWNLOAD = 0;
     public static final int LOADING_DOWNLOADING = 2;

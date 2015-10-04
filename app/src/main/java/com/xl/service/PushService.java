@@ -213,6 +213,7 @@ public class PushService extends Service {
                                     .setSmallIcon(R.drawable.ic_stat_icon).setContentTitle(PushService.this.getString(R.string.u_have_a_new_message))
                                     .setTicker(PushService.this.getString(R.string.u_have_n_message))
                                     .setOnlyAlertOnce(false).setAutoCancel(true)
+                                    .setPriority(Notification.PRIORITY_HIGH)
                                     .setDefaults(Notification.DEFAULT_ALL);
 
                             builder.setContentText("快去看看吧。");
@@ -404,7 +405,7 @@ public class PushService extends Service {
 
                 String str = null;
                 while ((str = in.readLine()) != null) {
-                    log(str);
+                    LogUtil.d(str);
                     if (str.equals(HEARTBEATREQUEST)
                             || str.equals(HEARTBEATRESPONSE)) {
                         continue;

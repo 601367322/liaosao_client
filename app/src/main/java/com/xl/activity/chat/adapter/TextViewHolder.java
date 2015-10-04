@@ -24,6 +24,7 @@ public class TextViewHolder extends BaseHolder {
 
     @Override
     protected void bind(MessageBean bean) {
+        super.bind(bean);
         content.setText(bean.getContent().toString());
     }
 }

@@ -49,6 +49,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.RequestParams;
 import com.nhaarman.listviewanimations.appearance.simple.SwingBottomInAnimationAdapter;
+import com.quan.lib_camera_video.MediaRecorderActivity;
 import com.umeng.analytics.MobclickAgent;
 import com.xl.activity.R;
 import com.xl.activity.base.BaseBackActivity;
@@ -67,7 +68,6 @@ import com.xl.db.UserTableDao;
 import com.xl.radio.AmrEncodSender;
 import com.xl.radio.AmrEngine;
 import com.xl.radio.MicRealTimeListener;
-import com.xl.recorder.FFmpegRecorderActivity_;
 import com.xl.util.BroadCastUtil;
 import com.xl.util.EventID;
 import com.xl.util.JsonHttpResponseHandler;
@@ -152,7 +152,7 @@ public class ChatActivity extends BaseBackActivity implements
 
     int lastId = -1; //已显示聊天记录
 
-    UserTable_6 ut;
+    UserTable_6 friend;
 
     SensitivewordFilter filter = new SensitivewordFilter();
 
@@ -175,73 +175,98 @@ public class ChatActivity extends BaseBackActivity implements
         } else {
             renzheng.setVisible(false);
         }
-        if(isGroup){
+        if (isGroup) {
             menu.clear();
         }
         return super.onCreateOptionsMenu(menu);
     }
 
     protected void init() {
-
+        //去掉通知栏
         notifManager.cancel(deviceId.hashCode());
 
+        //设置键盘回车监听
         content_et.setOnEditorActionListener(this);
 
+        //初始化数据源
         adapter = new ChatAdapters(this, new ArrayList<MessageBean>());
 
+        UserTable_6 friend = userTableDao.getUserTableByDeviceId(deviceId);
+        if (friend != null) {
+            adapter.setFriend(friend);
+        }
+
+        //设置数据源
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         listview.setLayoutManager(layoutManager);
         listview.setAdapter(adapter);
 
         send_btn.setEnabled(false);
 
+        //发送成功失败监听
         EventBus.getDefault().register(this);
 
+        //弹出广告
         showScreenAd();
 
+        //下拉刷新
         swipe.setOnRefreshListener(this);
 
+        //开始刷新
         refresh();
 
+        //获取对方用户信息
         checkVip();
 
-        if(isGroup){
+        //如果是群聊
+        if (isGroup) {
             chat_more_ll.setVisibility(View.GONE);
         }
     }
 
     public void checkVip() {
         ac.httpClient.post(URLS.GETUSERINFO, new RequestParams(StaticUtil.DEVICEID, deviceId), new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(JSONObject jo) {
-                int status = jo.optInt(ResultCode.STATUS);
-                switch (status) {
-                    case ResultCode.SUCCESS:
-                        ut = new Gson().fromJson(jo.optString(StaticUtil.CONTENT), new TypeToken<UserTable_6>() {
-                        }.getType());
 
-                        String title = "";
-                        if (ut.getBean().isGirl()) {
-                            title += getString(R.string.girl_god);
-                        } else {
-                            if (ut.getBean() == null || ut.getBean().getSex() == null) {
-                                title += "未知性别";
-                            } else {
-                                title += ut.getBean().getSex() == 1 ? "女" : "男";
-                            }
-                        }
-                        if (ut.getBean().isVip()) {
-                            title += "\t　会员";
-                        }
-                        getSupportActionBar().setTitle(title);
-                        if (ac.cs.getISVIP() == CommonShared.ON) {
-                            if (!TextUtils.isEmpty(ac.cs.getLat()) && !TextUtils.isEmpty(ut.getBean().getLat())) {
-                                setJuLi(Utils.getDistance(Double.valueOf(ac.cs.getLng()), Double.valueOf(ac.cs.getLat()), Double.valueOf(ut.getBean().getLng()), Double.valueOf(ut.getBean().getLat()))+"km");
-                            }
-                        }
-                        break;
+            @Override
+            public void onSuccessCode(JSONObject jo) throws Exception {
+                super.onSuccessCode(jo);
+                friend = new Gson().fromJson(jo.optString(StaticUtil.CONTENT), new TypeToken<UserTable_6>() {
+                }.getType());
+
+                //设置标题和副标题
+                String title = "";
+                if (friend.getBean().isGirl()) {
+                    title += getString(R.string.girl_god);
+                } else {
+                    if (friend.getBean() == null || friend.getBean().getSex() == null) {
+                        title += "未知性别";
+                    } else {
+                        title += friend.getBean().getSex() == 1 ? "女" : "男";
+                    }
                 }
+                if (friend.getBean().isVip()) {
+                    title += "\t　会员";
+                }
+                getSupportActionBar().setSubtitle(title);
+                if (!TextUtils.isEmpty(friend.getBean().getNickname())) {
+                    getSupportActionBar().setTitle(friend.getBean().getNickname());
+                }
+
+                //设置显示距离
+                if (ac.cs.getISVIP() == CommonShared.ON) {
+                    if (!TextUtils.isEmpty(ac.cs.getLat()) && !TextUtils.isEmpty(friend.getBean().getLat())) {
+                        setJuLi(Utils.getDistance(Double.valueOf(ac.cs.getLng()), Double.valueOf(ac.cs.getLat()), Double.valueOf(friend.getBean().getLng()), Double.valueOf(friend.getBean().getLat())) + "km");
+                    }
+                }
+
+                //更新数据源
+                adapter.setFriend(friend);
+                adapter.notifyDataSetChanged();
+
+                userTableDao.deleteUserByDeviceId(deviceId);
+                userTableDao.create(friend);
             }
+
         });
     }
 
@@ -318,6 +343,7 @@ public class ChatActivity extends BaseBackActivity implements
                             break;
                         case MessageBean.RADIO:
                         case MessageBean.VOICE:
+                        case MessageBean.RADIO_NEW:
                         case MessageBean.IMAGE:
                             recodeTime = mb.getVoiceTime();
                             filename = mb.getContent();
@@ -423,7 +449,7 @@ public class ChatActivity extends BaseBackActivity implements
         }
 
         RequestParams rp = ac.getRequestParams();
-        final MessageBean mb = new MessageBean(ac.deviceId, deviceId,  context_str, msgType, userBean.getSex());
+        final MessageBean mb = new MessageBean(ac.deviceId, deviceId, context_str, msgType, userBean.getSex());
         rp.put("content", new GsonBuilder()
                 .excludeFieldsWithoutExposeAnnotation().create().toJson(mb).toString());
         rp.put("sex", userBean.getSex());
@@ -555,7 +581,7 @@ public class ChatActivity extends BaseBackActivity implements
     }
 
     AmrEncodSender recorderInstance;
-    String filename;
+    String filename, thumb;
     Thread recordThread;//动画线程
     float recodeTime = 0.0f; // 录音的时间
     int voiceValue = 0; // 麦克风获取的音量值
@@ -740,7 +766,7 @@ public class ChatActivity extends BaseBackActivity implements
 
                         ToastUtil.toast(ChatActivity.this, getString(R.string.your_JJ_so_short), R.drawable.weisuo);
                     } else {
-                        sendFile(1);
+                        sendFile(MessageBean.VOICE);
                     }
                     break;
                 case 3:
@@ -859,7 +885,8 @@ public class ChatActivity extends BaseBackActivity implements
         closeMore(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
-                FFmpegRecorderActivity_.intent(ChatActivity.this).startForResult(RADIO);
+                Intent i = new Intent(ChatActivity.this, MediaRecorderActivity.class);
+                startActivityForResult(i, RADIO);
             }
         });
 
@@ -868,10 +895,14 @@ public class ChatActivity extends BaseBackActivity implements
     @OnActivityResult(value = ChatActivity.RADIO)
     public void onRadioCallBack(int result, Intent data) {
         if (result == RESULT_OK) {
-            filename = data.getStringExtra("filename");
+            filename = data.getStringExtra("file");
+            thumb = data.getStringExtra("thumb");
             File fi = new File(filename);
             if (fi != null && fi.exists()) {
-                sendFile(MessageBean.RADIO);
+                fi = new File(thumb);
+                if (fi != null && fi.exists()) {
+                    sendFile(MessageBean.RADIO_NEW);
+                }
             }
             fi = null;
         }
@@ -932,7 +963,7 @@ public class ChatActivity extends BaseBackActivity implements
             File fi = new File(filename);
             if (fi != null && fi.exists()) {
                 Utils.downsize(filename, filename, this);
-                sendFile(2);
+                sendFile(MessageBean.IMAGE);
             }
             fi = null;
         }
@@ -954,7 +985,7 @@ public class ChatActivity extends BaseBackActivity implements
                     filename,
                     filename = StaticFactory.APKCardPath
                             + new Date().getTime(), this);
-            sendFile(2);
+            sendFile(MessageBean.IMAGE);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -966,17 +997,25 @@ public class ChatActivity extends BaseBackActivity implements
             MobclickAgent.onEvent(ChatActivity.this, EventID.SEND_VOICE);
         } else if (type == MessageBean.IMAGE) {
             MobclickAgent.onEvent(ChatActivity.this, EventID.SEND_IMG);
-        } else if (type == MessageBean.RADIO) {
+        } else if (type == MessageBean.RADIO || type == MessageBean.RADIO_NEW) {
             MobclickAgent.onEvent(ChatActivity.this, EventID.SEND_RADIO);
         }
         try {
+
+            String content = filename;
+
             RequestParams rp = ac.getRequestParams();
             rp.put("file", new File(filename));
+            if (type == MessageBean.RADIO_NEW) {
+                rp.put("thumb", new File(thumb));
+                content = new Gson().toJson(new MessageBean.RadioBean(thumb, filename));
+            }
             rp.put("toId", deviceId);
             rp.put("msgType", type);
             rp.put("voiceTime", (int) recodeTime);
             rp.put("sex", userBean.getSex());
-            final MessageBean mb = new MessageBean(ac.deviceId, deviceId, filename, "", "", type, (int) recodeTime, userBean.getSex());
+
+            final MessageBean mb = new MessageBean(ac.deviceId, deviceId, content, "", "", type, (int) recodeTime, userBean.getSex());
             ac.httpClient.post(URLS.UPLOADVOICEFILE, rp, new JsonHttpResponseHandler() {
 
                 @Override

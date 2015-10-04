@@ -2,11 +2,13 @@ package com.xl.util;
 
 import android.util.Log;
 
+import com.xl.activity.BuildConfig;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class LogUtil {
-	private static final boolean DEBUG = true;
+	private static final boolean DEBUG = BuildConfig.DEBUG;
 	private static final String TAG="LogUtil";
 
 	public static void d(String TAG, String method, String msg) {

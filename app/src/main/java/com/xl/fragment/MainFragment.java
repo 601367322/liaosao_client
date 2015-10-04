@@ -26,6 +26,7 @@ import com.xl.util.GifDrawableCache;
 import com.xl.util.JsonHttpResponseHandler;
 import com.xl.util.ResultCode;
 import com.xl.util.StaticUtil;
+import com.xl.util.ToastUtil;
 import com.xl.util.URLS;
 import com.xl.util.Utils;
 
@@ -360,12 +361,13 @@ public class MainFragment extends BaseFragment {
 
     @Click(R.id.connect_group)
     public void connectGroup(View view) {
-        ac.httpClient.post(URLS.CONNECT_GROUP,ac.getRequestParams(),new JsonHttpResponseHandler(getActivity(),"请稍候~"){
-            @Override
-            public void onSuccess(JSONObject jo) {
-                super.onSuccess(jo);
-            }
-        });
+        ToastUtil.toast(getActivity(), "暂未开放\ncoming soon",R.drawable.weisuo);
+//        ac.httpClient.post(URLS.CONNECT_GROUP,ac.getRequestParams(),new JsonHttpResponseHandler(getActivity(),"请稍候~"){
+//            @Override
+//            public void onSuccess(JSONObject jo) {
+//                super.onSuccess(jo);
+//            }
+//        });
     }
 
 }

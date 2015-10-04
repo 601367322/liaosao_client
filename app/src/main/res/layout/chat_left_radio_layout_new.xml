@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal">
+
+    <com.xl.custom.CircleImageView
+        android:id="@+id/userlogo"
+        android:src="@drawable/default_logo"
+        android:layout_width="40dp"
+        app:border_color="@color/trans"
+        app:border_width="0dp"
+        android:layout_height="40dp" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="4dp"
+        android:layout_marginLeft="4dp"
+        android:gravity="center_vertical"
+        android:minHeight="35dp"
+        android:minWidth="60dp">
+
+        <com.github.siyamed.shapeimageview.mask.PorterShapeImageView
+            android:id="@+id/img"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:scaleType="centerCrop"
+            app:siShape="@drawable/chat_left_bg"
+            app:siSquare="false"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:src="@drawable/icn_play_big"
+            android:layout_centerInParent="true"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/error"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/chat_error_icon"
+        android:layout_centerVertical="true"
+        android:visibility="gone"/>
+</LinearLayout>

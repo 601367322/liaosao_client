@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.j256.ormlite.stmt.PreparedDelete;
 import com.xl.bean.UserTable_6;
+import com.xl.util.LogUtil;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -28,6 +29,7 @@ public class UserTableDao extends BaseDao<UserTable_6, Integer> {
 
     public UserTable_6 getUserTableByDeviceId(String deviceId) {
         List<UserTable_6> list = dao.queryForEq(UserTable_6.DEVICEID, deviceId);
+        LogUtil.d("getUserTableByDeviceId:\t"+list.size());
         if (list.size() > 0) {
             return list.get(0);
         }

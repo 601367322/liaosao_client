@@ -28,8 +28,8 @@ import java.util.concurrent.locks.ReentrantLock;
  * @author Sergey Tarasevich (nostra13[at]gmail[dot]com)
  * @see com.nostra13.universalimageloader.utils.MemoryCacheUtils
  * @see DisplayImageOptions
- * @see com.nostra13.universalimageloader.core.listener.ImageLoadingListener
- * @see com.nostra13.universalimageloader.core.listener.ImageLoadingProgressListener
+ * @see ImageLoadingListener
+ * @see ImageLoadingProgressListener
  * @since 1.3.1
  */
 final class ImageLoadingInfo {

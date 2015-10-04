@@ -32,7 +32,7 @@ public class FailReason {
 		this.cause = cause;
 	}
 
-	/** @return {@linkplain com.nostra13.universalimageloader.core.assist.FailReason.FailType Fail type} */
+	/** @return {@linkplain FailType Fail type} */
 	public FailType getType() {
 		return type;
 	}

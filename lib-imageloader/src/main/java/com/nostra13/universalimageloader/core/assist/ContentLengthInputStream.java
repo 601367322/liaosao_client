@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * Decorator for {@link java.io.InputStream InputStream}. Provides possibility to return defined stream length by
+ * Decorator for {@link InputStream InputStream}. Provides possibility to return defined stream length by
  * {@link #available()} method.
  *
  * @author Sergey Tarasevich (nostra13[at]gmail[dot]com), Mariotaku

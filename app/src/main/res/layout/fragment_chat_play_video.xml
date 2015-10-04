@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:pla="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+
+    <TextureView
+        android:id="@+id/video_textureview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true" />
+
+    <com.xl.custom.SquareImageView
+        android:layout_width="match_parent"
+        android:id="@+id/thumb_image"
+        android:scaleType="centerCrop"
+        android:layout_height="match_parent" />
+
+    <com.xl.custom.RoundProgressBar
+        android:id="@+id/loadProgressBar"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerInParent="true"
+        android:progressDrawable="@drawable/progressbar"
+        android:visibility="gone"
+        pla:proroundColor="@color/white"
+        pla:proroundProgressColor="@color/holo_blue_light"
+        pla:rmax="100"
+        pla:style="STROKE"
+        pla:textColor="@color/holo_blue_light" />
+</RelativeLayout>

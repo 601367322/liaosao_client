@@ -25,7 +25,7 @@ import com.nostra13.universalimageloader.core.assist.FailReason;
  *
  * @author Sergey Tarasevich (nostra13[at]gmail[dot]com)
  * @see SimpleImageLoadingListener
- * @see com.nostra13.universalimageloader.core.assist.FailReason
+ * @see FailReason
  * @since 1.0.0
  */
 public interface ImageLoadingListener {
@@ -43,7 +43,7 @@ public interface ImageLoadingListener {
 	 *
 	 * @param imageUri   Loading image URI
 	 * @param view       View for image. Can be <b>null</b>.
-	 * @param failReason {@linkplain com.nostra13.universalimageloader.core.assist.FailReason The reason} why image
+	 * @param failReason {@linkplain FailReason The reason} why image
 	 *                   loading was failed
 	 */
 	void onLoadingFailed(String imageUri, View view, FailReason failReason);

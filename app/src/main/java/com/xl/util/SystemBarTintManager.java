@@ -63,7 +63,7 @@ public class SystemBarTintManager {
         try {
             Class<?> sysClass = Class.forName("android.os.SystemProperties");
             Method getStringMethod = sysClass.getDeclaredMethod("get", String.class);
-            sIsMiuiV6 = "V6".equals((String) getStringMethod.invoke(sysClass, "ro.miui.ui.version.name"));
+            sIsMiuiV6 = "V6".equals((String) getStringMethod.invoke(sysClass, "ro.miui.ui.version.name"))||"V7".equals((String) getStringMethod.invoke(sysClass, "ro.miui.ui.version.name"));
         } catch (Exception e) {
             e.printStackTrace();
         }

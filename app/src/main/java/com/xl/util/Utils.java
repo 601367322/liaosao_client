@@ -399,4 +399,8 @@ public class Utils {
             .showImageOnFail(R.drawable.default_logo)       // 不是图片文件 显示图片
             .cacheInMemory(true)           // default 不缓存至内存
             .cacheOnDisk(true).build();
+
+    public static String getDownloadFileUrl(String deviceId,String name){
+        return URLS.DOWNLOADFILE + deviceId + "/" + name + URLS.LAST;
+    }
 }

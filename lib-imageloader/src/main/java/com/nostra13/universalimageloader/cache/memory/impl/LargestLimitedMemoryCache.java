@@ -27,7 +27,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 /**
- * Limited {@link android.graphics.Bitmap bitmap} cache. Provides {@link android.graphics.Bitmap bitmaps} storing. Size of all stored bitmaps will not to
+ * Limited {@link Bitmap bitmap} cache. Provides {@link Bitmap bitmaps} storing. Size of all stored bitmaps will not to
  * exceed size limit. When cache reaches limit size then the bitmap which has the largest size is deleted from
  * cache.<br />
  * <br />

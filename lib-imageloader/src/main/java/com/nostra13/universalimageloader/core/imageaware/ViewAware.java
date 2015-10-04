@@ -27,7 +27,7 @@ import java.lang.ref.Reference;
 import java.lang.ref.WeakReference;
 
 /**
- * Wrapper for Android {@link android.view.View View}. Keeps weak reference of View to prevent memory leaks.
+ * Wrapper for Android {@link View View}. Keeps weak reference of View to prevent memory leaks.
  *
  * @author Sergey Tarasevich (nostra13[at]gmail[dot]com)
  * @since 1.9.2
@@ -42,18 +42,18 @@ public abstract class ViewAware implements ImageAware {
 
 	/**
 	 * Constructor. <br />
-	 * References {@link #ViewAware(android.view.View, boolean) ImageViewAware(imageView, true)}.
+	 * References {@link #ViewAware(View, boolean) ImageViewAware(imageView, true)}.
 	 *
-	 * @param view {@link android.view.View View} to work with
+	 * @param view {@link View View} to work with
 	 */
 	public ViewAware(View view) {
-		this(view, false);
+		this(view, true);
 	}
 
 	/**
 	 * Constructor
 	 *
-	 * @param view                {@link android.view.View View} to work with
+	 * @param view                {@link View View} to work with
 	 * @param checkActualViewSize <b>true</b> - then {@link #getWidth()} and {@link #getHeight()} will check actual
 	 *                            size of View. It can cause known issues like
 	 *                            <a href="https://github.com/nostra13/Android-Universal-Image-Loader/issues/376">this</a>.
@@ -76,7 +76,7 @@ public abstract class ViewAware implements ImageAware {
 	/**
 	 * {@inheritDoc}
 	 * <p/>
-	 * Width is defined by target {@link android.view.View view} parameters, configuration
+	 * Width is defined by target {@link View view} parameters, configuration
 	 * parameters or device display dimensions.<br />
 	 * Size computing algorithm (go by steps until get non-zero value):<br />
 	 * 1) Get the actual drawn <b>getWidth()</b> of the View<br />
@@ -100,7 +100,7 @@ public abstract class ViewAware implements ImageAware {
 	/**
 	 * {@inheritDoc}
 	 * <p/>
-	 * Height is defined by target {@link android.view.View view} parameters, configuration
+	 * Height is defined by target {@link View view} parameters, configuration
 	 * parameters or device display dimensions.<br />
 	 * Size computing algorithm (go by steps until get non-zero value):<br />
 	 * 1) Get the actual drawn <b>getHeight()</b> of the View<br />

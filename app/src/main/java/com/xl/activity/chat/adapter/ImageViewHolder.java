@@ -40,8 +40,8 @@ public class ImageViewHolder extends FileBaseHolder {
         super.bind(bean);
         switch (getMstType()) {
             case ChatAdapters.LEFT_IMG:
-                if (bean.getLoading() == MessageBean.LOADING_NODOWNLOAD && !downloading.contains(bean)) {
-                    downloading.add(bean);
+                if (bean.getLoading() == MessageBean.LOADING_NODOWNLOAD && !adapter.downloading.contains(bean)) {
+                    adapter.downloading.add(bean);
                     File file = new File(StaticFactory.APKCardPathChat + bean.getFromId());
                     if (!file.exists()) {
                         file.mkdirs();

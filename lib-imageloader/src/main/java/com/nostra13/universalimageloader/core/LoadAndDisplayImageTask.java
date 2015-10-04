@@ -40,12 +40,12 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * Presents load'n'display image task. Used to load image from Internet or file system, decode it to {@link android.graphics.Bitmap}, and
- * display it in {@link com.nostra13.universalimageloader.core.imageaware.ImageAware} using {@link com.nostra13.universalimageloader.core.DisplayBitmapTask}.
+ * Presents load'n'display image task. Used to load image from Internet or file system, decode it to {@link Bitmap}, and
+ * display it in {@link ImageAware} using {@link DisplayBitmapTask}.
  *
  * @author Sergey Tarasevich (nostra13[at]gmail[dot]com)
  * @see ImageLoaderConfiguration
- * @see com.nostra13.universalimageloader.core.ImageLoadingInfo
+ * @see ImageLoadingInfo
  * @since 1.3.1
  */
 final class LoadAndDisplayImageTask implements Runnable, IoUtils.CopyListener {
@@ -215,7 +215,7 @@ final class LoadAndDisplayImageTask implements Runnable, IoUtils.CopyListener {
 		Bitmap bitmap = null;
 		try {
 			File imageFile = configuration.diskCache.get(uri);
-			if (imageFile != null && imageFile.exists()) {
+			if (imageFile != null && imageFile.exists() && imageFile.length() > 0) {
 				L.d(LOG_LOAD_IMAGE_FROM_DISK_CACHE, memoryCacheKey);
 				loadedFrom = LoadedFrom.DISC_CACHE;
 
@@ -387,7 +387,7 @@ final class LoadAndDisplayImageTask implements Runnable, IoUtils.CopyListener {
 	}
 
 	/**
-	 * @throws com.nostra13.universalimageloader.core.LoadAndDisplayImageTask.TaskCancelledException if task is not actual (target ImageAware is collected by GC or the image URI of
+	 * @throws TaskCancelledException if task is not actual (target ImageAware is collected by GC or the image URI of
 	 *                                this task doesn't match to image URI which is actual for current ImageAware at
 	 *                                this moment)
 	 */
@@ -404,7 +404,7 @@ final class LoadAndDisplayImageTask implements Runnable, IoUtils.CopyListener {
 		return isViewCollected() || isViewReused();
 	}
 
-	/** @throws com.nostra13.universalimageloader.core.LoadAndDisplayImageTask.TaskCancelledException if target ImageAware is collected */
+	/** @throws TaskCancelledException if target ImageAware is collected */
 	private void checkViewCollected() throws TaskCancelledException {
 		if (isViewCollected()) {
 			throw new TaskCancelledException();
@@ -420,7 +420,7 @@ final class LoadAndDisplayImageTask implements Runnable, IoUtils.CopyListener {
 		return false;
 	}
 
-	/** @throws com.nostra13.universalimageloader.core.LoadAndDisplayImageTask.TaskCancelledException if target ImageAware is collected by GC */
+	/** @throws TaskCancelledException if target ImageAware is collected by GC */
 	private void checkViewReused() throws TaskCancelledException {
 		if (isViewReused()) {
 			throw new TaskCancelledException();
@@ -440,7 +440,7 @@ final class LoadAndDisplayImageTask implements Runnable, IoUtils.CopyListener {
 		return false;
 	}
 
-	/** @throws com.nostra13.universalimageloader.core.LoadAndDisplayImageTask.TaskCancelledException if current task was interrupted */
+	/** @throws TaskCancelledException if current task was interrupted */
 	private void checkTaskInterrupted() throws TaskCancelledException {
 		if (isTaskInterrupted()) {
 			throw new TaskCancelledException();

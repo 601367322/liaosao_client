@@ -44,9 +44,9 @@ public final class StorageUtils {
 	 * Android defines cache directory on device's file system.
 	 *
 	 * @param context Application context
-	 * @return Cache {@link java.io.File directory}.<br />
+	 * @return Cache {@link File directory}.<br />
 	 * <b>NOTE:</b> Can be null in some unpredictable cases (if SD card is unmounted and
-	 * {@link android.content.Context#getCacheDir() Context.getCacheDir()} returns null).
+	 * {@link Context#getCacheDir() Context.getCacheDir()} returns null).
 	 */
 	public static File getCacheDirectory(Context context) {
 		return getCacheDirectory(context, true);
@@ -59,9 +59,9 @@ public final class StorageUtils {
 	 *
 	 * @param context        Application context
 	 * @param preferExternal Whether prefer external location for cache
-	 * @return Cache {@link java.io.File directory}.<br />
+	 * @return Cache {@link File directory}.<br />
 	 * <b>NOTE:</b> Can be null in some unpredictable cases (if SD card is unmounted and
-	 * {@link android.content.Context#getCacheDir() Context.getCacheDir()} returns null).
+	 * {@link Context#getCacheDir() Context.getCacheDir()} returns null).
 	 */
 	public static File getCacheDirectory(Context context, boolean preferExternal) {
 		File appCacheDir = null;
@@ -69,6 +69,8 @@ public final class StorageUtils {
 		try {
 			externalStorageState = Environment.getExternalStorageState();
 		} catch (NullPointerException e) { // (sh)it happens (Issue #660)
+			externalStorageState = "";
+		} catch (IncompatibleClassChangeError e) { // (sh)it happens too (Issue #989)
 			externalStorageState = "";
 		}
 		if (preferExternal && MEDIA_MOUNTED.equals(externalStorageState) && hasExternalStoragePermission(context)) {
@@ -91,14 +93,27 @@ public final class StorageUtils {
 	 * appropriate permission. Else - Android defines cache directory on device's file system.
 	 *
 	 * @param context Application context
-	 * @return Cache {@link java.io.File directory}
+	 * @return Cache {@link File directory}
 	 */
 	public static File getIndividualCacheDirectory(Context context) {
-		File cacheDir = getCacheDirectory(context);
-		File individualCacheDir = new File(cacheDir, INDIVIDUAL_DIR_NAME);
+		return getIndividualCacheDirectory(context, INDIVIDUAL_DIR_NAME);
+	}
+
+	/**
+	 * Returns individual application cache directory (for only image caching from ImageLoader). Cache directory will be
+	 * created on SD card <i>("/Android/data/[app_package_name]/cache/uil-images")</i> if card is mounted and app has
+	 * appropriate permission. Else - Android defines cache directory on device's file system.
+	 *
+	 * @param context Application context
+	 * @param cacheDir Cache directory path (e.g.: "AppCacheDir", "AppDir/cache/images")
+	 * @return Cache {@link File directory}
+	 */
+	public static File getIndividualCacheDirectory(Context context, String cacheDir) {
+		File appCacheDir = getCacheDirectory(context);
+		File individualCacheDir = new File(appCacheDir, cacheDir);
 		if (!individualCacheDir.exists()) {
 			if (!individualCacheDir.mkdir()) {
-				individualCacheDir = cacheDir;
+				individualCacheDir = appCacheDir;
 			}
 		}
 		return individualCacheDir;
@@ -110,11 +125,30 @@ public final class StorageUtils {
 	 *
 	 * @param context  Application context
 	 * @param cacheDir Cache directory path (e.g.: "AppCacheDir", "AppDir/cache/images")
-	 * @return Cache {@link java.io.File directory}
+	 * @return Cache {@link File directory}
 	 */
 	public static File getOwnCacheDirectory(Context context, String cacheDir) {
 		File appCacheDir = null;
 		if (MEDIA_MOUNTED.equals(Environment.getExternalStorageState()) && hasExternalStoragePermission(context)) {
+			appCacheDir = new File(Environment.getExternalStorageDirectory(), cacheDir);
+		}
+		if (appCacheDir == null || (!appCacheDir.exists() && !appCacheDir.mkdirs())) {
+			appCacheDir = context.getCacheDir();
+		}
+		return appCacheDir;
+	}
+
+	/**
+	 * Returns specified application cache directory. Cache directory will be created on SD card by defined path if card
+	 * is mounted and app has appropriate permission. Else - Android defines cache directory on device's file system.
+	 *
+	 * @param context  Application context
+	 * @param cacheDir Cache directory path (e.g.: "AppCacheDir", "AppDir/cache/images")
+	 * @return Cache {@link File directory}
+	 */
+	public static File getOwnCacheDirectory(Context context, String cacheDir, boolean preferExternal) {
+		File appCacheDir = null;
+		if (preferExternal && MEDIA_MOUNTED.equals(Environment.getExternalStorageState()) && hasExternalStoragePermission(context)) {
 			appCacheDir = new File(Environment.getExternalStorageDirectory(), cacheDir);
 		}
 		if (appCacheDir == null || (!appCacheDir.exists() && !appCacheDir.mkdirs())) {

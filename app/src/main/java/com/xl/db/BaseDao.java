@@ -32,4 +32,8 @@ public class BaseDao<T, ID> {
     public void update(T bean) {
         dao.update(bean);
     }
+
+    public void createOrUpdate(T bean){
+        dao.createOrUpdate(bean);
+    }
 }

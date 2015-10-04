@@ -26,7 +26,7 @@ import com.nostra13.universalimageloader.utils.L;
 import java.lang.reflect.Field;
 
 /**
- * Wrapper for Android {@link android.widget.ImageView ImageView}. Keeps weak reference of ImageView to prevent memory
+ * Wrapper for Android {@link ImageView ImageView}. Keeps weak reference of ImageView to prevent memory
  * leaks.
  *
  * @author Sergey Tarasevich (nostra13[at]gmail[dot]com)
@@ -36,9 +36,9 @@ public class ImageViewAware extends ViewAware {
 
 	/**
 	 * Constructor. <br />
-	 * References {@link #ImageViewAware(android.widget.ImageView, boolean) ImageViewAware(imageView, true)}.
+	 * References {@link #ImageViewAware(ImageView, boolean) ImageViewAware(imageView, true)}.
 	 *
-	 * @param imageView {@link android.widget.ImageView ImageView} to work with
+	 * @param imageView {@link ImageView ImageView} to work with
 	 */
 	public ImageViewAware(ImageView imageView) {
 		super(imageView);
@@ -47,7 +47,7 @@ public class ImageViewAware extends ViewAware {
 	/**
 	 * Constructor
 	 *
-	 * @param imageView           {@link android.widget.ImageView ImageView} to work with
+	 * @param imageView           {@link ImageView ImageView} to work with
 	 * @param checkActualViewSize <b>true</b> - then {@link #getWidth()} and {@link #getHeight()} will check actual
 	 *                            size of ImageView. It can cause known issues like
 	 *                            <a href="https://github.com/nostra13/Android-Universal-Image-Loader/issues/376">this</a>.

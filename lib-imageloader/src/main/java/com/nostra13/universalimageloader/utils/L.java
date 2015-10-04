@@ -19,7 +19,7 @@ import android.util.Log;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
- * "Less-word" analog of Android {@link android.util.Log logger}
+ * "Less-word" analog of Android {@link Log logger}
  *
  * @author Sergey Tarasevich (nostra13[at]gmail[dot]com)
  * @since 1.6.4
@@ -54,7 +54,7 @@ public final class L {
 	}
 
 	/**
-	 * Enables/disables detail logging of {@link com.nostra13.universalimageloader.core.ImageLoader} work.
+	 * Enables/disables detail logging of {@link ImageLoader} work.
 	 * Consider {@link L#disableLogging()} to disable
 	 * ImageLoader logging completely (even error logs)<br />
 	 * Debug logs are disabled by default.
@@ -63,7 +63,7 @@ public final class L {
 		L.writeDebugLogs = writeDebugLogs;
 	}
 
-	/** Enables/disables logging of {@link com.nostra13.universalimageloader.core.ImageLoader} completely (even error logs). */
+	/** Enables/disables logging of {@link ImageLoader} completely (even error logs). */
 	public static void writeLogs(boolean writeLogs) {
 		L.writeLogs = writeLogs;
 	}

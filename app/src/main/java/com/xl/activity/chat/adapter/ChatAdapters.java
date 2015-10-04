@@ -8,7 +8,9 @@ import android.view.ViewGroup;
 import com.xl.activity.R;
 import com.xl.application.AppClass;
 import com.xl.bean.MessageBean;
+import com.xl.bean.UserTable_6;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ChatAdapters extends RecyclerView.Adapter<BaseHolder> {
@@ -17,8 +19,12 @@ public class ChatAdapters extends RecyclerView.Adapter<BaseHolder> {
     private List<MessageBean> list;
     private AppClass ac;
 
-    public static final int LEFT_TEXT = 0, LEFT_VOICE = 1, LEFT_IMG = 2, LEFT_FACE = 3, LEFT_RADIO = 8;
-    public static final int RIGHT_TEXT = 4, RIGHT_VOICE = 5, RIGHT_IMG = 6, RIGHT_FACE = 7, RIGHT_RADIO = 9;
+    public static final int LEFT_TEXT = 0, LEFT_VOICE = 1, LEFT_IMG = 2, LEFT_FACE = 3, LEFT_RADIO = 8, LEFT_RADIO_NEW = 10;
+    public static final int RIGHT_TEXT = 4, RIGHT_VOICE = 5, RIGHT_IMG = 6, RIGHT_FACE = 7, RIGHT_RADIO = 9, RIGHT_RADIO_NEW = 11;
+
+    public List<MessageBean> downloading = new ArrayList<>();
+
+    public UserTable_6 friend;
 
     public ChatAdapters(Context context, List list) {
         this.list = list;
@@ -68,7 +74,12 @@ public class ChatAdapters extends RecyclerView.Adapter<BaseHolder> {
             case RIGHT_RADIO:
                 holder = new VideoViewHolder(LayoutInflater.from(context).inflate(R.layout.chat_right_radio_layout, viewGroup, false));
                 break;
-
+            case LEFT_RADIO_NEW:
+                holder = new VideoViewHolderNew(LayoutInflater.from(context).inflate(R.layout.chat_left_radio_layout_new, viewGroup, false));
+                break;
+            case RIGHT_RADIO_NEW:
+                holder = new VideoViewHolderNew(LayoutInflater.from(context).inflate(R.layout.chat_right_radio_layout_new, viewGroup, false));
+                break;
         }
         holder.setMstType(type);
         holder.setAdapter(this);
@@ -105,6 +116,11 @@ public class ChatAdapters extends RecyclerView.Adapter<BaseHolder> {
                     break;
                 case MessageBean.RADIO:
                     type = LEFT_RADIO;
+                    break;
+                case MessageBean.RADIO_NEW:
+                    type = LEFT_RADIO_NEW;
+                    break;
+
             }
         } else {
             switch (mb.getMsgType()) {
@@ -122,9 +138,20 @@ public class ChatAdapters extends RecyclerView.Adapter<BaseHolder> {
                     break;
                 case MessageBean.RADIO:
                     type = RIGHT_RADIO;
+                    break;
+                case MessageBean.RADIO_NEW:
+                    type = RIGHT_RADIO_NEW;
+                    break;
             }
         }
         return type;
     }
 
+    public UserTable_6 getFriend() {
+        return friend;
+    }
+
+    public void setFriend(UserTable_6 friend) {
+        this.friend = friend;
+    }
 }

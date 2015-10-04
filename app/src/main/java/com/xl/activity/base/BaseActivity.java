@@ -1,6 +1,8 @@
+
 package com.xl.activity.base;
 
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -27,20 +29,30 @@ public abstract class BaseActivity extends AppCompatActivity {
     @App
     protected AppClass ac;
 
+    protected Context mContext;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         AM.getActivityManager().pushActivity(this);
         super.onCreate(savedInstanceState);
 
-        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
-            setTranslucentStatus(true);
-            SystemBarTintManager tintManager = new SystemBarTintManager(this);
-            tintManager.setStatusBarTintEnabled(true);
-            //使StatusBarTintView 和 actionbar的颜色保持一致，风格统一。
-            tintManager.setStatusBarTintResource(R.color.holo_blue_light);
-            // 设置状态栏的文字颜色
-            tintManager.setStatusBarDarkMode(false, this);
+        this.mContext = this;
+
+        if(needTranslucentStatus()) {
+            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
+                setTranslucentStatus(true);
+                SystemBarTintManager tintManager = new SystemBarTintManager(this);
+                tintManager.setStatusBarTintEnabled(true);
+                //使StatusBarTintView 和 actionbar的颜色保持一致，风格统一。
+                tintManager.setStatusBarTintResource(R.color.holo_blue_light);
+                // 设置状态栏的文字颜色
+                tintManager.setStatusBarDarkMode(false, this);
+            }
         }
+    }
+
+    public boolean needTranslucentStatus(){
+        return true;
     }
 
     @TargetApi(19)

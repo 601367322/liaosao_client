@@ -63,7 +63,7 @@ public class LruDiskCache implements DiskCache {
 	 *                          Name generator} for cached files. Generated names must match the regex
 	 *                          <strong>[a-z0-9_-]{1,64}</strong>
 	 * @param cacheMaxSize      Max cache size in bytes. <b>0</b> means cache size is unlimited.
-	 * @throws java.io.IOException if cache can't be initialized (e.g. "No space left on device")
+	 * @throws IOException if cache can't be initialized (e.g. "No space left on device")
 	 */
 	public LruDiskCache(File cacheDir, FileNameGenerator fileNameGenerator, long cacheMaxSize) throws IOException {
 		this(cacheDir, null, fileNameGenerator, cacheMaxSize, 0);
@@ -77,7 +77,7 @@ public class LruDiskCache implements DiskCache {
 	 *                          <strong>[a-z0-9_-]{1,64}</strong>
 	 * @param cacheMaxSize      Max cache size in bytes. <b>0</b> means cache size is unlimited.
 	 * @param cacheMaxFileCount Max file count in cache. <b>0</b> means file count is unlimited.
-	 * @throws java.io.IOException if cache can't be initialized (e.g. "No space left on device")
+	 * @throws IOException if cache can't be initialized (e.g. "No space left on device")
 	 */
 	public LruDiskCache(File cacheDir, File reserveCacheDir, FileNameGenerator fileNameGenerator, long cacheMaxSize,
 			int cacheMaxFileCount) throws IOException {

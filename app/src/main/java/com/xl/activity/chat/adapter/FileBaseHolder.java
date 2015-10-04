@@ -6,19 +6,16 @@ import com.loopj.android.http.FileAsyncHttpResponseHandler;
 import com.xl.bean.MessageBean;
 import com.xl.db.ChatDao;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import org.apache.http.Header;
 
-import cz.msebera.android.httpclient.Header;
+import java.io.File;
+
 
 
 /**
  * Created by Shen on 2015/9/13.
  */
 public class FileBaseHolder extends BaseHolder{
-
-    public List<MessageBean> downloading = new ArrayList<>();
 
     public FileBaseHolder(View itemView) {
         super(itemView);
@@ -53,7 +50,7 @@ public class FileBaseHolder extends BaseHolder{
         @Override
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file) {
             messageBean.setLoading(MessageBean.LOADING_DOWNLOADFAIL);
-            downloading.remove(messageBean);
+            adapter.downloading.remove(messageBean);
             ChatDao.getInstance(context.getApplicationContext()).updateMessage(messageBean);
             getHandler().post(new Runnable() {
                 @Override
@@ -67,7 +64,7 @@ public class FileBaseHolder extends BaseHolder{
         public void onSuccess(int statusCode, Header[] headers, File file) {
             messageBean.setLoading(MessageBean.LOADING_DOWNLOADED);
             messageBean.setContent(file.getPath());
-            downloading.remove(messageBean);
+            adapter.downloading.remove(messageBean);
             ChatDao.getInstance(context.getApplicationContext()).updateMessage(messageBean);
             getHandler().post(new Runnable() {
                 @Override

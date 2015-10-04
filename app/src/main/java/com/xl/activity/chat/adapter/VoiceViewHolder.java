@@ -1,11 +1,8 @@
 package com.xl.activity.chat.adapter;
 
-import android.media.MediaPlayer;
-import android.os.Handler;
-import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.view.View;
-import android.widget.RelativeLayout;
+import android.view.ViewGroup;
 
 import com.xl.activity.R;
 import com.xl.activity.chat.PlayVoice;
@@ -44,7 +41,7 @@ public class VoiceViewHolder extends FileBaseHolder{
 
         float scale = (float) bean.getVoiceTime() / 60f;
         float width = 150f * scale;
-        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) voice.getLayoutParams();
+        ViewGroup.LayoutParams layoutParams = voice.getLayoutParams();
         layoutParams.width = Utils.dip2px(context, 60 + (int) width);
         voice.setLayoutParams(layoutParams);
         voice.setTag(bean);
@@ -57,8 +54,8 @@ public class VoiceViewHolder extends FileBaseHolder{
                     voice_img.setImageResource(R.drawable.chat_right_animation_png);
                     break;
             }
-            if (bean.getLoading() == MessageBean.LOADING_NODOWNLOAD && getMstType() == ChatAdapters.LEFT_VOICE && !downloading.contains(bean)) {
-                downloading.add(bean);
+            if (bean.getLoading() == MessageBean.LOADING_NODOWNLOAD && getMstType() == ChatAdapters.LEFT_VOICE && !adapter.downloading.contains(bean)) {
+                adapter.downloading.add(bean);
                 File file = new File(StaticFactory.APKCardPathChat + bean.getFromId());
                 if (!file.exists()) {
                     file.mkdirs();

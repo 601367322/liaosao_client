@@ -31,7 +31,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * Decodes images to {@link android.graphics.Bitmap}, scales them to needed size
+ * Decodes images to {@link Bitmap}, scales them to needed size
  *
  * @author Sergey Tarasevich (nostra13[at]gmail[dot]com)
  * @see ImageDecodingInfo
@@ -58,12 +58,12 @@ public class BaseImageDecoder implements ImageDecoder {
 	}
 
 	/**
-	 * Decodes image from URI into {@link android.graphics.Bitmap}. Image is scaled close to incoming {@linkplain com.nostra13.universalimageloader.core.assist.ImageSize target size}
+	 * Decodes image from URI into {@link Bitmap}. Image is scaled close to incoming {@linkplain ImageSize target size}
 	 * during decoding (depend on incoming parameters).
 	 *
 	 * @param decodingInfo Needed data for decoding image
 	 * @return Decoded bitmap
-	 * @throws java.io.IOException                   if some I/O exception occurs during image reading
+	 * @throws IOException                   if some I/O exception occurs during image reading
 	 * @throws UnsupportedOperationException if image URI has unsupported scheme(protocol)
 	 */
 	@Override
@@ -174,13 +174,15 @@ public class BaseImageDecoder implements ImageDecoder {
 	}
 
 	protected InputStream resetStream(InputStream imageStream, ImageDecodingInfo decodingInfo) throws IOException {
-		try {
-			imageStream.reset();
-		} catch (IOException e) {
-			IoUtils.closeSilently(imageStream);
-			imageStream = getImageStream(decodingInfo);
+		if (imageStream.markSupported()) {
+			try {
+				imageStream.reset();
+				return imageStream;
+			} catch (IOException ignored) {
+			}
 		}
-		return imageStream;
+		IoUtils.closeSilently(imageStream);
+		return getImageStream(decodingInfo);
 	}
 
 	protected Bitmap considerExactScaleAndOrientatiton(Bitmap subsampledBitmap, ImageDecodingInfo decodingInfo,

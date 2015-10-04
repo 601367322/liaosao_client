@@ -72,4 +72,10 @@
     <string name="u_have_n_message">您有N条未读消息</string>
     <string name="girl_god">女神认证</string>
     <string name="message_history">聊天记录</string>
+    <string name="upload_fail">上传失败</string>
+    <string name="uploading">正在上传</string>
+    <string name="upload_succes">上传成功</string>
+    <string name="editing">正在修改</string>
+    <string name="edit_success">修改成功</string>
+    <string name="edit_fail">修改失败</string>
 </resources>

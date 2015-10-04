@@ -36,14 +36,14 @@ import java.io.InputStream;
 import java.util.concurrent.Executor;
 
 /**
- * Presents configuration for {@link com.nostra13.universalimageloader.core.ImageLoader}
+ * Presents configuration for {@link ImageLoader}
  *
  * @author Sergey Tarasevich (nostra13[at]gmail[dot]com)
- * @see com.nostra13.universalimageloader.core.ImageLoader
+ * @see ImageLoader
  * @see MemoryCache
  * @see DiskCache
- * @see com.nostra13.universalimageloader.core.DisplayImageOptions
- * @see com.nostra13.universalimageloader.core.download.ImageDownloader
+ * @see DisplayImageOptions
+ * @see ImageDownloader
  * @see FileNameGenerator
  * @since 1.0.0
  */
@@ -103,23 +103,23 @@ public final class ImageLoaderConfiguration {
 	}
 
 	/**
-	 * Creates default configuration for {@link com.nostra13.universalimageloader.core.ImageLoader} <br />
+	 * Creates default configuration for {@link ImageLoader} <br />
 	 * <b>Default values:</b>
 	 * <ul>
 	 * <li>maxImageWidthForMemoryCache = device's screen width</li>
 	 * <li>maxImageHeightForMemoryCache = device's screen height</li>
 	 * <li>maxImageWidthForDikcCache = unlimited</li>
 	 * <li>maxImageHeightForDiskCache = unlimited</li>
-	 * <li>threadPoolSize = {@link com.nostra13.universalimageloader.core.ImageLoaderConfiguration.Builder#DEFAULT_THREAD_POOL_SIZE this}</li>
-	 * <li>threadPriority = {@link com.nostra13.universalimageloader.core.ImageLoaderConfiguration.Builder#DEFAULT_THREAD_PRIORITY this}</li>
+	 * <li>threadPoolSize = {@link Builder#DEFAULT_THREAD_POOL_SIZE this}</li>
+	 * <li>threadPriority = {@link Builder#DEFAULT_THREAD_PRIORITY this}</li>
 	 * <li>allow to cache different sizes of image in memory</li>
-	 * <li>memoryCache = {@link DefaultConfigurationFactory#createMemoryCache(android.content.Context, int)}</li>
+	 * <li>memoryCache = {@link DefaultConfigurationFactory#createMemoryCache(Context, int)}</li>
 	 * <li>diskCache = {@link com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiskCache}</li>
-	 * <li>imageDownloader = {@link DefaultConfigurationFactory#createImageDownloader(android.content.Context)}</li>
+	 * <li>imageDownloader = {@link DefaultConfigurationFactory#createImageDownloader(Context)}</li>
 	 * <li>imageDecoder = {@link DefaultConfigurationFactory#createImageDecoder(boolean)}</li>
 	 * <li>diskCacheFileNameGenerator = {@link DefaultConfigurationFactory#createFileNameGenerator()}</li>
-	 * <li>defaultDisplayImageOptions = {@link com.nostra13.universalimageloader.core.DisplayImageOptions#createSimple() Simple options}</li>
-	 * <li>tasksProcessingOrder = {@link com.nostra13.universalimageloader.core.assist.QueueProcessingType#FIFO}</li>
+	 * <li>defaultDisplayImageOptions = {@link DisplayImageOptions#createSimple() Simple options}</li>
+	 * <li>tasksProcessingOrder = {@link QueueProcessingType#FIFO}</li>
 	 * <li>detailed logging disabled</li>
 	 * </ul>
 	 */
@@ -142,7 +142,7 @@ public final class ImageLoaderConfiguration {
 	}
 
 	/**
-	 * Builder for {@link com.nostra13.universalimageloader.core.ImageLoaderConfiguration}
+	 * Builder for {@link ImageLoaderConfiguration}
 	 *
 	 * @author Sergey Tarasevich (nostra13[at]gmail[dot]com)
 	 */
@@ -212,7 +212,7 @@ public final class ImageLoaderConfiguration {
 
 		/**
 		 * @deprecated Use
-		 * {@link #diskCacheExtraOptions(int, int, com.nostra13.universalimageloader.core.process.BitmapProcessor)}
+		 * {@link #diskCacheExtraOptions(int, int, BitmapProcessor)}
 		 * instead
 		 */
 		@Deprecated
@@ -227,7 +227,7 @@ public final class ImageLoaderConfiguration {
 		 *
 		 * @param maxImageWidthForDiskCache  Maximum width of downloaded images for saving at disk cache
 		 * @param maxImageHeightForDiskCache Maximum height of downloaded images for saving at disk cache
-		 * @param processorForDiskCache      null-ok; {@linkplain com.nostra13.universalimageloader.core.process.BitmapProcessor Bitmap processor} which process images before saving them in disc cache
+		 * @param processorForDiskCache      null-ok; {@linkplain BitmapProcessor Bitmap processor} which process images before saving them in disc cache
 		 */
 		public Builder diskCacheExtraOptions(int maxImageWidthForDiskCache, int maxImageHeightForDiskCache,
 				BitmapProcessor processorForDiskCache) {
@@ -238,17 +238,17 @@ public final class ImageLoaderConfiguration {
 		}
 
 		/**
-		 * Sets custom {@linkplain java.util.concurrent.Executor executor} for tasks of loading and displaying images.<br />
+		 * Sets custom {@linkplain Executor executor} for tasks of loading and displaying images.<br />
 		 * <br />
 		 * <b>NOTE:</b> If you set custom executor then following configuration options will not be considered for this
 		 * executor:
 		 * <ul>
 		 * <li>{@link #threadPoolSize(int)}</li>
 		 * <li>{@link #threadPriority(int)}</li>
-		 * <li>{@link #tasksProcessingOrder(com.nostra13.universalimageloader.core.assist.QueueProcessingType)}</li>
+		 * <li>{@link #tasksProcessingOrder(QueueProcessingType)}</li>
 		 * </ul>
 		 *
-		 * @see #taskExecutorForCachedImages(java.util.concurrent.Executor)
+		 * @see #taskExecutorForCachedImages(Executor)
 		 */
 		public Builder taskExecutor(Executor executor) {
 			if (threadPoolSize != DEFAULT_THREAD_POOL_SIZE || threadPriority != DEFAULT_THREAD_PRIORITY || tasksProcessingType != DEFAULT_TASK_PROCESSING_TYPE) {
@@ -260,10 +260,10 @@ public final class ImageLoaderConfiguration {
 		}
 
 		/**
-		 * Sets custom {@linkplain java.util.concurrent.Executor executor} for tasks of displaying <b>cached on disk</b> images (these tasks
+		 * Sets custom {@linkplain Executor executor} for tasks of displaying <b>cached on disk</b> images (these tasks
 		 * are executed quickly so UIL prefer to use separate executor for them).<br />
 		 * <br />
-		 * If you set the same executor for {@linkplain #taskExecutor(java.util.concurrent.Executor) general tasks} and
+		 * If you set the same executor for {@linkplain #taskExecutor(Executor) general tasks} and
 		 * tasks about cached images (this method) then these tasks will be in the
 		 * same thread pool. So short-lived tasks can wait a long time for their turn.<br />
 		 * <br />
@@ -272,10 +272,10 @@ public final class ImageLoaderConfiguration {
 		 * <ul>
 		 * <li>{@link #threadPoolSize(int)}</li>
 		 * <li>{@link #threadPriority(int)}</li>
-		 * <li>{@link #tasksProcessingOrder(com.nostra13.universalimageloader.core.assist.QueueProcessingType)}</li>
+		 * <li>{@link #tasksProcessingOrder(QueueProcessingType)}</li>
 		 * </ul>
 		 *
-		 * @see #taskExecutor(java.util.concurrent.Executor)
+		 * @see #taskExecutor(Executor)
 		 */
 		public Builder taskExecutorForCachedImages(Executor executorForCachedImages) {
 			if (threadPoolSize != DEFAULT_THREAD_POOL_SIZE || threadPriority != DEFAULT_THREAD_PRIORITY || tasksProcessingType != DEFAULT_TASK_PROCESSING_TYPE) {
@@ -336,7 +336,7 @@ public final class ImageLoaderConfiguration {
 
 		/**
 		 * Sets type of queue processing for tasks for loading and displaying images.<br />
-		 * Default value - {@link com.nostra13.universalimageloader.core.assist.QueueProcessingType#FIFO}
+		 * Default value - {@link QueueProcessingType#FIFO}
 		 */
 		public Builder tasksProcessingOrder(QueueProcessingType tasksProcessingType) {
 			if (taskExecutor != null || taskExecutorForCachedImages != null) {
@@ -489,7 +489,7 @@ public final class ImageLoaderConfiguration {
 		 * Sets disk cache for images.<br />
 		 * Default value - {@link com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiskCache
 		 * UnlimitedDiskCache}. Cache directory is defined by
-		 * {@link com.nostra13.universalimageloader.utils.StorageUtils#getCacheDirectory(android.content.Context)
+		 * {@link com.nostra13.universalimageloader.utils.StorageUtils#getCacheDirectory(Context)
 		 * StorageUtils.getCacheDirectory(Context)}.<br />
 		 * <br />
 		 * <b>NOTE:</b> If you set custom disk cache then following configuration option will not be considered:
@@ -514,7 +514,7 @@ public final class ImageLoaderConfiguration {
 		/**
 		 * Sets utility which will be responsible for downloading of image.<br />
 		 * Default value -
-		 * {@link com.nostra13.universalimageloader.core.DefaultConfigurationFactory#createImageDownloader(android.content.Context)
+		 * {@link com.nostra13.universalimageloader.core.DefaultConfigurationFactory#createImageDownloader(Context)
 		 * DefaultConfigurationFactory.createImageDownloader()}
 		 */
 		public Builder imageDownloader(ImageDownloader imageDownloader) {
@@ -534,10 +534,10 @@ public final class ImageLoaderConfiguration {
 		}
 
 		/**
-		 * Sets default {@linkplain com.nostra13.universalimageloader.core.DisplayImageOptions display image options} for image displaying. These options will
-		 * be used for every {@linkplain com.nostra13.universalimageloader.core.ImageLoader#displayImage(String, android.widget.ImageView) image display call}
-		 * without passing custom {@linkplain com.nostra13.universalimageloader.core.DisplayImageOptions options}<br />
-		 * Default value - {@link com.nostra13.universalimageloader.core.DisplayImageOptions#createSimple() Simple options}
+		 * Sets default {@linkplain DisplayImageOptions display image options} for image displaying. These options will
+		 * be used for every {@linkplain ImageLoader#displayImage(String, android.widget.ImageView) image display call}
+		 * without passing custom {@linkplain DisplayImageOptions options}<br />
+		 * Default value - {@link DisplayImageOptions#createSimple() Simple options}
 		 */
 		public Builder defaultDisplayImageOptions(DisplayImageOptions defaultDisplayImageOptions) {
 			this.defaultDisplayImageOptions = defaultDisplayImageOptions;
@@ -545,7 +545,7 @@ public final class ImageLoaderConfiguration {
 		}
 
 		/**
-		 * Enables detail logging of {@link com.nostra13.universalimageloader.core.ImageLoader} work. To prevent detail logs don't call this method.
+		 * Enables detail logging of {@link ImageLoader} work. To prevent detail logs don't call this method.
 		 * Consider {@link com.nostra13.universalimageloader.utils.L#disableLogging()} to disable
 		 * ImageLoader logging completely (even error logs)
 		 */
@@ -554,7 +554,7 @@ public final class ImageLoaderConfiguration {
 			return this;
 		}
 
-		/** Builds configured {@link com.nostra13.universalimageloader.core.ImageLoaderConfiguration} object */
+		/** Builds configured {@link ImageLoaderConfiguration} object */
 		public ImageLoaderConfiguration build() {
 			initEmptyFieldsWithDefaultValues();
 			return new ImageLoaderConfiguration(this);
@@ -627,7 +627,7 @@ public final class ImageLoaderConfiguration {
 
 	/**
 	 * Decorator. Handles <a href="http://code.google.com/p/android/issues/detail?id=6066">this problem</a> on slow networks
-	 * using {@link com.nostra13.universalimageloader.core.assist.FlushedInputStream}.
+	 * using {@link FlushedInputStream}.
 	 *
 	 * @author Sergey Tarasevich (nostra13[at]gmail[dot]com)
 	 * @since 1.8.1

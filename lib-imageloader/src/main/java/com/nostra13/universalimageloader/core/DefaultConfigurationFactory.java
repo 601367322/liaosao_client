@@ -50,7 +50,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * Factory for providing of default options for {@linkplain com.nostra13.universalimageloader.core.ImageLoaderConfiguration configuration}
+ * Factory for providing of default options for {@linkplain ImageLoaderConfiguration configuration}
  *
  * @author Sergey Tarasevich (nostra13[at]gmail[dot]com)
  * @since 1.5.6
@@ -137,22 +137,22 @@ public class DefaultConfigurationFactory {
 		return am.getLargeMemoryClass();
 	}
 
-	/** Creates default implementation of {@link com.nostra13.universalimageloader.core.download.ImageDownloader} - {@link com.nostra13.universalimageloader.core.download.BaseImageDownloader} */
+	/** Creates default implementation of {@link ImageDownloader} - {@link BaseImageDownloader} */
 	public static ImageDownloader createImageDownloader(Context context) {
 		return new BaseImageDownloader(context);
 	}
 
-	/** Creates default implementation of {@link com.nostra13.universalimageloader.core.decode.ImageDecoder} - {@link com.nostra13.universalimageloader.core.decode.BaseImageDecoder} */
+	/** Creates default implementation of {@link ImageDecoder} - {@link BaseImageDecoder} */
 	public static ImageDecoder createImageDecoder(boolean loggingEnabled) {
 		return new BaseImageDecoder(loggingEnabled);
 	}
 
-	/** Creates default implementation of {@link com.nostra13.universalimageloader.core.display.BitmapDisplayer} - {@link com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer} */
+	/** Creates default implementation of {@link BitmapDisplayer} - {@link SimpleBitmapDisplayer} */
 	public static BitmapDisplayer createBitmapDisplayer() {
 		return new SimpleBitmapDisplayer();
 	}
 
-	/** Creates default implementation of {@linkplain java.util.concurrent.ThreadFactory thread factory} for task executor */
+	/** Creates default implementation of {@linkplain ThreadFactory thread factory} for task executor */
 	private static ThreadFactory createThreadFactory(int threadPriority, String threadNamePrefix) {
 		return new DefaultThreadFactory(threadPriority, threadNamePrefix);
 	}

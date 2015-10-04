@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:padding="8dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal">
+
+    <com.xl.custom.CircleImageView
+        android:id="@+id/userlogo"
+        android:src="@drawable/default_logo"
+        android:layout_width="40dp"
+        app:border_color="@color/trans"
+        app:border_width="0dp"
+        android:layout_height="40dp" />
 
     <com.xl.custom.MyImageView
         android:id="@+id/face"
@@ -11,14 +21,13 @@
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp" />
+        android:layout_marginTop="4dp"
+        android:layout_marginLeft="4dp" />
 
     <ProgressBar
         android:id="@+id/progress"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_alignTop="@id/face"
-        android:layout_toRightOf="@id/face"
         android:visibility="gone" />
 
     <ImageView
@@ -27,6 +36,5 @@
         android:layout_height="20dp"
         android:layout_centerVertical="true"
         android:src="@drawable/chat_error_icon"
-        android:layout_toRightOf="@id/face"
         android:visibility="gone"/>
-</RelativeLayout>
+</LinearLayout>

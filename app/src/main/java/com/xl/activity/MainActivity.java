@@ -4,8 +4,10 @@ import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.media.AudioFormat;
+import android.media.AudioRecord;
+import android.media.MediaRecorder;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.NavigationView;
@@ -15,13 +17,11 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewParent;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -42,7 +42,6 @@ import com.xl.activity.share.CommonShared;
 import com.xl.application.AppClass;
 import com.xl.bean.UserBean_6;
 import com.xl.bean.UserTable_6;
-import com.xl.custom.ResizeLayout;
 import com.xl.db.ChatDao;
 import com.xl.db.UserTableDao;
 import com.xl.fragment.MainFragment_;
@@ -76,7 +75,7 @@ import a.b.c.DynamicSdkManager;
 
 @EActivity(R.layout.activity_main)
 @OptionsMenu(R.menu.main)
-public class MainActivity extends BaseActivity implements ResizeLayout.OnResizeListener, View.OnClickListener {
+public class MainActivity extends BaseActivity implements View.OnClickListener, View.OnKeyListener {
 
     @ViewById(R.id.navigation_drawer)
     public NavigationView mNavigationView;
@@ -90,14 +89,11 @@ public class MainActivity extends BaseActivity implements ResizeLayout.OnResizeL
     @OptionsMenuItem(R.id.menu_item_share)
     MenuItem shareItem;
 
-    @ViewById
-    public ResizeLayout resize_layout;
-
     MenuItem girl_god, message_history;
 
     TextView vip_text, sex_text, nickname_text;
     EditText nickname_edit;
-    ImageView logo;
+    ImageView userlogo;
 
     ChatDao chatDao;
     UserTableDao userTableDao;
@@ -105,6 +101,12 @@ public class MainActivity extends BaseActivity implements ResizeLayout.OnResizeL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        try {
+            DynamicSdkManager.onCreate(this);
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
 
         // 设置开发者信息(appid, appsecret, 是否开启测试模式)
         CommonManager.getInstance(getApplicationContext()).init("f8e79d512282c364",
@@ -118,6 +120,39 @@ public class MainActivity extends BaseActivity implements ResizeLayout.OnResizeL
         chatDao = ChatDao.getInstance(this);
         userTableDao = UserTableDao.getInstance(this);
 
+        testRecoding();
+    }
+
+    @Background(delay = 500)
+    public void testRecoding() {
+        AudioRecord mAudioRecorder = null;
+        try {
+            int SampleRateInHz = 8000;
+
+            int min = AudioRecord.getMinBufferSize(SampleRateInHz,
+                    AudioFormat.CHANNEL_IN_DEFAULT,
+                    AudioFormat.ENCODING_PCM_16BIT);
+
+            int frameSize = Math.max(2560, min) * 4;
+
+            mAudioRecorder = new AudioRecord(
+                    MediaRecorder.AudioSource.MIC,
+                    SampleRateInHz,
+                    AudioFormat.CHANNEL_IN_DEFAULT,
+                    AudioFormat.ENCODING_PCM_16BIT,
+                    frameSize);
+            mAudioRecorder.startRecording();
+            mAudioRecorder.stop();
+            mAudioRecorder.release();
+            mAudioRecorder = null;
+        } catch (Throwable t) {
+            t.printStackTrace();
+        }
+    }
+
+    @Override
+    public boolean needTranslucentStatus() {
+        return false;
     }
 
     protected void init() {
@@ -135,23 +170,8 @@ public class MainActivity extends BaseActivity implements ResizeLayout.OnResizeL
 
         setupDrawerContent(mNavigationView);
 
-        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
-            ViewParent parent = drawer_layout.getParent();
-            if (parent != null) {
-                ((ViewGroup) parent).removeView(drawer_layout);
-
-                RelativeLayout layout = new RelativeLayout(this);
-                layout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-                layout.setFitsSystemWindows(true);
-                layout.addView(drawer_layout);
-
-                ((ViewGroup) parent).addView(layout);
-            }
-        }
-
         initSource();
 
-        resize_layout.setOnResizeListener(this);
     }
 
 
@@ -163,10 +183,11 @@ public class MainActivity extends BaseActivity implements ResizeLayout.OnResizeL
         vip_text = (TextView) drawer_layout.findViewById(R.id.vip_text);
         sex_text = (TextView) drawer_layout.findViewById(R.id.sex_text);
         nickname_text = (TextView) drawer_layout.findViewById(R.id.nickname);
-        logo = (ImageView) drawer_layout.findViewById(R.id.logo);
+        userlogo = (ImageView) drawer_layout.findViewById(R.id.logo);
         nickname_edit = (EditText) drawer_layout.findViewById(R.id.nickname_edit);
+        nickname_edit.setOnKeyListener(this);
         nickname_text.setOnClickListener(this);
-        logo.setOnClickListener(this);
+        userlogo.setOnClickListener(this);
 
         navigationView.setNavigationItemSelectedListener(
 
@@ -382,7 +403,7 @@ public class MainActivity extends BaseActivity implements ResizeLayout.OnResizeL
         nickname_text.setText(ut.getBean().nickname);
         nickname_edit.setText(ut.getBean().nickname);
 
-        ImageLoader.getInstance().displayImage(ut.getBean().logo, logo, Utils.options_default_logo);
+        ImageLoader.getInstance().displayImage(ut.getBean().logo + StaticFactory._160x160, userlogo, Utils.options_default_logo);
     }
 
     public void uploadSex(final int sex) {
@@ -434,51 +455,56 @@ public class MainActivity extends BaseActivity implements ResizeLayout.OnResizeL
         });
     }
 
-    @Override
-    public void OnSoftPop(int height) {
-
-    }
 
     @Override
-    public void OnSoftClose(int height) {
-        nickname_edit.setVisibility(View.GONE);
-        nickname_text.setVisibility(View.VISIBLE);
-        final UserTable_6 user = userTableDao.getUserTableByDeviceId(ac.deviceId);
-        final String str = nickname_edit.getText().toString();
-        if (!TextUtils.isEmpty(str)){
-            if(!str.equals(user.getBean().nickname)){
-                RequestParams params = ac.getRequestParams();
-                params.put("nickname", str);
-                ac.httpClient.post(URLS.SETUSERDETAIL,params,new JsonHttpResponseHandler(){
+    public boolean onKey(View v, int keyCode, KeyEvent event) {
+        try {
+            if (event.getAction() == KeyEvent.ACTION_DOWN && v.getId() == R.id.nickname_edit)
+                if ((keyCode == KeyEvent.KEYCODE_DPAD_CENTER) ||
+                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    Utils.closeSoftKeyboard(this);
+                    nickname_edit.setVisibility(View.GONE);
+                    nickname_text.setVisibility(View.VISIBLE);
+                    final UserTable_6 user = userTableDao.getUserTableByDeviceId(ac.deviceId);
+                    final String str = nickname_edit.getText().toString();
+                    if (!TextUtils.isEmpty(str)) {
+                        if (!str.equals(user.getBean().nickname)) {
+                            RequestParams params = ac.getRequestParams();
+                            params.put("nickname", str);
+                            ac.httpClient.post(URLS.SETUSERDETAIL, params, new JsonHttpResponseHandler(this) {
 
-                    @Override
-                    public void onStart() {
-                        super.onStart();
-                        nickname_text.setText(str);
-                    }
+                                @Override
+                                public void onStart() {
+                                    super.onStart();
+                                    nickname_text.setText(str);
+                                    ToastUtil.toast(mContext, getString(R.string.editing));
+                                }
 
-                    @Override
-                    public void onSuccessCode(JSONObject jo) {
-                        super.onSuccessCode(jo);
-                        UserBean_6 bean = user.getBean();
-                        bean.nickname = str;
-                        user.setBean(bean);
-                        userTableDao.update(user);
-                    }
+                                @Override
+                                public void onSuccessCode(JSONObject jo) throws Exception {
+                                    super.onSuccessCode(jo);
+                                    UserBean_6 bean = user.getBean();
+                                    bean.nickname = str;
+                                    user.setBean(bean);
+                                    userTableDao.update(user);
+                                    ToastUtil.toast(mContext, getString(R.string.edit_success));
+                                }
 
-                    @Override
-                    public void onFailCode() {
-                        super.onFailCode();
-                        nickname_text.setText(user.getBean().nickname);
+                                @Override
+                                public void onFailCode(JSONObject jo) {
+                                    super.onFailCode(jo);
+                                    nickname_text.setText(user.getBean().nickname);
+                                    ToastUtil.toast(mContext, getString(R.string.edit_fail));
+                                }
+                            });
+                        }
                     }
-                });
-            }
+                    return true;
+                }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-    }
-
-    @Override
-    public void OnSoftChanegHeight(int height) {
-
+        return false;
     }
 
     @Override
@@ -500,7 +526,7 @@ public class MainActivity extends BaseActivity implements ResizeLayout.OnResizeL
 
     String filename;
 
-    public void chosePic(){
+    public void chosePic() {
         new AlertDialog.Builder(this).setTitle(getString(R.string.dont_chose_fail)).setIcon(R.drawable.weisuo_yuan).setItems(new String[]{getString(R.string.Camera), getString(R.string.Album)}, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -578,13 +604,40 @@ public class MainActivity extends BaseActivity implements ResizeLayout.OnResizeL
     }
 
     @UiThread
-    public void updateLogo(){
+    public void updateLogo() {
         try {
             RequestParams params = ac.getRequestParams();
-            params.put("file",new File(filename));
+            params.put("file", new File(filename));
 
-            ac.httpClient.post(URLS.UPLOADUSERLOGO, params, new JsonHttpResponseHandler() {
+            ac.httpClient.post(URLS.UPLOADUSERLOGO, params, new JsonHttpResponseHandler(this) {
 
+                @Override
+                public void onStart() {
+                    super.onStart();
+                    ToastUtil.toast(mContext, getString(R.string.uploading));
+                }
+
+                @Override
+                public void onSuccessCode(JSONObject jo) throws Exception {
+                    super.onSuccessCode(jo);
+                    String logo = jo.getString("logo");
+
+                    //更新数据库
+                    UserTable_6 ut = userTableDao.getUserTableByDeviceId(ac.deviceId);
+                    UserBean_6 ub = ut.getBean();
+                    ub.setLogo(logo);
+                    ut.setBean(ub);
+                    userTableDao.update(ut);
+                    ToastUtil.toast(mContext, getString(R.string.upload_succes));
+                    //刷新UI
+                    ImageLoader.getInstance().displayImage(logo + StaticFactory._160x160, userlogo, Utils.options_default_logo);
+                }
+
+                @Override
+                public void onFailCode(JSONObject jo) {
+                    super.onFailCode(jo);
+                    ToastUtil.toast(mContext, getString(R.string.upload_fail));
+                }
             });
         } catch (Exception e) {
             e.printStackTrace();

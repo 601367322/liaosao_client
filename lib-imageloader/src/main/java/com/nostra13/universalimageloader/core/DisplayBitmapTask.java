@@ -23,11 +23,11 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.nostra13.universalimageloader.utils.L;
 
 /**
- * Displays bitmap in {@link com.nostra13.universalimageloader.core.imageaware.ImageAware}. Must be called on UI thread.
+ * Displays bitmap in {@link ImageAware}. Must be called on UI thread.
  *
  * @author Sergey Tarasevich (nostra13[at]gmail[dot]com)
- * @see com.nostra13.universalimageloader.core.listener.ImageLoadingListener
- * @see com.nostra13.universalimageloader.core.display.BitmapDisplayer
+ * @see ImageLoadingListener
+ * @see BitmapDisplayer
  * @since 1.3.1
  */
 final class DisplayBitmapTask implements Runnable {

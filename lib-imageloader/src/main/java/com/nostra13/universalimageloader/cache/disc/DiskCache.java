@@ -54,7 +54,7 @@ public interface DiskCache {
 	 *                    {@linkplain com.nostra13.universalimageloader.core.listener.ImageLoadingProgressListener
 	 *                    progress listener} in ImageLoader calls
 	 * @return <b>true</b> - if image was saved successfully; <b>false</b> - if image wasn't saved in disk cache.
-	 * @throws java.io.IOException
+	 * @throws IOException
 	 */
 	boolean save(String imageUri, InputStream imageStream, IoUtils.CopyListener listener) throws IOException;
 
@@ -64,7 +64,7 @@ public interface DiskCache {
 	 * @param imageUri Original image URI
 	 * @param bitmap   Image bitmap
 	 * @return <b>true</b> - if bitmap was saved successfully; <b>false</b> - if bitmap wasn't saved in disk cache.
-	 * @throws java.io.IOException
+	 * @throws IOException
 	 */
 	boolean save(String imageUri, Bitmap bitmap) throws IOException;
 

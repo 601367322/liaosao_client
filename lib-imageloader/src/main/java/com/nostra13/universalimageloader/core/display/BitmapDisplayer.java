@@ -20,13 +20,13 @@ import com.nostra13.universalimageloader.core.assist.LoadedFrom;
 import com.nostra13.universalimageloader.core.imageaware.ImageAware;
 
 /**
- * Displays {@link android.graphics.Bitmap} in {@link com.nostra13.universalimageloader.core.imageaware.ImageAware}. Implementations can
+ * Displays {@link Bitmap} in {@link com.nostra13.universalimageloader.core.imageaware.ImageAware}. Implementations can
  * apply some changes to Bitmap or any animation for displaying Bitmap.<br />
  * Implementations have to be thread-safe.
  *
  * @author Sergey Tarasevich (nostra13[at]gmail[dot]com)
  * @see com.nostra13.universalimageloader.core.imageaware.ImageAware
- * @see com.nostra13.universalimageloader.core.assist.LoadedFrom
+ * @see LoadedFrom
  * @since 1.5.6
  */
 public interface BitmapDisplayer {

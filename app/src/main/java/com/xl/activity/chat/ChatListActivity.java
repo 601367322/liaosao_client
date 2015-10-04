@@ -72,9 +72,6 @@ public class ChatListActivity extends BaseBackActivity implements SwipeRefreshLa
             @Override
             public void run() {
                 List<ChatListBean> list = ChatlistDao.getInstance(getApplicationContext()).queryForAll();
-//                SwingBottomInAnimationAdapter t = new SwingBottomInAnimationAdapter(adapter = new ChatListAdapters(list, ChatListActivity.this));
-//                t.setmGridViewPossiblyMeasuring(false);
-//                t.setAbsListView(listview);
                 complete(adapter = new ChatListAdapters(list, ChatListActivity.this));
             }
         }).start();

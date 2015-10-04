@@ -22,7 +22,7 @@ import java.lang.ref.Reference;
 import java.lang.ref.WeakReference;
 
 /**
- * Memory cache with {@linkplain java.lang.ref.WeakReference weak references} to {@linkplain android.graphics.Bitmap bitmaps}<br />
+ * Memory cache with {@linkplain WeakReference weak references} to {@linkplain Bitmap bitmaps}<br />
  * <br />
  * <b>NOTE:</b> This cache uses only weak references for stored Bitmaps.
  *
