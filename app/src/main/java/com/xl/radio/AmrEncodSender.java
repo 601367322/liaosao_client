@@ -32,67 +32,67 @@ public class AmrEncodSender extends Thread implements OnCompletionListener {
     }
 
     public void run() {
-
-        AmrEncoder.init(0);
-
-        int min = AudioRecord.getMinBufferSize(SampleRateInHz,
-                AudioFormat.CHANNEL_IN_DEFAULT,
-                AudioFormat.ENCODING_PCM_16BIT);
-
-        int frameSize = Math.max(2560, min) * 4;
-
-        mAudioRecorder = new AudioRecord(
-                MediaRecorder.AudioSource.MIC,
-                SampleRateInHz,
-                AudioFormat.CHANNEL_IN_DEFAULT,
-                AudioFormat.ENCODING_PCM_16BIT,
-                frameSize);
-
-        int read = 0;
-        short[] arrayOfByte1 = new short[min];
-        byte[] arrayOfByte2 = new byte[1024];
-        int encodeLength = 0;
-        FileOutputStream file_out = null;
-        milltime = System.currentTimeMillis();
         try {
-            file_out = new FileOutputStream(fileName);
-            byte[] head = new byte[]{0x23, 0x21, 0x41, 0x4d, 0x52, 0x0a};
-            file_out.write(head);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        mAudioRecorder.startRecording();
-        while (AmrEngine.getSingleEngine().isRecordRunning()) {
-            read = mAudioRecorder.read(arrayOfByte1, 0, 160);
-            if (read < 0) continue;
-            encodeLength = AmrEncoder.encode(AmrEncoder.Mode.MR515.ordinal(), arrayOfByte1, arrayOfByte2);
+            AmrEncoder.init(0);
+
+            int min = AudioRecord.getMinBufferSize(SampleRateInHz,
+                    AudioFormat.CHANNEL_IN_DEFAULT,
+                    AudioFormat.ENCODING_PCM_16BIT);
+
+            int frameSize = Math.max(2560, min) * 4;
+
+            mAudioRecorder = new AudioRecord(
+                    MediaRecorder.AudioSource.MIC,
+                    SampleRateInHz,
+                    AudioFormat.CHANNEL_IN_DEFAULT,
+                    AudioFormat.ENCODING_PCM_16BIT,
+                    frameSize);
+
+            int read = 0;
+            short[] arrayOfByte1 = new short[min];
+            byte[] arrayOfByte2 = new byte[1024];
+            int encodeLength = 0;
+            FileOutputStream file_out = null;
+            milltime = System.currentTimeMillis();
             try {
-                file_out.write(arrayOfByte2, 0, encodeLength);
-                int v = 0;
-                for (int i = 0; i < arrayOfByte1.length; i++) {
-                    v += arrayOfByte1[i] * arrayOfByte1[i];
-                }
-//				double dB = 10*Math.log10(v/(double)read);
-                int value = (Math.abs((int) (v / (double) read) / 10) >> 1);
-//				Log.d(TAG, "----------------"+value);
-                mtl.getMicRealTimeSize(value);
+                file_out = new FileOutputStream(fileName);
+                byte[] head = new byte[]{0x23, 0x21, 0x41, 0x4d, 0x52, 0x0a};
+                file_out.write(head);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-        mAudioRecorder.stop();
-        mAudioRecorder.release();
-        mAudioRecorder = null;
-        AmrEncoder.exit();
-        try {
+            mAudioRecorder.startRecording();
+            while (AmrEngine.getSingleEngine().isRecordRunning()) {
+                read = mAudioRecorder.read(arrayOfByte1, 0, 160);
+                if (read < 0) continue;
+                encodeLength = AmrEncoder.encode(AmrEncoder.Mode.MR515.ordinal(), arrayOfByte1, arrayOfByte2);
+                try {
+                    file_out.write(arrayOfByte2, 0, encodeLength);
+                    int v = 0;
+                    for (int i = 0; i < arrayOfByte1.length; i++) {
+                        v += arrayOfByte1[i] * arrayOfByte1[i];
+                    }
+//				double dB = 10*Math.log10(v/(double)read);
+                    int value = (Math.abs((int) (v / (double) read) / 10) >> 1);
+//				Log.d(TAG, "----------------"+value);
+                    mtl.getMicRealTimeSize(value);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            mAudioRecorder.stop();
+            mAudioRecorder.release();
+            mAudioRecorder = null;
+            AmrEncoder.exit();
+
             file_out.close();
             if (System.currentTimeMillis() - milltime < 1000) {
                 File file = new File(fileName);
                 file.delete();
             }
-        } catch (IOException e) {
+        } catch (Throwable e) {
             e.printStackTrace();
         }
     }

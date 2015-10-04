@@ -12,10 +12,17 @@ public class ToastUtil {
     private static SuperToast superToast;
 
     public static void toast(Context context, String str) {
+        toast(context, str, -1, SuperToast.Duration.SHORT);
+    }
+
+    public static void toast(Context context, String str, int res, int duration) {
         if (context != null) {
             superToast = new SuperToast(context);
             superToast.setText(str);
-            superToast.setDuration(SuperToast.Duration.SHORT);
+            superToast.setDuration(duration);
+            if (res != -1) {
+                superToast.setIcon(res, SuperToast.IconPosition.LEFT);
+            }
             superToast.show();
         }
     }

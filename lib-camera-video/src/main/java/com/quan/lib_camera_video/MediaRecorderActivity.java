@@ -2,6 +2,7 @@ package com.quan.lib_camera_video;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -23,6 +24,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.johnpersano.supertoasts.SuperToast;
 import com.quan.lib_camera_video.camera.MediaRecorderBase;
 import com.quan.lib_camera_video.camera.MediaRecorderNative;
 import com.quan.lib_camera_video.camera.VCamera;
@@ -531,7 +533,19 @@ public class MediaRecorderActivity extends AppCompatActivity implements
 
     @Override
     public void onVideoError(int what, int extra) {
+        toast(this,getString(R.string.unable_vrecoding_liangchen),R.drawable.eat_shit, SuperToast.Duration.LONG);
+    }
 
+    public static void toast(Context context, String str, int res, int duration) {
+        if (context != null) {
+            SuperToast superToast = new SuperToast(context);
+            superToast.setText(str);
+            superToast.setDuration(duration);
+            if (res != -1) {
+                superToast.setIcon(res, SuperToast.IconPosition.LEFT);
+            }
+            superToast.show();
+        }
     }
 
     @Override

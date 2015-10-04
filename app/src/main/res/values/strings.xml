@@ -12,9 +12,9 @@
     <string name="title_section3">Section 3</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="kiding">逗</string>
-    <string name="poolgay">穷</string>
-    <string name="are_you_fuck_sure_do_not_chat">你确定不聊了吗？</string>
+    <string name="kiding">逗比</string>
+    <string name="poolgay">穷比</string>
+    <string name="are_you_fuck_sure_do_not_chat">你他喵确定不聊了吗？</string>
     <string name="papa_do_not_chat">是</string>
     <string name="not_sure">不</string>
     <string name="wait_a_moment">别撸太快，小心强撸灰飞烟灭！</string>
@@ -78,4 +78,5 @@
     <string name="editing">正在修改</string>
     <string name="edit_success">修改成功</string>
     <string name="edit_fail">修改失败</string>
+    <string name="unable_recoding_liangchen">你他喵禁用了录音权限？\n视频和录音都不能用了。\n良辰望你，三思而后行。</string>
 </resources>

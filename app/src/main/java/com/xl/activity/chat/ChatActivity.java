@@ -904,6 +904,8 @@ public class ChatActivity extends BaseBackActivity implements
                 fi = new File(thumb);
                 if (fi != null && fi.exists()) {
                     sendFile(MessageBean.RADIO_NEW);
+                }else{
+                    ToastUtil.toast(ChatActivity.this, getString(R.string.your_JJ_so_short), R.drawable.weisuo);
                 }
             }
             fi = null;

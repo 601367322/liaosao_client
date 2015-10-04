@@ -24,6 +24,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.github.johnpersano.supertoasts.SuperToast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.RequestParams;
@@ -124,7 +125,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         testRecoding();
     }
 
-    @Background(delay = 500)
+    @Background
     public void testRecoding() {
         AudioRecord mAudioRecorder = null;
         try {
@@ -143,12 +144,24 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                     AudioFormat.ENCODING_PCM_16BIT,
                     frameSize);
             mAudioRecorder.startRecording();
-            mAudioRecorder.stop();
-            mAudioRecorder.release();
-            mAudioRecorder = null;
+            Thread.sleep(1000);
         } catch (Throwable t) {
             t.printStackTrace();
+            toashLiangchen();
+        } finally {
+            try {
+                mAudioRecorder.stop();
+                mAudioRecorder.release();
+                mAudioRecorder = null;
+            } catch (Throwable e) {
+                e.printStackTrace();
+            }
         }
+    }
+
+    @UiThread
+    public void toashLiangchen(){
+        ToastUtil.toast(MainActivity.this,getString(R.string.unable_recoding_liangchen),R.drawable.eat_shit, SuperToast.Duration.LONG);
     }
 
     @Override
