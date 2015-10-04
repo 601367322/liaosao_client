@@ -172,7 +172,7 @@ public class PushService extends Service {
     }
 
     private synchronized void start() {
-        if (mStarted == true) {
+        if (mStarted == true && mConnection!=null && mConnection.isConnected()) {
             LogUtil.d(TAG, "Attempt to start connection that is already active");
             return;
         }
