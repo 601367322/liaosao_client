@@ -106,7 +106,6 @@ dependencies {
     compile "com.jakewharton:butterknife:7.0.0"//注解
     compile 'com.github.johnpersano:supertoasts:+@aar'//SuperToast
     compile 'com.loopj.android:android-async-http:+'
-    compile 'com.umeng.analytics:analytics:latest.integration'//友盟
     compile 'de.greenrobot:eventbus:+'//eventbus
     compile project(':lib-animation-list-manipulation')//listview动画
     compile project(':lib-float-btn')//floatBtn

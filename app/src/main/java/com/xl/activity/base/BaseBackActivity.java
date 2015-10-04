@@ -4,16 +4,16 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
-import com.umeng.analytics.MobclickAgent;
+import com.umeng.onlineconfig.OnlineConfigAgent;
 import com.xl.activity.R;
 import com.xl.activity.share.CommonShared;
 import com.xl.util.ToastUtil;
 
+import net.youmi.android.spot.SpotManager;
+
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.UiThread;
-
-import a.b.c.DynamicSdkManager;
 
 @EActivity
 public abstract class BaseBackActivity extends BaseActivity {
@@ -31,10 +31,13 @@ public abstract class BaseBackActivity extends BaseActivity {
     int failNums = 0;
 
     public void showScreenAd() {
-        if (MobclickAgent.getConfigParams(this, "ad_show").equals("on")) {
-            if(ac.cs.getISVIP() == CommonShared.OFF) {
-                adHandler.sendEmptyMessageDelayed(1, 25 * 1000);
-                adHandler.sendEmptyMessageDelayed(2, 30 * 1000);
+        if (OnlineConfigAgent.getInstance().getConfigParams(this, "ad_show").equals("on")) {
+            if (ac.cs.getISVIP() == CommonShared.OFF) {
+                SpotManager.getInstance(getApplicationContext()).loadSpotAds();
+                SpotManager.getInstance(getApplicationContext()).setSpotOrientation(SpotManager.ORIENTATION_PORTRAIT);
+                SpotManager.getInstance(getApplicationContext()).setAnimationType(SpotManager.ANIM_ADVANCE);
+                adHandler.sendEmptyMessageDelayed(1, 15 * 1000);
+                adHandler.sendEmptyMessageDelayed(2, 20 * 1000);
             }
         }
     }
@@ -50,7 +53,8 @@ public abstract class BaseBackActivity extends BaseActivity {
                     break;
                 case 2:
                     if (!isFinishing()) {
-                        DynamicSdkManager.getInstance(getApplicationContext()).showSpot(BaseBackActivity.this);
+                        SpotManager.getInstance(getApplicationContext()).showSpotAds(BaseBackActivity.this);
+//                        DynamicSdkManager.getInstance(getApplicationContext()).showSpot(BaseBackActivity.this);
                     }
                     break;
             }
@@ -66,8 +70,9 @@ public abstract class BaseBackActivity extends BaseActivity {
 
     @Override
     protected void onDestroy() {
-        DynamicSdkManager.getInstance(getApplicationContext()).onDestroy(this);
+//        DynamicSdkManager.getInstance(getApplicationContext()).onDestroy(this);
         super.onDestroy();
+        SpotManager.getInstance(getApplicationContext()).onDestroy();
         adHandler.removeMessages(1);
         adHandler.removeMessages(2);
     }

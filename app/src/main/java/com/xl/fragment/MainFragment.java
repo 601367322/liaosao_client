@@ -11,7 +11,7 @@ import android.widget.RelativeLayout;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.loopj.android.http.RequestParams;
-import com.umeng.analytics.MobclickAgent;
+import com.umeng.onlineconfig.OnlineConfigAgent;
 import com.xl.activity.BuildConfig;
 import com.xl.activity.R;
 import com.xl.activity.base.BaseFragment;
@@ -30,14 +30,15 @@ import com.xl.util.ToastUtil;
 import com.xl.util.URLS;
 import com.xl.util.Utils;
 
+import net.youmi.android.banner.AdSize;
+import net.youmi.android.banner.AdView;
+
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.Receiver;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 import org.json.JSONObject;
-
-import a.b.c.DynamicSdkManager;
 
 @EFragment(R.layout.fragment_main)
 public class MainFragment extends BaseFragment {
@@ -113,10 +114,11 @@ public class MainFragment extends BaseFragment {
             }
         });
 
-        if (MobclickAgent.getConfigParams(getActivity(), "ad_show").equals("on")) {
-            View banner = DynamicSdkManager.getInstance(ac).getBanner(getActivity());
-            if (banner != null) {
-                mAdContainer.addView(banner);
+        if (OnlineConfigAgent.getInstance().getInstance().getConfigParams(getActivity(), "ad_show").equals("on")) {
+            AdView adView = new AdView(getActivity(), AdSize.FIT_SCREEN);
+//            View banner = DynamicSdkManager.getInstance(ac).getBanner(getActivity());
+            if (adView != null) {
+                mAdContainer.addView(adView);
             }
         }
     }

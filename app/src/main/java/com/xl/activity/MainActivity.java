@@ -28,8 +28,8 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.RequestParams;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.umeng.analytics.MobclickAgent;
 import com.umeng.fb.FeedbackAgent;
+import com.umeng.onlineconfig.OnlineConfigAgent;
 import com.umeng.update.UmengUpdateAgent;
 import com.xl.activity.base.BaseActivity;
 import com.xl.activity.chat.ChatActivity;
@@ -56,6 +56,8 @@ import com.xl.util.ToastUtil;
 import com.xl.util.URLS;
 import com.xl.util.Utils;
 
+import net.youmi.android.AdManager;
+
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.OnActivityResult;
@@ -69,9 +71,6 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.util.Date;
-
-import a.b.c.CommonManager;
-import a.b.c.DynamicSdkManager;
 
 @EActivity(R.layout.activity_main)
 @OptionsMenu(R.menu.main)
@@ -102,7 +101,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        try {
+        /*try {
             DynamicSdkManager.onCreate(this);
         } catch (Throwable e) {
             e.printStackTrace();
@@ -113,9 +112,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 "1b6279c5f1aa4dde", false);
 
         // 根据 AndroidManifest.xml 文件中的设置进行插屏及其他无积分类型广告的预加载
-        DynamicSdkManager.getInstance(getApplicationContext()).initNormalAd();
+        DynamicSdkManager.getInstance(getApplicationContext()).initNormalAd();*/
 
-        MobclickAgent.updateOnlineConfig(this);
+        AdManager.getInstance(this).init("f8e79d512282c364", "1b6279c5f1aa4dde", false);
+
+        OnlineConfigAgent.getInstance().updateOnlineConfig(this);
 
         chatDao = ChatDao.getInstance(this);
         userTableDao = UserTableDao.getInstance(this);
