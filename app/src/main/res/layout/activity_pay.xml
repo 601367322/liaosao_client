@@ -1,129 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    xmlns:android="http://schemas.android.com/apk/res/android" >
-
-<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:fitsSystemWindows="true">
 
-    <LinearLayout
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/activity_bg"
-        android:orientation="vertical"
-        android:padding="24dp">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="　　由于本程序猿是《个人开发者》，无法开通在线支付功能(鄙视某宝/某信)，所以请各位帅哥美女手动进行《支付宝》支付，支付完成后，将在24小时内人工审核通过。重启软件，即可使用。"
-            android:textColor="@color/dark_gray"
-            android:textSize="14sp"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="会员特权：\n1.可查看聊天记录。\n2.可定向匹配异性。\n3.可优先进行匹配。　\n4.在对方屏幕上显示您尊贵的会员象征。　\n5.免除广告困扰。　\n6.可查看对方距离。\n7.可查看聊天视频。"
-            android:textColor="@color/holo_red_light"
-            android:textSize="18sp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="￥10/月"
-            android:textColor="@color/holo_red_light"
-            android:textSize="48sp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="支付帐号"
-            android:textColor="@color/dark_gray"
-            android:textSize="14sp"/>
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="bjshenbingbing17@163.com"
-                android:textColor="@color/dark_gray"
-                android:enabled="false"
-                android:focusableInTouchMode="false"
-                android:focusable="false"
-                android:textSize="16sp"/>
-
-            <Button
-                android:id="@+id/copy1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="复制"
-                android:textColor="@color/dark_gray"
-                android:textSize="16sp"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="支付留言"
-                android:textColor="@color/dark_gray"
-                android:textSize="14sp"/>
+            android:layout_height="match_parent"
+            android:background="@color/activity_bg"
+            android:orientation="vertical"
+            android:padding="24dp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="(请将下段文字复制到支付宝留言中，重要！)"
+                android:text="会员特权：\n1.可查看聊天记录。\n2.可定向匹配异性。\n3.可优先进行匹配。　\n4.显示您尊贵的会员象征。　\n5.免除广告困扰。　\n6.可查看对方距离。\n7.可查看聊天视频。"
                 android:textColor="@color/holo_red_light"
-                android:textSize="14sp"/>
-        </LinearLayout>
+                android:textSize="18sp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/md5"
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:enabled="false"
-                android:textColor="@color/dark_gray"
-                android:textSize="16sp"/>
+                android:layout_marginTop="16dp"
+                android:text="￥10/月"
+                android:textColor="@color/holo_red_light"
+                android:textSize="48sp" />
+
+
+            <Button
+                android:id="@+id/copy1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="支付宝支付"
+                android:layout_marginTop="8dp"
+                android:background="@color/holo_blue_light"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
 
             <Button
                 android:id="@+id/copy2"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="复制"
-                android:textColor="@color/dark_gray"
-                android:textSize="16sp"/>
+                android:text="微信支付"
+                android:layout_marginTop="8dp"
+                android:background="@color/holo_blue_light"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="声明/风险提示：此功能只对本软件有效，请严格认真读完上述每一句话，如果是使用者自己操作不当，本人概不负责。"
+                android:textColor="@color/holo_red_light"
+                android:textSize="14sp" />
+
         </LinearLayout>
-
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_marginTop="16dp"
-            android:textSize="14sp"
-            android:textColor="@color/holo_red_light"
-            android:text="声明/风险提示：此功能只对本软件有效，请严格认真读完上述每一句话，如果是使用者自己操作不当，本人概不负责。"
-            android:layout_height="wrap_content"/>
-
-    </LinearLayout>
-</ScrollView></LinearLayout>
+    </ScrollView>
+</LinearLayout>
