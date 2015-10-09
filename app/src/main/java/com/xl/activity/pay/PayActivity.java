@@ -69,7 +69,12 @@ public class PayActivity extends BaseBackActivity {
             @Override
             public void fail(int code, String reason) {
                 LogUtil.d("fail:\t" + code + "\t" + reason);
-                ToastUtil.toast(mContext, "支付中断!");
+                if (code == 10777) {
+                    BmobPay.ForceFree();
+                    copy2();
+                } else {
+                    ToastUtil.toast(mContext, "支付中断!");
+                }
             }
         });
     }
@@ -101,7 +106,7 @@ public class PayActivity extends BaseBackActivity {
             // 支付失败,原因可能是用户中断支付操作,也可能是网络原因
             @Override
             public void fail(int code, String reason) {
-                LogUtil.d("fail:\t"+code+"\t"+reason);
+                LogUtil.d("fail:\t" + code + "\t" + reason);
                 // 当code为-2,意味着用户中断了操作
                 // code为-3意味着没有安装BmobPlugin插件
                 if (code == -3) {
@@ -128,7 +133,7 @@ public class PayActivity extends BaseBackActivity {
                                             copy1();
                                         }
                                     }).create().show();
-                }else if(code == 10077){
+                } else if (code == 10777) {
                     BmobPay.ForceFree();
                     copy2();
                 } else {

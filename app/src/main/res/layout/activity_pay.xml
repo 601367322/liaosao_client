@@ -1,67 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/activity_bg"
-            android:orientation="vertical"
-            android:padding="24dp">
+            android:background="@color/activity_bg">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="会员特权：\n1.可查看聊天记录。\n2.可定向匹配异性。\n3.可优先进行匹配。　\n4.显示您尊贵的会员象征。　\n5.免除广告困扰。　\n6.可查看对方距离。\n7.可查看聊天视频。"
-                android:textColor="@color/holo_red_light"
-                android:textSize="18sp" />
-
-            <TextView
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="￥10/月"
-                android:textColor="@color/holo_red_light"
-                android:textSize="48sp" />
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="50dp"
+                android:src="@drawable/vip_introduce_9" />
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/vip_introduce_1" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/vip_introduce_2" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="90dp"
+                android:src="@drawable/vip_introduce_3" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="170dp"
+                android:src="@drawable/vip_introduce_4" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="120dp"
+                android:src="@drawable/vip_introduce_5" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="80dp"
+                android:src="@drawable/vip_introduce_6" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="160dp"
+                android:src="@drawable/vip_introduce_7" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="220dp"
+                android:src="@drawable/vip_introduce_8" />
 
             <Button
                 android:id="@+id/copy1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="支付宝支付"
-                android:layout_marginTop="8dp"
-                android:background="@color/holo_blue_light"
+                android:layout_height="55dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="24dp"
                 android:textColor="@color/white"
-                android:textSize="18sp" />
-
+                android:layout_marginRight="24dp"
+                android:textSize="18sp"
+                android:layout_marginTop="320dp"
+                android:text="支付宝支付" />
             <Button
                 android:id="@+id/copy2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="微信支付"
+                android:layout_below="@id/copy1"
+                android:layout_height="55dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="24dp"
                 android:layout_marginTop="8dp"
-                android:background="@color/holo_blue_light"
                 android:textColor="@color/white"
-                android:textSize="18sp" />
-
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="声明/风险提示：此功能只对本软件有效，请严格认真读完上述每一句话，如果是使用者自己操作不当，本人概不负责。"
-                android:textColor="@color/holo_red_light"
-                android:textSize="14sp" />
-
-        </LinearLayout>
+                android:layout_marginRight="24dp"
+                android:textSize="18sp"
+                android:text="微信支付" />
+        </RelativeLayout>
     </ScrollView>
 </LinearLayout>

@@ -11,6 +11,7 @@
         <item name="colorAccent">@color/holo_blue_light</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="actionMenuTextAppearance">@style/MyABmenuTextAppearance</item>
+        <item name="colorButtonNormal">@color/holo_blue_light</item>
     </style>
 
     <style name="AppBaseThemeNoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
