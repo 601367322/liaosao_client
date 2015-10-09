@@ -14,7 +14,10 @@
         </activity>
         <activity
             android:name="com.bmob.pay.tool.PayActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
+            android:exported="false"
+            android:launchMode="singleTask"
             android:theme="@android:style/Theme.Translucent" />
         <!-- bmob pay sdk activity end -->
     </application>
