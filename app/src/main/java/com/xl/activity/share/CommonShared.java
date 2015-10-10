@@ -17,6 +17,8 @@ public class CommonShared {
     private final String FBI = "fbi";//是否第一次显示安全警告
     private final String ISVIP = "isvip";//是否是会员
 
+    private final String VIP_ORDER = "vip_order";//充值会员的订单号
+
     private final String ISMANAGER = "ismanager";
 
     private String IsFirstStartApp = "isfirststartapp";
@@ -141,5 +143,14 @@ public class CommonShared {
     public void setISMANAGER(int on) {
         editor.putInt(ISMANAGER, on);
         editor.commit();
+    }
+
+    public void setVipOrder(String order) {
+        editor.putString(VIP_ORDER, order);
+        editor.commit();
+    }
+
+    public String getVipOrder() {
+        return sp.getString(VIP_ORDER, null);
     }
 }

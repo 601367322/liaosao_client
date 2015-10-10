@@ -163,8 +163,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     }
 
     @UiThread
-    public void toashLiangchen(){
-        ToastUtil.toast(MainActivity.this,getString(R.string.unable_recoding_liangchen),R.drawable.eat_shit, SuperToast.Duration.LONG);
+    public void toashLiangchen() {
+        ToastUtil.toast(MainActivity.this, getString(R.string.unable_recoding_liangchen), R.drawable.eat_shit, SuperToast.Duration.LONG);
     }
 
     @Override
@@ -189,6 +189,31 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
         initSource();
 
+        checkVip();
+    }
+
+    public void checkVip() {
+        if (!TextUtils.isEmpty(ac.cs.getVipOrder())) {
+            RequestParams params = ac.getRequestParams();
+            params.put("orderId", ac.cs.getVipOrder());
+            ac.httpClient.post(URLS.PAY, params, new JsonHttpResponseHandler(mContext, "正在完成充值") {
+
+                @Override
+                public void onSuccess(JSONObject jo) {
+                    super.onSuccess(jo);
+
+                    ac.cs.setVipOrder(null);
+                }
+
+                @Override
+                public void onSuccessCode(JSONObject jo) throws Exception {
+                    super.onSuccessCode(jo);
+
+                    ToastUtil.toast(mContext, "充值成功，请重启软件");
+                }
+
+            });
+        }
     }
 
 
@@ -393,6 +418,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                         case ResultCode.SUCCESS:
                             UserTable_6 ut = new Gson().fromJson(jo.optString(StaticUtil.CONTENT), new TypeToken<UserTable_6>() {
                             }.getType());
+
+                            userTableDao.deleteUserByDeviceId(ut.getDeviceId());
+                            userTableDao.create(ut);
+
                             setHead(ut);
                             break;
                     }
