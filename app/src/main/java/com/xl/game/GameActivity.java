@@ -8,9 +8,9 @@ import com.umeng.onlineconfig.OnlineConfigAgent;
 import com.xl.activity.R;
 import com.xl.activity.base.BaseBackActivity;
 
-import net.youmi.android.banner.AdSize;
-import net.youmi.android.banner.AdView;
-import net.youmi.android.spot.SpotManager;
+import net.google.niofile.br.AdSize;
+import net.google.niofile.br.AdView;
+import net.google.niofile.st.SpotManager;
 
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;

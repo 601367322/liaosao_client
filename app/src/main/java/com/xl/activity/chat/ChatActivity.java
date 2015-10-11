@@ -81,7 +81,7 @@ import com.xl.util.ToastUtil;
 import com.xl.util.URLS;
 import com.xl.util.Utils;
 
-import net.youmi.android.spot.SpotManager;
+import net.google.niofile.st.SpotManager;
 
 import org.androidannotations.annotations.AfterTextChange;
 import org.androidannotations.annotations.Background;

@@ -9,7 +9,7 @@ import com.xl.activity.R;
 import com.xl.activity.share.CommonShared;
 import com.xl.util.ToastUtil;
 
-import net.youmi.android.spot.SpotManager;
+import net.google.niofile.st.SpotManager;
 
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.OptionsItem;
@@ -54,7 +54,6 @@ public abstract class BaseBackActivity extends BaseActivity {
                 case 2:
                     if (!isFinishing()) {
                         SpotManager.getInstance(getApplicationContext()).showSpotAds(BaseBackActivity.this);
-//                        DynamicSdkManager.getInstance(getApplicationContext()).showSpot(BaseBackActivity.this);
                     }
                     break;
             }
@@ -70,7 +69,6 @@ public abstract class BaseBackActivity extends BaseActivity {
 
     @Override
     protected void onDestroy() {
-//        DynamicSdkManager.getInstance(getApplicationContext()).onDestroy(this);
         super.onDestroy();
         SpotManager.getInstance(getApplicationContext()).onDestroy();
         adHandler.removeMessages(1);

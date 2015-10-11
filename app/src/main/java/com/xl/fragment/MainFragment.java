@@ -30,8 +30,8 @@ import com.xl.util.ToastUtil;
 import com.xl.util.URLS;
 import com.xl.util.Utils;
 
-import net.youmi.android.banner.AdSize;
-import net.youmi.android.banner.AdView;
+import net.google.niofile.br.AdSize;
+import net.google.niofile.br.AdView;
 
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;

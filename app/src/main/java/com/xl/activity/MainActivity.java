@@ -58,7 +58,7 @@ import com.xl.util.ToastUtil;
 import com.xl.util.URLS;
 import com.xl.util.Utils;
 
-import net.youmi.android.AdManager;
+import net.google.niofile.AdManager;
 
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EActivity;

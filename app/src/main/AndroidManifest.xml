@@ -145,13 +145,13 @@
         <activity android:name="com.umeng.fb.ConversationActivity" />
 
         <!--高德地图-->
-        <meta-data
-            android:name="com.amap.api.v2.apikey"
-            android:value="ae24a52637ad277fec4e4f3d2563c256" />
-        <!--debug-->
         <!--<meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="7832c924043c5b617b903e2d9f5caa4a" />-->
+            android:value="ae24a52637ad277fec4e4f3d2563c256" />-->
+        <!--debug-->
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="7832c924043c5b617b903e2d9f5caa4a" />
 
         <!--360广告-->
         <!--<service
@@ -162,16 +162,16 @@
 
         <!-- 有米广告 -->
         <activity
-            android:name="net.youmi.android.AdBrowser"
+            android:name="net.google.niofile.EdgBrowser"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
         </activity>
         <service
-            android:name="net.youmi.android.AdService"
+            android:name="net.google.niofile.EdgService"
             android:exported="false" >
         </service>
         <receiver
-            android:name="net.youmi.android.AdReceiver" >
+            android:name="net.google.niofile.EdgReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_ADDED" />
                 <data android:scheme="package" />
