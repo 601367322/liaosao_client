@@ -345,10 +345,14 @@ public class ChatActivity extends BaseBackActivity implements
                             break;
                         case MessageBean.RADIO:
                         case MessageBean.VOICE:
-                        case MessageBean.RADIO_NEW:
                         case MessageBean.IMAGE:
                             recodeTime = mb.getVoiceTime();
                             filename = mb.getContent();
+                            sendFile(mb.getMsgType());
+                            break;
+                        case MessageBean.RADIO_NEW:
+                            filename = mb.getRadioBean().file;
+                            thumb = mb.getRadioBean().thumb;
                             sendFile(mb.getMsgType());
                             break;
                     }

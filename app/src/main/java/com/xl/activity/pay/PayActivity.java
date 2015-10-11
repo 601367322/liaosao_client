@@ -1,25 +1,24 @@
 package com.xl.activity.pay;
 
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
 import android.support.v7.app.AlertDialog;
-import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.Button;
 
 import com.bmob.pay.tool.BmobPay;
 import com.bmob.pay.tool.PayListener;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.RequestParams;
-import com.xl.activity.MainActivity;
 import com.xl.activity.R;
 import com.xl.activity.base.BaseBackActivity;
+import com.xl.bean.VipCoin;
 import com.xl.util.JsonHttpResponseHandler;
-import com.xl.util.LogUtil;
 import com.xl.util.MD5;
+import com.xl.util.ResultCode;
 import com.xl.util.ToastUtil;
 import com.xl.util.URLS;
 
@@ -39,19 +38,45 @@ import java.io.InputStream;
 public class PayActivity extends BaseBackActivity {
 
 
+    @ViewById
+    Button copy1, copy2;
+
+    VipCoin coin = null;
+
     @Override
     protected void init() {
-        MD5.GetMD5Code(ac.deviceId).substring(8, 24);
+        RequestParams params = ac.getRequestParams();
+        params.put("id", 1);
+        ac.httpClient.post(URLS.VIPDETAIL, params, new JsonHttpResponseHandler(mContext, getString(R.string.loading)) {
+
+            @Override
+            public void onStart() {
+                super.onStart();
+                copy1.setEnabled(false);
+                copy2.setEnabled(false);
+            }
+
+            @Override
+            public void onSuccessCode(JSONObject jo) throws Exception {
+                super.onSuccessCode(jo);
+                copy1.setEnabled(true);
+                copy2.setEnabled(true);
+                coin = new Gson().fromJson(jo.getString(ResultCode.INFO), new TypeToken<VipCoin>() {
+                }.getType());
+            }
+        });
     }
 
     @Click
     public void copy1() {
-        new BmobPay(PayActivity.this).pay(0.01, "一个月会员", MD5.GetMD5Code(ac.deviceId).substring(8, 24), new MyPayListener(mContext, PayType.ZHIFUBAO));
+        if (coin != null)
+            new BmobPay(PayActivity.this).pay(coin.getPrice(), coin.getName(), MD5.GetMD5Code(ac.deviceId).substring(8, 24), new MyPayListener(mContext, PayType.ZHIFUBAO));
     }
 
     @Click
     public void copy2() {
-        new BmobPay(PayActivity.this).payByWX(0.01, "一个月会员", MD5.GetMD5Code(ac.deviceId).substring(8, 24), new MyPayListener(mContext, PayType.WEIXIN));
+        if (coin != null)
+            new BmobPay(PayActivity.this).payByWX(coin.getPrice(), coin.getName(), MD5.GetMD5Code(ac.deviceId).substring(8, 24), new MyPayListener(mContext, PayType.WEIXIN));
     }
 
     public enum PayType {
@@ -77,7 +102,7 @@ public class PayActivity extends BaseBackActivity {
         public void succeed() {
             RequestParams params = ac.getRequestParams();
             params.put("orderId", ac.cs.getVipOrder());
-            ac.httpClient.post(URLS.PAY, params, new JsonHttpResponseHandler(mContext,"正在完成充值") {
+            ac.httpClient.post(URLS.PAY, params, new JsonHttpResponseHandler(mContext, "正在完成充值") {
 
                 @Override
                 public void onSuccess(JSONObject jo) {
@@ -90,7 +115,7 @@ public class PayActivity extends BaseBackActivity {
                 public void onSuccessCode(JSONObject jo) throws Exception {
                     super.onSuccessCode(jo);
 
-                    ToastUtil.toast(mContext,"充值成功，请重启软件");
+                    ToastUtil.toast(mContext, "充值成功，请重启软件");
                 }
 
             });

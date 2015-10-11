@@ -79,4 +79,5 @@
     <string name="edit_success">修改成功</string>
     <string name="edit_fail">修改失败</string>
     <string name="unable_recoding_liangchen">你他喵禁用了录音权限？\n视频和录音都不能用了。\n良辰望你，三思而后行。</string>
+    <string name="loading">骚等片刻</string>
 </resources>
