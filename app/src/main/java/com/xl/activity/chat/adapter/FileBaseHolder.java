@@ -6,10 +6,9 @@ import com.loopj.android.http.FileAsyncHttpResponseHandler;
 import com.xl.bean.MessageBean;
 import com.xl.db.ChatDao;
 
-import org.apache.http.Header;
-
 import java.io.File;
 
+import cz.msebera.android.httpclient.Header;
 
 
 /**

@@ -10,12 +10,11 @@ import com.xl.db.ChatDao;
 import com.xl.util.StaticFactory;
 import com.xl.util.Utils;
 
-import org.apache.http.Header;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import cz.msebera.android.httpclient.Header;
 import de.greenrobot.event.EventBus;
 
 /**

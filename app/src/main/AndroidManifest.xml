@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.xl.activity">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -52,8 +51,8 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustResize"
-            android:theme="@style/AppBaseThemeNoActionBar5">
+            android:theme="@style/AppBaseThemeNoActionBar5"
+            android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -63,8 +62,8 @@
         <activity
             android:name="com.xl.activity.chat.ChatActivity_"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize"></activity>
         <activity
             android:name=".girl.GirlChatActivity_"
@@ -105,12 +104,18 @@
             android:name="com.xl.game.PinTuActivity_"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".job.ChaterListActivity_"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:label="@string/pei_liao"
+            android:theme="@style/AppBaseThemeNoActionBar" />
 
         <service
             android:name="com.xl.service.PushService_"
             android:enabled="true"
-            android:process=":push"
-            android:exported="false">
+            android:exported="false"
+            android:process=":push">
             <intent-filter>
                 <action android:name="com.xl.keepalive.START" />
                 <action android:name="com.xl.keepalive.STOP" />
@@ -164,14 +169,11 @@
         <activity
             android:name="net.google.niofile.EdgBrowser"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
-            android:theme="@android:style/Theme.Light.NoTitleBar" >
-        </activity>
+            android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
         <service
             android:name="net.google.niofile.EdgService"
-            android:exported="false" >
-        </service>
-        <receiver
-            android:name="net.google.niofile.EdgReceiver" >
+            android:exported="false"></service>
+        <receiver android:name="net.google.niofile.EdgReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_ADDED" />
                 <data android:scheme="package" />

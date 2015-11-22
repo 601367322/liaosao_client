@@ -80,4 +80,9 @@
     <string name="edit_fail">修改失败</string>
     <string name="unable_recoding_liangchen">你他喵禁用了录音权限？\n视频和录音都不能用了。\n良辰望你，三思而后行。</string>
     <string name="loading">骚等片刻</string>
+    <string name="pei_liao">伴聊</string>
+
+    <string name="xlistview_header_hint_loading">正在加载...</string>
+    <string name="xlistview_footer_hint_normal">查看更多</string>
+    <string name="xlistview_footer_hint_ready">松开载入更多</string>
 </resources>
