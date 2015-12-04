@@ -82,6 +82,7 @@ android {
         checkReleaseBuilds rootProject.ext.checkReleaseBuilds
         abortOnError rootProject.ext.abortOnError
     }
+
 }
 repositories {
     maven {
@@ -125,7 +126,6 @@ apt {
         androidManifestFile variant.outputs[0].processResources.manifestFile
         resourcePackageName "com.xl.activity"
 
-        logLevel 'INFO'
-        logFile '/var/log/aa.log'
+        library 'true'
     }
 }

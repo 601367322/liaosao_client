@@ -4,6 +4,7 @@
 buildscript {
     repositories {
         jcenter()
+
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:+'
@@ -15,15 +16,13 @@ buildscript {
 
 allprojects {
     repositories {
+        maven { url 'http://maven.oschina.net/content/groups/public/' }
         jcenter()
-        flatDir {
-            dirs 'libs'
-        }
     }
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = "2.6"
+    gradleVersion = "2.4"
 }
 
 
