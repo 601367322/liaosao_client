@@ -85,4 +85,29 @@
     <string name="xlistview_header_hint_loading">正在加载...</string>
     <string name="xlistview_footer_hint_normal">查看更多</string>
     <string name="xlistview_footer_hint_ready">松开载入更多</string>
+
+    <string name="preference_user_avatar">preference_user_avatar</string>
+    <string name="preference_user_album">preference_user_album</string>
+    <string name="preference_user_age">preference_user_age</string>
+    <string name="preference_user_area">preference_user_area</string>
+    <string name="preference_user_name">preference_user_name</string>
+    <string name="preference_user_gender">preference_user_gender</string>
+    <string name="preference_user_coin">preference_user_coin</string>
+    <string name="preference_user_zhifubao">preference_user_zhifubao</string>
+    <string name="preference_user_weixin">preference_user_weixin</string>
+    <string name="preference_user_description">preference_user_description</string>
+    <string name="nickname">昵称</string>
+    <string name="avatar">头像</string>
+    <string name="edit_user_info">编辑资料</string>
+    <string name="gender">性别</string>
+    <string name="desc">个性签名</string>
+    <string name="album">相册</string>
+    <string name="age">年龄</string>
+    <string name="area">地区</string>
+    <string name="coin">余额</string>
+    <string name="支付宝" />
+    <string name="weixin">微信账号</string>
+    <string name="zhifubao">支付宝账号</string>
+    <string name="unbind">未绑定</string>
+    <string name="tixian">查看明细/提现</string>
 </resources>

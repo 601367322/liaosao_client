@@ -41,6 +41,7 @@ import com.xl.activity.pay.PayActivity_;
 import com.xl.activity.setting.HelpActivity_;
 import com.xl.activity.setting.SettingActivity_;
 import com.xl.activity.share.CommonShared;
+import com.xl.activity.user.EditUserInfoActivity_;
 import com.xl.application.AppClass;
 import com.xl.bean.UserBean_6;
 import com.xl.bean.UserTable_6;
@@ -565,7 +566,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 Utils.openSoftKeyboard(nickname_edit);
                 break;
             case R.id.logo:
-                chosePic();
+//                chosePic();
+                EditUserInfoActivity_.intent(this).start();
                 break;
         }
     }

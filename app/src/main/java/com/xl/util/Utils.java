@@ -30,7 +30,10 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 
 public class Utils {
+
     public static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+
+    public static final SimpleDateFormat dateFormat_simple = new SimpleDateFormat("yyyy-MM-dd");
 
     public static int px2dip(Context context, float pxValue) {
         final float scale = context.getResources().getDisplayMetrics().density;

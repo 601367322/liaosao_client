@@ -42,6 +42,9 @@ public class AppClass extends Application {
     public void onCreate() {
         super.onCreate();
 
+        DBHelper helper = new DBHelper(this);
+        helper.init(this);
+
         cs = new CommonShared(this);
 
         initDeviceid();

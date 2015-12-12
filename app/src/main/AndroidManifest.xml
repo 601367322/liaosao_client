@@ -118,6 +118,12 @@
             android:label="@string/pei_liao"
             android:theme="@style/AppBaseThemeNoActionBar" />
 
+        <activity
+            android:name=".user.EditUserInfoActivity_"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:label="@string/edit_user_info" />
+
         <service
             android:name="com.xl.service.PushService_"
             android:enabled="true"

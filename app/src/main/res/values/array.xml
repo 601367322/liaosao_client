@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="sex_title">
-        <item>变态</item>
         <item>女</item>
         <item>男</item>
-        <item>基佬</item>
-        <item>百合</item>
     </string-array>
     <string-array name="sex_value">
-        <item>0</item>
         <item>1</item>
         <item>2</item>
-        <item>3</item>
-        <item>4</item>
     </string-array>
 </resources>

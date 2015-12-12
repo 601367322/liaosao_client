@@ -1,6 +1,10 @@
 package com.xl.bean;
 
+import com.xl.util.Utils;
+
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Date;
 
 public class UserBean_6 implements Serializable {
 
@@ -12,6 +16,7 @@ public class UserBean_6 implements Serializable {
     public boolean vip;
     public String nickname;
     public String logo;
+    public Long birthday;
 
     public boolean isGirl() {
         return girl;
@@ -85,5 +90,26 @@ public class UserBean_6 implements Serializable {
 
     public void setLogo(String logo) {
         this.logo = logo;
+    }
+
+    public int getAge() {
+        int age = 0;
+        if (null != birthday) {
+            Calendar born = Calendar.getInstance();
+            Calendar now = Calendar.getInstance();
+            born.setTimeInMillis(birthday);
+            age = now.get(Calendar.YEAR) - born.get(Calendar.YEAR);
+            if (now.get(Calendar.DAY_OF_YEAR) < born.get(Calendar.DAY_OF_YEAR)) {
+                age -= 1;
+            }
+        }
+        return age;
+    }
+
+    public String getFormatBirthday(){
+        if(null!=birthday){
+            return Utils.dateFormat_simple.format(new Date(birthday));
+        }
+        return "未设置";
     }
 }

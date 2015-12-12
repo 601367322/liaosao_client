@@ -28,8 +28,14 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
 
     private Dao<SharedBean, Integer> sharedDao;
 
+    public static UserTableDao userDao;
+
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
+
+    public void init(Context context){
+        userDao = UserTableDao.getInstance(context);
     }
 
     /**
