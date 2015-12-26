@@ -48,6 +48,7 @@ public class JsonHttpResponseHandler extends
 
     public void onSuccess(JSONObject jo) {
         try {
+            LogUtil.d(jo.toString());
             int status = jo.optInt(ResultCode.STATUS);
             switch (status) {
                 case ResultCode.SUCCESS:

@@ -28,7 +28,6 @@ import com.xl.util.BroadCastUtil;
 import com.xl.util.JsonHttpResponseHandler;
 import com.xl.util.LogUtil;
 import com.xl.util.ResultCode;
-import com.xl.util.StaticUtil;
 import com.xl.util.URLS;
 
 import org.androidannotations.annotations.App;
@@ -195,7 +194,7 @@ public class PushService extends Service {
                 int statusCode = jo.optInt(ResultCode.STATUS);
                 switch (statusCode) {
                     case ResultCode.SUCCESS:
-                        JSONArray ja = jo.optJSONArray(StaticUtil.CONTENT);
+                        JSONArray ja = jo.optJSONArray(ResultCode.CONTENT);
                         Gson gson = new Gson();
                         for (int i = 0; i < ja.length(); i++) {
                             MessageBean mb = gson.fromJson(ja.optJSONObject(i).optString("message"), new TypeToken<MessageBean>() {

@@ -124,6 +124,18 @@
             android:screenOrientation="portrait"
             android:label="@string/edit_user_info" />
 
+        <activity
+            android:name=".user.EditAlbumActivity_"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:label="@string/your_album" />
+
+        <activity
+            android:name=".album.PhotoAlbumMainActivity_"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:label="@string/your_album" />
+
         <service
             android:name="com.xl.service.PushService_"
             android:enabled="true"

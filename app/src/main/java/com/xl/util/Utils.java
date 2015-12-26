@@ -17,6 +17,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.xl.activity.R;
 import com.xl.activity.pay.PayActivity_;
@@ -27,7 +29,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 public class Utils {
 
@@ -312,10 +316,6 @@ public class Utils {
             return null;
     }
 
-    public static <T> T jsonToBean(String json, Class<T> clazz) {
-        return new Gson().fromJson(json, clazz);
-    }
-
     /**
      * 弹出提示框
      *
@@ -374,7 +374,7 @@ public class Utils {
             public void onClick(DialogInterface dialog, int which) {
 
             }
-        },null,true,true);
+        }, null, true, true);
     }
 
     /**
@@ -406,4 +406,32 @@ public class Utils {
     public static String getDownloadFileUrl(String deviceId,String name){
         return URLS.DOWNLOADFILE + deviceId + "/" + name + URLS.LAST;
     }
+
+
+
+    public static final DisplayImageOptions options_no_default = new DisplayImageOptions.Builder()
+            .cacheInMemory(true).cacheOnDisk(true).build();
+
+    public static <T> ArrayList<T> jsonToList(String json, Class<T> classOfT) {
+        Type type = new TypeToken<ArrayList<JsonObject>>() {
+        }.getType();
+        ArrayList<JsonObject> jsonObjs = new Gson().fromJson(json, type);
+        ArrayList<T> listOfT = null;
+        try {
+            listOfT = new ArrayList<>();
+            for (JsonObject jsonObj : jsonObjs) {
+                listOfT.add(new Gson().fromJson(jsonObj, classOfT));
+            }
+            return listOfT;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public static <T> T jsonToBean(String json, Class<T> classOfT) {
+        return new Gson().fromJson(json,classOfT);
+    }
+
 }

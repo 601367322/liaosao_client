@@ -46,7 +46,6 @@ import android.widget.TextView.OnEditorActionListener;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.RequestParams;
 import com.nhaarman.listviewanimations.appearance.simple.SwingBottomInAnimationAdapter;
 import com.quan.lib_camera_video.MediaRecorderActivity;
@@ -232,8 +231,7 @@ public class ChatActivity extends BaseBackActivity implements
             @Override
             public void onSuccessCode(JSONObject jo) throws Exception {
                 super.onSuccessCode(jo);
-                friend = new Gson().fromJson(jo.optString(StaticUtil.CONTENT), new TypeToken<UserTable_6>() {
-                }.getType());
+                friend = Utils.jsonToBean(jo.optString(ResultCode.CONTENT), UserTable_6.class);
 
                 //设置标题和副标题
                 String title = "";
@@ -1092,7 +1090,8 @@ public class ChatActivity extends BaseBackActivity implements
                 for (int i = 1; i <= 25; i++) {
                     lstImageItem.add(getResources().getIdentifier("face_" + i, "drawable", getPackageName()));
                 }
-                FaceAdapter saImageItems = new FaceAdapter(ChatActivity.this, lstImageItem);
+                FaceAdapter saImageItems = new FaceAdapter(ChatActivity.this);
+                saImageItems.setList(lstImageItem);
                 final SwingBottomInAnimationAdapter t1 = new SwingBottomInAnimationAdapter(saImageItems);
                 t1.setAbsListView(face_grid);
                 t1.getViewAnimator().setInitialDelayMillis(0);

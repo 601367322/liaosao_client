@@ -3,6 +3,7 @@ package com.xl.util;
 public class ResultCode {
     public static final String STATUS="status";
     public static final String INFO="info";
+    public static final String CONTENT = "content";
 
     public static final int SUCCESS=0;
     public static final int LOADING=1;

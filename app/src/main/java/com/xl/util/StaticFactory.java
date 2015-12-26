@@ -14,7 +14,7 @@ public class StaticFactory {
     public static final String _160x160 = "_160x160.jpg";
     public static final String _320x320 = "_320x320.jpg";
     public static final String _240x1000 = "_240x1000.jpg";
-    public static final String _600x600 = "_600x600.jpg";
+    public static final String _640x640 = "_640x640.jpg";
     public static final String _960x720 = "_720x960.jpg";
 
     public static final String AD_CACHE = "ad_cache";

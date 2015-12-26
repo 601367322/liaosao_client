@@ -1,52 +1,48 @@
 package com.xl.activity.chat;
 
 import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.xl.activity.R;
-import com.xl.activity.base.BaseAdapterListView;
+import com.xl.activity.base.BaseAdapter;
 import com.xl.custom.MyImageView;
 import com.xl.util.GifDrawableCache;
 
-import java.util.List;
-
 import butterknife.Bind;
-import butterknife.ButterKnife;
 
 
 /**
  * Created by Administrator on 2015/2/21.
  */
-public class FaceAdapter extends BaseAdapterListView<Integer> {
+public class FaceAdapter extends BaseAdapter<Integer> {
 
-    public FaceAdapter(Context context, List list) {
-        super(list, context);
+    public FaceAdapter(Context context) {
+        super(context);
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder = null;
-        if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.face_item, parent, false);
-            holder = new ViewHolder(convertView);
-            convertView.setTag(holder);
-        } else {
-            holder= (ViewHolder) convertView.getTag();
-        }
-        Integer id = getItem(position);
-        holder.face_img.setImageGifDrawable(GifDrawableCache.getInstance().getDrawable(Long.valueOf(id), context));
-        return convertView;
+    public BaseHolder getHolder(View view) {
+        return new ViewHolder(view);
     }
 
-    class ViewHolder {
+    @Override
+    public int getConvertView(int position) {
+        return R.layout.face_item;
+    }
+
+    class ViewHolder extends BaseHolder{
 
         @Bind(R.id.face_img)
         MyImageView face_img;
 
         public ViewHolder(View view) {
-            ButterKnife.bind(this, view);
+            super(view);
         }
+
+        @Override
+        public void bind(Integer bean, int position) {
+            face_img.setImageGifDrawable(GifDrawableCache.getInstance().getDrawable(Long.valueOf(bean), context));
+        }
+
     }
 }

@@ -81,22 +81,6 @@
                 android:textSize="18dp"
                 android:textStyle="bold"/>
 
-            <EditText
-                android:id="@+id/nickname_edit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:maxLength="8"
-                android:shadowColor="@color/dark_gray"
-                android:shadowDx="2"
-                android:visibility="gone"
-                android:shadowDy="2"
-                android:shadowRadius="1"
-                android:singleLine="true"
-                android:hint="请输入昵称"
-                android:textColor="@color/white"
-                android:textSize="18dp"
-                android:textStyle="bold" />
         </LinearLayout>
     </RelativeLayout>
 </RelativeLayout>

@@ -43,4 +43,9 @@ public class UserTableDao extends BaseDao<UserTable_6, Integer> {
             e.printStackTrace();
         }
     }
+
+    public void updateUser(UserTable_6 user){
+        deleteUserByDeviceId(user.getDeviceId());
+        create(user);
+    }
 }

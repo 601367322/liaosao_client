@@ -104,7 +104,7 @@ public class MainFragment extends BaseFragment {
                 int status = jo.optInt(ResultCode.STATUS);
                 switch (status) {
                     case ResultCode.SUCCESS:
-                        if (jo.has(StaticUtil.CONTENT) && jo.opt(StaticUtil.CONTENT) != null) {
+                        if (jo.has(ResultCode.CONTENT) && jo.opt(ResultCode.CONTENT) != null) {
                             ac.cs.setISVIP(CommonShared.ON);
                         } else {
                             ac.cs.setISVIP(CommonShared.OFF);

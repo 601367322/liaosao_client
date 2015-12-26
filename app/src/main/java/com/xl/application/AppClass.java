@@ -11,7 +11,6 @@ import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.PersistentCookieStore;
 import com.loopj.android.http.RequestParams;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.utils.L;
@@ -22,6 +21,7 @@ import com.xl.service.IPushService;
 import com.xl.service.PushService;
 import com.xl.service.PushService_;
 import com.xl.util.DeviceUuidFactory;
+import com.xl.util.Utils;
 
 import org.androidannotations.annotations.EApplication;
 
@@ -33,9 +33,6 @@ public class AppClass extends Application {
     public CommonShared cs;
 
     public static final String MANAGER = "manager";
-
-    public static final DisplayImageOptions options_no_default = new DisplayImageOptions.Builder()
-            .cacheInMemory(true).cacheOnDisk(true).build();
 
     public static Context context;
 
@@ -55,7 +52,7 @@ public class AppClass extends Application {
 
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
                 getApplicationContext()).defaultDisplayImageOptions(
-                options_no_default).build();
+                Utils.options_no_default).build();
         L.writeLogs(false);
         L.writeDebugLogs(false);
         ImageLoader.getInstance().init(config);

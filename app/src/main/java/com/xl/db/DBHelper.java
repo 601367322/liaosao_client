@@ -14,11 +14,9 @@ import com.xl.bean.BlackUser;
 import com.xl.bean.ChatListBean;
 import com.xl.bean.MessageBean;
 import com.xl.bean.SharedBean;
-import com.xl.bean.UserTable;
 import com.xl.bean.UserTable_6;
 import com.xl.util.LogUtil;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class DBHelper extends OrmLiteSqliteOpenHelper {
@@ -69,10 +67,6 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
                           ConnectionSource connectionSource, int oldVersion, int newVersion) {
         try {
             switch (oldVersion) {
-                case 4:
-                    updateDB_5();
-                case 5:
-                    updateDB_6(connectionSource);
                 case 6:
                     updateDB_7(connectionSource);
                     break;
@@ -83,32 +77,6 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
         }
     }
 
-    public void updateDB_5() {
-        try {
-            TableUtils.createTable(connectionSource, UserTable.class);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void updateDB_6(ConnectionSource connectionSource) {
-        try {
-            TableUtils.createTable(connectionSource, UserTable_6.class);
-            RuntimeExceptionDao<UserTable, Integer> dao = getRuntimeExceptionDao(UserTable.class);
-            List<UserTable> list = dao.queryForAll();
-            RuntimeExceptionDao<UserTable_6, Integer> daoNew = getRuntimeExceptionDao(UserTable_6.class);
-            for (UserTable ut : list) {
-                UserTable_6 u6 = new UserTable_6();
-                u6.setId(ut.getId());
-                u6.setDetail(ut.getDetail());
-                u6.setDeviceId(ut.getDeviceId());
-                daoNew.create(u6);
-            }
-            TableUtils.dropTable(connectionSource, UserTable.class, true);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
 
     public void updateDB_7(ConnectionSource connectionSource){
         try {

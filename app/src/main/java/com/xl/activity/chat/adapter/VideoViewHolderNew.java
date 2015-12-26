@@ -37,9 +37,9 @@ public class VideoViewHolderNew extends FileBaseHolder {
 
         MessageBean.RadioBean rb = bean.getRadioBean();
         if (getMstType() == ChatAdapters.RIGHT_RADIO_NEW) {
-            ImageLoader.getInstance().displayImage(StaticUtil.FILE + rb.thumb, radio ,ac.options_no_default);
+            ImageLoader.getInstance().displayImage(StaticUtil.FILE + rb.thumb, radio ,Utils.options_no_default);
         } else {
-            ImageLoader.getInstance().displayImage(URLS.DOWNLOADFILE + ac.deviceId + "/" + rb.thumb + URLS.LAST, radio,ac.options_no_default);
+            ImageLoader.getInstance().displayImage(URLS.DOWNLOADFILE + ac.deviceId + "/" + rb.thumb + URLS.LAST, radio,Utils.options_no_default);
         }
         radio.setTag(bean);
     }

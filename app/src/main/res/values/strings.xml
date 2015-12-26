@@ -103,6 +103,7 @@
     <string name="desc">个性签名</string>
     <string name="album">相册</string>
     <string name="age">年龄</string>
+    <string name="birthday">生日</string>
     <string name="area">地区</string>
     <string name="coin">余额</string>
     <string name="支付宝" />
@@ -110,4 +111,6 @@
     <string name="zhifubao">支付宝账号</string>
     <string name="unbind">未绑定</string>
     <string name="tixian">查看明细/提现</string>
+    <string name="your_album">你的相册</string>
+    <string name="chose_picture">选择照片</string>
 </resources>

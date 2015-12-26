@@ -1,40 +1,30 @@
 package com.xl.activity;
 
-import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bmob.pay.tool.BmobPay;
 import com.github.johnpersano.supertoasts.SuperToast;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.RequestParams;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.umeng.fb.FeedbackAgent;
 import com.umeng.onlineconfig.OnlineConfigAgent;
 import com.umeng.update.UmengUpdateAgent;
 import com.xl.activity.base.BaseActivity;
-import com.xl.activity.chat.ChatActivity;
 import com.xl.activity.chat.ChatListActivity_;
 import com.xl.activity.girl.GirlChatActivity_;
 import com.xl.activity.pay.PayActivity_;
@@ -43,18 +33,18 @@ import com.xl.activity.setting.SettingActivity_;
 import com.xl.activity.share.CommonShared;
 import com.xl.activity.user.EditUserInfoActivity_;
 import com.xl.application.AppClass;
-import com.xl.bean.UserBean_6;
 import com.xl.bean.UserTable_6;
 import com.xl.db.ChatDao;
+import com.xl.db.DBHelper;
 import com.xl.db.UserTableDao;
 import com.xl.fragment.MainFragment_;
 import com.xl.game.GameActivity_;
 import com.xl.game.PinTuActivity_;
+import com.xl.post.GetUserInfo;
 import com.xl.util.BroadCastUtil;
 import com.xl.util.JsonHttpResponseHandler;
 import com.xl.util.ResultCode;
 import com.xl.util.StaticFactory;
-import com.xl.util.StaticUtil;
 import com.xl.util.ToastUtil;
 import com.xl.util.URLS;
 import com.xl.util.Utils;
@@ -63,7 +53,6 @@ import net.google.niofile.AdManager;
 
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.OnActivityResult;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.OptionsMenuItem;
@@ -72,12 +61,9 @@ import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 import org.json.JSONObject;
 
-import java.io.File;
-import java.util.Date;
-
 @EActivity(R.layout.activity_main)
 @OptionsMenu(R.menu.main)
-public class MainActivity extends BaseActivity implements View.OnClickListener, View.OnKeyListener {
+public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @ViewById(R.id.navigation_drawer)
     public NavigationView mNavigationView;
@@ -94,7 +80,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     MenuItem girl_god, message_history;
 
     TextView vip_text, sex_text, nickname_text;
-    EditText nickname_edit;
     ImageView userlogo;
 
     ChatDao chatDao;
@@ -227,8 +212,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         sex_text = (TextView) drawer_layout.findViewById(R.id.sex_text);
         nickname_text = (TextView) drawer_layout.findViewById(R.id.nickname);
         userlogo = (ImageView) drawer_layout.findViewById(R.id.logo);
-        nickname_edit = (EditText) drawer_layout.findViewById(R.id.nickname_edit);
-        nickname_edit.setOnKeyListener(this);
         nickname_text.setOnClickListener(this);
         userlogo.setOnClickListener(this);
 
@@ -351,13 +334,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                     switch (status) {
                         case ResultCode.SUCCESS:
 
-                            UserTable_6 ut = new Gson().fromJson(jo.optString(StaticUtil.CONTENT), new TypeToken<UserTable_6>() {
-                            }.getType());
+                            UserTable_6 ut = Utils.jsonToBean(jo.optString(ResultCode.CONTENT), UserTable_6.class);
 
                             setHead(ut);
 
-                            userTableDao.deleteUserByDeviceId(ut.getDeviceId());
-                            userTableDao.create(ut);
+                            userTableDao.updateUser(ut);
 
                             if (ut.getBean().getSex() == null) {
                                 Utils.showDialog(MainActivity.this, R.drawable.dialog_icon, R.string.yoursex, R.string.can_not_reset, R.string.boy, R.string.girl, R.string.close, new DialogInterface.OnClickListener() {
@@ -411,21 +392,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                     .replace(R.id.container, new MainFragment_())
                     .commit();
 
-            ac.httpClient.post(URLS.GETUSERINFO, ac.getRequestParams(), new JsonHttpResponseHandler() {
+            new GetUserInfo(this,new JsonHttpResponseHandler(){
                 @Override
-                public void onSuccess(JSONObject jo) {
-                    int status = jo.optInt(ResultCode.STATUS);
-                    switch (status) {
-                        case ResultCode.SUCCESS:
-                            UserTable_6 ut = new Gson().fromJson(jo.optString(StaticUtil.CONTENT), new TypeToken<UserTable_6>() {
-                            }.getType());
+                public void onSuccessCode(JSONObject jo) throws Exception {
+                    UserTable_6 ut = DBHelper.userDao.getUserTableByDeviceId(ac.deviceId);
 
-                            userTableDao.deleteUserByDeviceId(ut.getDeviceId());
-                            userTableDao.create(ut);
-
-                            setHead(ut);
-                            break;
-                    }
+                    setHead(ut);
                 }
             });
         }
@@ -448,7 +420,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             sex_text.setText(ut.getBean().getSex() == 1 ? "女" : "男");
         }
         nickname_text.setText(ut.getBean().nickname);
-        nickname_edit.setText(ut.getBean().nickname);
 
         ImageLoader.getInstance().displayImage(ut.getBean().logo + StaticFactory._160x160, userlogo, Utils.options_default_logo);
     }
@@ -464,8 +435,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 switch (status) {
                     case ResultCode.SUCCESS:
                         ToastUtil.toast(MainActivity.this, getString(R.string.saving_success));
-                        UserTable_6 ut = new Gson().fromJson(jo.optString(StaticUtil.CONTENT), new TypeToken<UserTable_6>() {
-                        }.getType());
+                        UserTable_6 ut = Utils.jsonToBean(jo.optString(ResultCode.CONTENT), UserTable_6.class);
 
                         setHead(ut);
 
@@ -504,191 +474,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
 
     @Override
-    public boolean onKey(View v, int keyCode, KeyEvent event) {
-        try {
-            if (event.getAction() == KeyEvent.ACTION_DOWN && v.getId() == R.id.nickname_edit)
-                if ((keyCode == KeyEvent.KEYCODE_DPAD_CENTER) ||
-                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    Utils.closeSoftKeyboard(this);
-                    nickname_edit.setVisibility(View.GONE);
-                    nickname_text.setVisibility(View.VISIBLE);
-                    final UserTable_6 user = userTableDao.getUserTableByDeviceId(ac.deviceId);
-                    final String str = nickname_edit.getText().toString();
-                    if (!TextUtils.isEmpty(str)) {
-                        if (!str.equals(user.getBean().nickname)) {
-                            RequestParams params = ac.getRequestParams();
-                            params.put("nickname", str);
-                            ac.httpClient.post(URLS.SETUSERDETAIL, params, new JsonHttpResponseHandler(this) {
-
-                                @Override
-                                public void onStart() {
-                                    super.onStart();
-                                    nickname_text.setText(str);
-                                    ToastUtil.toast(mContext, getString(R.string.editing));
-                                }
-
-                                @Override
-                                public void onSuccessCode(JSONObject jo) throws Exception {
-                                    super.onSuccessCode(jo);
-                                    UserBean_6 bean = user.getBean();
-                                    bean.nickname = str;
-                                    user.setBean(bean);
-                                    userTableDao.update(user);
-                                    ToastUtil.toast(mContext, getString(R.string.edit_success));
-                                }
-
-                                @Override
-                                public void onFailCode(JSONObject jo) {
-                                    super.onFailCode(jo);
-                                    nickname_text.setText(user.getBean().nickname);
-                                    ToastUtil.toast(mContext, getString(R.string.edit_fail));
-                                }
-                            });
-                        }
-                    }
-                    return true;
-                }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.nickname:
-                nickname_text.setVisibility(View.GONE);
-                nickname_edit.setVisibility(View.VISIBLE);
-                nickname_edit.setFocusable(true);
-                nickname_edit.requestFocus();
-                nickname_edit.setSelection(nickname_edit.getText().toString().length());
-                Utils.openSoftKeyboard(nickname_edit);
-                break;
-            case R.id.logo:
-//                chosePic();
                 EditUserInfoActivity_.intent(this).start();
                 break;
-        }
-    }
-
-    String filename;
-
-    public void chosePic() {
-        new AlertDialog.Builder(this).setTitle(getString(R.string.dont_chose_fail)).setIcon(R.drawable.weisuo_yuan).setItems(new String[]{getString(R.string.Camera), getString(R.string.Album)}, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                switch (which) {
-                    case 0:
-                        if (Utils.existSDcard()) {
-                            Intent intent = new Intent(); // 调用照相机
-                            String messagepath = StaticFactory.APKCardPathLOGO;
-                            File fa = new File(messagepath);
-                            if (!fa.exists()) {
-                                fa.mkdirs();
-                            }
-                            filename = messagepath + new Date().getTime();// 图片路径
-                            intent.putExtra(MediaStore.EXTRA_OUTPUT,
-                                    Uri.fromFile(new File(filename)));
-                            intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
-                            startActivityForResult(intent, ChatActivity.Camera);
-                        } else {
-                            ToastUtil.toast(MainActivity.this, getString(R.string.please_check_sdcard), R.drawable.kiding);
-                        }
-                        break;
-                    case 1:
-                        if (Utils.existSDcard()) {
-                            Intent intent = new Intent();
-                            String messagepath = StaticFactory.APKCardPathLOGO;
-                            File fa = new File(messagepath);
-                            if (!fa.exists()) {
-                                fa.mkdirs();
-                            }
-                            intent.setType("image/*");
-                            intent.setAction(Intent.ACTION_GET_CONTENT);
-                            startActivityForResult(intent, ChatActivity.Album);
-                        } else {
-                            ToastUtil.toast(MainActivity.this, getString(R.string.please_check_sdcard), R.drawable.kiding);
-                        }
-                        break;
-                }
-            }
-        }).create().show();
-    }
-
-    @OnActivityResult(value = ChatActivity.Camera)
-    @Background
-    void onCameraResult() {
-        if (filename != null) {
-            File fi = new File(filename);
-            if (fi != null && fi.exists()) {
-                Utils.downsize(filename, filename, this);
-            }
-            updateLogo();
-            fi = null;
-        }
-    }
-
-    @OnActivityResult(value = ChatActivity.Album)
-    @Background
-    void onAlbumResult(Intent intent) {
-        if (intent == null) {
-            return;
-        }
-        ContentResolver resolver = getContentResolver();
-        Uri imgUri = intent.getData();
-        try {
-            Cursor cursor = resolver.query(imgUri, null, null, null, null);
-            cursor.moveToFirst();
-            filename = cursor.getString(1);
-            Utils.downsize(
-                    filename,
-                    filename = StaticFactory.APKCardPath
-                            + new Date().getTime(), this);
-            updateLogo();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @UiThread
-    public void updateLogo() {
-        try {
-            RequestParams params = ac.getRequestParams();
-            params.put("file", new File(filename));
-
-            ac.httpClient.post(URLS.UPLOADUSERLOGO, params, new JsonHttpResponseHandler(this) {
-
-                @Override
-                public void onStart() {
-                    super.onStart();
-                    ToastUtil.toast(mContext, getString(R.string.uploading));
-                }
-
-                @Override
-                public void onSuccessCode(JSONObject jo) throws Exception {
-                    super.onSuccessCode(jo);
-                    String logo = jo.getString("logo");
-
-                    //更新数据库
-                    UserTable_6 ut = userTableDao.getUserTableByDeviceId(ac.deviceId);
-                    UserBean_6 ub = ut.getBean();
-                    ub.setLogo(logo);
-                    ut.setBean(ub);
-                    userTableDao.update(ut);
-                    ToastUtil.toast(mContext, getString(R.string.upload_succes));
-                    //刷新UI
-                    ImageLoader.getInstance().displayImage(logo + StaticFactory._160x160, userlogo, Utils.options_default_logo);
-                }
-
-                @Override
-                public void onFailCode(JSONObject jo) {
-                    super.onFailCode(jo);
-                    ToastUtil.toast(mContext, getString(R.string.upload_fail));
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
+            case R.id.logo:
+                EditUserInfoActivity_.intent(this).start();
+                break;
         }
     }
 }

@@ -10,13 +10,8 @@ public class StaticUtil {
     public static final int ORDER_SENDMESSAGE = 2;//发送消息
     public static final int ORDER_CLOSE_CHAT = 3;//退出聊天
 
-    public static final String TOID = "toId";
-    public static final String FROMID = "fromId";
-    public static final String CONTENT = "content";
     public static final String SEX = "sex";
     public static final String WANTSEX = "wantSex";
-    public static final String LNG = "lng";
-    public static final String LAT = "lat";
 
     public static final String BEAN = "bean";
 

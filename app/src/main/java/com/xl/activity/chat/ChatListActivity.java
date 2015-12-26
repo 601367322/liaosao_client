@@ -72,7 +72,9 @@ public class ChatListActivity extends BaseBackActivity implements SwipeRefreshLa
             @Override
             public void run() {
                 List<ChatListBean> list = ChatlistDao.getInstance(getApplicationContext()).queryForAll();
-                complete(adapter = new ChatListAdapters(list, ChatListActivity.this));
+                adapter = new ChatListAdapters(ChatListActivity.this);
+                adapter.setList(list);
+                complete(adapter);
             }
         }).start();
     }
@@ -115,7 +117,7 @@ public class ChatListActivity extends BaseBackActivity implements SwipeRefreshLa
             if (!has) {
                 ChatListBean temp = ChatlistDao.getInstance(getApplicationContext()).queryBeanForDeviceId(deviceId);
                 if (temp != null) {
-                    adapter.addFirst(temp);
+                    adapter.add(0,temp);
                     adapter.notifyDataSetChanged();
                 }
             }

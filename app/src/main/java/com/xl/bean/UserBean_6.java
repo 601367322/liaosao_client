@@ -1,10 +1,13 @@
 package com.xl.bean;
 
+import android.text.TextUtils;
+
 import com.xl.util.Utils;
 
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class UserBean_6 implements Serializable {
 
@@ -17,6 +20,49 @@ public class UserBean_6 implements Serializable {
     public String nickname;
     public String logo;
     public Long birthday;
+    public String desc;
+    public List<ImageBean> album;
+    public Account account;
+
+    public Account getAccount() {
+        if(account == null){
+            return new Account();
+        }
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    public List<ImageBean> getAlbum() {
+        return album;
+    }
+
+    public void setAlbum(List<ImageBean> album) {
+        this.album = album;
+    }
+
+    public static final String EMPTY = "未设置";
+
+    public Long getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Long birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getDesc() {
+        if(TextUtils.isEmpty(desc)){
+            return EMPTY;
+        }
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
 
     public boolean isGirl() {
         return girl;
@@ -37,6 +83,9 @@ public class UserBean_6 implements Serializable {
     }
 
     public Integer getSex() {
+        if(sex == null){
+            return 2;
+        }
         return sex;
     }
 
@@ -77,6 +126,9 @@ public class UserBean_6 implements Serializable {
     }
 
     public String getNickname() {
+        if(TextUtils.isEmpty(nickname)){
+            return EMPTY;
+        }
         return nickname;
     }
 
@@ -110,6 +162,8 @@ public class UserBean_6 implements Serializable {
         if(null!=birthday){
             return Utils.dateFormat_simple.format(new Date(birthday));
         }
-        return "未设置";
+        return EMPTY;
     }
+
+
 }

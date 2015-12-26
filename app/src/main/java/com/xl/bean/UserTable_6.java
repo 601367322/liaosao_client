@@ -54,7 +54,7 @@ public class UserTable_6 implements java.io.Serializable {
     }
 
     public String getDetail() {
-        if (TextUtils.isEmpty(detail) && bean != null) {
+        if (bean != null) {
             return new Gson().toJson(bean);
         }
         return detail;
