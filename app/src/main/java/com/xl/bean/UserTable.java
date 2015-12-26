@@ -11,7 +11,7 @@ import com.xl.util.Utils;
  * UserTable entity. @author MyEclipse Persistence Tools
  */
 @DatabaseTable(tableName = "UserTable_6")
-public class UserTable_6 implements java.io.Serializable {
+public class UserTable implements java.io.Serializable {
 
     public static final String DEVICEID = "deviceId";
 
@@ -23,16 +23,16 @@ public class UserTable_6 implements java.io.Serializable {
     @DatabaseField(useGetSet = true)
     private String detail;
 
-    private UserBean_6 bean;
+    private UserBean bean;
 
-    public UserBean_6 getBean() {
+    public UserBean getBean() {
         if (bean == null && !TextUtils.isEmpty(detail)) {
-            bean = Utils.jsonToBean(detail, UserBean_6.class);
+            bean = Utils.jsonToBean(detail, UserBean.class);
         }
         return bean;
     }
 
-    public void setBean(UserBean_6 bean) {
+    public void setBean(UserBean bean) {
         this.bean = bean;
         detail = new Gson().toJson(bean);
     }
@@ -62,7 +62,7 @@ public class UserTable_6 implements java.io.Serializable {
 
     public void setDetail(String detail) {
         this.detail = detail;
-        bean = Utils.jsonToBean(detail, UserBean_6.class);
+        bean = Utils.jsonToBean(detail, UserBean.class);
     }
 
 }

@@ -14,7 +14,7 @@ import com.xl.bean.BlackUser;
 import com.xl.bean.ChatListBean;
 import com.xl.bean.MessageBean;
 import com.xl.bean.SharedBean;
-import com.xl.bean.UserTable_6;
+import com.xl.bean.UserTable;
 import com.xl.util.LogUtil;
 
 import java.util.List;
@@ -55,7 +55,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, MessageBean.class);
             TableUtils.createTable(connectionSource, ChatListBean.class);
             TableUtils.createTable(connectionSource, BlackUser.class);
-            TableUtils.createTable(connectionSource, UserTable_6.class);
+            TableUtils.createTable(connectionSource, UserTable.class);
         } catch (Exception e) {
             LogUtil.e(TAG, e.toString());
             e.printStackTrace();
@@ -80,7 +80,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
 
     public void updateDB_7(ConnectionSource connectionSource){
         try {
-            TableUtils.clearTable(connectionSource,UserTable_6.class);
+            TableUtils.clearTable(connectionSource,UserTable.class);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -129,6 +129,6 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
     }
 
     public static RuntimeExceptionDao getUserTableDao(Context context) {
-        return getDao_(context, UserTable_6.class);
+        return getDao_(context, UserTable.class);
     }
 }

@@ -29,8 +29,8 @@ import com.xl.activity.R;
 import com.xl.activity.chat.ChatActivity;
 import com.xl.application.AppClass;
 import com.xl.bean.Account;
-import com.xl.bean.UserBean_6;
-import com.xl.bean.UserTable_6;
+import com.xl.bean.UserBean;
+import com.xl.bean.UserTable;
 import com.xl.db.DBHelper;
 import com.xl.post.GetUserAccount;
 import com.xl.post.GetUserInfo;
@@ -109,9 +109,9 @@ public class EditUserInfoFragment extends PreferenceFragment implements Preferen
     }
 
     public void refreshUI() {
-        UserTable_6 user = DBHelper.userDao.getUserTableByDeviceId(ac.deviceId);
+        UserTable user = DBHelper.userDao.getUserTableByDeviceId(ac.deviceId);
         if (user != null) {
-            UserBean_6 bean = user.getBean();
+            UserBean bean = user.getBean();
             nickname.setSummary(bean.getNickname());
             nickname.setText(bean.nickname);
             gender.setSummary(bean.getSex() == 1 ? getString(R.string.girl) : getString(R.string.boy));
@@ -137,7 +137,7 @@ public class EditUserInfoFragment extends PreferenceFragment implements Preferen
         if (preference instanceof EditTextPreference) {
             ((EditTextPreference) preference).setText(newValue.toString());
         }
-        UserBean_6 user = new UserBean_6();
+        UserBean user = new UserBean();
         if (preference.getKey().equals(getString(R.string.preference_user_name))) {
             user.nickname = newValue.toString();
         }
@@ -196,7 +196,7 @@ public class EditUserInfoFragment extends PreferenceFragment implements Preferen
 
                 age.setSummary(Utils.dateFormat_simple.format(selectCalender.getTime()));
 
-                UserBean_6 user = new UserBean_6();
+                UserBean user = new UserBean();
                 user.birthday = selectCalender.getTimeInMillis();
                 updateUserInfo(user);
 
@@ -217,7 +217,7 @@ public class EditUserInfoFragment extends PreferenceFragment implements Preferen
         dialog.show();
     }
 
-    public void updateUserInfo(UserBean_6 updateUser) {
+    public void updateUserInfo(UserBean updateUser) {
         if (updateUser != null) {
             RequestParams params = ac.getRequestParams();
             if (!TextUtils.isEmpty(updateUser.nickname)) {
@@ -234,7 +234,7 @@ public class EditUserInfoFragment extends PreferenceFragment implements Preferen
                 @Override
                 public void onSuccessCode(JSONObject jo) throws Exception {
                     super.onSuccessCode(jo);
-                    UserTable_6 ut = Utils.jsonToBean(jo.getString(ResultCode.CONTENT), UserTable_6.class);
+                    UserTable ut = Utils.jsonToBean(jo.getString(ResultCode.CONTENT), UserTable.class);
                     DBHelper.userDao.updateUser(ut);
                     ToastUtil.toast(getActivity(), getString(R.string.edit_success));
                 }
@@ -367,8 +367,8 @@ public class EditUserInfoFragment extends PreferenceFragment implements Preferen
                     String logo = jo.getString("logo");
 
                     //更新数据库
-                    UserTable_6 ut = DBHelper.userDao.getUserTableByDeviceId(ac.deviceId);
-                    UserBean_6 ub = ut.getBean();
+                    UserTable ut = DBHelper.userDao.getUserTableByDeviceId(ac.deviceId);
+                    UserBean ub = ut.getBean();
                     ub.setLogo(logo);
                     ut.setBean(ub);
                     DBHelper.userDao.update(ut);

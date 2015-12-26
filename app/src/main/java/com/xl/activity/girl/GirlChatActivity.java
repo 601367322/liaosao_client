@@ -17,7 +17,7 @@ import com.xl.activity.base.BaseBackActivity;
 import com.xl.activity.chat.adapter.ChatAdapters;
 import com.xl.application.AppClass;
 import com.xl.bean.MessageBean;
-import com.xl.bean.UserBean_6;
+import com.xl.bean.UserBean;
 import com.xl.custom.swipe.SwipeRefreshLayout;
 import com.xl.db.ChatDao;
 import com.xl.db.ChatlistDao;
@@ -62,7 +62,7 @@ public class GirlChatActivity extends BaseBackActivity implements
     ChatAdapters adapter;
 
     UserTableDao userTableDao;
-    UserBean_6 userBean;
+    UserBean userBean;
 
     int lastId = -1; //已显示聊天记录
 

@@ -25,7 +25,7 @@ public class ChatListBean implements Serializable {
 
     private int num;
 
-    private UserTable_6 friend;
+    private UserTable friend;
 
     public ChatListBean() {
         super();
@@ -78,11 +78,11 @@ public class ChatListBean implements Serializable {
         this.num = num;
     }
 
-    public UserTable_6 getFriend() {
+    public UserTable getFriend() {
         return friend;
     }
 
-    public void setFriend(UserTable_6 friend) {
+    public void setFriend(UserTable friend) {
         this.friend = friend;
     }
 }

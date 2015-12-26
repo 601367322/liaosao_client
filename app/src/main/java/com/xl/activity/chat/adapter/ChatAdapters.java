@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import com.xl.activity.R;
 import com.xl.application.AppClass;
 import com.xl.bean.MessageBean;
-import com.xl.bean.UserTable_6;
+import com.xl.bean.UserTable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +24,7 @@ public class ChatAdapters extends RecyclerView.Adapter<BaseHolder> {
 
     public List<MessageBean> downloading = new ArrayList<>();
 
-    public UserTable_6 friend;
+    public UserTable friend;
 
     public ChatAdapters(Context context, List list) {
         this.list = list;
@@ -147,11 +147,11 @@ public class ChatAdapters extends RecyclerView.Adapter<BaseHolder> {
         return type;
     }
 
-    public UserTable_6 getFriend() {
+    public UserTable getFriend() {
         return friend;
     }
 
-    public void setFriend(UserTable_6 friend) {
+    public void setFriend(UserTable friend) {
         this.friend = friend;
     }
 }

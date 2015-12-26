@@ -3,7 +3,7 @@ package com.xl.db;
 import android.content.Context;
 
 import com.j256.ormlite.stmt.PreparedDelete;
-import com.xl.bean.UserTable_6;
+import com.xl.bean.UserTable;
 import com.xl.util.LogUtil;
 
 import java.sql.SQLException;
@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by Shen on 2015/7/25.
  */
-public class UserTableDao extends BaseDao<UserTable_6, Integer> {
+public class UserTableDao extends BaseDao<UserTable, Integer> {
 
     private static UserTableDao instance;
 
@@ -27,8 +27,8 @@ public class UserTableDao extends BaseDao<UserTable_6, Integer> {
         return instance;
     }
 
-    public UserTable_6 getUserTableByDeviceId(String deviceId) {
-        List<UserTable_6> list = dao.queryForEq(UserTable_6.DEVICEID, deviceId);
+    public UserTable getUserTableByDeviceId(String deviceId) {
+        List<UserTable> list = dao.queryForEq(UserTable.DEVICEID, deviceId);
         LogUtil.d("getUserTableByDeviceId:\t"+list.size());
         if (list.size() > 0) {
             return list.get(0);
@@ -38,13 +38,13 @@ public class UserTableDao extends BaseDao<UserTable_6, Integer> {
 
     public void deleteUserByDeviceId(String deviceId){
         try {
-            dao.delete((PreparedDelete<UserTable_6>) dao.deleteBuilder().where().eq(UserTable_6.DEVICEID, deviceId).prepare());
+            dao.delete((PreparedDelete<UserTable>) dao.deleteBuilder().where().eq(UserTable.DEVICEID, deviceId).prepare());
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void updateUser(UserTable_6 user){
+    public void updateUser(UserTable user){
         deleteUserByDeviceId(user.getDeviceId());
         create(user);
     }

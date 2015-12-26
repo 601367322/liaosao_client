@@ -12,7 +12,7 @@ import com.xl.activity.R;
 import com.xl.activity.album.PhotoAlbumMainActivity_;
 import com.xl.activity.base.BaseBackActivity;
 import com.xl.bean.ImageBean;
-import com.xl.bean.UserTable_6;
+import com.xl.bean.UserTable;
 import com.xl.db.DBHelper;
 import com.xl.util.JsonHttpResponseHandler;
 import com.xl.util.ResultCode;
@@ -55,7 +55,7 @@ public class EditAlbumActivity extends BaseBackActivity {
 
     AtomicBoolean editing = new AtomicBoolean(false);
 
-    UserTable_6 user;
+    UserTable user;
 
 
     @Override

@@ -33,7 +33,7 @@ import com.xl.activity.setting.SettingActivity_;
 import com.xl.activity.share.CommonShared;
 import com.xl.activity.user.EditUserInfoActivity_;
 import com.xl.application.AppClass;
-import com.xl.bean.UserTable_6;
+import com.xl.bean.UserTable;
 import com.xl.db.ChatDao;
 import com.xl.db.DBHelper;
 import com.xl.db.UserTableDao;
@@ -321,7 +321,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
 
     public void initSource() {
-        UserTable_6 ut = userTableDao.getUserTableByDeviceId(ac.deviceId);
+        UserTable ut = userTableDao.getUserTableByDeviceId(ac.deviceId);
         setHead(ut);
 
         if (ac.cs.getIsFirstStartApp() == CommonShared.ON || ut == null || ut.getBean() == null || ut.getBean().getSex() == null) {
@@ -334,7 +334,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     switch (status) {
                         case ResultCode.SUCCESS:
 
-                            UserTable_6 ut = Utils.jsonToBean(jo.optString(ResultCode.CONTENT), UserTable_6.class);
+                            UserTable ut = Utils.jsonToBean(jo.optString(ResultCode.CONTENT), UserTable.class);
 
                             setHead(ut);
 
@@ -395,7 +395,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             new GetUserInfo(this,new JsonHttpResponseHandler(){
                 @Override
                 public void onSuccessCode(JSONObject jo) throws Exception {
-                    UserTable_6 ut = DBHelper.userDao.getUserTableByDeviceId(ac.deviceId);
+                    UserTable ut = DBHelper.userDao.getUserTableByDeviceId(ac.deviceId);
 
                     setHead(ut);
                 }
@@ -403,7 +403,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
-    public void setHead(UserTable_6 ut) {
+    public void setHead(UserTable ut) {
         if (ut == null || ut.getBean() == null) {
             return;
         }
@@ -435,7 +435,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 switch (status) {
                     case ResultCode.SUCCESS:
                         ToastUtil.toast(MainActivity.this, getString(R.string.saving_success));
-                        UserTable_6 ut = Utils.jsonToBean(jo.optString(ResultCode.CONTENT), UserTable_6.class);
+                        UserTable ut = Utils.jsonToBean(jo.optString(ResultCode.CONTENT), UserTable.class);
 
                         setHead(ut);
 

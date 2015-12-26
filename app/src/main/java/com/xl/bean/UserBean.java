@@ -9,7 +9,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class UserBean_6 implements Serializable {
+public class UserBean implements Serializable {
 
     public Integer sex;
     public String lat;

@@ -58,8 +58,8 @@ import com.xl.activity.share.CommonShared;
 import com.xl.application.AppClass;
 import com.xl.bean.BlackUser;
 import com.xl.bean.MessageBean;
-import com.xl.bean.UserBean_6;
-import com.xl.bean.UserTable_6;
+import com.xl.bean.UserBean;
+import com.xl.bean.UserTable;
 import com.xl.custom.swipe.SwipeRefreshLayout;
 import com.xl.db.BlackDao;
 import com.xl.db.ChatDao;
@@ -146,14 +146,14 @@ public class ChatActivity extends BaseBackActivity implements
     ChatAdapters adapter;
 
     UserTableDao userTableDao;
-    UserBean_6 userBean;
+    UserBean userBean;
 
     AtomicBoolean changeing1 = new AtomicBoolean(false);
     AtomicBoolean changeing2 = new AtomicBoolean(false);
 
     int lastId = -1; //已显示聊天记录
 
-    UserTable_6 friend;
+    UserTable friend;
 
     SensitivewordFilter filter = new SensitivewordFilter();
 
@@ -192,7 +192,7 @@ public class ChatActivity extends BaseBackActivity implements
         //初始化数据源
         adapter = new ChatAdapters(this, new ArrayList<MessageBean>());
 
-        UserTable_6 friend = userTableDao.getUserTableByDeviceId(deviceId);
+        UserTable friend = userTableDao.getUserTableByDeviceId(deviceId);
         if (friend != null) {
             adapter.setFriend(friend);
         }
@@ -231,7 +231,7 @@ public class ChatActivity extends BaseBackActivity implements
             @Override
             public void onSuccessCode(JSONObject jo) throws Exception {
                 super.onSuccessCode(jo);
-                friend = Utils.jsonToBean(jo.optString(ResultCode.CONTENT), UserTable_6.class);
+                friend = Utils.jsonToBean(jo.optString(ResultCode.CONTENT), UserTable.class);
 
                 //设置标题和副标题
                 String title = "";

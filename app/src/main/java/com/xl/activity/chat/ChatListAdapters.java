@@ -9,7 +9,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.xl.activity.R;
 import com.xl.activity.base.BaseAdapter;
 import com.xl.bean.ChatListBean;
-import com.xl.bean.UserBean_6;
+import com.xl.bean.UserBean;
 import com.xl.util.Utils;
 
 import butterknife.Bind;
@@ -63,7 +63,7 @@ public class ChatListAdapters extends BaseAdapter<ChatListBean> {
                     messageCount.setVisibility(View.GONE);
                 }
                 if (bean.getFriend() != null) {
-                    UserBean_6 ub = bean.getFriend().getBean();
+                    UserBean ub = bean.getFriend().getBean();
                     nickname.setText(ub.nickname);
                     ImageLoader.getInstance().displayImage(ub.logo, userlogo, Utils.options_default_logo);
                 }else{

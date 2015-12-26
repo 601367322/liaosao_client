@@ -6,7 +6,7 @@ import com.j256.ormlite.stmt.QueryBuilder;
 import com.xl.application.AppClass;
 import com.xl.bean.ChatListBean;
 import com.xl.bean.MessageBean;
-import com.xl.bean.UserTable_6;
+import com.xl.bean.UserTable;
 import com.xl.service.Handler;
 import com.xl.util.StaticUtil;
 
@@ -69,7 +69,7 @@ public class ChatlistDao extends BaseDao<ChatListBean, Integer> {
             int count = ChatDao.getInstance(context).getUnCount(bean.getDeviceId(), ac.deviceId);
             bean.setNum(count);
 
-            UserTable_6 ut = UserTableDao.getInstance(context).getUserTableByDeviceId(bean.getDeviceId());
+            UserTable ut = UserTableDao.getInstance(context).getUserTableByDeviceId(bean.getDeviceId());
             bean.setFriend(ut);
         }
         return list;
@@ -82,7 +82,7 @@ public class ChatlistDao extends BaseDao<ChatListBean, Integer> {
             int count = ChatDao.getInstance(context).getUnCount(bean.getDeviceId(), ac.deviceId);
             bean.setNum(count);
 
-            UserTable_6 ut = UserTableDao.getInstance(context).getUserTableByDeviceId(bean.getDeviceId());
+            UserTable ut = UserTableDao.getInstance(context).getUserTableByDeviceId(bean.getDeviceId());
             bean.setFriend(ut);
             return bean;
         }

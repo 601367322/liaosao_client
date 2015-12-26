@@ -30,7 +30,7 @@ public class Account {
 
     public String getZhifubao() {
         if (TextUtils.isEmpty(zhifubao)) {
-            return UserBean_6.EMPTY;
+            return UserBean.EMPTY;
         }
         return zhifubao;
     }
@@ -41,7 +41,7 @@ public class Account {
 
     public String getWeixin() {
         if (TextUtils.isEmpty(weixin)) {
-            return UserBean_6.EMPTY;
+            return UserBean.EMPTY;
         }
         return weixin;
     }
