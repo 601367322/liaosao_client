@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.xl.activity.R;
 import com.xl.activity.base.BaseBackActivity;
+import com.xl.custom.swipe.SwipeRefreshLayout;
 
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
@@ -15,17 +16,16 @@ import org.androidannotations.annotations.ViewById;
 public class ChaterListActivity extends BaseBackActivity {
 
     @ViewById
-    Toolbar toolbar;
-    @ViewById
     FloatingActionButton fab;
 
     @Override
     protected void init() {
-        setSupportActionBar(toolbar);
+        getSupportFragmentManager().beginTransaction().replace(R.id.content, ChaterListFragment_.builder().build()).commitAllowingStateLoss();
     }
 
     @Click
-    public void fab(View view){
-
+    public void fab(View view) {
+        CreateChatRoomActivity_.intent(this).start();
     }
+
 }

@@ -41,6 +41,7 @@ import com.xl.fragment.MainFragment_;
 import com.xl.game.GameActivity_;
 import com.xl.game.PinTuActivity_;
 import com.xl.post.GetUserInfo;
+import com.xl.receiver.AlarmReceiver;
 import com.xl.util.BroadCastUtil;
 import com.xl.util.JsonHttpResponseHandler;
 import com.xl.util.ResultCode;
@@ -111,7 +112,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         BmobPay.init(getApplicationContext(), "2c9f0c5fbeb32f1b1bce828d29514f5d");
 
-        testRecoding();
+        testRecoding();//获取录音请求
     }
 
     @Background
@@ -160,7 +161,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     protected void init() {
 
-        ac.startService();
+        AlarmReceiver.actionStartConnectAlarm(this);
 
         setSupportActionBar(toolbar);
 
@@ -274,13 +275,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         return intent;
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        ac.stopService();
-    }
-
-
     @OptionsItem(android.R.id.home)
     public void menu_cliek() {
         drawer_layout.openDrawer(GravityCompat.START);
@@ -392,7 +386,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     .replace(R.id.container, new MainFragment_())
                     .commit();
 
-            new GetUserInfo(this,new JsonHttpResponseHandler(){
+            new GetUserInfo(this, new JsonHttpResponseHandler() {
                 @Override
                 public void onSuccessCode(JSONObject jo) throws Exception {
                     UserTable ut = DBHelper.userDao.getUserTableByDeviceId(ac.deviceId);
@@ -482,6 +476,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.logo:
                 EditUserInfoActivity_.intent(this).start();
                 break;
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (ac.cs.getBackgroundRun() == CommonShared.OFF) {
+            AlarmReceiver.actionStopConnectAlarm(this);
+            ac.stopService();
         }
     }
 }

@@ -16,4 +16,9 @@ public class BroadCastUtil {
 	public static final String REFRESHNEWMESSAGECOUNT ="com.xl.broadcast.newmessagecount";
 
 	public static final String OPENLEFTMENU ="com.xl.broadcast.openleftmenu";
+
+	//检查socket有无连接
+	public static final String ACTION_CHECKCONNECT="com.xl.broadcast.checkconnect";
+
+	public static final int CHECKCONNECT = 15 * 1000;
 }

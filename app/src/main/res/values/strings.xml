@@ -113,4 +113,6 @@
     <string name="tixian">查看明细/提现</string>
     <string name="your_album">你的相册</string>
     <string name="chose_picture">选择照片</string>
+    <string name="create_chat_room">创建聊天室</string>
+    <string name="location_fail">定位湿了个败</string>
 </resources>

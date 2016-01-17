@@ -1,14 +1,19 @@
 package com.xl.util;
 
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
+import android.os.Build;
 import android.os.Environment;
 import android.support.v7.app.AlertDialog;
 import android.view.ViewGroup;
@@ -29,9 +34,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Utils {
 
@@ -432,6 +439,58 @@ public class Utils {
 
     public static <T> T jsonToBean(String json, Class<T> classOfT) {
         return new Gson().fromJson(json,classOfT);
+    }
+
+    /**
+     * 获取字符的所占字节长度;
+     * @param str
+     * @throws UnsupportedEncodingException
+     */
+    private static void getStringByteLength(String str) throws UnsupportedEncodingException {
+        System.out.println("\""+str+"\"字符所占的字节长度如下:");
+        System.out.println("ISO-8859-1:"+str.getBytes("ISO-8859-1").length);
+        System.out.println("UTF-8:"+str.getBytes("UTF-8").length);
+        System.out.println("GBK:"+str.getBytes("GBK").length);
+        System.out.println("GB2312:"+str.getBytes("GB2312").length);
+        System.out.println("GB18030:"+str.getBytes("GB18030").length);
+        System.out.println("UTF-16:"+str.getBytes("UTF-16").length);
+    }
+
+    public static void setAlarmTime(Context context, long timeInMillis, String action, int time) {
+        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(action);
+        PendingIntent sender = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        int interval = time;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            am.setWindow(AlarmManager.RTC, timeInMillis, interval, sender);
+        } else {
+            am.setRepeating(AlarmManager.RTC, timeInMillis, interval, sender);
+        }
+    }
+
+    public static void canalAlarm(Context context, String action) {
+        Intent intent = new Intent(action);
+        PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        am.cancel(pi);
+    }
+
+    public static boolean isServiceRunning(Context mContext, String className) {
+        boolean isRunning = false;
+        ActivityManager activityManager = (ActivityManager) mContext
+                .getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningServiceInfo> serviceList = activityManager
+                .getRunningServices(Integer.MAX_VALUE);
+        if (!(serviceList.size() > 0)) {
+            return false;
+        }
+        for (int i = 0; i < serviceList.size(); i++) {
+            if (serviceList.get(i).service.getClassName().equals(className) == true) {
+                isRunning = true;
+                break;
+            }
+        }
+        return isRunning;
     }
 
 }

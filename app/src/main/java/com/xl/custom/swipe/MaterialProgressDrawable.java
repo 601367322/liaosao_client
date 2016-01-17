@@ -15,7 +15,26 @@
  */
 
 package com.xl.custom.swipe;
+/*
+ * Copyright (C) 2014 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
@@ -37,7 +56,6 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
-import android.view.animation.Transformation;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -46,7 +64,7 @@ import java.util.ArrayList;
 /**
  * Fancy progress indicator for Material theme.
  *
- * @hide 
+ * @hide
  */
 class MaterialProgressDrawable extends Drawable implements Animatable {
     private static final Interpolator LINEAR_INTERPOLATOR = new LinearInterpolator();
@@ -73,7 +91,7 @@ class MaterialProgressDrawable extends Drawable implements Animatable {
     private static final float STROKE_WIDTH_LARGE = 3f;
 
     private final int[] COLORS = new int[] {
-        Color.BLACK
+            Color.BLACK
     };
 
     /** The duration of a single progress spin in milliseconds. */
@@ -82,7 +100,7 @@ class MaterialProgressDrawable extends Drawable implements Animatable {
     /** The number of points in the progress "star". */
     private static final float NUM_POINTS = 5f;
     /** The list of animators operating on this drawable. */
-    private final ArrayList<Animation> mAnimators = new ArrayList<Animation>();
+    private final ArrayList<ValueAnimator> mAnimators = new ArrayList<>();
 
     /** The indicator ring, used to manage animation state. */
     private final Ring mRing;
@@ -102,7 +120,7 @@ class MaterialProgressDrawable extends Drawable implements Animatable {
 
     private Resources mResources;
     private View mParent;
-    private Animation mAnimation;
+    private ValueAnimator mAnimation;
     private float mRotationCount;
     private double mWidth;
     private double mHeight;
@@ -120,7 +138,7 @@ class MaterialProgressDrawable extends Drawable implements Animatable {
     }
 
     private void setSizeParameters(double progressCircleWidth, double progressCircleHeight,
-            double centerRadius, double strokeWidth, float arrowWidth, float arrowHeight) {
+                                   double centerRadius, double strokeWidth, float arrowWidth, float arrowHeight) {
         final Ring ring = mRing;
         final DisplayMetrics metrics = mResources.getDisplayMetrics();
         final float screenDensity = metrics.density;
@@ -138,8 +156,6 @@ class MaterialProgressDrawable extends Drawable implements Animatable {
      * Set the overall size for the progress spinner. This updates the radius
      * and stroke width of the ring.
      *
-     * @param size One of {@link MaterialProgressDrawable.LARGE} or
-     *            {@link MaterialProgressDrawable.DEFAULT}
      */
     public void updateSizes(@ProgressDrawableSize int size) {
         if (size == LARGE) {
@@ -190,7 +206,7 @@ class MaterialProgressDrawable extends Drawable implements Animatable {
      */
     public void setBackgroundColor(int color) {
         mRing.setBackgroundColor(color);
-     }
+    }
 
     /**
      * Set the colors used in the progress animation from color resources.
@@ -255,11 +271,11 @@ class MaterialProgressDrawable extends Drawable implements Animatable {
 
     @Override
     public boolean isRunning() {
-        final ArrayList<Animation> animators = mAnimators;
+        final ArrayList<ValueAnimator> animators = mAnimators;
         final int N = animators.size();
         for (int i = 0; i < N; i++) {
-            final Animation animator = animators.get(i);
-            if (animator.hasStarted() && !animator.hasEnded()) {
+            final ValueAnimator animator = animators.get(i);
+            if (animator.isStarted() && animator.isRunning()) {
                 return true;
             }
         }
@@ -268,24 +284,25 @@ class MaterialProgressDrawable extends Drawable implements Animatable {
 
     @Override
     public void start() {
-        mAnimation.reset();
+        setupAnimators();
+        mAnimation.cancel();
         mRing.storeOriginals();
         // Already showing some part of the ring
         if (mRing.getEndTrim() != mRing.getStartTrim()) {
             mFinishing = true;
             mAnimation.setDuration(ANIMATION_DURATION/2);
-            mParent.startAnimation(mAnimation);
+            mAnimation.start();
         } else {
             mRing.setColorIndex(0);
             mRing.resetOriginals();
             mAnimation.setDuration(ANIMATION_DURATION);
-            mParent.startAnimation(mAnimation);
+            mAnimation.start();
         }
     }
 
     @Override
     public void stop() {
-        mParent.clearAnimation();
+        mAnimation.cancel();
         setRotation(0);
         mRing.setShowArrow(false);
         mRing.setColorIndex(0);
@@ -308,11 +325,12 @@ class MaterialProgressDrawable extends Drawable implements Animatable {
 
     private void setupAnimators() {
         final Ring ring = mRing;
-        final Animation animation = new Animation() {
-                @Override
-            public void applyTransformation(float interpolatedTime, Transformation t) {
+        final ValueAnimator animation = ObjectAnimator.ofFloat(0f,1f);
+        animation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
                 if (mFinishing) {
-                    applyFinishTranslation(interpolatedTime, ring);
+                    applyFinishTranslation(Float.valueOf(animation.getAnimatedValue().toString()), ring);
                 } else {
                     // The minProgressArc is calculated from 0 to create an
                     // angle that
@@ -327,39 +345,37 @@ class MaterialProgressDrawable extends Drawable implements Animatable {
                     // located.
                     final float minArc = MAX_PROGRESS_ARC - minProgressArc;
                     final float endTrim = startingEndTrim + (minArc
-                            * START_CURVE_INTERPOLATOR.getInterpolation(interpolatedTime));
+                            * START_CURVE_INTERPOLATOR.getInterpolation(Float.valueOf(animation.getAnimatedValue().toString())));
                     ring.setEndTrim(endTrim);
 
                     final float startTrim = startingTrim + (MAX_PROGRESS_ARC
-                            * END_CURVE_INTERPOLATOR.getInterpolation(interpolatedTime));
+                            * END_CURVE_INTERPOLATOR.getInterpolation(Float.valueOf(animation.getAnimatedValue().toString())));
                     ring.setStartTrim(startTrim);
 
-                    final float rotation = startingRotation + (0.25f * interpolatedTime);
+                    final float rotation = startingRotation + (0.25f * Float.valueOf(animation.getAnimatedValue().toString()));
                     ring.setRotation(rotation);
 
-                    float groupRotation = ((720.0f / NUM_POINTS) * interpolatedTime)
+                    float groupRotation = ((720.0f / NUM_POINTS) * Float.valueOf(animation.getAnimatedValue().toString()))
                             + (720.0f * (mRotationCount / NUM_POINTS));
                     setRotation(groupRotation);
                 }
             }
-        };
+        });
         animation.setRepeatCount(Animation.INFINITE);
-        animation.setRepeatMode(Animation.RESTART);
         animation.setInterpolator(LINEAR_INTERPOLATOR);
-        animation.setAnimationListener(new Animation.AnimationListener() {
-
-                @Override
-            public void onAnimationStart(Animation animation) {
+        animation.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationStart(Animator animation) {
                 mRotationCount = 0;
             }
 
-                @Override
-            public void onAnimationEnd(Animation animation) {
-                // do nothing
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                animation.removeListener(this);
             }
 
-                @Override
-            public void onAnimationRepeat(Animation animation) {
+            @Override
+            public void onAnimationRepeat(Animator animation) {
                 ring.storeOriginals();
                 ring.goToNextColor();
                 ring.setStartTrim(ring.getEndTrim());
@@ -432,7 +448,7 @@ class MaterialProgressDrawable extends Drawable implements Animatable {
             mPaint.setAntiAlias(true);
             mPaint.setStyle(Style.STROKE);
 
-            mArrowPaint.setStyle(Paint.Style.FILL);
+            mArrowPaint.setStyle(Style.FILL);
             mArrowPaint.setAntiAlias(true);
         }
 
@@ -479,8 +495,8 @@ class MaterialProgressDrawable extends Drawable implements Animatable {
         private void drawTriangle(Canvas c, float startAngle, float sweepAngle, Rect bounds) {
             if (mShowArrow) {
                 if (mArrow == null) {
-                    mArrow = new android.graphics.Path();
-                    mArrow.setFillType(android.graphics.Path.FillType.EVEN_ODD);
+                    mArrow = new Path();
+                    mArrow.setFillType(Path.FillType.EVEN_ODD);
                 } else {
                     mArrow.reset();
                 }

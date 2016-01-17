@@ -129,6 +129,7 @@ public class EditUserInfoFragment extends PreferenceFragment implements Preferen
         weixin.setText(account.weixin);
         zhifubao.setSummary(account.getZhifubao());
         zhifubao.setText(account.zhifubao);
+        coin.setSummary("￥" + String.valueOf(account.getCoin()));
     }
 
     @Override

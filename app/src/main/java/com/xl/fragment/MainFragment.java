@@ -22,6 +22,7 @@ import com.xl.db.ChatDao;
 import com.xl.db.UserTableDao;
 import com.xl.location.GDLocation;
 import com.xl.location.ILocationImpl;
+import com.xl.receiver.AlarmReceiver;
 import com.xl.util.BroadCastUtil;
 import com.xl.util.GifDrawableCache;
 import com.xl.util.JsonHttpResponseHandler;
@@ -100,7 +101,7 @@ public class MainFragment extends BaseFragment {
 
         ac.httpClient.post(URLS.ISVIP, ac.getRequestParams(), new JsonHttpResponseHandler() {
             @Override
-            public void onSuccess(JSONObject jo) {
+            public void onSuccessCode(JSONObject jo) {
                 int status = jo.optInt(ResultCode.STATUS);
                 switch (status) {
                     case ResultCode.SUCCESS:
@@ -194,7 +195,7 @@ public class MainFragment extends BaseFragment {
 //                            toast("排队中,请等待");
                                 break;
                             case ResultCode.FAIL:
-                                ac.startService();
+                                AlarmReceiver.actionStartConnectAlarm(getActivity());
                                 onFailure();
                                 break;
                         }
@@ -263,7 +264,7 @@ public class MainFragment extends BaseFragment {
 //                            toast("排队中,请等待");
                             break;
                         case ResultCode.FAIL:
-                            ac.startService();
+                            AlarmReceiver.actionStartConnectAlarm(getActivity());
                             onFailure();
                             break;
                         case ResultCode.NOVIP:

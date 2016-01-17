@@ -16,6 +16,7 @@ public class CommonShared {
     private final String MESSAGECOUNT = "messagecount";//未读消息数
     private final String FBI = "fbi";//是否第一次显示安全警告
     private final String ISVIP = "isvip";//是否是会员
+    private final String BACKGROUNDRUN = "backgroundrun";//后台运行开关
 
     private final String VIP_ORDER = "vip_order";//充值会员的订单号
 
@@ -152,5 +153,14 @@ public class CommonShared {
 
     public String getVipOrder() {
         return sp.getString(VIP_ORDER, null);
+    }
+
+    public void setBackgroundRun(int on){
+        editor.putInt(BACKGROUNDRUN, on);
+        editor.commit();
+    }
+
+    public int getBackgroundRun(){
+        return sp.getInt(BACKGROUNDRUN, ON);
     }
 }

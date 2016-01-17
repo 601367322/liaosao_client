@@ -60,10 +60,10 @@ public class AppClass extends Application {
         this.context = getApplicationContext();
     }
 
-    public void initDeviceid(){
+    public void initDeviceid() {
         if (cs.getISMANAGER() == CommonShared.ON) {
             deviceId = MANAGER;
-        }else {
+        } else {
             if ((deviceId = getBean().getDeviceId()).equals("")) {
                 getBean().setDeviceId((deviceId = new DeviceUuidFactory(this).getDeviceUuid().toString())).commit(this);
             }
@@ -83,32 +83,42 @@ public class AppClass extends Application {
     /**
      * 向Service发送Message的Messenger对象
      */
-    IPushService mService = null;
+    public IPushService mService = null;
 
-    private ServiceConnection mConnection = new ServiceConnection() {
-        public void onServiceConnected(ComponentName className, IBinder service) {
+    public CounterServiceConnection mConnection = null;
+
+    public class CounterServiceConnection implements ServiceConnection {
+        public void onServiceConnected(ComponentName name, IBinder service) {
             mService = IPushService.Stub.asInterface(service);
         }
 
-        /**异常时才会调用**/
-        public void onServiceDisconnected(ComponentName className) {
+        public void onServiceDisconnected(ComponentName name) {
             mService = null;
         }
-    };
+    }
 
     public void startService() {
-        Intent i = new Intent(this, PushService_.class);
-        i.setAction(PushService.ACTION_START);
-        startService(i);
-        bindService(i, mConnection,
+        //开启service并且绑定service
+        bindService(PushService.actionStart(this), mConnection = new CounterServiceConnection(),
                 Context.BIND_AUTO_CREATE);
     }
 
     public void stopService() {
-        if (mService != null)
+        //先取消绑定service
+        if (mConnection != null)
             unbindService(mConnection);
+        mConnection = null;
         mService = null;
+        //关闭service
         PushService.actionStop(this);
+    }
+
+    public void bindServices() {
+        //单独绑定service
+        Intent i = new Intent(this, PushService_.class);
+        if (mConnection == null)
+            mConnection = new CounterServiceConnection();
+        bindService(i, mConnection, Context.BIND_AUTO_CREATE);
     }
 
     public boolean isOnline() {

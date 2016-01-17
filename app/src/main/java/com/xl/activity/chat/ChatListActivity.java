@@ -131,6 +131,7 @@ public class ChatListActivity extends BaseBackActivity implements SwipeRefreshLa
             public void onClick(DialogInterface dialog, int which) {
                 ChatlistDao.getInstance(getApplicationContext()).deleteAll();
                 adapter.clear();
+                adapter.notifyDataSetChanged();
             }
         }).setNegativeButton(getString(R.string.not_sure), new DialogInterface.OnClickListener() {
             @Override
@@ -148,6 +149,7 @@ public class ChatListActivity extends BaseBackActivity implements SwipeRefreshLa
             public void onClick(DialogInterface dialog, int which) {
                 ChatlistDao.getInstance(getApplicationContext()).deleteById(adapter.getItem(position));
                 adapter.remove(position);
+                adapter.notifyDataSetChanged();
             }
         }).setNegativeButton(getString(R.string.not_sure), new DialogInterface.OnClickListener() {
             @Override

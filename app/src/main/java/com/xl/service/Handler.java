@@ -189,7 +189,7 @@ public class Handler {
         String contentText = "";
         switch (mb.getMsgType()) {
             case MessageBean.TEXT:
-                contentText = mb.getContent();
+                contentText = "[文字]";
                 break;
             case MessageBean.FACE:
                 contentText = "[表情]";

@@ -107,34 +107,40 @@
         <activity
             android:name=".job.ChaterListActivity_"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait"
             android:label="@string/pei_liao"
-            android:theme="@style/AppBaseThemeNoActionBar" />
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".user.UserInfoActivity_"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait"
             android:label="@string/pei_liao"
+            android:screenOrientation="portrait"
             android:theme="@style/AppBaseThemeNoActionBar" />
 
         <activity
             android:name=".user.EditUserInfoActivity_"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait"
-            android:label="@string/edit_user_info" />
+            android:label="@string/edit_user_info"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".user.EditAlbumActivity_"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait"
-            android:label="@string/your_album" />
+            android:label="@string/your_album"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".album.PhotoAlbumMainActivity_"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/your_album"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".job.CreateChatRoomActivity_"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/create_chat_room"
             android:screenOrientation="portrait"
-            android:label="@string/your_album" />
+            android:windowSoftInputMode="stateHidden|adjustResize" />
 
         <service
             android:name="com.xl.service.PushService_"
@@ -151,8 +157,28 @@
 
         <receiver android:name="com.xl.receiver.XLReceiver_">
             <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
                 <action android:name="com.xl.broadcast.startchat" />
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name="com.xl.receiver.AlarmReceiver_">
+            <intent-filter>
+                <action android:name="com.xl.broadcast.checkconnect" />
+                <!-- 定时检查登陆状态 -->
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name="com.xl.receiver.NetAlarmReceiver_">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <!-- 网络通知 -->
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name="com.xl.receiver.BootCompletedAlarmReceiver_">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <!-- 开机启动 -->
             </intent-filter>
         </receiver>
 

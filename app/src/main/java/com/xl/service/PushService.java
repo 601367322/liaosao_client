@@ -50,7 +50,7 @@ public class PushService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        LogUtil.d("onStartCommand");
+        LogUtil.d(intent.getAction());
         if (intent != null) {
             if (intent.getAction().equals(ACTION_STOP) == true) {
                 stop();
@@ -62,8 +62,9 @@ public class PushService extends Service {
                     startKeepAlives();
                 }
                 keepAlive();
-            } else if (intent.getAction().equals(ACTION_RECONNECT) == true)
+            } else if (intent.getAction().equals(ACTION_RECONNECT) == true) {
                 reconnectIfNecessary();
+            }
         }
         return super.onStartCommand(intent, flags, startId);
     }
@@ -94,21 +95,16 @@ public class PushService extends Service {
 
     private static final int NOTIF_CONNECTED = 0;
 
-    public static void actionStart(Context ctx) {
+    public static Intent actionStart(Context ctx) {
         Intent i = new Intent(ctx, PushService_.class);
         i.setAction(ACTION_START);
         ctx.startService(i);
+        return i;
     }
 
     public static void actionStop(Context ctx) {
         Intent i = new Intent(ctx, PushService_.class);
         i.setAction(ACTION_STOP);
-        ctx.startService(i);
-    }
-
-    public static void actionPing(Context ctx) {
-        Intent i = new Intent(ctx, PushService_.class);
-        i.setAction(ACTION_KEEPALIVE);
         ctx.startService(i);
     }
 
@@ -144,7 +140,7 @@ public class PushService extends Service {
 
     @Override
     public void onDestroy() {
-        log("Service destroyed (started=" + mStarted + ")");
+        LogUtil.d("Service destroyed (started=" + mStarted + ")");
         hideNotification();
         if (mStarted == true)
             stop();
@@ -171,7 +167,7 @@ public class PushService extends Service {
     }
 
     private synchronized void start() {
-        if (mStarted == true && mConnection!=null && mConnection.isConnected()) {
+        if (mStarted == true && mConnection != null) {
             LogUtil.d(TAG, "Attempt to start connection that is already active");
             return;
         }
@@ -190,53 +186,48 @@ public class PushService extends Service {
 
         ac.httpClient.post(URLS.GETUNLINEMESSAGE, ac.getRequestParams(), new JsonHttpResponseHandler() {
             @Override
-            public void onSuccess(JSONObject jo) {
-                int statusCode = jo.optInt(ResultCode.STATUS);
-                switch (statusCode) {
-                    case ResultCode.SUCCESS:
-                        JSONArray ja = jo.optJSONArray(ResultCode.CONTENT);
-                        Gson gson = new Gson();
-                        for (int i = 0; i < ja.length(); i++) {
-                            MessageBean mb = gson.fromJson(ja.optJSONObject(i).optString("message"), new TypeToken<MessageBean>() {
-                            }.getType());
-                            if (BlackDao.getInstance(getApplicationContext()).isExists(mb.getFromId()) != null) {
-                                continue;
-                            }
-                            ChatlistDao.getInstance(getApplicationContext()).addChatListBean(mb, mb.getFromId());
-                            ChatDao.getInstance(getApplicationContext()).addMessage(ac.deviceId, mb);
-                        }
-                        sendBroadcast(new Intent(BroadCastUtil.REFRESHNEWMESSAGECOUNT));
+            public void onSuccessCode(JSONObject jo) {
+                JSONArray ja = jo.optJSONArray(ResultCode.CONTENT);
+                Gson gson = new Gson();
+                for (int i = 0; i < ja.length(); i++) {
+                    MessageBean mb = gson.fromJson(ja.optJSONObject(i).optString("message"), new TypeToken<MessageBean>() {
+                    }.getType());
+                    if (BlackDao.getInstance(getApplicationContext()).isExists(mb.getFromId()) != null) {
+                        continue;
+                    }
+                    ChatlistDao.getInstance(getApplicationContext()).addChatListBean(mb, mb.getFromId());
+                    ChatDao.getInstance(getApplicationContext()).addMessage(ac.deviceId, mb);
+                }
+                sendBroadcast(new Intent(BroadCastUtil.REFRESHNEWMESSAGECOUNT));
 
-                        if (ja.length() > 0) {
-                            NotificationCompat.Builder builder = new NotificationCompat.Builder(PushService.this)
-                                    .setSmallIcon(R.drawable.ic_stat_icon).setContentTitle(PushService.this.getString(R.string.u_have_a_new_message))
-                                    .setTicker(PushService.this.getString(R.string.u_have_n_message))
-                                    .setOnlyAlertOnce(false).setAutoCancel(true)
-                                    .setPriority(Notification.PRIORITY_HIGH)
-                                    .setDefaults(Notification.DEFAULT_ALL);
+                if (ja.length() > 0) {
+                    NotificationCompat.Builder builder = new NotificationCompat.Builder(PushService.this)
+                            .setSmallIcon(R.drawable.ic_stat_icon).setContentTitle(PushService.this.getString(R.string.u_have_a_new_message))
+                            .setTicker(PushService.this.getString(R.string.u_have_n_message))
+                            .setOnlyAlertOnce(false).setAutoCancel(true)
+                            .setPriority(Notification.PRIORITY_HIGH)
+                            .setDefaults(Notification.DEFAULT_ALL);
 
-                            builder.setContentText("快去看看吧。");
+                    builder.setContentText("快去看看吧。");
 
-                            if (ac.cs.getSound() == CommonShared.ON && ac.cs.getVibration() == CommonShared.ON) {
-                                builder.setDefaults(Notification.DEFAULT_ALL);
-                            } else if (ac.cs.getSound() == CommonShared.ON && ac.cs.getVibration() == CommonShared.OFF) {
-                                builder.setDefaults(Notification.DEFAULT_SOUND);
-                            } else if (ac.cs.getSound() == CommonShared.OFF && ac.cs.getVibration() == CommonShared.ON) {
-                                builder.setDefaults(Notification.DEFAULT_VIBRATE);
-                            }
+                    if (ac.cs.getSound() == CommonShared.ON && ac.cs.getVibration() == CommonShared.ON) {
+                        builder.setDefaults(Notification.DEFAULT_ALL);
+                    } else if (ac.cs.getSound() == CommonShared.ON && ac.cs.getVibration() == CommonShared.OFF) {
+                        builder.setDefaults(Notification.DEFAULT_SOUND);
+                    } else if (ac.cs.getSound() == CommonShared.OFF && ac.cs.getVibration() == CommonShared.ON) {
+                        builder.setDefaults(Notification.DEFAULT_VIBRATE);
+                    }
 
-                            PendingIntent contentIntent = PendingIntent.getBroadcast(PushService.this, 0, new Intent(BroadCastUtil.OPENLEFTMENU), PendingIntent.FLAG_UPDATE_CURRENT);
-                            builder.setContentIntent(contentIntent);
-                            Notification notification = null;
+                    PendingIntent contentIntent = PendingIntent.getBroadcast(PushService.this, 0, new Intent(BroadCastUtil.OPENLEFTMENU), PendingIntent.FLAG_UPDATE_CURRENT);
+                    builder.setContentIntent(contentIntent);
+                    Notification notification = null;
 
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                                notification = builder.build();
-                            } else {
-                                notification = builder.getNotification();
-                            }
-                            mNotifMan.notify(NOTIF_CONNECTED, notification);
-                        }
-                        break;
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                        notification = builder.build();
+                    } else {
+                        notification = builder.getNotification();
+                    }
+                    mNotifMan.notify(NOTIF_CONNECTED, notification);
                 }
             }
         });
@@ -244,6 +235,7 @@ public class PushService extends Service {
 
     private synchronized void stop() {
         if (mStarted == false) {
+            //false -- 正在运行 -- bind -- 重新连接 ---
             LogUtil.d(TAG, "Attempt to stop connection not active.");
             return;
         }
@@ -268,6 +260,7 @@ public class PushService extends Service {
     }
 
     private void startKeepAlives() {
+        LogUtil.d("startKeepAlives");
         Intent i = new Intent();
         i.setClass(this, PushService_.class);
         i.setAction(ACTION_KEEPALIVE);
@@ -283,6 +276,7 @@ public class PushService extends Service {
     }
 
     private void stopKeepAlives() {
+        LogUtil.d("stopKeepAlives");
         Intent i = new Intent();
         i.setClass(this, PushService_.class);
         i.setAction(ACTION_KEEPALIVE);
@@ -325,9 +319,10 @@ public class PushService extends Service {
     }
 
     private synchronized void reconnectIfNecessary() {
-        if (mStarted == true && mConnection == null) {
-            log("Reconnecting...");
-
+        if (mStarted && mConnection != null) {
+            return;
+        } else {
+            LogUtil.d("Reconnecting...");
             mConnection = new ConnectionThread(URLS.IP, URLS.PORT);
             mConnection.start();
         }
@@ -337,16 +332,17 @@ public class PushService extends Service {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
+            LogUtil.d(action);
             if (action.equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
-                log("网络状态已经改变");
+                LogUtil.d("网络状态已经改变");
                 ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
                 NetworkInfo info = connectivityManager.getActiveNetworkInfo();
                 if (info != null && info.isAvailable()) {
                     String name = info.getTypeName();
-                    log("当前网络名称：" + name);
+                    LogUtil.d("当前网络名称：" + name);
                     reconnectIfNecessary();
                 } else {
-                    log("没有可用网络");
+                    LogUtil.d("没有可用网络");
                 }
             }
         }
@@ -389,7 +385,7 @@ public class PushService extends Service {
             try {
                 s.connect(new InetSocketAddress(mHost, mPort), 20000);
 
-                log("Connection established to " + s.getInetAddress() + ":"
+                LogUtil.d("Connection established to " + s.getInetAddress() + ":"
                         + mPort);
 
                 startKeepAlives();
@@ -413,15 +409,15 @@ public class PushService extends Service {
                 }
 
                 if (mAbort == false)
-                    log("Server closed connection unexpectedly.");
+                    LogUtil.d("Server closed connection unexpectedly.");
             } catch (IOException e) {
-                log("Unexpected I/O error: " + e.toString());
+                LogUtil.d("Unexpected I/O error: " + e.toString());
             } finally {
                 stopKeepAlives();
 //				hideNotification();
 
                 if (mAbort == true)
-                    log("Connection aborted, shutting down.");
+                    LogUtil.d("Connection aborted, shutting down.");
                 else {
 
                     Intent intent = new Intent(BroadCastUtil.DISCONNECT);
@@ -445,11 +441,11 @@ public class PushService extends Service {
         public void sendKeepAlive() throws IOException {
             Socket s = mSocket;
             s.getOutputStream().write((HEARTBEATREQUEST + "\n").getBytes());
-            log("Keep-alive sent.");
+            LogUtil.d("Keep-alive sent.");
         }
 
         public void abort() {
-            log("Connection aborting.");
+            LogUtil.d("Connection aborting.");
 
             mAbort = true;
 
@@ -468,8 +464,11 @@ public class PushService extends Service {
             } catch (IOException e) {
             }
 
+            stopSelf();
+
             while (true) {
                 try {
+                    LogUtil.d("join();");
                     join();
                     break;
                 } catch (InterruptedException e) {
@@ -480,7 +479,7 @@ public class PushService extends Service {
 
     IPushService.Stub stub = new IPushService.Stub() {
         public boolean isConnected() {
-            if (mStarted && mConnection != null && mConnection.isConnected()) {
+            if (mStarted && mConnection != null) {
                 return true;
             }
             return false;

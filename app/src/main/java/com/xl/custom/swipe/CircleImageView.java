@@ -15,6 +15,21 @@
  */
 
 package com.xl.custom.swipe;
+/*
+ * Copyright (C) 2014 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -25,7 +40,6 @@ import android.graphics.Shader;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.support.v4.view.ViewCompat;
-import android.view.animation.Animation;
 import android.widget.ImageView;
 
 /**
@@ -45,7 +59,6 @@ class CircleImageView extends ImageView {
     private static final float SHADOW_RADIUS = 3.5f;
     private static final int SHADOW_ELEVATION = 4;
 
-    private Animation.AnimationListener mListener;
     private int mShadowRadius;
 
     public CircleImageView(Context context, int color, final float radius) {
@@ -88,26 +101,6 @@ class CircleImageView extends ImageView {
         }
     }
 
-    public void setAnimationListener(Animation.AnimationListener listener) {
-        mListener = listener;
-    }
-
-    @Override
-    public void onAnimationStart() {
-        super.onAnimationStart();
-        if (mListener != null) {
-            mListener.onAnimationStart(getAnimation());
-        }
-    }
-
-    @Override
-    public void onAnimationEnd() {
-        super.onAnimationEnd();
-        if (mListener != null) {
-            mListener.onAnimationEnd(getAnimation());
-        }
-    }
-
     /**
      * Update the background color of the circle image view.
      *
@@ -136,8 +129,8 @@ class CircleImageView extends ImageView {
             mCircleDiameter = circleDiameter;
             mRadialGradient = new RadialGradient(mCircleDiameter / 2, mCircleDiameter / 2,
                     mShadowRadius, new int[] {
-                            FILL_SHADOW_COLOR, Color.TRANSPARENT
-                    }, null, Shader.TileMode.CLAMP);
+                    FILL_SHADOW_COLOR, Color.TRANSPARENT
+            }, null, Shader.TileMode.CLAMP);
             mShadowPaint.setShader(mRadialGradient);
         }
 
