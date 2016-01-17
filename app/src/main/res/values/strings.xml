@@ -115,4 +115,6 @@
     <string name="chose_picture">选择照片</string>
     <string name="create_chat_room">创建聊天室</string>
     <string name="location_fail">定位湿了个败</string>
+    <string name="danteng_chat_with_yourself">闲的蛋疼得要跟自己聊天了么？</string>
+    <string name="sex_not">性别不符</string>
 </resources>

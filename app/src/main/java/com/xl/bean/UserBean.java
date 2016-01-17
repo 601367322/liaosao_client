@@ -83,9 +83,6 @@ public class UserBean implements Serializable {
     }
 
     public Integer getSex() {
-        if(sex == null){
-            return 2;
-        }
         return sex;
     }
 

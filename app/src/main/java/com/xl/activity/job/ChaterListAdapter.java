@@ -1,6 +1,7 @@
 package com.xl.activity.job;
 
 import android.content.Context;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -13,10 +14,13 @@ import com.xl.activity.base.BaseAdapter;
 import com.xl.bean.ChatRoom;
 import com.xl.bean.UserBean;
 import com.xl.custom.CircleImageView;
+import com.xl.db.DBHelper;
 import com.xl.util.StaticFactory;
+import com.xl.util.ToastUtil;
 import com.xl.util.Utils;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * Created by Shen on 2016/1/16.
@@ -59,6 +63,8 @@ public class ChaterListAdapter extends BaseAdapter<ChatRoom> {
         TextView maxMin;
         @Bind(R.id.btnChat)
         Button btnChat;
+        @Bind(R.id.radio_sex)
+        TextView radioSex;
 
         public ViewHolder(View view) {
             super(view);
@@ -78,12 +84,31 @@ public class ChaterListAdapter extends BaseAdapter<ChatRoom> {
                 price.setText(bean.getPrice() + "元/分钟");
                 minMin.setText(bean.getMinTime() + "分钟");
                 maxMin.setText(bean.getMaxTime() + "分钟");
-                age.setText(userBean.getAge()+"岁");
+                age.setText(userBean.getAge() + "岁");
+                radioSex.setText(bean.getSex() == 0 ? "女" : "男");
 
                 ImageLoader.getInstance().displayImage(userBean.getLogo() + StaticFactory._160x160, userlogo);
+
+                btnChat.setTag(bean);
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+
+        @OnClick(R.id.btnChat)
+        public void btnChatClick(View view) {
+            ChatRoom room = (ChatRoom) view.getTag();
+            //判断是否是自己的
+            if (room.getDeviceId().equals(ac.deviceId)) {
+                ToastUtil.toast(context, context.getString(R.string.danteng_chat_with_yourself));
+                return;
+            }
+            //判断性别
+            if (!DBHelper.userDao.getUserTableByDeviceId(ac.deviceId).getBean().getSex().equals(room.getSex())) {
+                ToastUtil.toast(context, context.getString(R.string.sex_not));
+                return;
+            }
+            ChatRightNowDialogFragment_.builder().build().show(((AppCompatActivity) context).getSupportFragmentManager(), "dialog");
         }
     }
 }

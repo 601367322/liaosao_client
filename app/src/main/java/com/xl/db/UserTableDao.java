@@ -29,7 +29,6 @@ public class UserTableDao extends BaseDao<UserTable, Integer> {
 
     public UserTable getUserTableByDeviceId(String deviceId) {
         List<UserTable> list = dao.queryForEq(UserTable.DEVICEID, deviceId);
-        LogUtil.d("getUserTableByDeviceId:\t"+list.size());
         if (list.size() > 0) {
             return list.get(0);
         }
