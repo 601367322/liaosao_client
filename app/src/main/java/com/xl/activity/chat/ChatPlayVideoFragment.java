@@ -33,7 +33,6 @@ import org.androidannotations.annotations.ViewById;
 import java.io.Serializable;
 
 import de.greenrobot.event.EventBus;
-import de.greenrobot.event.Subscribe;
 
 /**
  * Created by Shen on 2015/9/17.
@@ -99,7 +98,6 @@ public class ChatPlayVideoFragment extends DialogFragment implements TextureView
 
     }
 
-    @Subscribe
     public void onEvent(VideoDownBean vdb) {
         if (vdb.msg.getMsgId().equals(bean.getMsgId())) {
             if (vdb.current == vdb.total) {

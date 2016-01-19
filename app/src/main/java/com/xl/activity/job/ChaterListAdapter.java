@@ -108,7 +108,7 @@ public class ChaterListAdapter extends BaseAdapter<ChatRoom> {
                 ToastUtil.toast(context, context.getString(R.string.sex_not));
                 return;
             }
-            ChatRightNowDialogFragment_.builder().build().show(((AppCompatActivity) context).getSupportFragmentManager(), "dialog");
+            ChatRightNowDialogFragment_.builder().room(room).build().show(((AppCompatActivity) context).getSupportFragmentManager(), "dialog");
         }
     }
 }

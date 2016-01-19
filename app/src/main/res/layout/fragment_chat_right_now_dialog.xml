@@ -2,36 +2,27 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/activity_bg"
     android:orientation="vertical"
     android:paddingBottom="16dp"
+    android:paddingLeft="24dp"
+    android:paddingRight="24dp"
     android:paddingTop="16dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:text="请输入购买分钟数"
-        android:textColor="@color/secondary_text_default_material_light"
-        android:textSize="14sp" />
-
     <EditText
+        android:id="@+id/time"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_marginTop="8dp"
-        android:background="@color/white"
         android:gravity="center"
         android:inputType="number"
-        android:text="20"
         android:textColor="@color/primary_text_default_material_light"
         android:textSize="30sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:gravity="center_vertical"
+        android:gravity="center_vertical|right"
         android:orientation="horizontal">
 
         <TextView
@@ -42,26 +33,18 @@
             android:textSize="14sp" />
 
         <TextView
+            android:id="@+id/price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="20x0.5="
             android:textColor="@color/holo_orange_dark"
             android:textSize="14sp" />
 
         <TextView
+            android:id="@+id/total"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="10烧币"
             android:textColor="@color/holo_orange_dark"
             android:textSize="18sp" />
     </LinearLayout>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:layout_marginTop="8dp"
-        android:text="确认支付"
-        android:enabled="true"
-        android:textColor="@color/white" />
 
 </LinearLayout>

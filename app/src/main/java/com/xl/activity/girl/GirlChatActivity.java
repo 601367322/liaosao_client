@@ -45,7 +45,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
-import de.greenrobot.event.Subscribe;
 
 @EActivity(R.layout.girl_chat_activity)
 public class GirlChatActivity extends BaseBackActivity implements
@@ -124,7 +123,6 @@ public class GirlChatActivity extends BaseBackActivity implements
         }
     }
 
-    @Subscribe
     public void onEvent(final MessageBean mb) {
         if (!mb.getToId().equals(ac.deviceId)) {
             new AlertDialog.Builder(GirlChatActivity.this).setIcon(R.drawable.beiju).setTitle(getString(R.string.beijua)).setMessage(getString(R.string.resend_message)).setPositiveButton(getString(R.string.resend_btn), new DialogInterface.OnClickListener() {

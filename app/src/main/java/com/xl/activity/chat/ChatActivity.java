@@ -106,7 +106,6 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import de.greenrobot.event.EventBus;
-import de.greenrobot.event.Subscribe;
 
 @OptionsMenu(R.menu.chat_menu)
 @EActivity(R.layout.chat_activity)
@@ -328,7 +327,6 @@ public class ChatActivity extends BaseBackActivity implements
         }
     }
 
-    @Subscribe
     public void onEvent(final MessageBean mb) {
         if (!mb.getToId().equals(ac.deviceId)) {
             new AlertDialog.Builder(ChatActivity.this).setIcon(R.drawable.beiju).setTitle(getString(R.string.beijua)).setMessage(getString(R.string.resend_message)).setPositiveButton(getString(R.string.resend_btn), new DialogInterface.OnClickListener() {

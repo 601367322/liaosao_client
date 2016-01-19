@@ -10,11 +10,12 @@ import com.xl.db.ChatDao;
 import com.xl.util.StaticFactory;
 import com.xl.util.Utils;
 
+import org.apache.http.Header;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import cz.msebera.android.httpclient.Header;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -80,7 +81,7 @@ public class ChatDownLoadManager {
         }
 
         public void onStart() {
-            File file = new File(this.file.getParent());
+            File file = new File(this.mFile.getParent());
             if (!file.exists()) {
                 file.mkdirs();
             }

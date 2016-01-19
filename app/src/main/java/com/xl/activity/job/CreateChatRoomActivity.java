@@ -28,6 +28,8 @@ import org.json.JSONObject;
 @EActivity(R.layout.activity_create_room)
 public class CreateChatRoomActivity extends BaseBackActivity implements RadioGroup.OnCheckedChangeListener {
 
+    public static final int MaxTime = 60;
+
     @ViewById(R.id.price)
     EditText priceEdit;
     @ViewById(R.id.boy_radio)
@@ -96,7 +98,7 @@ public class CreateChatRoomActivity extends BaseBackActivity implements RadioGro
             Utils.openSoftKeyboard(maxTimeEdit);
             return;
         }
-        if (Integer.valueOf(maxTime) > 60) {
+        if (Integer.valueOf(maxTime) > MaxTime) {
             ToastUtil.toast(this, "最多一个小时！！！");
             maxTimeEdit.requestFocus();
             Utils.openSoftKeyboard(maxTimeEdit);
