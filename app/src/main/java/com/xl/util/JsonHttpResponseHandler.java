@@ -10,7 +10,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 
-
 public class JsonHttpResponseHandler extends
         com.loopj.android.http.JsonHttpResponseHandler {
 
@@ -38,7 +37,7 @@ public class JsonHttpResponseHandler extends
         dialog = Utils.progress(context, progress);
     }
 
-    public JsonHttpResponseHandler(Context context, String progress,boolean cancleable) {
+    public JsonHttpResponseHandler(Context context, String progress, boolean cancleable) {
         super();
         this.context = context;
         dialog = Utils.progress(context, progress);
@@ -54,7 +53,7 @@ public class JsonHttpResponseHandler extends
                 case ResultCode.SUCCESS:
                     onSuccessCode(jo);
                     break;
-                case ResultCode.FAIL:
+                default:
                     onFailCode(jo);
                     break;
             }
@@ -68,13 +67,13 @@ public class JsonHttpResponseHandler extends
 
     }
 
-    public void onFailCode(JSONObject jo){
+    public void onFailCode(JSONObject jo) {
         try {
-            if(context != null) {
+            if (context != null) {
                 if (jo == null) {
-                    ToastUtil.toast(context,context.getString(R.string.error_net));
-                }else if(jo.has(ResultCode.INFO)){
-                    ToastUtil.toast(context,jo.getString(ResultCode.INFO));
+                    ToastUtil.toast(context, context.getString(R.string.error_net));
+                } else if (jo.has(ResultCode.INFO)) {
+                    ToastUtil.toast(context, jo.getString(ResultCode.INFO));
                 }
             }
         } catch (Exception e) {

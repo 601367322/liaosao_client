@@ -63,4 +63,8 @@ public class URLS {
      * 获取聊天室列表
      */
     public static final String GET_CHAT_ROOM_LIST = URL + "/chat/roomlist" + LAST;
+    /**
+     * 购买请求
+     */
+    public static final String SEND_CHAT_REQUEST = URL + "/chat/sendchatrequest" + LAST;
 }

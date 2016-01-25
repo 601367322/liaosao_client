@@ -1,6 +1,7 @@
 package com.xl.activity.job;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,14 +18,22 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.loopj.android.http.RequestParams;
 import com.xl.activity.R;
+import com.xl.activity.pay.MoneyActivity_;
+import com.xl.application.AppClass;
 import com.xl.bean.ChatRoom;
+import com.xl.util.JsonHttpResponseHandler;
+import com.xl.util.ResultCode;
 import com.xl.util.ToastUtil;
+import com.xl.util.URLS;
 import com.xl.util.Utils;
 
+import org.androidannotations.annotations.App;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.UiThread;
+import org.json.JSONObject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -35,6 +44,8 @@ import butterknife.ButterKnife;
 @EFragment
 public class ChatRightNowDialogFragment extends DialogFragment implements TextWatcher {
 
+    @App
+    AppClass ac;
     @FragmentArg
     ChatRoom room;
     @Bind(R.id.time)
@@ -67,11 +78,12 @@ public class ChatRightNowDialogFragment extends DialogFragment implements TextWa
                                     return;
                                 } else {
                                     int time = Integer.valueOf(timeStr);
-                                    if (time < room.getMinTime() || time > room.getMaxTime()){
+                                    if (time < room.getMinTime() || time > room.getMaxTime()) {
                                         ToastUtil.toast(getActivity(), getString(R.string.heng_timeout));
                                         return;
                                     }
                                 }
+                                sendChatRequest(timeStr);
                             }
                         }).setNegativeButton("取消", null);
         Dialog dialog = builder.create();
@@ -138,5 +150,42 @@ public class ChatRightNowDialogFragment extends DialogFragment implements TextWa
     @UiThread(delay = 100l)
     public void showkeyboard() {
         Utils.openSoftKeyboard(time);
+    }
+
+    public void sendChatRequest(String times) {
+        RequestParams params = ac.getRequestParams();
+        params.put("times", times);
+        params.put("roomId", room.getId());
+        ac.httpClient.post(getActivity(), URLS.SEND_CHAT_REQUEST, params, new JsonHttpResponseHandler(getActivity(), getString(R.string.loading)) {
+            @Override
+            public void onSuccessCode(JSONObject jo) throws Exception {
+                super.onSuccessCode(jo);
+                // TODO
+            }
+
+            @Override
+            public void onFailCode(JSONObject jo) {
+                super.onFailCode(jo);
+                if(jo!=null) {
+                    int status = jo.optInt(ResultCode.STATUS);
+                    switch (status) {
+                        case ResultCode.NOMONEY:
+                            showNoMoenyDialog();
+                            break;
+                    }
+                }
+            }
+        });
+    }
+
+    public void showNoMoenyDialog() {
+        final Context context = getActivity();
+        new AlertDialog.Builder(context).setIcon(R.drawable.pool_gay).setTitle(getString(R.string.poolgay))
+                .setMessage(getString(R.string.no_money_method)).setNegativeButton(getString(R.string.suanle), null).setPositiveButton(getString(R.string.go_chongzhi), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                MoneyActivity_.intent(context).start();
+            }
+        }).create().show();
     }
 }

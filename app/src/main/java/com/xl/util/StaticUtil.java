@@ -9,6 +9,7 @@ public class StaticUtil {
     public static final int ORDER_CONNECT_CHAT = 1; //找人
     public static final int ORDER_SENDMESSAGE = 2;//发送消息
     public static final int ORDER_CLOSE_CHAT = 3;//退出聊天
+    public static final int ORDER_CHATROOM_REQUEST = 4;//发送收费聊天请求
 
     public static final String SEX = "sex";
     public static final String WANTSEX = "wantSex";

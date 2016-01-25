@@ -110,7 +110,7 @@
     <string name="weixin">微信账号</string>
     <string name="zhifubao">支付宝账号</string>
     <string name="unbind">未绑定</string>
-    <string name="tixian">查看明细/提现</string>
+    <string name="tixian">充值/提现</string>
     <string name="your_album">你的相册</string>
     <string name="chose_picture">选择照片</string>
     <string name="create_chat_room">创建聊天室</string>
@@ -119,4 +119,8 @@
     <string name="sex_not">性别不符</string>
     <string name="heng">哼</string>
     <string name="heng_timeout">哼！时间超了！</string>
+    <string name="my_money">我的钱</string>
+    <string name="no_money_method">钱不够了。。。咋办？</string>
+    <string name="suanle">算了</string>
+    <string name="go_chongzhi">充值啊</string>
 </resources>
