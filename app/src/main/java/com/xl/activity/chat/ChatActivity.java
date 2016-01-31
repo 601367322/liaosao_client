@@ -44,11 +44,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
+import com.duanqu.qupai.minisdk.MiniApplication;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.loopj.android.http.RequestParams;
 import com.nhaarman.listviewanimations.appearance.simple.SwingBottomInAnimationAdapter;
-import com.quan.lib_camera_video.MediaRecorderActivity;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.onlineconfig.OnlineConfigAgent;
 import com.xl.activity.R;
@@ -887,8 +887,7 @@ public class ChatActivity extends BaseBackActivity implements
         closeMore(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
-                Intent i = new Intent(ChatActivity.this, MediaRecorderActivity.class);
-                startActivityForResult(i, RADIO);
+                MiniApplication.getInstance(mContext).startRecordActivity(ChatActivity.this);
             }
         });
 

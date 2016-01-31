@@ -8,8 +8,6 @@ import android.os.Environment;
 import android.support.v7.app.AlertDialog;
 import android.widget.Button;
 
-import com.bmob.pay.tool.BmobPay;
-import com.bmob.pay.tool.PayListener;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.RequestParams;
@@ -31,6 +29,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 
+import c.b.BP;
+import c.b.PListener;
+
 /**
  * Created by Shen on 2015/6/22.
  */
@@ -45,6 +46,9 @@ public class PayActivity extends BaseBackActivity {
 
     @Override
     protected void init() {
+
+        BP.init(this,"2c9f0c5fbeb32f1b1bce828d29514f5d");
+
         RequestParams params = ac.getRequestParams();
         params.put("id", 1);
         ac.httpClient.post(URLS.VIPDETAIL, params, new JsonHttpResponseHandler(mContext, getString(R.string.loading)) {
@@ -70,20 +74,40 @@ public class PayActivity extends BaseBackActivity {
     @Click
     public void copy1() {
         if (coin != null)
-            new BmobPay(PayActivity.this).pay(coin.getPrice(), coin.getName(), MD5.GetMD5Code(ac.deviceId).substring(8, 24), new MyPayListener(mContext, PayType.ZHIFUBAO));
+            BP.pay(this, "1", "1", 0.01, true, new PListener(){
+                @Override
+                public void orderId(String s) {
+
+                }
+
+                @Override
+                public void succeed() {
+
+                }
+
+                @Override
+                public void fail(int i, String s) {
+
+                }
+
+                @Override
+                public void unknow() {
+
+                }
+            });
     }
 
     @Click
     public void copy2() {
         if (coin != null)
-            new BmobPay(PayActivity.this).payByWX(coin.getPrice(), coin.getName(), MD5.GetMD5Code(ac.deviceId).substring(8, 24), new MyPayListener(mContext, PayType.WEIXIN));
+            BP.pay(this, coin.getName(), MD5.GetMD5Code(ac.deviceId).substring(8, 24), coin.getPrice(), false, new MyPayListener(mContext, PayType.WEIXIN));
     }
 
     public enum PayType {
         WEIXIN, ZHIFUBAO
     }
 
-    class MyPayListener implements PayListener {
+    class MyPayListener implements PListener {
 
         private PayType type;
         private Context context;
@@ -124,11 +148,11 @@ public class PayActivity extends BaseBackActivity {
         @Override
         public void fail(int code, String s) {
             ac.cs.setVipOrder(null);
-            BmobPay.ForceFree();
+            BP.ForceFree();
             if (code == -3) {
                 new AlertDialog.Builder(mContext)
                         .setMessage(
-                                "监测到你尚未安装支付插件,无法进行微信支付,请选择安装插件(已打包在本地,无流量消耗)或是用支付宝支付")
+                                "监测到你尚未安装支付插件,无法进行微信支付,请选择安装插件(已打包在本地,无流量消耗)还是用支付宝支付")
                         .setPositiveButton("安装",
                                 new DialogInterface.OnClickListener() {
 
@@ -136,7 +160,7 @@ public class PayActivity extends BaseBackActivity {
                                     public void onClick(
                                             DialogInterface dialog,
                                             int which) {
-                                        installBmobPayPlugin("BmobPayPlugin.apk");
+                                        installBmobPayPlugin("bp_wx.db");
                                     }
                                 })
                         .setNegativeButton("支付宝支付",
@@ -158,6 +182,8 @@ public class PayActivity extends BaseBackActivity {
                         copy1();
                         break;
                 }
+            } else if(code == 8888){
+                ToastUtil.toast(context, "微信版本太低，或者请手动打开微信，返回再试一遍~");
             } else {
                 ToastUtil.toast(context, "支付失败~");
             }
@@ -173,7 +199,9 @@ public class PayActivity extends BaseBackActivity {
         try {
             InputStream is = getAssets().open(fileName);
             File file = new File(Environment.getExternalStorageDirectory()
-                    + File.separator + fileName);
+                    + File.separator + fileName + ".apk");
+            if (file.exists())
+                file.delete();
             file.createNewFile();
             FileOutputStream fos = new FileOutputStream(file);
             byte[] temp = new byte[1024];

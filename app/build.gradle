@@ -7,7 +7,7 @@ def releaseTime() {
 }
 
 android {
-    useLibrary 'org.apache.http.legacy'
+//    useLibrary 'org.apache.http.legacy'
 
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
@@ -52,6 +52,18 @@ android {
     }*/
 
     buildTypes {
+
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+
+            ndk {
+                abiFilters "armeabi-v7a", "armeabi", "x86"
+                // includes ARM SO files only, so no x86 SO file
+            }
+        }
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -83,6 +95,11 @@ android {
     lintOptions {
         checkReleaseBuilds rootProject.ext.checkReleaseBuilds
         abortOnError rootProject.ext.abortOnError
+    }
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
     }
 
 }
@@ -119,8 +136,9 @@ dependencies {
     compile project(':lib_shapeimagelibrary')//多边形图片
     compile project(':lib-preferencefragment')
     compile project(':lib-gif')
-    compile project(':lib-camera-video')
+//    compile project(':lib-camera-video')
     compile project(':lib-bmobpay')
+    compile project(':lib-qupai')
 //    compile project(':lib-asynchttp')
 }
 

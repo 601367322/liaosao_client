@@ -1,5 +1,6 @@
 package com.xl.activity.album;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.widget.AdapterView;
@@ -28,11 +29,12 @@ public class PhotoAlbumGridFragment extends BaseFragment implements AdapterView.
 
     PhotoAlbumMainActivity activity;
 
+
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context != null && context instanceof PhotoAlbumMainActivity) {
-            activity = (PhotoAlbumMainActivity) context;
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (activity != null && activity instanceof PhotoAlbumMainActivity) {
+            this.activity = (PhotoAlbumMainActivity) activity;
         }
     }
 

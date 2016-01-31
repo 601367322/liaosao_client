@@ -8,9 +8,9 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.duanqu.qupai.minisdk.MiniApplication;
 import com.google.gson.Gson;
 import com.loopj.android.http.RequestParams;
-import com.quan.lib_camera_video.MediaRecorderActivity;
 import com.umeng.analytics.MobclickAgent;
 import com.xl.activity.R;
 import com.xl.activity.base.BaseBackActivity;
@@ -305,7 +305,6 @@ public class GirlChatActivity extends BaseBackActivity implements
 
     @Click
     public void radio_btn() {
-        Intent i = new Intent(this, MediaRecorderActivity.class);
-        startActivityForResult(i, RADIO);
+        MiniApplication.getInstance(mContext).startRecordActivity(GirlChatActivity.this);
     }
 }

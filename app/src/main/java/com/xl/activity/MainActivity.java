@@ -17,7 +17,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bmob.pay.tool.BmobPay;
 import com.github.johnpersano.supertoasts.SuperToast;
 import com.loopj.android.http.RequestParams;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -110,7 +109,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         chatDao = ChatDao.getInstance(this);
         userTableDao = UserTableDao.getInstance(this);
 
-        BmobPay.init(getApplicationContext(), "2c9f0c5fbeb32f1b1bce828d29514f5d");
+//        BmobPay.init(getApplicationContext(), "2c9f0c5fbeb32f1b1bce828d29514f5d");
 
         testRecoding();//获取录音请求
     }

@@ -5,8 +5,13 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.hardware.Camera;
 import android.os.IBinder;
+import android.text.TextUtils;
 
+import com.duanqu.qupai.android.app.QupaiServiceImpl;
+import com.duanqu.qupai.engine.session.MovieExportOptions;
+import com.duanqu.qupai.engine.session.VideoSessionCreateInfo;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.PersistentCookieStore;
@@ -14,6 +19,7 @@ import com.loopj.android.http.RequestParams;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.utils.L;
+import com.xl.activity.R;
 import com.xl.activity.share.CommonShared;
 import com.xl.bean.SharedBean.Bean;
 import com.xl.db.DBHelper;
@@ -132,5 +138,4 @@ public class AppClass extends Application {
         }
         return false;
     }
-
 }
