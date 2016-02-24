@@ -19,6 +19,9 @@ android {
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
 
+
+//        multiDexEnabled true
+
         // 默认是umeng的渠道
         manifestPlaceholders = [UMENG_CHANNEL_VALUE: "umeng"]
     }
@@ -138,7 +141,7 @@ dependencies {
     compile project(':lib-gif')
 //    compile project(':lib-camera-video')
     compile project(':lib-bmobpay')
-    compile project(':lib-qupai')
+//    compile project(':lib-qupai')
 //    compile project(':lib-asynchttp')
 }
 

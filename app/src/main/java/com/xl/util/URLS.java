@@ -2,12 +2,12 @@ package com.xl.util;
 
 public class URLS {
 
-    public static final String IP = "123.56.114.98";
-    public static final String URL = "http://" + IP + "/";
+//    public static final String IP = "123.56.114.98";
+//    public static final String URL = "http://" + IP + "/";
 
     //        public static final String IP="172.16.24.209";
-//    public static final String IP = "192.168.0.100";
-//    public static final String URL = "http://" + IP + ":8080/";
+    public static final String IP = "192.168.1.102";
+    public static final String URL = "http://" + IP + ":8080/";
 
     public static final int PORT = 8181;
     public static final String LAST = ".do";
@@ -67,4 +67,8 @@ public class URLS {
      * 购买请求
      */
     public static final String SEND_CHAT_REQUEST = URL + "/chat/sendchatrequest" + LAST;
+    /**
+     * 删除聊天室
+     */
+    public static final String DELETE_CHAT_ROOM = URL + "/chat/deleteroom" + LAST;
 }

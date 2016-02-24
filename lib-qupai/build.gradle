@@ -19,7 +19,7 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile project(':Minisdk-release')
+    compile project(':lib-qupai-sdk')
 
 
     compile "com.android.support:support-v13:$rootProject.ext.SupportVersion"

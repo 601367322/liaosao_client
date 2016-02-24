@@ -9,8 +9,16 @@ public class Account {
     private int id;
     private String deviceId;
     public String zhifubao;
-    public String weixin;
     private double coin;
+    private double coldCoin;
+
+    public double getColdCoin() {
+        return coldCoin;
+    }
+
+    public void setColdCoin(double coldCoin) {
+        this.coldCoin = coldCoin;
+    }
 
     public int getId() {
         return id;
@@ -39,16 +47,6 @@ public class Account {
         this.zhifubao = zhifubao;
     }
 
-    public String getWeixin() {
-        if (TextUtils.isEmpty(weixin)) {
-            return UserBean.EMPTY;
-        }
-        return weixin;
-    }
-
-    public void setWeixin(String weixin) {
-        this.weixin = weixin;
-    }
     public double getCoin() {
         return coin;
     }

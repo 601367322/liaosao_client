@@ -1,27 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="余额:"
+                android:textColor="@color/abc_primary_text_material_light"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0.0烧币"
+                android:textColor="@color/holo_orange_dark"
+                android:textSize="32sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="冻结:"
+                android:textColor="@color/abc_primary_text_material_light"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/cold_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0.0烧币"
+                android:textColor="@color/holo_orange_dark"
+                android:textSize="32sp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/tixian"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:text="提现"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/zhifubao"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:text="充值"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/detail"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:text="明细"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="余额:"
-            android:textColor="@color/abc_primary_text_material_light"
-            android:textSize="20sp" />
+            android:layout_marginTop="16dp"
+            android:text="提现规则:\n1、满100才能提现。\n2、提现之后，每周日打款，如果我有事或者忘了，推迟到下周。。\n3、提现只支持支付宝打款，所以请在个人信息中填写支付宝账号。\n4、自己的账号填错，后果自负。"
+            android:textColor="@color/black" />
 
         <TextView
-            android:id="@+id/money"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="20烧币"
-            android:textColor="@color/holo_orange_dark"
-            android:textSize="32sp" />
+            android:layout_marginTop="16dp"
+            android:text="充值说明:\n1、1元人民币=1烧币。\n2、由于是我是个人开发者，所以第三方支付(Bmob)需要收取5%的手续费，可恶。\n3、所以1元人民币=0.95元"
+            android:textColor="@color/black" />
     </LinearLayout>
-</LinearLayout>
+</ScrollView>

@@ -1,5 +1,6 @@
 package com.xl.activity.job;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -54,6 +55,16 @@ public class ChatRightNowDialogFragment extends DialogFragment implements TextWa
     TextView price;
     @Bind(R.id.total)
     TextView total;
+
+    Context context;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (activity != null) {
+            this.context = activity;
+        }
+    }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -166,7 +177,7 @@ public class ChatRightNowDialogFragment extends DialogFragment implements TextWa
             @Override
             public void onFailCode(JSONObject jo) {
                 super.onFailCode(jo);
-                if(jo!=null) {
+                if (jo != null) {
                     int status = jo.optInt(ResultCode.STATUS);
                     switch (status) {
                         case ResultCode.NOMONEY:
@@ -179,9 +190,8 @@ public class ChatRightNowDialogFragment extends DialogFragment implements TextWa
     }
 
     public void showNoMoenyDialog() {
-        final Context context = getActivity();
-        new AlertDialog.Builder(context).setIcon(R.drawable.pool_gay).setTitle(getString(R.string.poolgay))
-                .setMessage(getString(R.string.no_money_method)).setNegativeButton(getString(R.string.suanle), null).setPositiveButton(getString(R.string.go_chongzhi), new DialogInterface.OnClickListener() {
+        new AlertDialog.Builder(context).setIcon(R.drawable.pool_gay).setTitle(R.string.poolgay)
+                .setMessage(R.string.no_money_method).setNegativeButton(R.string.suanle, null).setPositiveButton(R.string.go_chongzhi, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 MoneyActivity_.intent(context).start();

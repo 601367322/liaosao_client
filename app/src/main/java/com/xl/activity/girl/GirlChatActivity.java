@@ -8,7 +8,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.duanqu.qupai.minisdk.MiniApplication;
 import com.google.gson.Gson;
 import com.loopj.android.http.RequestParams;
 import com.umeng.analytics.MobclickAgent;
@@ -28,6 +27,7 @@ import com.xl.util.JsonHttpResponseHandler;
 import com.xl.util.ResultCode;
 import com.xl.util.StaticUtil;
 import com.xl.util.URLS;
+import com.xl.util.VideoUtil;
 
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Click;
@@ -67,7 +67,7 @@ public class GirlChatActivity extends BaseBackActivity implements
 
     String deviceId = AppClass.MANAGER;
 
-    String filename,thumb;
+    String filename, thumb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -198,14 +198,11 @@ public class GirlChatActivity extends BaseBackActivity implements
 
     @OnActivityResult(value = GirlChatActivity.RADIO)
     public void onRadioCallBack(int result, Intent data) {
-        if (result == RESULT_OK) {
-            filename = data.getStringExtra("file");
-            thumb = data.getStringExtra("thumb");
-            File fi = new File(filename);
-            if (fi != null && fi.exists()) {
-                sendFile(MessageBean.RADIO_NEW);
-            }
-            fi = null;
+        File[] files = VideoUtil.onActivityResult(RADIO,result,data);
+        if (files != null) {
+            filename = files[0].getPath();
+            thumb = files[1].getPath();
+            sendFile(MessageBean.RADIO_NEW);
         }
     }
 
@@ -226,7 +223,7 @@ public class GirlChatActivity extends BaseBackActivity implements
             rp.put("file", new File(filename));
             if (type == MessageBean.RADIO_NEW) {
                 rp.put("thumb", new File(thumb));
-                content = new Gson().toJson(new MessageBean.RadioBean(thumb,filename));
+                content = new Gson().toJson(new MessageBean.RadioBean(thumb, filename));
             }
             rp.put("toId", deviceId);
             rp.put("msgType", type);
@@ -305,6 +302,6 @@ public class GirlChatActivity extends BaseBackActivity implements
 
     @Click
     public void radio_btn() {
-        MiniApplication.getInstance(mContext).startRecordActivity(GirlChatActivity.this);
+        VideoUtil.startRecordActivity(mContext);
     }
 }

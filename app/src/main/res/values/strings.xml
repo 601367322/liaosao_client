@@ -105,7 +105,7 @@
     <string name="age">年龄</string>
     <string name="birthday">生日</string>
     <string name="area">地区</string>
-    <string name="coin">余额</string>
+    <string name="coin">烧币</string>
     <string name="支付宝" />
     <string name="weixin">微信账号</string>
     <string name="zhifubao">支付宝账号</string>
@@ -119,8 +119,8 @@
     <string name="sex_not">性别不符</string>
     <string name="heng">哼</string>
     <string name="heng_timeout">哼！时间超了！</string>
-    <string name="my_money">我的钱</string>
-    <string name="no_money_method">钱不够了。。。咋办？</string>
+    <string name="my_money">我的烧币</string>
+    <string name="no_money_method">余额不够了。。。咋办？</string>
     <string name="suanle">算了</string>
     <string name="go_chongzhi">充值啊</string>
 </resources>

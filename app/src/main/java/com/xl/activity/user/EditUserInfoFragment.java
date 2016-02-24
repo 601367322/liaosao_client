@@ -59,7 +59,7 @@ import java.util.Date;
 public class EditUserInfoFragment extends PreferenceFragment implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
     Preference avatar, album, gender, age, area, coin;
-    EditTextPreference nickname, desc, zhifubao, weixin;
+    EditTextPreference nickname, desc, zhifubao;
     @App
     AppClass ac;
 
@@ -78,12 +78,10 @@ public class EditUserInfoFragment extends PreferenceFragment implements Preferen
         desc = (EditTextPreference) findPreference(getString(R.string.preference_user_description));
         coin = findPreference(getString(R.string.preference_user_coin));
         zhifubao = (EditTextPreference) findPreference(getString(R.string.preference_user_zhifubao));
-        weixin = (EditTextPreference) findPreference(getString(R.string.preference_user_weixin));
 
         nickname.setOnPreferenceChangeListener(this);
         desc.setOnPreferenceChangeListener(this);
         zhifubao.setOnPreferenceChangeListener(this);
-        weixin.setOnPreferenceChangeListener(this);
         avatar.setOnPreferenceClickListener(this);
         age.setOnPreferenceClickListener(this);
 
@@ -125,8 +123,6 @@ public class EditUserInfoFragment extends PreferenceFragment implements Preferen
     }
 
     public void refreshAccountUI(Account account) {
-        weixin.setSummary(account.getWeixin());
-        weixin.setText(account.weixin);
         zhifubao.setSummary(account.getZhifubao());
         zhifubao.setText(account.zhifubao);
         coin.setSummary("￥" + String.valueOf(account.getCoin()));
@@ -149,10 +145,6 @@ public class EditUserInfoFragment extends PreferenceFragment implements Preferen
         if (preference.getKey().equals(getString(R.string.preference_user_zhifubao))) {
             account = new Account();
             account.zhifubao = newValue.toString();
-        }
-        if (preference.getKey().equals(getString(R.string.preference_user_weixin))) {
-            account = new Account();
-            account.weixin = newValue.toString();
         }
         if (account != null) {
             updateUserAccount(account);
@@ -253,9 +245,6 @@ public class EditUserInfoFragment extends PreferenceFragment implements Preferen
             RequestParams params = ac.getRequestParams();
             if (!TextUtils.isEmpty(updateAccount.zhifubao)) {
                 params.put("zhifubao", updateAccount.zhifubao);
-            }
-            if (!TextUtils.isEmpty(updateAccount.weixin)) {
-                params.put("weixin", updateAccount.weixin);
             }
 
             ac.httpClient.post(URLS.UPDATEACCOUNT, params, new JsonHttpResponseHandler(getActivity(), getString(R.string.loading)) {

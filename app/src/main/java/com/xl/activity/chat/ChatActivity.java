@@ -44,7 +44,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
-import com.duanqu.qupai.minisdk.MiniApplication;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.loopj.android.http.RequestParams;
@@ -79,6 +78,7 @@ import com.xl.util.StaticUtil;
 import com.xl.util.ToastUtil;
 import com.xl.util.URLS;
 import com.xl.util.Utils;
+import com.xl.util.VideoUtil;
 
 import net.google.niofile.st.SpotManager;
 
@@ -887,7 +887,7 @@ public class ChatActivity extends BaseBackActivity implements
         closeMore(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
-                MiniApplication.getInstance(mContext).startRecordActivity(ChatActivity.this);
+                VideoUtil.startRecordActivity(mContext);
             }
         });
 
@@ -895,19 +895,11 @@ public class ChatActivity extends BaseBackActivity implements
 
     @OnActivityResult(value = ChatActivity.RADIO)
     public void onRadioCallBack(int result, Intent data) {
-        if (result == RESULT_OK) {
-            filename = data.getStringExtra("file");
-            thumb = data.getStringExtra("thumb");
-            File fi = new File(filename);
-            if (fi != null && fi.exists()) {
-                fi = new File(thumb);
-                if (fi != null && fi.exists()) {
-                    sendFile(MessageBean.RADIO_NEW);
-                }else{
-                    ToastUtil.toast(ChatActivity.this, getString(R.string.your_JJ_so_short), R.drawable.weisuo);
-                }
-            }
-            fi = null;
+        File[] files = VideoUtil.onActivityResult(RADIO, result, data);
+        if (files != null) {
+            filename = files[0].getPath();
+            thumb = files[1].getPath();
+            sendFile(MessageBean.RADIO_NEW);
         }
     }
 

@@ -6,9 +6,9 @@ public class Contant {
     /**
      * 默认最大时长
      */
-    public static int DEFAULT_DURATION_MAX_LIMIT = 10;
+    public static int DEFAULT_DURATION_MAX_LIMIT = 8;
 
-    public static int DEFAULT_DURATION_LIMIT_MIN = 3;
+    public static int DEFAULT_DURATION_LIMIT_MIN = 2;
     /**
      * 默认码率
      */
@@ -46,7 +46,7 @@ public class Contant {
      */
     public static String VIDEOPATH;
 
-    public static String THUMBNAILPATH = VIDEOPATH + ".jpg";
+    public static String THUMBNAILPATH = VIDEOPATH + ".png";
     /**
      * 水印本地路径，文件必须为rgba格式的PNG图片
      */
@@ -56,8 +56,8 @@ public class Contant {
      */
     public static int WATER_MARK_POSITION = 1;
 
-    public static String appkey = "204a673404151f6";
-    public static String appsecret = "75c87b4a5abf4e55b53258b14b6cca3f";
+    public static String appkey = "204955a834a7c36";
+    public static String appsecret = "55e409dc27c04a87be124a2939348b58";
     public static String tags = "tags";
     public static String description = "description";
     public static int shareType = 1; //是否公开 0公开分享 1私有(default) 公开类视频不需要AccessToken授权

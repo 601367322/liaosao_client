@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.loopj.android.http.RequestParams;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.xl.activity.R;
 import com.xl.activity.base.BaseAdapter;
@@ -15,9 +16,13 @@ import com.xl.bean.ChatRoom;
 import com.xl.bean.UserBean;
 import com.xl.custom.CircleImageView;
 import com.xl.db.DBHelper;
+import com.xl.util.JsonHttpResponseHandler;
 import com.xl.util.StaticFactory;
 import com.xl.util.ToastUtil;
+import com.xl.util.URLS;
 import com.xl.util.Utils;
+
+import org.json.JSONObject;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -90,6 +95,12 @@ public class ChaterListAdapter extends BaseAdapter<ChatRoom> {
                 ImageLoader.getInstance().displayImage(userBean.getLogo() + StaticFactory._160x160, userlogo);
 
                 btnChat.setTag(bean);
+
+                if (bean.getDeviceId().equals(ac.deviceId)) {
+                    btnChat.setText("关闭");
+                } else {
+                    btnChat.setText("立刻聊");
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -97,10 +108,18 @@ public class ChaterListAdapter extends BaseAdapter<ChatRoom> {
 
         @OnClick(R.id.btnChat)
         public void btnChatClick(View view) {
-            ChatRoom room = (ChatRoom) view.getTag();
+            final ChatRoom room = (ChatRoom) view.getTag();
             //判断是否是自己的
             if (room.getDeviceId().equals(ac.deviceId)) {
-                ToastUtil.toast(context, context.getString(R.string.danteng_chat_with_yourself));
+                RequestParams params = ac.getRequestParams();
+                params.put("roomId", room.getId());
+                ac.httpClient.post(context, URLS.DELETE_CHAT_ROOM, params, new JsonHttpResponseHandler(context, context.getString(R.string.loading)) {
+                    @Override
+                    public void onSuccessCode(JSONObject jo) throws Exception {
+                        getList().remove(room);
+                        notifyDataSetChanged();
+                    }
+                });
                 return;
             }
             //判断性别

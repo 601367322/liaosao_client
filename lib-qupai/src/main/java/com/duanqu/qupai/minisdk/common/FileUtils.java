@@ -13,7 +13,7 @@ public class FileUtils {
     /**
      * 保存路径的文件夹名称
      */
-    public static  String DIR_NAME = "qupai_video_test";
+    public static  String DIR_NAME = "chat";
 
     /**
      * 给指定的文件名按照时间命名
@@ -41,7 +41,7 @@ public class FileUtils {
     private static File getStorageDir(Context context) {
         // Get the directory for the app's private pictures directory.
         File file = new File(context.getExternalFilesDir(
-                Environment.MEDIA_MOUNTED), "qupaiVideo");
+                Environment.MEDIA_MOUNTED), "video");
         if (!file.exists()) {
             if (!file.mkdirs()) {
                 Log.e("TAG", "Directory not created");
@@ -57,7 +57,7 @@ public class FileUtils {
      */
     public static String newOutgoingFilePath(Context context) {
         String str = OUTGOING_DATE_FORMAT.format(new Date());
-        String fileName = getStorageDir(context).getPath()+ "/" + File.separator + str;
+        String fileName = getStorageDir(context).getPath()+ File.separator + str + ".mp4";
         return fileName;
     }
 

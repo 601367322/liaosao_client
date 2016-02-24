@@ -9,7 +9,7 @@
         <PreferenceScreen
             android:key="@string/preference_user_album"
             android:layout="@layout/preference_item_horizontal_icon_small"
-            android:title="@string/album" >
+            android:title="@string/album">
             <intent
                 android:action="android.intent.action.MAIN"
                 android:targetClass="com.xl.activity.user.EditAlbumActivity_"
@@ -40,19 +40,20 @@
     </PreferenceCategory>
 
     <PreferenceCategory android:layout="@layout/preference_category_widget">
-        <Preference
+        <PreferenceScreen
             android:key="@string/preference_user_coin"
             android:layout="@layout/preference_item_vertical"
-            android:widgetLayout="@layout/preference_item_coin"
-            android:title="@string/coin" />
+            android:title="@string/coin"
+            android:widgetLayout="@layout/preference_item_coin">
+            <intent
+                android:action="android.intent.action.MAIN"
+                android:targetClass="com.xl.activity.pay.MoneyActivity_"
+                android:targetPackage="com.xl.activity"></intent>
+        </PreferenceScreen>
         <EditTextPreference
             android:key="@string/preference_user_zhifubao"
             android:layout="@layout/preference_item_horizontal"
             android:title="@string/zhifubao" />
-        <EditTextPreference
-            android:key="@string/preference_user_weixin"
-            android:layout="@layout/preference_item_horizontal"
-            android:title="@string/weixin" />
     </PreferenceCategory>
 
 </PreferenceScreen>

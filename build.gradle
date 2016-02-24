@@ -31,9 +31,9 @@ ext {
     buildToolsVersion = "22.0.1"
     checkReleaseBuilds = false
     abortOnError = false
-    targetSdkVersion =22
-    minSdkVersion=15
-    versionCode=30
+    targetSdkVersion = 22
+    minSdkVersion = 15
+    versionCode = 30
     versionName = "3.0"
     SupportVersion = '22.2.0'
 }

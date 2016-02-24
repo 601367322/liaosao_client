@@ -1,3 +1,4 @@
+/*
 package com.example.app_test;
 
 import android.hardware.Camera;
@@ -37,9 +38,11 @@ public class MainActivity extends AppCompatActivity {
         //美颜参数:1-100.这里不设指定为80,这个值只在第一次设置，之后在录制界面滑动美颜参数之后系统会记住上一次滑动的状态
         int beautySkinProgress = 100;
 
-        /**
+        */
+/**
          * 压缩参数，可以自由调节
-         */
+         *//*
+
         MovieExportOptions movie_options = new MovieExportOptions.Builder()
                 .setVideoProfile("high")
                 .setVideoBitrate(Contant.DEFAULT_BITRATE)
@@ -49,9 +52,11 @@ public class MainActivity extends AppCompatActivity {
                 .configureMuxer(Contant.DEFAULT_VIDEO_MOV_FLAGS_KEY, Contant.DEFAULT_VIDEO_MOV_FLAGS_VALUE)
                 .build();
 
-        /**
+        */
+/**
          * 界面参数
-         */
+         *//*
+
         VideoSessionCreateInfo create_info = new VideoSessionCreateInfo.Builder()
                 .setOutputDurationLimit(Contant.DEFAULT_DURATION_MAX_LIMIT)
                 .setOutputDurationMin(Contant.DEFAULT_DURATION_LIMIT_MIN)
@@ -103,3 +108,4 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 }
+*/
