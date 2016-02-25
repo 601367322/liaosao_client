@@ -101,8 +101,7 @@ public class Handler {
                 .setSmallIcon(R.drawable.ic_stat_icon).setContentTitle(context.getString(R.string.u_have_a_new_message))
                 .setTicker(context.getString(R.string.u_have_a_new_message))
                 .setPriority(Notification.PRIORITY_HIGH)
-                .setOnlyAlertOnce(false).setAutoCancel(true)
-                .setDefaults(Notification.DEFAULT_ALL);
+                .setOnlyAlertOnce(false).setAutoCancel(true);
 
         builder.setContentText(getMsgContentType(mb));
 
@@ -124,6 +123,7 @@ public class Handler {
         } else if (ac.cs.getSound() == CommonShared.OFF && ac.cs.getVibration() == CommonShared.ON) {
             builder.setDefaults(Notification.DEFAULT_VIBRATE);
         }
+
         if (mb.getMsgType() == MessageBean.TEXT) {
             builder.setContentText(mb.getContent());
         }

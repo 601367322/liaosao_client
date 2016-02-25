@@ -32,6 +32,7 @@ import com.xl.activity.setting.SettingActivity_;
 import com.xl.activity.share.CommonShared;
 import com.xl.activity.user.EditUserInfoActivity_;
 import com.xl.application.AppClass;
+import com.xl.bean.UnSuccessOrder;
 import com.xl.bean.UserTable;
 import com.xl.db.ChatDao;
 import com.xl.db.DBHelper;
@@ -176,28 +177,46 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         initSource();
 
         checkVip();
+
+        checkMoney();
     }
 
     public void checkVip() {
         if (!TextUtils.isEmpty(ac.cs.getVipOrder())) {
             RequestParams params = ac.getRequestParams();
             params.put("orderId", ac.cs.getVipOrder());
-            ac.httpClient.post(URLS.PAY, params, new JsonHttpResponseHandler(mContext, "正在完成充值") {
+            ac.httpClient.post(URLS.PAY, params, new JsonHttpResponseHandler(mContext) {
+
+                @Override
+                public void onSuccess(JSONObject jo) {
+                    super.onSuccess(jo);
+                    ac.cs.setVipOrder(null);
+                }
+
+            });
+        }
+
+    }
+
+    public void checkMoney() {
+        final UnSuccessOrder order = DBHelper.orderDao.getFirstOrder();
+        if (order != null) {
+            RequestParams params = ac.getRequestParams();
+            params.put("orderId", order.orderId);
+            ac.httpClient.post(URLS.PAY_MONEY, params, new JsonHttpResponseHandler(mContext) {
 
                 @Override
                 public void onSuccess(JSONObject jo) {
                     super.onSuccess(jo);
 
-                    ac.cs.setVipOrder(null);
+                    DBHelper.orderDao.delete(order);
                 }
 
                 @Override
                 public void onSuccessCode(JSONObject jo) throws Exception {
                     super.onSuccessCode(jo);
-
-                    ToastUtil.toast(mContext, "充值成功，请重启软件");
+                    checkMoney();
                 }
-
             });
         }
     }

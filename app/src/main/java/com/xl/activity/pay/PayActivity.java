@@ -47,7 +47,7 @@ public class PayActivity extends BaseBackActivity {
     @Override
     protected void init() {
 
-        BP.init(this,"2c9f0c5fbeb32f1b1bce828d29514f5d");
+        BP.init(this, "2c9f0c5fbeb32f1b1bce828d29514f5d");
 
         RequestParams params = ac.getRequestParams();
         params.put("id", 1);
@@ -74,7 +74,7 @@ public class PayActivity extends BaseBackActivity {
     @Click
     public void copy1() {
         if (coin != null)
-            BP.pay(this, "1", "1", 0.01, true, new PListener(){
+            BP.pay(this, coin.getName(), MD5.GetMD5Code(ac.deviceId).substring(8, 24), coin.getPrice(), true, new PListener() {
                 @Override
                 public void orderId(String s) {
 
@@ -124,25 +124,7 @@ public class PayActivity extends BaseBackActivity {
 
         @Override
         public void succeed() {
-            RequestParams params = ac.getRequestParams();
-            params.put("orderId", ac.cs.getVipOrder());
-            ac.httpClient.post(URLS.PAY, params, new JsonHttpResponseHandler(mContext, "正在完成充值") {
-
-                @Override
-                public void onSuccess(JSONObject jo) {
-                    super.onSuccess(jo);
-
-                    ac.cs.setVipOrder(null);
-                }
-
-                @Override
-                public void onSuccessCode(JSONObject jo) throws Exception {
-                    super.onSuccessCode(jo);
-
-                    ToastUtil.toast(mContext, "充值成功，请重启软件");
-                }
-
-            });
+            sendSuccessPost(0);
         }
 
         @Override
@@ -182,8 +164,10 @@ public class PayActivity extends BaseBackActivity {
                         copy1();
                         break;
                 }
-            } else if(code == 8888){
+            } else if (code == 8888) {
                 ToastUtil.toast(context, "微信版本太低，或者请手动打开微信，返回再试一遍~");
+            } else if (code == 6001) {
+                sendSuccessPost(0);
             } else {
                 ToastUtil.toast(context, "支付失败~");
             }
@@ -220,5 +204,36 @@ public class PayActivity extends BaseBackActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void sendSuccessPost(final int n) {
+        RequestParams params = ac.getRequestParams();
+        params.put("orderId", ac.cs.getVipOrder());
+        ac.httpClient.post(URLS.PAY, params, new JsonHttpResponseHandler(mContext, "正在完成充值") {
+
+            @Override
+            public void onSuccess(JSONObject jo) {
+                super.onSuccess(jo);
+
+                ac.cs.setVipOrder(null);
+            }
+
+            @Override
+            public void onSuccessCode(JSONObject jo) throws Exception {
+                super.onSuccessCode(jo);
+
+                ToastUtil.toast(mContext, "充值成功，请重启软件");
+            }
+
+            @Override
+            public void onFailure() {
+                if (n > 3) {
+                    ToastUtil.toast(mContext, "算了，稍后重启会自动重试");
+                    return;
+                }
+                ToastUtil.toast(mContext, "网络连接失败，正在重试第" + (n + 1) + "次");
+                sendSuccessPost(n + 1);
+            }
+        });
     }
 }

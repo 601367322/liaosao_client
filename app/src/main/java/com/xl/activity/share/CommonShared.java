@@ -24,6 +24,8 @@ public class CommonShared {
 
     private String IsFirstStartApp = "isfirststartapp";
 
+    private final String ZHIFUTIXING = "zhifutixing";
+
     public static final int ON = 1;
     public static final int OFF = 0;
 
@@ -162,5 +164,14 @@ public class CommonShared {
 
     public int getBackgroundRun(){
         return sp.getInt(BACKGROUNDRUN, ON);
+    }
+
+    public void setZHIFUTIXING(int on){
+        editor.putInt(ZHIFUTIXING, on);
+        editor.commit();
+    }
+
+    public int getZHIFUTIXING(){
+        return sp.getInt(ZHIFUTIXING, ON);
     }
 }

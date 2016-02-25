@@ -6,7 +6,7 @@ public class URLS {
 //    public static final String URL = "http://" + IP + "/";
 
     //        public static final String IP="172.16.24.209";
-    public static final String IP = "192.168.1.102";
+    public static final String IP = "192.168.1.128";
     public static final String URL = "http://" + IP + ":8080/";
 
     public static final int PORT = 8181;
@@ -38,7 +38,14 @@ public class URLS {
      */
     public static final String UPLOADUSERALBUM = URL + "user/uploadalbum" + LAST;
 
+    /**
+     * 冲会员
+     */
     public static final String PAY = URL + "user/pay" + LAST;
+    /**
+     * 冲钱
+     */
+    public static final String PAY_MONEY = URL + "user/paymoney" + LAST;
     /**
      * 查询VIP详情
      */

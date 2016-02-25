@@ -14,6 +14,7 @@ import com.xl.bean.BlackUser;
 import com.xl.bean.ChatListBean;
 import com.xl.bean.MessageBean;
 import com.xl.bean.SharedBean;
+import com.xl.bean.UnSuccessOrder;
 import com.xl.bean.UserTable;
 import com.xl.util.LogUtil;
 
@@ -22,18 +23,20 @@ import java.util.List;
 public class DBHelper extends OrmLiteSqliteOpenHelper {
     private static final String TAG = "DBHelper";
     private static final String DATABASE_NAME = "XL.db";
-    private static final int DATABASE_VERSION = 7;
+    private static final int DATABASE_VERSION = 8;
 
     private Dao<SharedBean, Integer> sharedDao;
 
     public static UserTableDao userDao;
+    public static OrderDao orderDao;
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-    public void init(Context context){
+    public void init(Context context) {
         userDao = UserTableDao.getInstance(context);
+        orderDao = OrderDao.getInstance(context);
     }
 
     /**
@@ -56,6 +59,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, ChatListBean.class);
             TableUtils.createTable(connectionSource, BlackUser.class);
             TableUtils.createTable(connectionSource, UserTable.class);
+            TableUtils.createTable(connectionSource, UnSuccessOrder.class);
         } catch (Exception e) {
             LogUtil.e(TAG, e.toString());
             e.printStackTrace();
@@ -69,6 +73,8 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
             switch (oldVersion) {
                 case 6:
                     updateDB_7(connectionSource);
+                case 7:
+                    updateDB_8(connectionSource);
                     break;
             }
         } catch (Exception e) {
@@ -78,9 +84,17 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
     }
 
 
-    public void updateDB_7(ConnectionSource connectionSource){
+    public void updateDB_7(ConnectionSource connectionSource) {
         try {
-            TableUtils.clearTable(connectionSource,UserTable.class);
+            TableUtils.clearTable(connectionSource, UserTable.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateDB_8(ConnectionSource connectionSource) {
+        try {
+            TableUtils.createTable(connectionSource, UnSuccessOrder.class);
         } catch (Exception e) {
             e.printStackTrace();
         }
