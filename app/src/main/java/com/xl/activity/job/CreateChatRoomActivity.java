@@ -104,8 +104,15 @@ public class CreateChatRoomActivity extends BaseBackActivity implements RadioGro
             Utils.openSoftKeyboard(maxTimeEdit);
             return;
         }
+        if (Float.valueOf(price) < 0.1f) {
+            ToastUtil.toast(this, "最少1毛！！！");
+            priceEdit.requestFocus();
+            Utils.openSoftKeyboard(priceEdit);
+            return;
+        }
+        java.text.DecimalFormat df = new java.text.DecimalFormat("#.00");
         RequestParams params = ac.getRequestParams();
-        params.put("price", price);
+        params.put("price", df.format(price));
         params.put("sex", chooseSex);
         params.put("minTime", minTime);
         params.put("maxTime", maxTime);

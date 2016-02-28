@@ -6,7 +6,7 @@ public class URLS {
 //    public static final String URL = "http://" + IP + "/";
 
     //        public static final String IP="172.16.24.209";
-    public static final String IP = "192.168.1.128";
+    public static final String IP = "192.168.1.102";
     public static final String URL = "http://" + IP + ":8080/";
 
     public static final int PORT = 8181;
@@ -65,17 +65,25 @@ public class URLS {
     /**
      * 创建聊天室
      */
-    public static final String CREATE_CHAT_ROOM = URL + "/chat/createroom" + LAST;
+    public static final String CREATE_CHAT_ROOM = URL + "chat/createroom" + LAST;
     /**
      * 获取聊天室列表
      */
-    public static final String GET_CHAT_ROOM_LIST = URL + "/chat/roomlist" + LAST;
+    public static final String GET_CHAT_ROOM_LIST = URL + "chat/roomlist" + LAST;
     /**
      * 购买请求
      */
-    public static final String SEND_CHAT_REQUEST = URL + "/chat/sendchatrequest" + LAST;
+    public static final String SEND_CHAT_REQUEST = URL + "chat/sendchatrequest" + LAST;
     /**
      * 删除聊天室
      */
-    public static final String DELETE_CHAT_ROOM = URL + "/chat/deleteroom" + LAST;
+    public static final String DELETE_CHAT_ROOM = URL + "chat/deleteroom" + LAST;
+    /**
+     * 交易详情列表
+     */
+    public static final String GET_MY_PAY_DETAIL_LIST = URL + "user/paydetaillist" + LAST;
+    /**
+     * 提现
+     */
+    public static final String PAY_TIXIAN = URL + "user/paytixian" + LAST;
 }

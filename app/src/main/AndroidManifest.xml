@@ -146,8 +146,12 @@
             android:name=".pay.MoneyActivity_"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/my_money"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustResize" />
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".pay.PayDetailActivity_"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/pay_detail"
+            android:screenOrientation="portrait" />
 
         <service
             android:name="com.xl.service.PushService_"

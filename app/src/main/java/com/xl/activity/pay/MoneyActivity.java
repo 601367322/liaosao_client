@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -48,6 +49,9 @@ public class MoneyActivity extends BaseBackActivity {
     TextView money;
     @ViewById(R.id.cold_money)
     TextView coldMoney;
+    @ViewById
+    Button zhifubao, tixian, detail;
+
 
     @Override
     protected void init() {
@@ -57,7 +61,7 @@ public class MoneyActivity extends BaseBackActivity {
         updateAccount();
     }
 
-    public void updateAccount(){
+    public void updateAccount() {
         ac.httpClient.post(URLS.GETACCOUNT, ac.getRequestParams(), new JsonHttpResponseHandler(this, getString(R.string.loading)) {
             @Override
             public void onSuccessCode(JSONObject jo) throws Exception {
@@ -69,12 +73,15 @@ public class MoneyActivity extends BaseBackActivity {
     public void refreshAccountUI(Account account) {
         money.setText(account.getCoin() + getString(R.string.coin));
         coldMoney.setText(account.getColdCoin() + getString(R.string.coin));
+        zhifubao.setEnabled(true);
+        detail.setEnabled(true);
+        tixian.setEnabled(true);
     }
 
     @Click(R.id.zhifubao)
     public void chongZhi() {
         if (ac.cs.getZHIFUTIXING() == CommonShared.ON) {
-            new AlertDialog.Builder(this).setTitle("支付提醒").setMessage("由于第三方支付平台Bmob征收5%的手续费，所以充值1元所得结果是0.95烧币。").setPositiveButton("充值", new DialogInterface.OnClickListener() {
+            new AlertDialog.Builder(this).setTitle("支付提醒").setMessage("由于第三方支付平台Bmob征收5%的手续费，所以充值1烧币应支付1.05元").setPositiveButton("充值", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     chosePayType();
@@ -106,25 +113,26 @@ public class MoneyActivity extends BaseBackActivity {
                                 if (TextUtils.isEmpty(moneyStr)) {
                                     return;
                                 } else {
-                                    int time = Integer.valueOf(moneyStr);
-                                    if (time < 1) {
+                                    int money = Integer.valueOf(moneyStr);
+                                    if (money < 1) {
                                         ToastUtil.toast(mContext, "最低1块钱，谢谢");
                                         return;
                                     }
-                                }
-                                new AlertDialog.Builder(mContext).setItems(new String[]{"支付宝支付", "微信支付"}, new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        switch (which) {
-                                            case 0:
-                                                startPay(PayActivity.PayType.ZHIFUBAO, Integer.valueOf(moneyStr));
-                                                break;
-                                            case 1:
-                                                startPay(PayActivity.PayType.WEIXIN, Integer.valueOf(moneyStr));
-                                                break;
+                                    new AlertDialog.Builder(mContext).setItems(new String[]{"支付宝支付", "微信支付"}, new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            float money = Float.valueOf(moneyStr) + Float.valueOf(moneyStr) * 0.05f;
+                                            switch (which) {
+                                                case 0:
+                                                    startPay(Integer.valueOf(moneyStr), PayActivity.PayType.ZHIFUBAO, money);
+                                                    break;
+                                                case 1:
+                                                    startPay(Integer.valueOf(moneyStr), PayActivity.PayType.WEIXIN, money);
+                                                    break;
+                                            }
                                         }
-                                    }
-                                }).create().show();
+                                    }).create().show();
+                                }
                             }
                         }).setNegativeButton("取消", null);
         AlertDialog dialog1 = builder.create();
@@ -132,8 +140,8 @@ public class MoneyActivity extends BaseBackActivity {
         dialog1.show();
     }
 
-    public void startPay(final PayActivity.PayType type, final int money) {
-        BP.pay(this, money + "烧币", MD5.GetMD5Code(ac.deviceId).substring(8, 24), 0.01, type == PayActivity.PayType.ZHIFUBAO ? true : false, new PListener() {
+    public void startPay(final int n, final PayActivity.PayType type, final float money) {
+        BP.pay(this, n + "个烧币", MD5.GetMD5Code(ac.deviceId).substring(8, 24), 0.01, type == PayActivity.PayType.ZHIFUBAO ? true : false, new PListener() {
 
             String orderId = "";
 
@@ -171,11 +179,11 @@ public class MoneyActivity extends BaseBackActivity {
                                         public void onClick(
                                                 DialogInterface dialog,
                                                 int which) {
-                                            startPay(type, money);
+                                            startPay(n, type, money);
                                         }
                                     }).create().show();
                 } else if (code == 10777) {
-                    startPay(type, money);
+                    startPay(n, type, money);
                 } else if (code == 8888) {
                     ToastUtil.toast(mContext, "微信版本太低，或者请手动打开微信，返回再试一遍~");
                 } else if (code == 6001) {
@@ -238,17 +246,14 @@ public class MoneyActivity extends BaseBackActivity {
             @Override
             public void onSuccess(JSONObject jo) {
                 super.onSuccess(jo);
-
                 DBHelper.orderDao.delete(orderId);
             }
 
             @Override
             public void onSuccessCode(JSONObject jo) throws Exception {
                 super.onSuccessCode(jo);
-
                 ToastUtil.toast(mContext, "充值成功");
-
-                updateAccount();
+                refreshAccountUI(Utils.jsonToBean(jo.getString(ResultCode.CONTENT), Account.class));
             }
 
             @Override
@@ -261,5 +266,51 @@ public class MoneyActivity extends BaseBackActivity {
                 sendSuccessPost(n + 1, orderId);
             }
         });
+    }
+
+    @Click(R.id.detail)
+    public void detailClick() {
+        PayDetailActivity_.intent(this).start();
+    }
+
+    @Click(R.id.tixian)
+    public void tixianClick() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MoneyActivity.this);
+        LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_pay_tixian, null);
+        final EditText money = (EditText) view.findViewById(R.id.money);
+        final EditText zhifubao = (EditText) view.findViewById(R.id.zhifubao);
+        builder.setTitle("请填写提现信息").setView(view)
+                .setPositiveButton("提交",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int id) {
+                                final String moneyStr = money.getText().toString();
+                                final String zhifubaoStr = zhifubao.getText().toString();
+                                if (TextUtils.isEmpty(moneyStr) || TextUtils.isEmpty(zhifubaoStr)) {
+                                    return;
+                                } else {
+                                    int money = Integer.valueOf(moneyStr);
+                                    if (money < 100) {
+                                        ToastUtil.toast(mContext, "最低100块钱，谢谢");
+                                        return;
+                                    }
+                                    RequestParams params = ac.getRequestParams();
+                                    params.put("zhifubao", zhifubaoStr);
+                                    params.put("money", money);
+                                    ac.httpClient.post(mContext, URLS.PAY_TIXIAN, params, new JsonHttpResponseHandler(mContext, getString(R.string.loading)) {
+                                        @Override
+                                        public void onSuccessCode(JSONObject jo) throws Exception {
+                                            super.onSuccessCode(jo);
+                                            ToastUtil.toast(mContext, "提交成功,等待审核");
+                                            refreshAccountUI(Utils.jsonToBean(jo.getString(ResultCode.CONTENT), Account.class));
+                                        }
+                                    });
+                                }
+                            }
+                        }).setNegativeButton("取消", null);
+        AlertDialog dialog1 = builder.create();
+        dialog1.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        dialog1.show();
     }
 }

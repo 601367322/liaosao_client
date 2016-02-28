@@ -115,7 +115,7 @@ repositories {
 }
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.google.code.gson:gson:+'//json
+    compile 'com.google.code.gson:gson:2.6.1'//json
     compile "com.android.support:support-v4:$rootProject.ext.SupportVersion"
     compile "com.android.support:appcompat-v7:$rootProject.ext.SupportVersion"
     compile "com.android.support:recyclerview-v7:$rootProject.ext.SupportVersion"

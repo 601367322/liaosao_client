@@ -123,4 +123,5 @@
     <string name="no_money_method">余额不够了。。。咋办？</string>
     <string name="suanle">算了</string>
     <string name="go_chongzhi">充值啊</string>
+    <string name="pay_detail">烧币明细</string>
 </resources>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="16dp"
+    android:paddingLeft="24dp"
+    android:paddingRight="24dp"
+    android:paddingTop="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="请输入支付宝"
+        android:textColor="@color/abc_secondary_text_material_light"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/zhifubao"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="8dp"
+        android:gravity="left"
+        android:hint="支付宝"
+        android:textColor="@color/primary_text_default_material_light"
+        android:textSize="20sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="请输入提现金额"
+        android:textColor="@color/abc_secondary_text_material_light"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/money"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="8dp"
+        android:gravity="left"
+        android:hint="提现金额"
+        android:inputType="number"
+        android:textColor="@color/primary_text_default_material_light"
+        android:textSize="30sp" />
+</LinearLayout>
