@@ -15,7 +15,6 @@ import com.xl.activity.R;
 import com.xl.activity.base.BaseBackActivity;
 import com.xl.bean.VipCoin;
 import com.xl.util.JsonHttpResponseHandler;
-import com.xl.util.MD5;
 import com.xl.util.ResultCode;
 import com.xl.util.ToastUtil;
 import com.xl.util.URLS;
@@ -74,33 +73,13 @@ public class PayActivity extends BaseBackActivity {
     @Click
     public void copy1() {
         if (coin != null)
-            BP.pay(this, coin.getName(), MD5.GetMD5Code(ac.deviceId).substring(8, 24), coin.getPrice(), true, new PListener() {
-                @Override
-                public void orderId(String s) {
-
-                }
-
-                @Override
-                public void succeed() {
-
-                }
-
-                @Override
-                public void fail(int i, String s) {
-
-                }
-
-                @Override
-                public void unknow() {
-
-                }
-            });
+            BP.pay(this, coin.getName(), ac.deviceId, coin.getPrice(), true, new MyPayListener(mContext, PayType.ZHIFUBAO));
     }
 
     @Click
     public void copy2() {
         if (coin != null)
-            BP.pay(this, coin.getName(), MD5.GetMD5Code(ac.deviceId).substring(8, 24), coin.getPrice(), false, new MyPayListener(mContext, PayType.WEIXIN));
+            BP.pay(this, coin.getName(), ac.deviceId, coin.getPrice(), false, new MyPayListener(mContext, PayType.WEIXIN));
     }
 
     public enum PayType {

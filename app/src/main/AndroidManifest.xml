@@ -152,6 +152,11 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/pay_detail"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".job.ChaterRequestActivity_"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/chat_request"
+            android:screenOrientation="portrait" />
 
         <service
             android:name="com.xl.service.PushService_"

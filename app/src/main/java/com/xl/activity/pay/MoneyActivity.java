@@ -21,7 +21,6 @@ import com.xl.bean.Account;
 import com.xl.bean.UnSuccessOrder;
 import com.xl.db.DBHelper;
 import com.xl.util.JsonHttpResponseHandler;
-import com.xl.util.MD5;
 import com.xl.util.ResultCode;
 import com.xl.util.ToastUtil;
 import com.xl.util.URLS;
@@ -141,7 +140,7 @@ public class MoneyActivity extends BaseBackActivity {
     }
 
     public void startPay(final int n, final PayActivity.PayType type, final float money) {
-        BP.pay(this, n + "个烧币", MD5.GetMD5Code(ac.deviceId).substring(8, 24), 0.01, type == PayActivity.PayType.ZHIFUBAO ? true : false, new PListener() {
+        BP.pay(this, n + "个烧币", ac.deviceId, money, type == PayActivity.PayType.ZHIFUBAO ? true : false, new PListener() {
 
             String orderId = "";
 

@@ -90,7 +90,7 @@ public class ChaterListAdapter extends BaseAdapter<ChatRoom> {
                 minMin.setText(bean.getMinTime() + "分钟");
                 maxMin.setText(bean.getMaxTime() + "分钟");
                 age.setText(userBean.getAge() + "岁");
-                radioSex.setText(bean.getSex() == 0 ? "女" : "男");
+                radioSex.setText(bean.getSex() == 1 ? "女" : "男");
 
                 ImageLoader.getInstance().displayImage(userBean.getLogo() + StaticFactory._160x160, userlogo);
 

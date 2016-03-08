@@ -11,7 +11,7 @@ import java.util.List;
 
 public class UserBean implements Serializable {
 
-    public Integer sex;
+    public int sex = 2;
     public String lat;
     public String lng;
     public String province;

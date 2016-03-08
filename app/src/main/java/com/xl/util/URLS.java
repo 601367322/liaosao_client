@@ -6,7 +6,7 @@ public class URLS {
 //    public static final String URL = "http://" + IP + "/";
 
     //        public static final String IP="172.16.24.209";
-    public static final String IP = "192.168.1.102";
+    public static final String IP = "192.168.1.106";
     public static final String URL = "http://" + IP + ":8080/";
 
     public static final int PORT = 8181;
@@ -70,6 +70,10 @@ public class URLS {
      * 获取聊天室列表
      */
     public static final String GET_CHAT_ROOM_LIST = URL + "chat/roomlist" + LAST;
+    /**
+     * 聊天请求列表
+     */
+    public static final String GET_CHAT_REQUEST_LIST = URL + "chat/getchatrequestlist" + LAST;
     /**
      * 购买请求
      */

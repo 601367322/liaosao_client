@@ -19,12 +19,11 @@
             android:textColor="@color/holo_blue_dark"
             android:textSize="14sp" />
 
-        <EditText
+        <com.xl.custom.MoneyEditText
             android:id="@+id/price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="元/分钟"
-            android:inputType="numberDecimal" />
+            android:hint="元/分钟" />
 
         <TextView
             android:layout_width="wrap_content"
