@@ -21,6 +21,7 @@ import com.xl.util.URLS;
 
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 import org.json.JSONObject;
 
@@ -108,47 +109,49 @@ public class PayActivity extends BaseBackActivity {
 
         @Override
         public void fail(int code, String s) {
-            ac.cs.setVipOrder(null);
-            BP.ForceFree();
-            if (code == -3) {
-                new AlertDialog.Builder(mContext)
-                        .setMessage(
-                                "监测到你尚未安装支付插件,无法进行微信支付,请选择安装插件(已打包在本地,无流量消耗)还是用支付宝支付")
-                        .setPositiveButton("安装",
-                                new DialogInterface.OnClickListener() {
-
-                                    @Override
-                                    public void onClick(
-                                            DialogInterface dialog,
-                                            int which) {
-                                        installBmobPayPlugin("bp_wx.db");
-                                    }
-                                })
-                        .setNegativeButton("支付宝支付",
-                                new DialogInterface.OnClickListener() {
-
-                                    @Override
-                                    public void onClick(
-                                            DialogInterface dialog,
-                                            int which) {
-                                        copy1();
-                                    }
-                                }).create().show();
-            } else if (code == 10777) {
-                switch (type) {
-                    case WEIXIN:
-                        copy2();
-                        break;
-                    case ZHIFUBAO:
-                        copy1();
-                        break;
-                }
-            } else if (code == 8888) {
-                ToastUtil.toast(context, "微信版本太低，或者请手动打开微信，返回再试一遍~");
-            } else if (code == 6001) {
+            if (code == 6001) {
                 sendSuccessPost(0);
             } else {
-                ToastUtil.toast(context, "支付失败~");
+                ac.cs.setVipOrder(null);
+                BP.ForceFree();
+                if (code == -3) {
+                    new AlertDialog.Builder(mContext)
+                            .setMessage(
+                                    "监测到你尚未安装支付插件,无法进行微信支付,请选择安装插件(已打包在本地,无流量消耗)还是用支付宝支付")
+                            .setPositiveButton("安装",
+                                    new DialogInterface.OnClickListener() {
+
+                                        @Override
+                                        public void onClick(
+                                                DialogInterface dialog,
+                                                int which) {
+                                            installBmobPayPlugin("bp_wx.db");
+                                        }
+                                    })
+                            .setNegativeButton("支付宝支付",
+                                    new DialogInterface.OnClickListener() {
+
+                                        @Override
+                                        public void onClick(
+                                                DialogInterface dialog,
+                                                int which) {
+                                            copy1();
+                                        }
+                                    }).create().show();
+                } else if (code == 10777) {
+                    switch (type) {
+                        case WEIXIN:
+                            copy2();
+                            break;
+                        case ZHIFUBAO:
+                            copy1();
+                            break;
+                    }
+                } else if (code == 8888) {
+                    ToastUtil.toast(context, "微信版本太低，或者请手动打开微信，返回再试一遍~");
+                } else {
+                    ToastUtil.toast(context, "支付失败~");
+                }
             }
         }
 
@@ -185,10 +188,11 @@ public class PayActivity extends BaseBackActivity {
         }
     }
 
+    @UiThread(delay = 1000l)
     public void sendSuccessPost(final int n) {
         RequestParams params = ac.getRequestParams();
         params.put("orderId", ac.cs.getVipOrder());
-        ac.httpClient.post(URLS.PAY, params, new JsonHttpResponseHandler(mContext, "正在完成充值") {
+        ac.httpClient.post(URLS.PAY, params, new JsonHttpResponseHandler(mContext, getString(R.string.loading)) {
 
             @Override
             public void onSuccess(JSONObject jo) {

@@ -28,6 +28,7 @@ import com.xl.util.Utils;
 
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 import org.json.JSONObject;
 
@@ -226,6 +227,7 @@ public class MoneyActivity extends BaseBackActivity {
         }
     }
 
+    @UiThread(delay = 1000l)
     public void sendSuccessPost(final int n, final String orderId) {
         RequestParams params = ac.getRequestParams();
         params.put("orderId", orderId);

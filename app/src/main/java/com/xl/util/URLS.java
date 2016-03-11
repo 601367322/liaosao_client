@@ -6,7 +6,7 @@ public class URLS {
 //    public static final String URL = "http://" + IP + "/";
 
     //        public static final String IP="172.16.24.209";
-    public static final String IP = "192.168.1.106";
+    public static final String IP = "192.168.1.128";
     public static final String URL = "http://" + IP + ":8080/";
 
     public static final int PORT = 8181;
