@@ -7,7 +7,7 @@ buildscript {
 
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.5.0'
+        classpath 'com.android.tools.build:gradle:2.1.0'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:+'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -17,24 +17,22 @@ buildscript {
 allprojects {
     repositories {
         maven { url 'http://maven.oschina.net/content/groups/public/' }
-        jcenter()
-    }
-}
 
-task wrapper(type: Wrapper) {
-    gradleVersion = "2.6"
+        mavenCentral()
+        mavenLocal()
+    }
 }
 
 
 ext {
-    compileSdkVersion = 22
-    buildToolsVersion = "22.0.1"
+    compileSdkVersion = 23
+    buildToolsVersion = "23.0.3"
     checkReleaseBuilds = false
     abortOnError = false
     targetSdkVersion = 22
     minSdkVersion = 15
-    versionCode = 30
-    versionName = "3.0"
-    SupportVersion = '22.2.0'
+    versionCode = 29
+    versionName = "2.9"
+    SupportVersion = '23.3.0'
 }
 

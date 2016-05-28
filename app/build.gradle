@@ -7,7 +7,7 @@ def releaseTime() {
 }
 
 android {
-//    useLibrary 'org.apache.http.legacy'
+    useLibrary 'org.apache.http.legacy'
 
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
@@ -20,7 +20,7 @@ android {
         versionName rootProject.ext.versionName
 
 
-//        multiDexEnabled true
+        multiDexEnabled true
 
         // 默认是umeng的渠道
         manifestPlaceholders = [UMENG_CHANNEL_VALUE: "umeng"]
@@ -39,7 +39,7 @@ android {
         }
     }
 
-   /*productFlavors {
+   productFlavors {
 
         xiaomi {}
         _360 {}
@@ -52,7 +52,7 @@ android {
 
     productFlavors.all {
         flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
-    }*/
+    }
 
     buildTypes {
 
@@ -77,7 +77,7 @@ android {
 
             signingConfig signingConfigs.release
 
-            /*applicationVariants.all { variant ->
+            applicationVariants.all { variant ->
                 variant.outputs.each { output ->
                     def outputFile = output.outputFile
                     if (outputFile != null && outputFile.name.endsWith('.apk')) {
@@ -86,7 +86,7 @@ android {
                         output.outputFile = new File(outputFile.parent, fileName)
                     }
                 }
-            }*/
+            }
         }
     }
 
@@ -124,9 +124,9 @@ dependencies {
         exclude module: 'support-v4'
         exclude module: 'appcompat-v7'
     }
-    apt "org.androidannotations:androidannotations:3.3.2"//注解
-    compile "org.androidannotations:androidannotations-api:3.3.2"//注解
-    compile "com.jakewharton:butterknife:7.0.0"//注解
+    apt "org.androidannotations:androidannotations:4.0-SNAPSHOT"//注解
+    compile "org.androidannotations:androidannotations-api:4.0-SNAPSHOT"//注解
+    compile "com.jakewharton:butterknife:7.0.1"//注解
     compile 'com.github.johnpersano:supertoasts:+@aar'//SuperToast
     compile 'de.greenrobot:eventbus:2.4.0'//eventbus
     compile 'com.loopj.android:android-async-http:1.4.7'
@@ -141,15 +141,14 @@ dependencies {
     compile project(':lib-gif')
 //    compile project(':lib-camera-video')
     compile project(':lib-bmobpay')
-//    compile project(':lib-qupai')
+    compile project(':lib-qupai')
 //    compile project(':lib-asynchttp')
 }
 
 apt {
     arguments {
-        androidManifestFile variant.outputs[0].processResources.manifestFile
-        resourcePackageName "com.xl.activity"
+        androidManifestFile variant.outputs[0]?.processResources?.manifestFile
 
-        library 'true'
+        resourcePackageName "com.xl.activity"
     }
 }

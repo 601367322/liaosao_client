@@ -140,8 +140,8 @@ public class MoneyActivity extends BaseBackActivity {
         dialog1.show();
     }
 
-    public void startPay(final int n, final PayActivity.PayType type, final float money) {
-        BP.pay(this, n + "个烧币", ac.deviceId, money, type == PayActivity.PayType.ZHIFUBAO ? true : false, new PListener() {
+    public void startPay(final int n, final PayActivity.PayType type, final double money) {
+        BP.pay( n + "个烧币", ac.deviceId, money, type == PayActivity.PayType.ZHIFUBAO ? true : false, new PListener() {
 
             String orderId = "";
 

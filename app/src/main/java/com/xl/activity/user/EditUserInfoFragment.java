@@ -58,8 +58,8 @@ import java.util.Date;
 @EFragment
 public class EditUserInfoFragment extends PreferenceFragment implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
-    Preference avatar, album, gender, age, area, coin;
-    EditTextPreference nickname, desc, zhifubao;
+    Preference avatar, album, gender, age, area;//, coin;
+    EditTextPreference nickname, desc;//, zhifubao;
     @App
     AppClass ac;
 
@@ -76,12 +76,12 @@ public class EditUserInfoFragment extends PreferenceFragment implements Preferen
         age = findPreference(getString(R.string.preference_user_age));
         area = findPreference(getString(R.string.preference_user_area));
         desc = (EditTextPreference) findPreference(getString(R.string.preference_user_description));
-        coin = findPreference(getString(R.string.preference_user_coin));
-        zhifubao = (EditTextPreference) findPreference(getString(R.string.preference_user_zhifubao));
+//        coin = findPreference(getString(R.string.preference_user_coin));
+//        zhifubao = (EditTextPreference) findPreference(getString(R.string.preference_user_zhifubao));
 
         nickname.setOnPreferenceChangeListener(this);
         desc.setOnPreferenceChangeListener(this);
-        zhifubao.setOnPreferenceChangeListener(this);
+//        zhifubao.setOnPreferenceChangeListener(this);
         avatar.setOnPreferenceClickListener(this);
         age.setOnPreferenceClickListener(this);
 
@@ -123,9 +123,9 @@ public class EditUserInfoFragment extends PreferenceFragment implements Preferen
     }
 
     public void refreshAccountUI(Account account) {
-        zhifubao.setSummary(account.getZhifubao());
-        zhifubao.setText(account.zhifubao);
-        coin.setSummary("￥" + String.valueOf(account.getCoin()));
+//        zhifubao.setSummary(account.getZhifubao());
+//        zhifubao.setText(account.zhifubao);
+//        coin.setSummary("￥" + String.valueOf(account.getCoin()));
     }
 
     @Override

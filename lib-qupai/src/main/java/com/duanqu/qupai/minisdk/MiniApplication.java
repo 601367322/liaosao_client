@@ -81,7 +81,7 @@ public class MiniApplication {
         _CreateInfo.setOutputVideoPath(videoPath);//输出视频路径
         _CreateInfo.setOutputThumbnailPath(videoPath + "_thumb");//输出图片路径*/
 
-        initAuth(context,"","",Contant.space);
+        initAuth(context.getApplicationContext(),"","",Contant.space);
         /**
          * 压缩参数，可以自由调节
          */
