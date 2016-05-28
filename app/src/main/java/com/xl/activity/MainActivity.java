@@ -22,6 +22,7 @@ import com.loopj.android.http.RequestParams;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.umeng.fb.FeedbackAgent;
 import com.umeng.onlineconfig.OnlineConfigAgent;
+import com.umeng.update.UmengUpdateAgent;
 import com.xl.activity.base.BaseActivity;
 import com.xl.activity.chat.ChatListActivity_;
 import com.xl.activity.girl.GirlChatActivity_;
@@ -167,6 +168,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         final ActionBar ab = getSupportActionBar();
         ab.setHomeAsUpIndicator(R.drawable.ic_navigation_menu);
         ab.setDisplayHomeAsUpEnabled(true);
+
+        UmengUpdateAgent.update(this);
+        UmengUpdateAgent.setUpdateListener(null);
 
         setupDrawerContent(mNavigationView);
 
