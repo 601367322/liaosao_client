@@ -196,7 +196,6 @@ public abstract class AsyncHttpResponseHandler implements ResponseHandlerInterfa
             // Create a handler on current thread to submit tasks
             handler = new ResponderHandler(this, looper);
         } else if (sync && handler != null) {
-            // TODO: Consider adding a flag to remove all queued messages.
             handler = null;
         }
 

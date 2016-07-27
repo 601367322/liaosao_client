@@ -98,7 +98,6 @@ public class CView extends SurfaceView implements SurfaceHolder.Callback {
                         c.drawPath(path, paintQ);
                     }
                 } catch (Exception e) {
-                    // TODO: handle exception
                     e.printStackTrace();
                 } finally {
                     if (c != null) {

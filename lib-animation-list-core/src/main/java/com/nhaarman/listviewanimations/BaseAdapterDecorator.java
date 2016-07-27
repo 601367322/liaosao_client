@@ -166,7 +166,6 @@ public abstract class BaseAdapterDecorator extends BaseAdapter implements Sectio
         if (!(mDecoratedBaseAdapter instanceof ArrayAdapter<?>)) {
             // fix #35 dirty trick !
             // leads to an infinite loop when trying because ArrayAdapter triggers notifyDataSetChanged itself
-            // TODO: investigate
             mDecoratedBaseAdapter.notifyDataSetChanged();
         }
     }
@@ -178,7 +177,6 @@ public abstract class BaseAdapterDecorator extends BaseAdapter implements Sectio
     public void notifyDataSetChanged(final boolean force) {
         if (force || !(mDecoratedBaseAdapter instanceof ArrayAdapter<?>)) {
             // leads to an infinite loop when trying because ArrayAdapter triggers notifyDataSetChanged itself
-            // TODO: investigate
             mDecoratedBaseAdapter.notifyDataSetChanged();
         }
     }

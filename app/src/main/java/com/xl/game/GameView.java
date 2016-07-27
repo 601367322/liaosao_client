@@ -169,7 +169,6 @@ public class GameView extends FrameLayout implements OnTouchListener {
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        // TODO Auto-generated method stub
         super.onSizeChanged(w, h, oldw, oldh);
 
         cardWidth = (Math.min(w, h) - COLUMSPACE) / MAX_COLUM;

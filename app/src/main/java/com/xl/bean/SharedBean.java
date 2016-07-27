@@ -1,8 +1,5 @@
 package com.xl.bean;
 
-import java.io.Serializable;
-import java.sql.SQLException;
-
 import android.content.Context;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
@@ -10,6 +7,9 @@ import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import com.xl.db.DBHelper;
+
+import java.io.Serializable;
+import java.sql.SQLException;
 
 @DatabaseTable(tableName = "shared_table")
 public class SharedBean implements Serializable {
@@ -19,7 +19,6 @@ public class SharedBean implements Serializable {
 
 	public SharedBean() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	@DatabaseField(dataType = DataType.SERIALIZABLE)

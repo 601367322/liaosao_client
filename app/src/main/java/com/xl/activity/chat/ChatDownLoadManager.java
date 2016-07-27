@@ -93,7 +93,6 @@ public class ChatDownLoadManager {
         @Override
         public void onFailure(int statusCode, Header[] headers,
                               Throwable throwable, File file) {
-            // TODO Auto-generated method stub
             msg.setLoading(MessageBean.LOADING_DOWNLOADFAIL);
             messageDao.update(msg);
             sendBoradcast(msg);

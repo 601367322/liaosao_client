@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import pl.droidsonroids.gif.GifDrawable;
 
 /**
- * TODO: document your custom view class.
  */
 public class MyImageView extends ImageView {
 

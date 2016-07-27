@@ -84,7 +84,6 @@ public class Slider extends CustomView {
 		addView(ball);
 
 		// Set if slider content number indicator
-		// TODO
 		if (showNumberIndicator) {
 			numberIndicator = new NumberIndicator(getContext());
 		}

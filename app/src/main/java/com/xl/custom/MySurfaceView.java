@@ -31,7 +31,6 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
 
     public MySurfaceView(Context context) {
         super(context);
-        // TODO Auto-generated constructor stub
         sfh = getHolder();
         sfh.addCallback(this);
 
@@ -46,13 +45,11 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width,
                                int height) {
-        // TODO Auto-generated method stub
 
     }
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
-        // TODO Auto-generated method stub
         paint = new Paint();
         paint.setAntiAlias(true);
         th = new Thread(this);
@@ -61,7 +58,6 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
     }
 
     private void myDraw() {
-        // TODO Auto-generated method stub
         canvas = sfh.lockCanvas();
         canvas.drawColor(Color.BLACK);
         drawQpath(canvas);
@@ -80,7 +76,6 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
     //响应触摸屏事件，通过手指的位置取得两个重要的点，起始点，和终止点
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        // TODO Auto-generated method stub
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             startX = (int) event.getX();
             startY = (int) event.getY();
@@ -105,14 +100,13 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
-        // TODO Auto-generated method stub
         flag = false;
     }
 
     //线程run，刷屏得到贝塞尔曲线
     @Override
     public void run() {
-        // TODO Auto-generated method stub
+
         while (flag) {
             long startTime = System.currentTimeMillis();
             myDraw();
@@ -122,7 +116,6 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
                 try {
                     Thread.currentThread().sleep(50 - (endTime - startTime));
                 } catch (InterruptedException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             }

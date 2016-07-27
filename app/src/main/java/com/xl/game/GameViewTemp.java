@@ -265,7 +265,6 @@ public class GameView extends FrameLayout implements OnTouchListener {
 
 	@Override
 	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-		// TODO Auto-generated method stub
 		super.onSizeChanged(w, h, oldw, oldh);
 
 		cardWidth = (Math.min(w, h) - 10) / 4;
@@ -383,7 +382,6 @@ public class GameView extends FrameLayout implements OnTouchListener {
 
 		public NumClass() {
 			super();
-			// TODO Auto-generated constructor stub
 		}
 	}
 
@@ -393,7 +391,6 @@ public class GameView extends FrameLayout implements OnTouchListener {
 
 		public MoveCard() {
 			super();
-			// TODO Auto-generated constructor stub
 		}
 
 		public MoveCard(Card card, int num) {

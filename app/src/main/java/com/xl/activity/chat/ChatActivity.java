@@ -812,7 +812,6 @@ public class ChatActivity extends BaseBackActivity implements
 
     @Override
     public void onResume() {
-        // TODO Auto-generated method stub
         super.onResume();
         if (audioManager == null) {
             audioManager = (AudioManager) this

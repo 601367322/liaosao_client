@@ -113,7 +113,6 @@ public class MessageBean implements Serializable {
 
     public MessageBean() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
     public MessageBean(String fromId, String toId, String content, int msgType, int sex) {

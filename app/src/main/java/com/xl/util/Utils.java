@@ -288,7 +288,6 @@ public class Utils {
             return RoundOf(String.valueOf(Double.valueOf(distance) / 1000))
                     + "km";
         } catch (NumberFormatException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return "";

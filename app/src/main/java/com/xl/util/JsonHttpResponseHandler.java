@@ -18,7 +18,6 @@ public class JsonHttpResponseHandler extends
 
     @Override
     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-        // TODO Auto-generated method stub
         onSuccess(response);
     }
 
@@ -84,7 +83,6 @@ public class JsonHttpResponseHandler extends
     @Override
     public void onFailure(int statusCode, Header[] headers,
                           String responseString, Throwable throwable) {
-        // TODO Auto-generated method stub
         onFailure();
     }
 
