@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
+import android.support.multidex.MultiDex;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.loopj.android.http.AsyncHttpClient;
@@ -39,7 +40,7 @@ public class AppClass extends Application {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
-//        MultiDex.install(this);
+        MultiDex.install(this);
     }
 
     public void onCreate() {

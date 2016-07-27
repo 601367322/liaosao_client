@@ -11,7 +11,7 @@ package com.xl.pull;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
-import android.support.v7.internal.widget.ListViewCompat;
+import android.support.v7.widget.ListViewCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;

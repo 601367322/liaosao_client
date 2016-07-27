@@ -17,3 +17,10 @@
 #}
 -keep class !android.support.v7.internal.view.menu.**,android.support.v7.** {*;}
 -keep class android.support.v7.** {*;}
+
+-keep class c.b.BP
+-keep class c.b.PListener
+-keep class c.b.QListener
+-keepclasseswithmembers class c.b.BP{ *; }
+-keepclasseswithmembers class * implements c.b.PListener{ *; }
+-keepclasseswithmembers class * implements c.b.QListener{ *; }

@@ -39,7 +39,9 @@
             android:title="@string/desc" />
     </PreferenceCategory>
 
-    <PreferenceCategory android:layout="@layout/preference_category_widget">
+<!--
+    <PreferenceCategory
+        android:layout="@layout/preference_category_widget">
         <PreferenceScreen
             android:key="@string/preference_user_coin"
             android:layout="@layout/preference_item_vertical"
@@ -55,5 +57,6 @@
             android:layout="@layout/preference_item_horizontal"
             android:title="@string/zhifubao" />
     </PreferenceCategory>
+-->
 
 </PreferenceScreen>

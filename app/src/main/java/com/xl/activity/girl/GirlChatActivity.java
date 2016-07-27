@@ -301,6 +301,6 @@ public class GirlChatActivity extends BaseBackActivity implements
 
     @Click
     public void radio_btn() {
-        VideoUtil.startRecordActivity(mContext);
+        VideoUtil.startRecordActivity(GirlChatActivity.this);
     }
 }

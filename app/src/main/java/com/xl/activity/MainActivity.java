@@ -227,10 +227,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         girl_god = navigationView.getMenu().findItem(R.id.girl_god);
         message_history = navigationView.getMenu().findItem(R.id.message_history);
 
-        vip_text = (TextView) drawer_layout.findViewById(R.id.vip_text);
-        sex_text = (TextView) drawer_layout.findViewById(R.id.sex_text);
-        nickname_text = (TextView) drawer_layout.findViewById(R.id.nickname);
-        userlogo = (ImageView) drawer_layout.findViewById(R.id.logo);
+        vip_text = (TextView) navigationView.getHeaderView(0).findViewById(R.id.vip_text);
+        sex_text = (TextView) navigationView.getHeaderView(0).findViewById(R.id.sex_text);
+        nickname_text = (TextView) navigationView.getHeaderView(0).findViewById(R.id.nickname);
+        userlogo = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.logo);
         nickname_text.setOnClickListener(this);
         userlogo.setOnClickListener(this);
 
@@ -240,7 +240,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
                     @Override
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        menuItem.setChecked(true);
+//                        menuItem.setChecked(false);
                         drawer_layout.closeDrawers();
                         switch (menuItem.getItemId()) {
                             case R.id.message_history:

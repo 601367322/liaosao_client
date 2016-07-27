@@ -1,7 +1,9 @@
 package com.xl.util;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
+
+import com.duanqu.qupai.minisdk.MiniApplication;
 
 import java.io.File;
 
@@ -12,14 +14,14 @@ public class VideoUtil {
 
     public static File[] onActivityResult(int requestCode, int result, Intent data) {
         try {
-//            return MiniApplication.onActivityResult(requestCode, result, data);
+            return MiniApplication.onActivityResult(requestCode, result, data);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    public static void startRecordActivity(Context context) {
-//        MiniApplication.getInstance(context).startRecordActivity(context);
+    public static void startRecordActivity(Activity context) {
+        MiniApplication.getInstance(context).startRecordActivity(context);
     }
 }

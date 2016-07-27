@@ -74,13 +74,13 @@ public class PayActivity extends BaseBackActivity {
     @Click
     public void copy1() {
         if (coin != null)
-            BP.pay(this, coin.getName(), ac.deviceId, coin.getPrice(), true, new MyPayListener(mContext, PayType.ZHIFUBAO));
+            BP.pay(coin.getName(), ac.deviceId, coin.getPrice(), true, new MyPayListener(mContext, PayType.ZHIFUBAO));
     }
 
     @Click
     public void copy2() {
         if (coin != null)
-            BP.pay(this, coin.getName(), ac.deviceId, coin.getPrice(), false, new MyPayListener(mContext, PayType.WEIXIN));
+            BP.pay(coin.getName(), ac.deviceId, coin.getPrice(), false, new MyPayListener(mContext, PayType.WEIXIN));
     }
 
     public enum PayType {
@@ -125,7 +125,7 @@ public class PayActivity extends BaseBackActivity {
                                         public void onClick(
                                                 DialogInterface dialog,
                                                 int which) {
-                                            installBmobPayPlugin("bp_wx.db");
+                                            installBmobPayPlugin("bp.db");
                                         }
                                     })
                             .setNegativeButton("支付宝支付",
@@ -147,6 +147,8 @@ public class PayActivity extends BaseBackActivity {
                             copy1();
                             break;
                     }
+                } else if (code == 7777) {
+                    ToastUtil.toast(context, "请安装微信");
                 } else if (code == 8888) {
                     ToastUtil.toast(context, "微信版本太低，或者请手动打开微信，返回再试一遍~");
                 } else {

@@ -886,7 +886,7 @@ public class ChatActivity extends BaseBackActivity implements
         closeMore(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
-                VideoUtil.startRecordActivity(mContext);
+                VideoUtil.startRecordActivity(ChatActivity.this);
             }
         });
 
