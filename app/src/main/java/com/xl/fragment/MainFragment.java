@@ -11,7 +11,6 @@ import android.widget.RelativeLayout;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.loopj.android.http.RequestParams;
-import com.umeng.onlineconfig.OnlineConfigAgent;
 import com.xl.activity.BuildConfig;
 import com.xl.activity.R;
 import com.xl.activity.base.BaseFragment;
@@ -30,9 +29,6 @@ import com.xl.util.ResultCode;
 import com.xl.util.StaticUtil;
 import com.xl.util.URLS;
 import com.xl.util.Utils;
-
-import net.google.niofile.br.AdSize;
-import net.google.niofile.br.AdView;
 
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
@@ -115,13 +111,6 @@ public class MainFragment extends BaseFragment {
             }
         });
 
-        if (OnlineConfigAgent.getInstance().getInstance().getConfigParams(getActivity(), "ad_show").equals("on")) {
-            AdView adView = new AdView(getActivity(), AdSize.FIT_SCREEN);
-//            View banner = DynamicSdkManager.getInstance(ac).getBanner(getActivity());
-            if (adView != null) {
-                mAdContainer.addView(adView);
-            }
-        }
     }
 
 

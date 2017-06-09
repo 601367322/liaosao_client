@@ -150,7 +150,6 @@ public class PinTuActivity extends BaseBackActivity implements MyPinTuImageView.
         origin_img.setScaleX(0f);
         origin_img.setScaleY(0f);
 
-        showScreenAd();
     }
 
     @Override

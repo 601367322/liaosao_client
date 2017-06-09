@@ -12,7 +12,7 @@ import com.xl.bean.ChatListBean;
 import com.xl.bean.UserBean;
 import com.xl.util.Utils;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 /**
  * Created by sbb on 2015/5/6.
@@ -36,13 +36,13 @@ public class ChatListAdapters extends BaseAdapter<ChatListBean> {
 
     class ViewHolder extends BaseHolder{
 
-        @Bind(R.id.text)
+        @BindView(R.id.text)
         TextView text;
-        @Bind(R.id.messagecount)
+        @BindView(R.id.messagecount)
         TextView messageCount;
-        @Bind(R.id.nickname)
+        @BindView(R.id.nickname)
         TextView nickname;
-        @Bind(R.id.userlogo)
+        @BindView(R.id.userlogo)
         ImageView userlogo;
 
         public ViewHolder(View view) {

@@ -80,7 +80,6 @@ import com.xl.util.URLS;
 import com.xl.util.Utils;
 import com.xl.util.VideoUtil;
 
-import net.google.niofile.st.SpotManager;
 
 import org.androidannotations.annotations.AfterTextChange;
 import org.androidannotations.annotations.Background;
@@ -96,6 +95,8 @@ import org.androidannotations.annotations.SystemService;
 import org.androidannotations.annotations.Touch;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -105,7 +106,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import de.greenrobot.event.EventBus;
 
 @OptionsMenu(R.menu.chat_menu)
 @EActivity(R.layout.chat_activity)
@@ -205,9 +205,6 @@ public class ChatActivity extends BaseBackActivity implements
 
         //发送成功失败监听
         EventBus.getDefault().register(this);
-
-        //弹出广告
-        showScreenAd();
 
         //下拉刷新
         swipe.setOnRefreshListener(this);
@@ -327,6 +324,7 @@ public class ChatActivity extends BaseBackActivity implements
         }
     }
 
+    @Subscribe
     public void onEvent(final MessageBean mb) {
         if (!mb.getToId().equals(ac.deviceId)) {
             new AlertDialog.Builder(ChatActivity.this).setIcon(R.drawable.beiju).setTitle(getString(R.string.beijua)).setMessage(getString(R.string.resend_message)).setPositiveButton(getString(R.string.resend_btn), new DialogInterface.OnClickListener() {
@@ -548,10 +546,6 @@ public class ChatActivity extends BaseBackActivity implements
     @Override
     public void onBackPressed() {
         // 如果有需要，可以点击后退关闭插播广告。
-        if (SpotManager.getInstance(getApplicationContext()).disMiss()) {
-            // 弹出退出窗口，可以使用自定义退屏弹出和回退动画,参照demo,若不使用动画，传入-1
-            return;
-        }
         if (!closeGridView())
             showFinshDialog();
     }

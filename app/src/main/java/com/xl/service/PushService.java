@@ -50,7 +50,6 @@ public class PushService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        LogUtil.d(intent.getAction());
         if (intent != null) {
             if (intent.getAction().equals(ACTION_STOP) == true) {
                 stop();
@@ -252,11 +251,8 @@ public class PushService extends Service {
     }
 
     private synchronized void keepAlive() {
-        try {
-            if (mStarted == true && mConnection != null)
-                mConnection.sendKeepAlive();
-        } catch (IOException e) {
-        }
+        if (mStarted == true && mConnection != null)
+            mConnection.sendKeepAlive();
     }
 
     private void startKeepAlives() {
@@ -438,10 +434,19 @@ public class PushService extends Service {
             }
         }
 
-        public void sendKeepAlive() throws IOException {
-            Socket s = mSocket;
-            s.getOutputStream().write((HEARTBEATREQUEST + "\n").getBytes());
-            LogUtil.d("Keep-alive sent.");
+        public void sendKeepAlive() {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Socket s = mSocket;
+                        s.getOutputStream().write((HEARTBEATREQUEST + "\n").getBytes());
+                        LogUtil.d("Keep-alive sent.");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
         }
 
         public void abort() {

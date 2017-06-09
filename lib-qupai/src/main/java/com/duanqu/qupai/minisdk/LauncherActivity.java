@@ -117,10 +117,7 @@ public class LauncherActivity extends Activity {
         //美颜参数:1-100.这里不设指定为80,这个值只在第一次设置，之后在录制界面滑动美颜参数之后系统会记住上一次滑动的状态
         beautySkinProgress = Integer.valueOf(TextUtils.isEmpty(beauty_skin_progress.getText()) ? "80" : beauty_skin_progress.getText().toString());
 
-        */
-/**
-         * 压缩参数，可以自由调节
-         *//*
+
 
         MovieExportOptions movie_options = new MovieExportOptions.Builder()
                 .setVideoProfile("high")
@@ -131,10 +128,6 @@ public class LauncherActivity extends Activity {
                 .configureMuxer(Contant.DEFAULT_VIDEO_MOV_FLAGS_KEY, Contant.DEFAULT_VIDEO_MOV_FLAGS_VALUE)
                 .build();
 
-        */
-/**
-         * 界面参数
-         *//*
 
         VideoSessionCreateInfo create_info = new VideoSessionCreateInfo.Builder()
                 .setOutputDurationLimit(TextUtils.isEmpty(edit_max_time.getText()) ? Contant.DEFAULT_DURATION_MAX_LIMIT : Integer.valueOf(edit_max_time.getText().toString()))
@@ -187,14 +180,7 @@ public class LauncherActivity extends Activity {
 
     private String videoPath;
 
-    */
-/**
-     * 开始鉴权。我们建议只鉴权一次 在application里面做。保存accessToken
-     * @param context
-     * @param appKey 应用app key
-     * @param appsecret 应用 app secret
-     * @param space 存储空间名 最长32位 SDK需提供生成策略
-     *//*
+
 
     private void startAuth(Context context,String appKey, String appsecret,String space) {
         AuthService service = AuthService.getInstance();
@@ -213,20 +199,7 @@ public class LauncherActivity extends Activity {
     }
 
 
-    */
-/**
-     * 创建一个上传任务
-     * @param context
-     * @param uuid        随机生成的UUID
-     * @param _VideoFile  完整视频文件
-     * @param _Thumbnail  缩略图
-     * @param accessToken 通过调用鉴权得到token
-     * @param space        开发者生成的Quid，必须要和token保持一致
-     * @param share       是否公开 0公开分享 1私有(default) 公开类视频不需要AccessToken授权
-     * @param tags        标签 多个标签用 "," 分隔符
-     * @param description 视频描述
-     * @return
-     *//*
+
 
     private QupaiUploadTask createUploadTask(Context context, String uuid, File _VideoFile, File _Thumbnail, String accessToken,
                                              String space, int share, String tags, String description) {
@@ -235,10 +208,6 @@ public class LauncherActivity extends Activity {
                 accessToken, space, share, tags, description);
     }
 
-    */
-/**
-     * 开始上传
-     *//*
 
     private void startUpload() {
         progress.setVisibility(View.VISIBLE);
@@ -274,11 +243,6 @@ public class LauncherActivity extends Activity {
                 Contant.accessToken, Contant.space, Contant.shareType, Contant.tags, Contant.description));
     }
 
-    */
-/**
-     * 开始上传
-     * @param data 上传任务的task
-     *//*
 
     private void startUpload(QupaiUploadTask data) {
         try {

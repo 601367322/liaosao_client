@@ -1,7 +1,9 @@
-apply plugin: 'android-library'
+apply plugin: 'com.android.library'
 
 dependencies {
-    compile "com.android.support:support-v4:$rootProject.ext.SupportVersion"
+    def dependencies = rootProject.ext.dependencies
+
+    compile dependencies.v4
 }
 
 android {

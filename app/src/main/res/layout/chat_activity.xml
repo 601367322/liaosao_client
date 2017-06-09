@@ -105,13 +105,6 @@
                     android:scaleType="centerInside"
                     android:src="@drawable/mic_selector"/>
 
-                <ImageButton
-                    android:id="@+id/radio_btn"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@null"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/ic_av_videocam"/>
 
                 <ImageButton
                     android:id="@+id/image_btn"

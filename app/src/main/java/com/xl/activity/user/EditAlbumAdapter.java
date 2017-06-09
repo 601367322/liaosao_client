@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 /**
  * Created by Shen on 2015/12/13.
@@ -46,9 +46,9 @@ public class EditAlbumAdapter extends BaseAdapter<ImageBean> {
 
     class ViewHolder extends BaseHolder {
 
-        @Bind(R.id.img)
+        @BindView(R.id.img)
         ImageView img;
-        @Bind(R.id.photo_select)
+        @BindView(R.id.photo_select)
         CheckBox checkBox;
 
         public ViewHolder(View view) {

@@ -7,10 +7,6 @@
         android:title="@string/message_history" />
 
     <item
-        android:id="@+id/girl_god"
-        android:icon="@drawable/ic_action_action_face_unlock"
-        android:title="@string/girl_god" />
-    <item
         android:id="@+id/pay"
         android:icon="@drawable/ic_action_maps_local_atm"
         android:title="会员充值" />

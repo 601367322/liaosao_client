@@ -12,7 +12,8 @@ import com.xl.activity.base.BaseAdapter;
 import com.xl.bean.PhotoAibum;
 import com.xl.util.StaticUtil;
 
-import butterknife.Bind;
+import butterknife.BindView;
+
 
 public class PhotoAibumListAdapter extends BaseAdapter<PhotoAibum> {
 
@@ -36,9 +37,9 @@ public class PhotoAibumListAdapter extends BaseAdapter<PhotoAibum> {
 
 
     class ViewHolder extends BaseHolder{
-        @Bind(R.id.photoalbum_item_image)
+        @BindView(R.id.photoalbum_item_image)
         ImageView iv;
-        @Bind(R.id.photoalbum_item_name)
+        @BindView(R.id.photoalbum_item_name)
         TextView tv;
 
         public ViewHolder(View view) {

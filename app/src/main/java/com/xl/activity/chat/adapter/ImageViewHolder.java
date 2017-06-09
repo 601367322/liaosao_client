@@ -15,8 +15,9 @@ import com.xl.util.URLS;
 
 import java.io.File;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
+import butterknife.Optional;
 
 /**
  * Created by Shen on 2015/9/13.
@@ -24,7 +25,7 @@ import butterknife.OnClick;
 public class ImageViewHolder extends FileBaseHolder {
 
     @Nullable
-    @Bind(R.id.img)
+    @BindView(R.id.img)
     PorterShapeImageView img;
 
     private DisplayImageOptions options_default = new DisplayImageOptions.Builder().showImageForEmptyUri(R.drawable.aio_image_default)
@@ -62,7 +63,7 @@ public class ImageViewHolder extends FileBaseHolder {
         img.setTag(StaticUtil.FILE + bean.getContent());
     }
 
-    @Nullable
+    @Optional
     @OnClick(R.id.img)
     public void imgClick(View v){
         ImageViewActivity_.intent(context).imageUrl(v.getTag().toString()).start();

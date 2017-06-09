@@ -11,12 +11,12 @@ import com.xl.util.StaticFactory;
 import com.xl.util.Utils;
 
 import org.apache.http.Header;
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.greenrobot.event.EventBus;
 
 /**
  * Created by Shen on 2015/9/17.

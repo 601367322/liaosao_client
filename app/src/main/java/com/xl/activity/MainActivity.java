@@ -1,5 +1,6 @@
 package com.xl.activity;
 
+import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.AudioFormat;
@@ -17,21 +18,19 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.github.johnpersano.supertoasts.SuperToast;
+import com.alibaba.sdk.android.feedback.impl.FeedbackAPI;
+import com.github.johnpersano.supertoasts.library.Style;
 import com.loopj.android.http.RequestParams;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.umeng.fb.FeedbackAgent;
 import com.umeng.onlineconfig.OnlineConfigAgent;
-import com.umeng.update.UmengUpdateAgent;
 import com.xl.activity.base.BaseActivity;
 import com.xl.activity.chat.ChatListActivity_;
-import com.xl.activity.girl.GirlChatActivity_;
 import com.xl.activity.pay.PayActivity_;
+import com.xl.activity.setting.FeedBackActivity_;
 import com.xl.activity.setting.HelpActivity_;
 import com.xl.activity.setting.SettingActivity_;
 import com.xl.activity.share.CommonShared;
 import com.xl.activity.user.EditUserInfoActivity_;
-import com.xl.application.AppClass;
 import com.xl.bean.UnSuccessOrder;
 import com.xl.bean.UserTable;
 import com.xl.db.ChatDao;
@@ -50,8 +49,6 @@ import com.xl.util.ToastUtil;
 import com.xl.util.URLS;
 import com.xl.util.Utils;
 
-import net.google.niofile.AdManager;
-
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.OptionsItem;
@@ -62,9 +59,13 @@ import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 import org.json.JSONObject;
 
+import java.util.List;
+
+import pub.devrel.easypermissions.EasyPermissions;
+
 @EActivity(R.layout.activity_main)
 @OptionsMenu(R.menu.main)
-public class MainActivity extends BaseActivity implements View.OnClickListener {
+public class MainActivity extends BaseActivity implements View.OnClickListener, EasyPermissions.PermissionCallbacks {
 
     @ViewById(R.id.navigation_drawer)
     public NavigationView mNavigationView;
@@ -90,29 +91,33 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        /*try {
-            DynamicSdkManager.onCreate(this);
-        } catch (Throwable e) {
-            e.printStackTrace();
-        }
-
-        // 设置开发者信息(appid, appsecret, 是否开启测试模式)
-        CommonManager.getInstance(getApplicationContext()).init("f8e79d512282c364",
-                "1b6279c5f1aa4dde", false);
-
-        // 根据 AndroidManifest.xml 文件中的设置进行插屏及其他无积分类型广告的预加载
-        DynamicSdkManager.getInstance(getApplicationContext()).initNormalAd();*/
-
-        AdManager.getInstance(this).init("f8e79d512282c364", "1b6279c5f1aa4dde", false);
-
         OnlineConfigAgent.getInstance().updateOnlineConfig(this);
 
         chatDao = ChatDao.getInstance(this);
         userTableDao = UserTableDao.getInstance(this);
 
-//        BmobPay.init(getApplicationContext(), "2c9f0c5fbeb32f1b1bce828d29514f5d");
+        FeedbackAPI.init(getApplication(), "23239015");
 
         testRecoding();//获取录音请求
+    }
+
+    private void checkPermission() {
+        String[] perms = {
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.RECORD_AUDIO,
+                Manifest.permission.CAMERA,
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.READ_PHONE_STATE
+        };
+        if (EasyPermissions.hasPermissions(this, perms)) {
+            lazyInit();
+        } else {
+            EasyPermissions.requestPermissions(this, "拍照需要摄像头权限",
+                    10001,
+                    perms);
+        }
     }
 
     @Background
@@ -149,9 +154,27 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        // Forward results to EasyPermissions
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+
+    @Override
+    public void onPermissionsGranted(int i, List<String> list) {
+        checkPermission();
+    }
+
+    @Override
+    public void onPermissionsDenied(int i, List<String> list) {
+        checkPermission();
+    }
+
     @UiThread
     public void toashLiangchen() {
-        ToastUtil.toast(MainActivity.this, getString(R.string.unable_recoding_liangchen), R.drawable.eat_shit, SuperToast.Duration.LONG);
+        ToastUtil.toast(MainActivity.this, getString(R.string.unable_recoding_liangchen), R.drawable.eat_shit, Style.DURATION_LONG);
     }
 
     @Override
@@ -169,10 +192,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         ab.setHomeAsUpIndicator(R.drawable.ic_navigation_menu);
         ab.setDisplayHomeAsUpEnabled(true);
 
-        UmengUpdateAgent.update(this);
-        UmengUpdateAgent.setUpdateListener(null);
 
         setupDrawerContent(mNavigationView);
+
+        checkPermission();
+    }
+
+    void lazyInit(){
 
         initSource();
 
@@ -224,7 +250,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private void setupDrawerContent(NavigationView navigationView) {
 
-        girl_god = navigationView.getMenu().findItem(R.id.girl_god);
         message_history = navigationView.getMenu().findItem(R.id.message_history);
 
         vip_text = (TextView) navigationView.getHeaderView(0).findViewById(R.id.vip_text);
@@ -250,9 +275,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                                     Utils.showVipDialog(MainActivity.this);
                                 }
                                 break;
-                            case R.id.girl_god:
-                                GirlChatActivity_.intent(MainActivity.this).start();
-                                break;
                             case R.id.pay:
                                 PayActivity_.intent(MainActivity.this).start();
                                 break;
@@ -263,8 +285,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                                 GameActivity_.intent(MainActivity.this).start();
                                 break;
                             case R.id.announcement:
-                                FeedbackAgent agent = new FeedbackAgent(MainActivity.this);
-                                agent.startFeedbackActivity();
+                                FeedBackActivity_.intent(MainActivity.this).start();
                                 break;
                             case R.id.help:
                                 HelpActivity_.intent(MainActivity.this).start();
@@ -313,13 +334,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public void setCount() {
         if (chatDao == null) {
             return;
-        }
-
-        int managerCount = chatDao.getUnCount(AppClass.MANAGER, ac.deviceId);
-        if (managerCount > 0) {
-            girl_god.setTitle(getString(R.string.girl_god) + "(" + managerCount + "条未读)");
-        } else {
-            girl_god.setTitle(getString(R.string.girl_god));
         }
 
         int count = chatDao.getAllUnCount(ac.deviceId);

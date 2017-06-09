@@ -14,8 +14,9 @@ import com.xl.util.Utils;
 
 import java.io.File;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
+import butterknife.Optional;
 import pl.droidsonroids.gif.GifDrawable;
 
 /**
@@ -24,11 +25,11 @@ import pl.droidsonroids.gif.GifDrawable;
 public class VoiceViewHolder extends FileBaseHolder{
 
     @Nullable
-    @Bind(R.id.voice_img)
+    @BindView(R.id.voice_img)
     MyImageView voice_img;
 
     @Nullable
-    @Bind(R.id.voice)
+    @BindView(R.id.voice)
     View voice;
 
     public VoiceViewHolder(View itemView) {
@@ -81,7 +82,7 @@ public class VoiceViewHolder extends FileBaseHolder{
         }
     }
 
-    @Nullable
+    @Optional
     @OnClick(R.id.voice)
     void voiceClick(View view) {
         MessageBean mb = (MessageBean) view.getTag();

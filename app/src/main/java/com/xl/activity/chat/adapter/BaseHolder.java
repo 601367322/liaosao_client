@@ -14,9 +14,11 @@ import com.xl.bean.MessageBean;
 import com.xl.util.StaticFactory;
 import com.xl.util.Utils;
 
-import butterknife.Bind;
+import org.greenrobot.eventbus.EventBus;
+
+import butterknife.BindView;
 import butterknife.OnClick;
-import de.greenrobot.event.EventBus;
+import butterknife.Optional;
 
 /**
  * Created by Shen on 2015/9/13.
@@ -24,15 +26,15 @@ import de.greenrobot.event.EventBus;
 public abstract class BaseHolder extends com.xl.activity.base.BaseHolder<MessageBean> {
 
     @Nullable
-    @Bind(R.id.error)
+    @BindView(R.id.error)
     View error;
 
     @Nullable
-    @Bind(R.id.progress)
+    @BindView(R.id.progress)
     View progress;
 
     @Nullable
-    @Bind(R.id.userlogo)
+    @BindView(R.id.userlogo)
     ImageView userlogo;
 
     ChatAdapters adapter;
@@ -73,7 +75,7 @@ public abstract class BaseHolder extends com.xl.activity.base.BaseHolder<Message
 
     }
 
-    @Nullable
+    @Optional
     @OnClick(R.id.error)
     void errorClick(View view) {
         MessageBean mb = (MessageBean) view.getTag();
@@ -82,7 +84,7 @@ public abstract class BaseHolder extends com.xl.activity.base.BaseHolder<Message
         }
     }
 
-    @Nullable
+    @Optional
     @OnClick(R.id.userlogo)
     void userlogoClick() {
         try {

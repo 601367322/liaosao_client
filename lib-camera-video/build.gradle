@@ -12,6 +12,10 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile "com.android.support:appcompat-v7:$rootProject.ext.SupportVersion"
-    compile 'com.github.johnpersano:supertoasts:+@aar'//SuperToast
+
+    def dependencies = rootProject.ext.dependencies
+
+    compile dependencies.v7
+    compile dependencies.supertoasts
+
 }

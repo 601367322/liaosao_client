@@ -1,10 +1,5 @@
 apply plugin: 'com.android.application'
-
-apply plugin: 'android-apt'
-
-def releaseTime() {
-    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
-}
+apply plugin: 'com.jakewharton.butterknife'
 
 android {
     useLibrary 'org.apache.http.legacy'
@@ -24,30 +19,37 @@ android {
 
         // 默认是umeng的渠道
         manifestPlaceholders = [UMENG_CHANNEL_VALUE: "umeng"]
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath = true
+            }
+        }
     }
 
     signingConfigs {
-        debug {
-            storeFile file("debug.keystore")
-        }
 
         release {
             storeFile file("liaosao.jks")
             storePassword "123456"
             keyAlias "liaosao"
             keyPassword "123456"
+
+            v2SigningEnabled false
         }
     }
 
-   productFlavors {
+    flavorDimensions("normal")
 
-        xiaomi {}
-        _360 {}
-        baidu {}
-        wandoujia {}
-        yingyongbao {}
-        yingyonghui {}
-        liaosao {}
+    productFlavors {
+
+        dev {
+            dimension "normal"
+        }
+
+        prod {
+            dimension "normal"
+        }
     }
 
     productFlavors.all {
@@ -59,11 +61,11 @@ android {
         debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.debug
+
+            signingConfig signingConfigs.release
 
             ndk {
-                abiFilters "armeabi-v7a", "armeabi", "x86"
-                // includes ARM SO files only, so no x86 SO file
+                abiFilters "armeabi-v7a", "x86"
             }
         }
 
@@ -72,21 +74,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
             ndk {
-                abiFilters "armeabi-v7a", "armeabi"
+                abiFilters "armeabi-v7a"
             }
 
+            zipAlignEnabled true
             signingConfig signingConfigs.release
 
-            applicationVariants.all { variant ->
-                variant.outputs.each { output ->
-                    def outputFile = output.outputFile
-                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
-                        // 输出apk名称为boohee_v1.0_2015-01-15_wandoujia.apk
-                        def fileName = "liaosao_v${defaultConfig.versionName}_${releaseTime()}_${variant.productFlavors[0].name}.apk"
-                        output.outputFile = new File(outputFile.parent, fileName)
-                    }
-                }
-            }
         }
     }
 
@@ -100,10 +93,21 @@ android {
         abortOnError rootProject.ext.abortOnError
     }
 
+
     packagingOptions {
-        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/DEPENDENCIES'
         exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'typedefs.txt'
     }
+
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
+
 
 }
 repositories {
@@ -115,21 +119,32 @@ repositories {
 }
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.google.code.gson:gson:2.6.1'//json
-    compile "com.android.support:support-v4:$rootProject.ext.SupportVersion"
-    compile "com.android.support:appcompat-v7:$rootProject.ext.SupportVersion"
-    compile "com.android.support:recyclerview-v7:$rootProject.ext.SupportVersion"
-    compile "com.android.support:cardview-v7:$rootProject.ext.SupportVersion"
-    compile ("com.android.support:design:$rootProject.ext.SupportVersion"){
-        exclude module: 'support-v4'
-        exclude module: 'appcompat-v7'
-    }
-    apt "org.androidannotations:androidannotations:4.0-SNAPSHOT"//注解
-    compile "org.androidannotations:androidannotations-api:4.0-SNAPSHOT"//注解
-    compile "com.jakewharton:butterknife:7.0.1"//注解
-    compile 'com.github.johnpersano:supertoasts:+@aar'//SuperToast
-    compile 'de.greenrobot:eventbus:2.4.0'//eventbus
-    compile 'com.loopj.android:android-async-http:1.4.7'
+
+    def dependencies = rootProject.ext.dependencies
+
+    compile dependencies.gson
+    compile dependencies.v4
+    compile dependencies.v7
+    compile dependencies.recyclerview
+    compile dependencies.cardview
+    compile dependencies.design
+    compile dependencies.okhttp3
+
+    compile dependencies.easypermissions
+
+    annotationProcessor "org.androidannotations:androidannotations:4.3.0"//注解
+    compile "org.androidannotations:androidannotations-api:4.3.0"//注解
+
+    compile dependencies.butterknife
+    annotationProcessor dependencies.butterknifeCompiler
+
+    compile dependencies.eventbus
+
+    compile dependencies.multidex
+    compile dependencies.supertoasts
+    compile dependencies.utdid
+    compile dependencies.androidAsyncHttp
+
     compile project(':lib-animation-list-manipulation')//listview动画
     compile project(':lib-float-btn')//floatBtn
     compile project(':lib-photoview')//photoview
@@ -140,15 +155,13 @@ dependencies {
     compile project(':lib-preferencefragment')
     compile project(':lib-gif')
 //    compile project(':lib-camera-video')
+//    compile project(':lib-qupai')
     compile project(':lib-bmobpay')
-    compile project(':lib-qupai')
 //    compile project(':lib-asynchttp')
-}
 
-apt {
-    arguments {
-        androidManifestFile variant.outputs[0]?.processResources?.manifestFile
 
-        resourcePackageName "com.xl.activity"
-    }
+    compile(name: 'alisdk-feedback-2.5.2', ext: 'aar')
+    compile(name: 'securityguardaar3-5.1.96', ext: 'aar')
+
+
 }

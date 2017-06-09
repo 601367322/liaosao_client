@@ -10,7 +10,7 @@ import com.xl.custom.MyImageView;
 import com.xl.util.GifDrawableCache;
 import com.xl.util.Utils;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import pl.droidsonroids.gif.GifDrawable;
 
 /**
@@ -19,7 +19,7 @@ import pl.droidsonroids.gif.GifDrawable;
 public class FaceViewHolder extends BaseHolder{
 
     @Nullable
-    @Bind(R.id.face)
+    @BindView(R.id.face)
     MyImageView face;
 
     public FaceViewHolder(View itemView) {

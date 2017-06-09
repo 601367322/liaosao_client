@@ -1,36 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.xl.activity">
+          xmlns:tools="http://schemas.android.com/tools"
+          package="com.xl.activity">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <!--<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />-->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.GET_TASKS" />
-    <!--<uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />-->
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
 
     <permission
         android:name="android.permission.FLASHLIGHT"
         android:permissionGroup="android.permission-group.HARDWARE_CONTROLS"
-        android:protectionLevel="normal" />
+        android:protectionLevel="normal"/>
 
-    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera"/>
     <uses-feature
         android:name="android.hardware.camera.front"
-        android:required="false" />
+        android:required="false"/>
 
 
     <supports-screens
@@ -38,11 +36,12 @@
         android:largeScreens="true"
         android:normalScreens="true"
         android:resizeable="true"
-        android:smallScreens="true" />
+        android:smallScreens="true"/>
 
     <application
         android:name="com.xl.application.AppClass_"
-        android:allowBackup="true"
+        tools:replace="android:allowBackup,android:label"
+        android:allowBackup="false"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
@@ -54,9 +53,9 @@
             android:theme="@style/AppBaseThemeNoActionBar5"
             android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
@@ -76,6 +75,10 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"></activity>
         <activity
+            android:name="com.xl.activity.setting.FeedBackActivity_"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"></activity>
+        <activity
             android:name="com.xl.activity.setting.SettingActivity_"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/action_settings"
@@ -86,16 +89,28 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize"></activity>
 
+        <activity android:name="cn.bmob.pay.v3.act.PayAct"/>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
         <activity
             android:name=".pay.PayActivity_"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/be_vip"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".chat.ChatListActivity_"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.xl.game.GameActivity_"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -108,55 +123,55 @@
             android:name=".job.ChaterListActivity_"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/pei_liao"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".user.UserInfoActivity_"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/pei_liao"
             android:screenOrientation="portrait"
-            android:theme="@style/AppBaseThemeNoActionBar" />
+            android:theme="@style/AppBaseThemeNoActionBar"/>
 
         <activity
             android:name=".user.EditUserInfoActivity_"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/edit_user_info"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".user.EditAlbumActivity_"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/your_album"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".album.PhotoAlbumMainActivity_"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/your_album"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".job.CreateChatRoomActivity_"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/create_chat_room"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustResize" />
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
 
         <activity
             android:name=".pay.MoneyActivity_"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/my_money"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".pay.PayDetailActivity_"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/pay_detail"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".job.ChaterRequestActivity_"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/chat_request"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
 
         <service
             android:name="com.xl.service.PushService_"
@@ -164,36 +179,36 @@
             android:exported="false"
             android:process=":push">
             <intent-filter>
-                <action android:name="com.xl.keepalive.START" />
-                <action android:name="com.xl.keepalive.STOP" />
-                <action android:name="com.xl.keepalive.KEEP_ALIVE" />
-                <action android:name="com.xl.keepalive.RECONNECT" />
+                <action android:name="com.xl.keepalive.START"/>
+                <action android:name="com.xl.keepalive.STOP"/>
+                <action android:name="com.xl.keepalive.KEEP_ALIVE"/>
+                <action android:name="com.xl.keepalive.RECONNECT"/>
             </intent-filter>
         </service>
 
         <receiver android:name="com.xl.receiver.XLReceiver_">
             <intent-filter>
-                <action android:name="com.xl.broadcast.startchat" />
+                <action android:name="com.xl.broadcast.startchat"/>
             </intent-filter>
         </receiver>
 
         <receiver android:name="com.xl.receiver.AlarmReceiver_">
             <intent-filter>
-                <action android:name="com.xl.broadcast.checkconnect" />
+                <action android:name="com.xl.broadcast.checkconnect"/>
                 <!-- 定时检查登陆状态 -->
             </intent-filter>
         </receiver>
 
         <receiver android:name="com.xl.receiver.NetAlarmReceiver_">
             <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
                 <!-- 网络通知 -->
             </intent-filter>
         </receiver>
 
         <receiver android:name="com.xl.receiver.BootCompletedAlarmReceiver_">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
                 <!-- 开机启动 -->
             </intent-filter>
         </receiver>
@@ -204,49 +219,17 @@
             android:value="54af4845fd98c5569900016a"></meta-data>
         <meta-data
             android:name="UMENG_CHANNEL"
-            android:value="${UMENG_CHANNEL_VALUE}" />
-
-        <service
-            android:name="com.umeng.update.net.DownloadingService"
-            android:process=":DownloadingService"></service>
-
-        <activity
-            android:name="com.umeng.update.UpdateDialogActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
-
-        <activity android:name="com.umeng.fb.ConversationActivity" />
+            android:value="${UMENG_CHANNEL_VALUE}"/>
 
         <!--高德地图-->
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="ae24a52637ad277fec4e4f3d2563c256" />
+            android:value="ae24a52637ad277fec4e4f3d2563c256"/>
         <!--debug-->
         <!--<meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="7832c924043c5b617b903e2d9f5caa4a" />-->
 
-        <!--360广告-->
-        <!--<service
-            android:name="com.mediav.ads.sdk.service.MvService"
-            android:enabled="true"
-            android:exported="false">
-        </service>-->
-
-        <!-- 有米广告 -->
-        <activity
-            android:name="net.google.niofile.EdgBrowser"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
-            android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
-        <service
-            android:name="net.google.niofile.EdgService"
-            android:exported="false"></service>
-        <receiver android:name="net.google.niofile.EdgReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.PACKAGE_ADDED" />
-                <data android:scheme="package" />
-            </intent-filter>
-        </receiver>
-        <!-- 有米广告 -->
     </application>
 
 </manifest>

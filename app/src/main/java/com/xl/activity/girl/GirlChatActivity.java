@@ -37,6 +37,8 @@ import org.androidannotations.annotations.Receiver;
 import org.androidannotations.annotations.SystemService;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -44,7 +46,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.greenrobot.event.EventBus;
 
 @EActivity(R.layout.girl_chat_activity)
 public class GirlChatActivity extends BaseBackActivity implements
@@ -123,6 +124,7 @@ public class GirlChatActivity extends BaseBackActivity implements
         }
     }
 
+    @Subscribe
     public void onEvent(final MessageBean mb) {
         if (!mb.getToId().equals(ac.deviceId)) {
             new AlertDialog.Builder(GirlChatActivity.this).setIcon(R.drawable.beiju).setTitle(getString(R.string.beijua)).setMessage(getString(R.string.resend_message)).setPositiveButton(getString(R.string.resend_btn), new DialogInterface.OnClickListener() {

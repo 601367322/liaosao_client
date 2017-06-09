@@ -7,7 +7,7 @@ import android.widget.TextView;
 import com.xl.activity.R;
 import com.xl.bean.MessageBean;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 /**
  * Created by Shen on 2015/9/13.
@@ -15,7 +15,7 @@ import butterknife.Bind;
 public class TextViewHolder extends BaseHolder {
 
     @Nullable
-    @Bind(R.id.content)
+    @BindView(R.id.content)
     TextView content;
 
     public TextViewHolder(View itemView) {

@@ -1,0 +1,113 @@
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
+ext {
+
+    compileSdkVersion = 24//编译版本
+    buildToolsVersion = "25.0.3"//编译工具版本
+    checkReleaseBuilds = false//打包时是否检测
+    abortOnError = false//
+    targetSdkVersion = 24//支持最大版本号
+    minSdkVersion = 16//支持最小版本号
+    versionCode = 31//当前程序版本号
+    versionName = "3.0"
+    supportVersion = "26.0.0-alpha1"//v4 v7版本号
+
+    constraintLayoutVersion = '1.0.2'
+    eventbus = '3.0.0'
+    gson = '2.6.1'//json解析
+    butterknife = '8.4.0'//注解
+    butterknifeCompiler = '8.4.0'
+    rxandroid = '2.0.1'
+    rxjava = '2.1.0'
+    rxpermissions = '0.9.2@aar'
+    retrofit2AdapterRxJava = '2.3.0'
+    retrofit2 = '2.3.0'
+    getui = '2.9.5.0'
+    greendao = '3.2.0'
+    utdid = '0.0.1'
+    pili = '0.8.+'
+    okhttp3 = '3.4.1'
+    sensorsdata = '1.7.2'
+    reactNative = '0.44.0'
+    fresco = '1.1.0'
+    leakcanary = '1.5.1'
+    multidex = '1.0.1'
+    wechat = '1.0.2'
+    bugly = '2.4.0'
+    buglyNative = '3.1.2'
+    umeng = '6.0.9'
+    hotfix = '2.0.9'
+
+
+    dependencies = [
+            constraintLayout      : "com.android.support.constraint:constraint-layout:${constraintLayoutVersion}",
+            v4                    : "com.android.support:support-v4:${supportVersion}",
+            v7                    : "com.android.support:appcompat-v7:${supportVersion}",
+            v13                   : "com.android.support:support-v13:${supportVersion}",
+            design                : "com.android.support:design:${supportVersion}",
+            annotations           : "com.android.support:support-annotations:${supportVersion}",
+            recyclerview          : "com.android.support:recyclerview-v7:${supportVersion}",
+            cardview              : "com.android.support:cardview-v7:${supportVersion}",
+
+            eventbus              : "org.greenrobot:eventbus:${eventbus}",
+
+            gson                  : "com.google.code.gson:gson:${gson}",//json解析
+
+            butterknife           : "com.jakewharton:butterknife:${butterknife}",//注解
+
+            butterknifeCompiler   : "com.jakewharton:butterknife-compiler:${butterknifeCompiler}",
+
+            rxandroid             : "io.reactivex.rxjava2:rxandroid:${rxandroid}",
+
+            rxjava                : "io.reactivex.rxjava2:rxjava:${rxjava}",
+
+            rxpermissions         : "com.tbruyelle.rxpermissions2:rxpermissions:${rxpermissions}",
+
+            retrofit2AdapterRxJava: "com.squareup.retrofit2:adapter-rxjava2:${retrofit2AdapterRxJava}",
+
+            retrofit2             : "com.squareup.retrofit2:retrofit:${retrofit2}",
+
+            getui                 : "com.getui:sdk:${getui}",
+
+            greendao              : "org.greenrobot:greendao:${greendao}",
+
+            utdid                 : "com.alibaba.sdk.android.plugins.jar:alisdk-utdid:${utdid}",
+
+            pili                  : "com.qiniu.pili:pili-android-qos:${pili}",
+
+            okhttp3               : "com.squareup.okhttp3:okhttp:${okhttp3}",
+
+            sensorsdata           : "com.sensorsdata.analytics.android:SensorsAnalyticsSDK:${sensorsdata}",
+
+
+            reactNative           : "com.facebook.react:react-native:${reactNative}",
+
+            fresco                : "com.facebook.fresco:fresco:${fresco}",
+
+            leakcanary            : "com.squareup.leakcanary:leakcanary-android:${leakcanary}",
+
+            leakcanaryNoOp        : "com.squareup.leakcanary:leakcanary-android-no-op:${leakcanary}",
+
+            multidex              : "com.android.support:multidex:${multidex}",
+
+            wechat                : "com.tencent.mm.opensdk:wechat-sdk-android-without-mta:${wechat}",
+
+            bugly                 : "com.tencent.bugly:crashreport:${bugly}",
+            buglyNative           : "com.tencent.bugly:nativecrashreport:${buglyNative}",
+
+            umeng                 : "com.umeng.analytics:analytics:${umeng}",
+
+            hotfix                : "com.taobao.android:alisdk-hotfix:2.0.9",
+
+            easypermissions       : 'pub.devrel:easypermissions:0.4.0',
+
+            supertoasts           : 'com.github.johnpersano:supertoasts:2.0',
+
+
+            androidAsyncHttp      : 'com.loopj.android:android-async-http:1.4.7'
+    ]
+}

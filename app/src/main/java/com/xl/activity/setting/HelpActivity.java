@@ -3,13 +3,9 @@ package com.xl.activity.setting;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 
-import com.umeng.update.UmengUpdateAgent;
-import com.umeng.update.UmengUpdateListener;
-import com.umeng.update.UpdateResponse;
 import com.xl.activity.R;
 import com.xl.activity.base.BaseBackActivity;
 import com.xl.util.ToastUtil;
@@ -59,19 +55,5 @@ public class HelpActivity extends BaseBackActivity{
         animator.setDuration(1000);
         animator.start();
 
-        UmengUpdateAgent.setUpdateListener(new UmengUpdateListener() {
-            @Override
-            public void onUpdateReturned(int i, UpdateResponse updateResponse) {
-                View view = updateMenu.getActionView();
-                if (view != null) {
-                    animator.end();
-                    updateMenu.setActionView(null);
-                }
-                if (updateResponse != null && !updateResponse.hasUpdate) {
-                    ToastUtil.toast(HelpActivity.this, getString(R.string.aleardy_neweast), R.drawable.kiding);
-                }
-            }
-        });
-        UmengUpdateAgent.update(this);
     }
 }

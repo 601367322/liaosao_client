@@ -24,7 +24,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.github.johnpersano.supertoasts.SuperToast;
+import com.github.johnpersano.supertoasts.library.Style;
+import com.github.johnpersano.supertoasts.library.SuperToast;
 import com.quan.lib_camera_video.camera.MediaRecorderBase;
 import com.quan.lib_camera_video.camera.MediaRecorderNative;
 import com.quan.lib_camera_video.camera.VCamera;
@@ -533,7 +534,7 @@ public class MediaRecorderActivity extends AppCompatActivity implements
 
     @Override
     public void onVideoError(int what, int extra) {
-        toast(this,getString(R.string.unable_vrecoding_liangchen),R.drawable.eat_shit, SuperToast.Duration.LONG);
+        toast(this,getString(R.string.unable_vrecoding_liangchen),R.drawable.eat_shit, Style.DURATION_LONG);
     }
 
     public static void toast(Context context, String str, int res, int duration) {
@@ -542,7 +543,7 @@ public class MediaRecorderActivity extends AppCompatActivity implements
             superToast.setText(str);
             superToast.setDuration(duration);
             if (res != -1) {
-                superToast.setIcon(res, SuperToast.IconPosition.LEFT);
+                superToast.setIconResource(res, Style.ICONPOSITION_LEFT);
             }
             superToast.show();
         }

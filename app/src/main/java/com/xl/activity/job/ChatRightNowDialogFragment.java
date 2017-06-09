@@ -36,8 +36,9 @@ import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.UiThread;
 import org.json.JSONObject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * Created by Shen on 2016/1/17.
@@ -49,14 +50,16 @@ public class ChatRightNowDialogFragment extends DialogFragment implements TextWa
     AppClass ac;
     @FragmentArg
     ChatRoom room;
-    @Bind(R.id.time)
+    @BindView(R.id.time)
     EditText time;
-    @Bind(R.id.price)
+    @BindView(R.id.price)
     TextView price;
-    @Bind(R.id.total)
+    @BindView(R.id.total)
     TextView total;
 
     Context context;
+
+    Unbinder mUnbinder;
 
     @Override
     public void onAttach(Activity activity) {
@@ -77,7 +80,7 @@ public class ChatRightNowDialogFragment extends DialogFragment implements TextWa
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.fragment_chat_right_now_dialog, null);
-        ButterKnife.bind(this, view);
+        mUnbinder = ButterKnife.bind(this, view);
         builder.setTitle("请输入购买分钟数(" + room.getMinTime() + "~" + room.getMaxTime() + ")").setView(view)
                 .setPositiveButton("确定购买",
                         new DialogInterface.OnClickListener() {
@@ -117,7 +120,7 @@ public class ChatRightNowDialogFragment extends DialogFragment implements TextWa
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        mUnbinder.unbind();
     }
 
     @Override

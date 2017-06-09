@@ -8,7 +8,7 @@ import com.xl.activity.R;
 import com.xl.activity.base.BaseAdapter;
 import com.xl.bean.Pay;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 /**
  * Created by Shen on 2016/2/28.
@@ -31,11 +31,11 @@ public class PayDetailAdapter extends BaseAdapter<Pay> {
 
     class ViewHolder extends BaseHolder {
 
-        @Bind(R.id.name)
+        @BindView(R.id.name)
         TextView name;
-        @Bind(R.id.time)
+        @BindView(R.id.time)
         TextView time;
-        @Bind(R.id.money)
+        @BindView(R.id.money)
         TextView money;
 
         public ViewHolder(View view) {

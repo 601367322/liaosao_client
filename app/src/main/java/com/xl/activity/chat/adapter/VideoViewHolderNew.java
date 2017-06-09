@@ -15,8 +15,9 @@ import com.xl.util.StaticUtil;
 import com.xl.util.URLS;
 import com.xl.util.Utils;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
+import butterknife.Optional;
 
 /**
  * Created by Shen on 2015/9/13.
@@ -24,7 +25,7 @@ import butterknife.OnClick;
 public class VideoViewHolderNew extends FileBaseHolder {
 
     @Nullable
-    @Bind(R.id.img)
+    @BindView(R.id.img)
     ImageView radio;
 
     public VideoViewHolderNew(View itemView) {
@@ -44,7 +45,7 @@ public class VideoViewHolderNew extends FileBaseHolder {
         radio.setTag(bean);
     }
 
-    @Nullable
+    @Optional
     @OnClick(R.id.img)
     public void onRadioClick(View view) {
         MessageBean mb = (MessageBean) view.getTag();

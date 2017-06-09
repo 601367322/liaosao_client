@@ -8,7 +8,7 @@ import com.xl.activity.base.BaseAdapter;
 import com.xl.custom.MyImageView;
 import com.xl.util.GifDrawableCache;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 
 /**
@@ -32,7 +32,7 @@ public class FaceAdapter extends BaseAdapter<Integer> {
 
     class ViewHolder extends BaseHolder{
 
-        @Bind(R.id.face_img)
+        @BindView(R.id.face_img)
         MyImageView face_img;
 
         public ViewHolder(View view) {

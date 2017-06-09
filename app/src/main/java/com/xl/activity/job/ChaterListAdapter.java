@@ -24,7 +24,7 @@ import com.xl.util.Utils;
 
 import org.json.JSONObject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
@@ -48,27 +48,27 @@ public class ChaterListAdapter extends BaseAdapter<ChatRoom> {
 
     class ViewHolder extends BaseHolder {
 
-        @Bind(R.id.userlogo)
+        @BindView(R.id.userlogo)
         CircleImageView userlogo;
-        @Bind(R.id.nickname)
+        @BindView(R.id.nickname)
         TextView nickname;
-        @Bind(R.id.juli)
+        @BindView(R.id.juli)
         TextView juli;
-        @Bind(R.id.sex)
+        @BindView(R.id.sex)
         TextView sex;
-        @Bind(R.id.age)
+        @BindView(R.id.age)
         TextView age;
-        @Bind(R.id.ratingBar)
+        @BindView(R.id.ratingBar)
         RatingBar ratingBar;
-        @Bind(R.id.price)
+        @BindView(R.id.price)
         TextView price;
-        @Bind(R.id.minMin)
+        @BindView(R.id.minMin)
         TextView minMin;
-        @Bind(R.id.maxMin)
+        @BindView(R.id.maxMin)
         TextView maxMin;
-        @Bind(R.id.btnChat)
+        @BindView(R.id.btnChat)
         Button btnChat;
-        @Bind(R.id.radio_sex)
+        @BindView(R.id.radio_sex)
         TextView radioSex;
 
         public ViewHolder(View view) {

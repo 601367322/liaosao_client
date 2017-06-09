@@ -3,10 +3,16 @@ package com.xl.activity.pay;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -47,7 +53,7 @@ public class PayActivity extends BaseBackActivity {
     @Override
     protected void init() {
 
-        BP.init(this, "2c9f0c5fbeb32f1b1bce828d29514f5d");
+        BP.init("2c9f0c5fbeb32f1b1bce828d29514f5d");
 
         RequestParams params = ac.getRequestParams();
         params.put("id", 1);
@@ -73,14 +79,100 @@ public class PayActivity extends BaseBackActivity {
 
     @Click
     public void copy1() {
-        if (coin != null)
+        if (coin != null && checkApp(PayType.ZHIFUBAO))
             BP.pay(coin.getName(), ac.deviceId, coin.getPrice(), true, new MyPayListener(mContext, PayType.ZHIFUBAO));
     }
 
     @Click
     public void copy2() {
-        if (coin != null)
+        if (coin != null && checkApp(PayType.WEIXIN))
             BP.pay(coin.getName(), ac.deviceId, coin.getPrice(), false, new MyPayListener(mContext, PayType.WEIXIN));
+    }
+
+    public boolean checkApp(PayType payType) {
+        if (payType == PayType.ZHIFUBAO) {
+            if (!checkPackageInstalled("com.eg.android.AlipayGphone",
+                    "https://www.alipay.com")) { // 支付宝支付要求用户已经安装支付宝客户端
+                Toast.makeText(PayActivity.this, "请安装支付宝客户端", Toast.LENGTH_SHORT)
+                        .show();
+                return false;
+            }
+        } else {
+            if (checkPackageInstalled("com.tencent.mm", "http://weixin.qq.com")) {// 需要用微信支付时，要安装微信客户端，然后需要插件
+                // 有微信客户端，看看有无微信支付插件，170602更新了插件，这里可检查可不检查
+                if (!BP.isAppUpToDate(this, "cn.bmob.knowledge", 8)) {
+                    Toast.makeText(
+                            PayActivity.this,
+                            "监测到本机的支付插件不是最新版,最好进行更新,请先更新插件(无流量消耗)",
+                            Toast.LENGTH_SHORT).show();
+                    installApk("bp.db");
+                    return false;
+                }
+            } else {// 没有安装微信
+                Toast.makeText(PayActivity.this, "请安装微信客户端", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * 检查某包名应用是否已经安装
+     *
+     * @param packageName 包名
+     * @param browserUrl  如果没有应用市场，去官网下载
+     * @return
+     */
+    private boolean checkPackageInstalled(String packageName, String browserUrl) {
+        try {
+            // 检查是否有支付宝客户端
+            getPackageManager().getPackageInfo(packageName, 0);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            // 没有安装支付宝，跳转到应用市场
+            try {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("market://details?id=" + packageName));
+                startActivity(intent);
+            } catch (Exception ee) {// 连应用市场都没有，用浏览器去支付宝官网下载
+                try {
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse(browserUrl));
+                    startActivity(intent);
+                } catch (Exception eee) {
+                    Toast.makeText(PayActivity.this,
+                            "您的手机上没有没有应用市场也没有浏览器，我也是醉了，你去想办法安装支付宝/微信吧",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+        return false;
+    }
+
+    private static final int REQUESTPERMISSION = 101;
+
+    private void installApk(String s) {
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            //申请权限
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUESTPERMISSION);
+        } else {
+            installBmobPayPlugin(s);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUESTPERMISSION) {
+            if (permissions[0].equals(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    installBmobPayPlugin("bp.db");
+                } else {
+                    //提示没有权限，安装不了
+                    Toast.makeText(PayActivity.this, "您拒绝了权限，这样无法安装支付插件", Toast.LENGTH_LONG).show();
+                }
+            }
+        }
     }
 
     public enum PayType {
@@ -113,7 +205,6 @@ public class PayActivity extends BaseBackActivity {
                 sendSuccessPost(0);
             } else {
                 ac.cs.setVipOrder(null);
-                BP.ForceFree();
                 if (code == -3) {
                     new AlertDialog.Builder(mContext)
                             .setMessage(
@@ -166,11 +257,19 @@ public class PayActivity extends BaseBackActivity {
     void installBmobPayPlugin(String fileName) {
         try {
             InputStream is = getAssets().open(fileName);
-            File file = new File(Environment.getExternalStorageDirectory()
-                    + File.separator + fileName + ".apk");
+
+            File parentFile = new File(getDiskFileDir(getApplicationContext())).getParentFile();
+            File updateDir = new File(parentFile, "apks");
+
+            if (!updateDir.exists()) {
+                updateDir.mkdirs();
+            }
+
+            File file = new File(updateDir, fileName + ".apk");
             if (file.exists())
                 file.delete();
             file.createNewFile();
+
             FileOutputStream fos = new FileOutputStream(file);
             byte[] temp = new byte[1024];
             int i = 0;
@@ -180,14 +279,34 @@ public class PayActivity extends BaseBackActivity {
             fos.close();
             is.close();
 
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.setDataAndType(Uri.parse("file://" + file),
-                    "application/vnd.android.package-archive");
-            startActivity(intent);
+            if (Build.VERSION.SDK_INT >= 24) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                Uri contentUri = FileProvider.getUriForFile(PayActivity.this, "com.xl.activity.fileprovider", file);
+                intent.setDataAndType(contentUri, "application/vnd.android.package-archive");
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.setDataAndType(Uri.parse("file://" + file),
+                        "application/vnd.android.package-archive");
+                startActivity(intent);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static String getDiskFileDir(Context context) {
+        String cachePath = null;
+        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
+                || !Environment.isExternalStorageRemovable()) {
+            cachePath = context.getExternalFilesDir(null).getPath();
+        } else {
+            cachePath = context.getFilesDir().getPath();
+        }
+        return cachePath;
     }
 
     @UiThread(delay = 1000l)

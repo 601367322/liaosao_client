@@ -4,13 +4,8 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.umeng.onlineconfig.OnlineConfigAgent;
 import com.xl.activity.R;
 import com.xl.activity.base.BaseBackActivity;
-
-import net.google.niofile.br.AdSize;
-import net.google.niofile.br.AdView;
-import net.google.niofile.st.SpotManager;
 
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
@@ -45,19 +40,6 @@ public class GameActivity extends BaseBackActivity {
                 hide_ll.setVisibility(View.VISIBLE);
             }
         });
-        if (OnlineConfigAgent.getInstance().getConfigParams(this, "ad_show").equals("on")) {
-            // 实例化LayoutParams(重要)
-            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
-                    RelativeLayout.LayoutParams.WRAP_CONTENT);
-            // 设置广告条的悬浮位置
-            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
-//            View banner = DynamicSdkManager.getInstance(ac).getBanner(this);
-            AdView adView = new AdView(this, AdSize.FIT_SCREEN);
-            if(adView!=null){
-                content.addView(adView,layoutParams);
-            }
-        }
-        showScreenAd();
     }
 
     @Click
@@ -67,12 +49,4 @@ public class GameActivity extends BaseBackActivity {
     }
 
 
-    @Override
-    public void onBackPressed() {
-        // 如果有需要，可以点击后退关闭插播广告。
-        if (!SpotManager.getInstance(getApplicationContext()).disMiss()) {
-            // 弹出退出窗口，可以使用自定义退屏弹出和回退动画,参照demo,若不使用动画，传入-1
-            super.onBackPressed();
-        }
-    }
 }

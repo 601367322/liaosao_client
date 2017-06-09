@@ -12,7 +12,7 @@ import com.xl.activity.base.BaseAdapter;
 import com.xl.bean.PhotoItem;
 import com.xl.util.StaticUtil;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 public class PhotoAlbumGridAdappter extends BaseAdapter<PhotoItem> {
 
@@ -32,9 +32,9 @@ public class PhotoAlbumGridAdappter extends BaseAdapter<PhotoItem> {
 
     class ViewHolder extends BaseHolder{
 
-        @Bind(R.id.photo_img_view)
+        @BindView(R.id.photo_img_view)
         ImageView img;
-        @Bind(R.id.photo_select)
+        @BindView(R.id.photo_select)
         CheckBox select;
 
         public ViewHolder(View view) {

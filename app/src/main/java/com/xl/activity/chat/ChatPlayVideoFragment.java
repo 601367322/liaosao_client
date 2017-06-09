@@ -29,10 +29,11 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.Receiver;
 import org.androidannotations.annotations.ViewById;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.io.Serializable;
 
-import de.greenrobot.event.EventBus;
 
 /**
  * Created by Shen on 2015/9/17.
@@ -98,6 +99,7 @@ public class ChatPlayVideoFragment extends DialogFragment implements TextureView
 
     }
 
+    @Subscribe
     public void onEvent(VideoDownBean vdb) {
         if (vdb.msg.getMsgId().equals(bean.getMsgId())) {
             if (vdb.current == vdb.total) {

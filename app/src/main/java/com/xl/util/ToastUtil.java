@@ -2,7 +2,8 @@ package com.xl.util;
 
 import android.content.Context;
 
-import com.github.johnpersano.supertoasts.SuperToast;
+import com.github.johnpersano.supertoasts.library.Style;
+import com.github.johnpersano.supertoasts.library.SuperToast;
 
 /**
  * Created by sbb on 2015/6/2.
@@ -12,7 +13,7 @@ public class ToastUtil {
     private static SuperToast superToast;
 
     public static void toast(Context context, String str) {
-        toast(context, str, -1, SuperToast.Duration.SHORT);
+        toast(context, str, -1, Style.DURATION_SHORT);
     }
 
     public static void toast(Context context, String str, int res, int duration) {
@@ -21,7 +22,7 @@ public class ToastUtil {
             superToast.setText(str);
             superToast.setDuration(duration);
             if (res != -1) {
-                superToast.setIcon(res, SuperToast.IconPosition.LEFT);
+                superToast.setIconResource(res,Style.ICONPOSITION_LEFT);
             }
             superToast.show();
         }
@@ -31,8 +32,8 @@ public class ToastUtil {
         if (context != null) {
             superToast = new SuperToast(context);
             superToast.setText(str);
-            superToast.setDuration(SuperToast.Duration.SHORT);
-            superToast.setIcon(res, SuperToast.IconPosition.LEFT);
+            superToast.setDuration(Style.DURATION_SHORT);
+            superToast.setIconResource(res, Style.ICONPOSITION_LEFT);
             superToast.show();
         }
     }

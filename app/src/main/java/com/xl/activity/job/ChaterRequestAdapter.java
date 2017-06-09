@@ -14,7 +14,7 @@ import com.xl.custom.CircleImageView;
 import com.xl.util.StaticFactory;
 import com.xl.util.Utils;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 /**
  * Created by Shen on 2016/3/3.
@@ -36,21 +36,21 @@ public class ChaterRequestAdapter extends BaseAdapter<ChatRoomRequest> {
     }
 
     class ViewHolder extends BaseHolder {
-        @Bind(R.id.userlogo)
+        @BindView(R.id.userlogo)
         CircleImageView userlogo;
-        @Bind(R.id.nickname)
+        @BindView(R.id.nickname)
         TextView nickname;
-        @Bind(R.id.user_detail)
+        @BindView(R.id.user_detail)
         TextView userDetail;
-        @Bind(R.id.content)
+        @BindView(R.id.content)
         TextView content;
-        @Bind(R.id.agree)
+        @BindView(R.id.agree)
         Button agree;
-        @Bind(R.id.disagree)
+        @BindView(R.id.disagree)
         TextView disagree;
-        @Bind(R.id.btns_ll)
+        @BindView(R.id.btns_ll)
         View btnsLL;
-        @Bind(R.id.confirmed)
+        @BindView(R.id.confirmed)
         TextView confirmed;
 
         @Override

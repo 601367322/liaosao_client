@@ -56,7 +56,7 @@ public class MoneyActivity extends BaseBackActivity {
     @Override
     protected void init() {
 
-        BP.init(this, "2c9f0c5fbeb32f1b1bce828d29514f5d");
+        BP.init("2c9f0c5fbeb32f1b1bce828d29514f5d");
 
         updateAccount();
     }
@@ -157,7 +157,6 @@ public class MoneyActivity extends BaseBackActivity {
 
             @Override
             public void fail(int code, String s) {
-                BP.ForceFree();
                 if (code == -3) {
                     new AlertDialog.Builder(mContext)
                             .setMessage(
